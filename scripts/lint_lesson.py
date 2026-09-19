@@ -50,6 +50,31 @@ EMOJI = re.compile(
 
 SPR_MARK = "*(student-produced response)*"
 
+# Verbatim instruction prose from the template. These are notes to the agent
+# building the lesson, not content. If any survives into a finished lesson, a
+# student reads the build instructions.
+TEMPLATE_BOILERPLATE = [
+    "One or two sentences: how many questions",
+    "copied verbatim from the manifest",
+    "Teach the concept in plain language first",
+    "Where the built-in graphing calculator does this faster",
+    "Question statement, written in genuine SAT phrasing",
+    "Question statement.",
+    "What a strong test-taker notices first, before computing",
+    "Step, with the reason for the step.",
+    "Three to five entries.",
+    "The error, named.",
+    "Number questions as",
+    "At least four of the twelve must be",
+    "Every one of the twelve gets a full solution",
+    "Worked solution, every step shown",
+    "the specific confusion to look for while they work",
+    "one question that reveals whether it landed",
+    "which earlier lesson to return to",
+    "Objective one",
+    "prereq skills, one line",
+]
+
 
 class Report:
     def __init__(self, lesson_id: str, path: Path):
@@ -313,6 +338,12 @@ def check_length(rep: Report, body: str) -> None:
         rep.warn("teaching text is %d words, target is 1,200-1,800" % total)
 
 
+def check_boilerplate(rep: Report, body: str) -> None:
+    for phrase in TEMPLATE_BOILERPLATE:
+        if phrase in body:
+            rep.error("template boilerplate left in the lesson: %r" % phrase)
+
+
 def check_nav(rep: Report, body: str) -> None:
     tail = body[body.find("## Tutor notes"):] if "## Tutor notes" in body else body
     links = re.findall(r"\[([^\]]+)\]\(([^)\s]+\.md)\)", tail)
@@ -346,6 +377,7 @@ def lint(lesson_id: str, entry: dict) -> Report:
     check_math_delimiters(rep, body)
     check_prose(rep, body)
     check_length(rep, body)
+    check_boilerplate(rep, body)
     check_nav(rep, body)
     return rep
 

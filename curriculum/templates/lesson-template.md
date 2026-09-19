@@ -147,7 +147,7 @@ At least four of the twelve must be student-produced response format
 
     **2.** ...
 
-Every one of the twelve gets a full solution, not just a final value. A
+Every one of the twelve gets a full solution, never only a final value. A
 student working alone needs to see where they diverged.
 
 ---
