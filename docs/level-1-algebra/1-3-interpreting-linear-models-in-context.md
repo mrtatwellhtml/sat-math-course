@@ -5,8 +5,8 @@ level: 1
 domain: algebra
 prereqs: ["1.2"]
 est_minutes: 50
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-19"
 ---
 
 # 1.3 Interpreting Linear Models in Context
