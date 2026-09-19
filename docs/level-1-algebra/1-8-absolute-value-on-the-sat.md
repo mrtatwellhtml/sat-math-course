@@ -5,8 +5,8 @@ level: 1
 domain: algebra
 prereqs: ["1.6"]
 est_minutes: 30
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-19"
 ---
 
 # 1.8 Absolute Value on the SAT

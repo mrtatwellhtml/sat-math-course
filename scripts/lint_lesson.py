@@ -388,6 +388,11 @@ def main() -> int:
     ap.add_argument("--level", type=str, help="lint every lesson in a level")
     ap.add_argument("--strict", action="store_true", help="warnings fail too")
     ap.add_argument("--quiet", action="store_true", help="only show lessons with findings")
+    ap.add_argument(
+        "--require-verified",
+        action="store_true",
+        help="fail unless the lesson's frontmatter actually records a verification",
+    )
     args = ap.parse_args()
 
     index = lesson_index(load_manifest())
@@ -415,6 +420,20 @@ def main() -> int:
     failed = warned = 0
     for lid, entry in targets:
         rep = lint(lid, entry)
+        # A verifier agent that reports `verified` but never edits the file leaves
+        # no record that any check happened. Run this after a verification stage
+        # and the claim has to match the file, or the build stops.
+        if args.require_verified and rep.path.exists():
+            fm, _ = split_frontmatter(rep.path.read_text(encoding="utf-8"))
+            fm = fm or {}
+            if fm.get("status") != "verified":
+                rep.error(
+                    "expected a recorded verification, but status is %r - if an "
+                    "agent reported `verified`, its verdict does not match the file"
+                    % fm.get("status")
+                )
+            elif not str(fm.get("verified_by") or "").strip():
+                rep.error("status is `verified` but verified_by records no one and no date")
         if rep.errors:
             failed += 1
         if rep.warnings:
