@@ -46,6 +46,13 @@ MathJax CDN was blocked — check your network, not the config.
 
 ## Part 2 — Building the remaining 45 lessons
 
+> **Open the course folder itself, not its parent.** The five agents and the
+> slash commands live in `.claude/` *inside* `sat-math-course`. Claude Code
+> reads that folder once, when it starts, and only from the directory it was
+> opened in. Start it one level up in `SAT Math` and `/build-lesson` will not
+> exist and `lesson-author` will come back as an unknown agent type — with no
+> hint as to why. In VS Code: File → Open Folder → `sat-math-course`.
+
 Three of the 48 lessons are written and verified (1.7, 3.4, 5.2), plus both
 placement instruments. They exist to be pattern-matched: the agents read them
 to learn the house style, so **do not delete them** and be cautious about
