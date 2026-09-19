@@ -1,0 +1,570 @@
+# =====================================================================
+# SAT MATH COURSE - CURRICULUM MANIFEST
+# =====================================================================
+# This file is the single source of truth for the course.
+# Every lesson page on the site is generated from one entry here.
+#
+# Agents read this file to know WHAT to write. They must never invent
+# a lesson that is not listed here, and never skip a field.
+#
+# status values: planned | drafted | verified | published
+# Only `verified` lessons (math independently re-checked) may ship.
+# =====================================================================
+
+course:
+  title: "SAT Math: Foundations to Mastery"
+  exam: "Digital SAT (Bluebook), 2 modules x 22 questions, 35 min each"
+  total_scored_questions: 40   # 44 delivered, 4 unscored pretest
+  domain_weights:
+    algebra:            { questions: "13-15", share: "~35%" }
+    advanced_math:      { questions: "13-15", share: "~35%" }
+    problem_solving:    { questions: "5-7",   share: "~15%" }
+    geometry_trig:      { questions: "5-7",   share: "~15%" }
+
+# ---------------------------------------------------------------------
+# LEVELS
+# ---------------------------------------------------------------------
+levels:
+
+  - id: 0
+    slug: level-0-foundations
+    title: "Level 0 - Foundations"
+    gated: true
+    gate_rule: >
+      Students skip Level 0 entirely if they score 80% or higher on the
+      Level 0 placement check. Everyone else completes it before Level 1.
+      Never let a student start Level 1 with shaky fraction or sign work -
+      it produces "careless" errors that no amount of SAT strategy fixes.
+    rationale: >
+      Not SAT content. This is the arithmetic and pre-algebra substrate that
+      SAT questions assume. A student who is slow here loses time on every
+      question in the test, not just the ones about this material.
+    lessons:
+      - id: "0.1"
+        title: "Fractions, Decimals and Percents as One Idea"
+        objectives:
+          - Convert fluently between fractions, decimals and percents
+          - Add, subtract, multiply and divide fractions without a calculator
+          - Recognise when a decimal answer hides an exact fractional one
+        prereqs: []
+        sat_relevance: "Indirect - underpins every domain"
+        est_minutes: 45
+
+      - id: "0.2"
+        title: "Negative Numbers and Order of Operations"
+        objectives:
+          - Apply sign rules correctly in multi-step arithmetic
+          - Evaluate expressions using correct order of operations
+          - Spot the three sign errors that cause most careless SAT losses
+        prereqs: ["0.1"]
+        sat_relevance: "Indirect - the single largest source of careless errors"
+        est_minutes: 40
+
+      - id: "0.3"
+        title: "Exponents and Roots: The Basic Rules"
+        objectives:
+          - Apply product, quotient and power rules for exponents
+          - Interpret negative and zero exponents
+          - Simplify square and cube roots of numeric expressions
+        prereqs: ["0.2"]
+        sat_relevance: "Direct prerequisite for Advanced Math (3.5, 3.6)"
+        est_minutes: 45
+
+      - id: "0.4"
+        title: "Variables, Expressions and Like Terms"
+        objectives:
+          - Translate a phrase into an algebraic expression
+          - Combine like terms and apply the distributive property
+          - Evaluate an expression at a given value
+        prereqs: ["0.2"]
+        sat_relevance: "Direct prerequisite for all of Algebra"
+        est_minutes: 40
+
+      - id: "0.5"
+        title: "Solving One-Variable Linear Equations"
+        objectives:
+          - Solve multi-step equations with variables on both sides
+          - Clear fractions and decimals from an equation
+          - Check a solution by substitution
+        prereqs: ["0.4"]
+        sat_relevance: "Direct prerequisite for 1.1"
+        est_minutes: 45
+
+      - id: "0.6"
+        title: "The Coordinate Plane"
+        objectives:
+          - Plot and read points, and identify quadrants
+          - Find distance and midpoint between two points
+          - Read a value off a graph accurately
+        prereqs: ["0.2"]
+        sat_relevance: "Direct prerequisite for 1.2 and 4.7"
+        est_minutes: 35
+
+      - id: "0.7"
+        title: "Ratios and Proportional Reasoning"
+        objectives:
+          - Set up and solve a proportion
+          - Distinguish part-to-part from part-to-whole ratios
+          - Scale a recipe-style quantity up or down
+        prereqs: ["0.1"]
+        sat_relevance: "Direct prerequisite for 2.1"
+        est_minutes: 40
+
+      - id: "0.8"
+        title: "Percent Fluency"
+        objectives:
+          - Compute a percent of a number and reverse it
+          - Handle percent increase and decrease
+          - Chain two percent changes correctly
+        prereqs: ["0.7"]
+        sat_relevance: "Direct prerequisite for 2.3"
+        est_minutes: 40
+
+  - id: 1
+    slug: level-1-algebra
+    title: "Level 1 - Core Algebra"
+    gated: false
+    domain: algebra
+    rationale: >
+      About 35% of the scored section, and the domain on which Module 2
+      difficulty is most often decided. Every hour spent here is worth
+      roughly twice an hour spent on geometry.
+    lessons:
+      - id: "1.1"
+        title: "Linear Equations in One Variable"
+        objectives:
+          - Solve any one-variable linear equation the SAT can pose
+          - Identify equations with no solution or infinitely many solutions
+          - Solve literal equations for a named variable
+        prereqs: ["0.5"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 50
+
+      - id: "1.2"
+        title: "Slope and Linear Functions"
+        objectives:
+          - Compute slope from two points, a table, a graph or an equation
+          - Convert between slope-intercept, point-slope and standard form
+          - Interpret slope and intercept as rate and starting value in context
+        prereqs: ["0.6", "1.1"]
+        sat_relevance: "Direct - roughly 3-4 questions"
+        est_minutes: 55
+
+      - id: "1.3"
+        title: "Interpreting Linear Models in Context"
+        objectives:
+          - Say in words what each number in a linear model means
+          - Answer "what does the 25 represent" questions without computing
+          - Choose the model that matches a described situation
+        prereqs: ["1.2"]
+        sat_relevance: "Direct - roughly 2-3 questions, heavily tested"
+        est_minutes: 50
+
+      - id: "1.4"
+        title: "Linear Equations in Two Variables"
+        objectives:
+          - Write the equation of a line from varied given information
+          - Determine whether a point lies on a line
+          - Handle parallel and perpendicular slope conditions
+        prereqs: ["1.2"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 50
+
+      - id: "1.5"
+        title: "Systems of Two Linear Equations"
+        objectives:
+          - Solve by substitution, elimination and graphing, and choose well
+          - Recognise the coefficient conditions for no or infinite solutions
+          - Set up a system from a word problem
+        prereqs: ["1.4"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 55
+
+      - id: "1.6"
+        title: "Linear Inequalities and Systems of Inequalities"
+        objectives:
+          - Solve and graph one-variable inequalities, flipping correctly
+          - Interpret a shaded region as a system of constraints
+          - Translate "at least", "no more than" and "between" precisely
+        prereqs: ["1.5"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "1.7"
+        title: "Translation: Turning Words into Equations"
+        objectives:
+          - Extract the quantities, the unknown and the relationship from a paragraph
+          - Build the equation before attempting any arithmetic
+          - Recognise the six sentence patterns the SAT reuses constantly
+        prereqs: ["1.5"]
+        sat_relevance: "Direct - the highest-leverage skill in the course"
+        est_minutes: 60
+        note: "Flagged as the single most valuable lesson for mid-range scorers."
+
+      - id: "1.8"
+        title: "Absolute Value on the SAT"
+        objectives:
+          - Solve basic absolute-value equations and inequalities
+          - Read absolute value as distance on a number line
+        prereqs: ["1.6"]
+        sat_relevance: "Direct - roughly 0-1 questions; keep this lesson short"
+        est_minutes: 30
+
+  - id: 2
+    slug: level-2-data
+    title: "Level 2 - Problem Solving and Data Analysis"
+    gated: false
+    domain: problem_solving
+    rationale: >
+      About 15% of the section, and the domain where students most often
+      lose points they already know how to earn. Heavy on reading carefully
+      and light on hard mathematics.
+    lessons:
+      - id: "2.1"
+        title: "Ratios, Rates and Proportional Relationships"
+        objectives:
+          - Solve multi-step rate problems including combined rates
+          - Recognise a proportional relationship from a table or graph
+          - Use the constant of proportionality
+        prereqs: ["0.7", "1.2"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "2.2"
+        title: "Units and Unit Analysis"
+        objectives:
+          - Convert between units using a chain of conversion factors
+          - Use units as a check that the setup is right
+          - Handle compound units such as density and speed
+        prereqs: ["2.1"]
+        sat_relevance: "Direct - roughly 1 question, frequently missed"
+        est_minutes: 40
+
+      - id: "2.3"
+        title: "Percentages and Percent Change"
+        objectives:
+          - Compute percent increase, decrease and successive changes
+          - Reverse a percent change to recover an original value
+          - Distinguish percent change from percentage-point change
+        prereqs: ["0.8"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 45
+
+      - id: "2.4"
+        title: "One-Variable Data: Centre, Spread and Shape"
+        objectives:
+          - Compute and compare mean, median, range and standard deviation conceptually
+          - Predict how an outlier moves mean versus median
+          - Read a histogram, dot plot and box plot
+        prereqs: ["0.1"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "2.5"
+        title: "Two-Variable Data and Models of Best Fit"
+        objectives:
+          - Read a scatterplot and describe the association
+          - Use a line or curve of best fit to predict and to interpret slope
+          - Distinguish interpolation from extrapolation
+        prereqs: ["1.3", "2.4"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "2.6"
+        title: "Probability and Two-Way Tables"
+        objectives:
+          - Compute simple and conditional probability from a two-way table
+          - Read the denominator the question actually asks for
+          - Handle "given that" phrasing without confusion
+        prereqs: ["0.1"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 45
+
+      - id: "2.7"
+        title: "Sample Statistics and Margin of Error"
+        objectives:
+          - Interpret a confidence interval and a margin of error in plain words
+          - Say what a larger sample does to the margin of error
+          - Judge whether a conclusion is supported by the sample
+        prereqs: ["2.4"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 40
+
+      - id: "2.8"
+        title: "Evaluating Claims and Study Design"
+        objectives:
+          - Distinguish observational study from randomised experiment
+          - Say when a causal conclusion is and is not justified
+          - Identify the population a result may be generalised to
+        prereqs: ["2.7"]
+        sat_relevance: "Direct - roughly 0-1 questions; nearly free points"
+        est_minutes: 35
+
+  - id: 3
+    slug: level-3-advanced
+    title: "Level 3 - Advanced Math"
+    gated: false
+    domain: advanced_math
+    rationale: >
+      About 35% of the section and the main determinant of scores above 650.
+      This is where a strong student separates from an average one.
+    lessons:
+      - id: "3.1"
+        title: "Function Notation and Interpretation"
+        objectives:
+          - Evaluate f(a), solve f(x)=k, and read both off a graph or table
+          - Handle composition such as f(g(x))
+          - Interpret a function's meaning in a real context
+        prereqs: ["1.3"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 50
+
+      - id: "3.2"
+        title: "Equivalent Expressions: Factoring and Expanding"
+        objectives:
+          - Factor quadratics, differences of squares and common factors fluently
+          - Expand and simplify polynomial products
+          - Choose the form of an expression the question is asking for
+        prereqs: ["0.4", "1.1"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 55
+
+      - id: "3.3"
+        title: "Solving Quadratic Equations"
+        objectives:
+          - Solve by factoring, square roots, completing the square and formula
+          - Choose the fastest method for a given equation
+          - Use the discriminant to count real solutions
+        prereqs: ["3.2"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 60
+
+      - id: "3.4"
+        title: "Quadratic Functions: Forms and Graphs"
+        objectives:
+          - Move between standard, factored and vertex form, and say what each reveals
+          - Find vertex, axis of symmetry and intercepts
+          - Solve maximum and minimum problems in context
+        prereqs: ["3.3"]
+        sat_relevance: "Direct - roughly 2-3 questions"
+        est_minutes: 55
+
+      - id: "3.5"
+        title: "Exponential Functions: Growth and Decay"
+        objectives:
+          - Build an exponential model from a described growth or decay rate
+          - Distinguish linear from exponential change in words, tables and graphs
+          - Handle compounding over different time periods
+        prereqs: ["0.3", "3.1"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 55
+
+      - id: "3.6"
+        title: "Radicals and Rational Exponents"
+        objectives:
+          - Convert between radical and rational-exponent notation
+          - Solve radical equations and check for extraneous solutions
+          - Simplify expressions with nested or fractional powers
+        prereqs: ["0.3", "3.3"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 45
+
+      - id: "3.7"
+        title: "Polynomials: Operations, Roots and Division"
+        objectives:
+          - Relate factors, roots and x-intercepts to one another
+          - Divide polynomials and interpret the remainder
+          - Read end behaviour and multiplicity off a graph
+        prereqs: ["3.2"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "3.8"
+        title: "Rational Expressions and Equations"
+        objectives:
+          - Simplify, add and divide rational expressions
+          - Solve rational equations and reject extraneous roots
+          - Identify undefined values and asymptotic behaviour
+        prereqs: ["3.7"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 50
+
+      - id: "3.9"
+        title: "Nonlinear Systems"
+        objectives:
+          - Solve a linear-quadratic system algebraically and graphically
+          - Determine the number of intersection points
+          - Use the discriminant to find a tangency condition
+        prereqs: ["1.5", "3.4"]
+        sat_relevance: "Direct - roughly 1 question, often among the hardest"
+        est_minutes: 50
+
+      - id: "3.10"
+        title: "Transformations of Graphs"
+        objectives:
+          - Predict the effect of shifts, stretches and reflections on a graph
+          - Write the transformed equation from a described change
+          - Recognise transformations across function families
+        prereqs: ["3.4"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 45
+
+  - id: 4
+    slug: level-4-geometry
+    title: "Level 4 - Geometry and Trigonometry"
+    gated: false
+    domain: geometry_trig
+    rationale: >
+      About 15% of the section. The most self-contained domain in the course,
+      and the most efficiently revised, because the test supplies a reference
+      sheet of formulas. The skill is recognising which formula to reach for.
+    lessons:
+      - id: "4.1"
+        title: "Lines, Angles and Parallel Lines"
+        objectives:
+          - Apply vertical, supplementary and complementary angle relationships
+          - Use the parallel-line angle pairs
+          - Set up an equation from an angle diagram
+        prereqs: ["1.1"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 40
+
+      - id: "4.2"
+        title: "Triangles, Similarity and Congruence"
+        objectives:
+          - Use the angle sum and exterior angle results
+          - Set up and solve a similar-triangle proportion
+          - Recognise similarity inside a more complex figure
+        prereqs: ["4.1", "0.7"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "4.3"
+        title: "Right Triangles and the Pythagorean Theorem"
+        objectives:
+          - Apply the theorem and recognise common triples
+          - Use the 30-60-90 and 45-45-90 ratios from the reference sheet
+          - Find a distance in a coordinate or a real context
+        prereqs: ["4.2", "0.3"]
+        sat_relevance: "Direct - roughly 1-2 questions"
+        est_minutes: 50
+
+      - id: "4.4"
+        title: "Right Triangle Trigonometry"
+        objectives:
+          - Apply sine, cosine and tangent to find sides and angles
+          - Use the complementary relationship sin(x) = cos(90 - x)
+          - Convert between degrees and radians
+        prereqs: ["4.3"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 50
+
+      - id: "4.5"
+        title: "Circles: Arcs, Sectors and Equations"
+        objectives:
+          - Compute arc length and sector area from a central angle
+          - Complete the square to find a circle's centre and radius
+          - Relate a tangent line to the radius at the point of contact
+        prereqs: ["4.4", "3.3"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 50
+
+      - id: "4.6"
+        title: "Area, Surface Area and Volume"
+        objectives:
+          - Select the right formula from the reference sheet
+          - Solve for a missing dimension given a volume
+          - Handle scaling: what doubling a length does to area and volume
+        prereqs: ["4.3"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 45
+
+      - id: "4.7"
+        title: "Coordinate Geometry"
+        objectives:
+          - Combine distance, midpoint and slope to classify a figure
+          - Find where a line meets a circle or a parabola
+          - Solve geometry problems by choosing coordinates well
+        prereqs: ["4.5", "1.4"]
+        sat_relevance: "Direct - roughly 1 question"
+        est_minutes: 45
+
+  - id: 5
+    slug: level-5-test-craft
+    title: "Level 5 - Test Craft"
+    gated: false
+    domain: strategy
+    rationale: >
+      No new mathematics. This level converts knowledge into score. For a
+      student who already knows the content, it is worth more per hour than
+      any lesson above it.
+    lessons:
+      - id: "5.1"
+        title: "How the Adaptive Test Actually Works"
+        objectives:
+          - Explain how Module 1 performance sets Module 2 difficulty
+          - Adjust effort allocation accordingly
+          - Understand why no question should ever be left blank
+        prereqs: []
+        sat_relevance: "Strategy"
+        est_minutes: 30
+
+      - id: "5.2"
+        title: "Desmos as a Weapon"
+        objectives:
+          - Solve systems, find roots and locate vertices by graphing
+          - Verify an algebraic answer in under fifteen seconds
+          - Recognise the question types where graphing beats algebra outright
+        prereqs: ["3.4", "1.5"]
+        sat_relevance: "Strategy - worth several questions to most students"
+        est_minutes: 50
+
+      - id: "5.3"
+        title: "Pacing and Triage"
+        objectives:
+          - Hold a checkpoint pace of question 11 by minute 17
+          - Run a deliberate two-pass strategy
+          - Abandon an unwinnable question inside thirty seconds
+        prereqs: ["5.1"]
+        sat_relevance: "Strategy"
+        est_minutes: 45
+
+      - id: "5.4"
+        title: "Student-Produced Responses"
+        objectives:
+          - Enter answers in an accepted format, including fractions and decimals
+          - Avoid the rounding and negative-sign traps
+          - Adapt to having no answer choices to work backwards from
+        prereqs: []
+        sat_relevance: "Strategy - about a quarter of all questions"
+        est_minutes: 35
+
+      - id: "5.5"
+        title: "Backsolving and Plugging In"
+        objectives:
+          - Test answer choices efficiently, starting from the middle
+          - Substitute convenient numbers for variables in abstract questions
+          - Judge when these beat doing the algebra
+        prereqs: ["1.7"]
+        sat_relevance: "Strategy"
+        est_minutes: 45
+
+      - id: "5.6"
+        title: "Traps, Error Patterns and the Error Log"
+        objectives:
+          - Classify every mistake as content, method, careless or time
+          - Keep an error log that actually changes behaviour
+          - Recognise the distractors built from predictable mistakes
+        prereqs: ["5.3"]
+        sat_relevance: "Strategy - the core habit of the whole course"
+        est_minutes: 45
+
+      - id: "5.7"
+        title: "Full-Test Protocol"
+        objectives:
+          - Follow a rehearsed routine for the seventy minutes
+          - Execute a test-week and test-morning plan
+          - Recover from a bad first module without losing the second
+        prereqs: ["5.6"]
+        sat_relevance: "Strategy"
+        est_minutes: 40

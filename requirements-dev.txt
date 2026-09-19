@@ -1,0 +1,5 @@
+# Needed by the verification agents to check answer keys computationally.
+-r requirements.txt
+sympy>=1.13
+numpy>=2.0
+pyyaml>=6.0

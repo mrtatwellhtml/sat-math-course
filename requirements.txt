@@ -1,0 +1,5 @@
+# Loose lower bounds, not exact pins: CI resolves the latest compatible set.
+# Verified building against mkdocs 1.6.1 / mkdocs-material 9.7.6.
+mkdocs>=1.6,<2.0
+mkdocs-material>=9.5,<10.0
+pymdown-extensions>=10.9
