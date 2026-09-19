@@ -48,7 +48,8 @@ Four stages, always in this order, each a separate subagent:
 | 1 | `lesson-author` | Concept, three worked examples, common errors, tutor notes |
 | 2 | `problem-writer` | 12 practice questions, answer key, full solutions |
 | 3 | `math-verifier` | Nothing new — re-solves everything and fixes errors |
-| 4 | `sat-alignment` | Nothing new — structural and style audit |
+| 4 | `lint_lesson.py` | Nothing — mechanical audit, free, run it before stage 5 |
+| 5 | `sat-alignment` | Nothing new — judgement-call style audit, only if stage 4 is clean |
 
 Stages 1 and 2 are split because a model writing both tends to write
 questions that match the examples it just produced, rather than questions
@@ -94,6 +95,8 @@ exist before the course is offered to a general cohort.
 
 ```bash
 python scripts/status.py          # what is written, what is verified, what is next
+python scripts/lint_lesson.py     # mechanical audit of every drafted lesson
+python scripts/lint_lesson.py 1.3 # ...or of named lessons
 python scripts/sync_nav.py        # after editing manifest.yml
 mkdocs serve                      # preview at http://127.0.0.1:8000
 mkdocs build --strict             # what CI runs; fails on broken links
