@@ -1,7 +1,7 @@
 site_name: SAT Math - Foundations to Mastery
 site_description: A complete, self-paced SAT Math course from arithmetic foundations to the hardest Module 2 questions.
-site_url: https://EXAMPLE.github.io/sat-math-course/
-repo_url: https://github.com/EXAMPLE/sat-math-course
+site_url: https://mrtatwellhtml.github.io/sat-math-course/
+repo_url: https://github.com/mrtatwellhtml/sat-math-course
 edit_uri: edit/main/docs/
 
 theme:

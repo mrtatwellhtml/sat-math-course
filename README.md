@@ -4,7 +4,7 @@ A complete, self-paced digital SAT Math course — 48 lessons from arithmetic
 foundations to the hardest Module 2 questions — published as a static site
 for students to work through between tutoring sessions.
 
-**Live site:** https://EXAMPLE.github.io/sat-math-course/
+**Live site:** https://mrtatwellhtml.github.io/sat-math-course/
 *(update this once GitHub Pages is enabled)*
 
 ## What is here
