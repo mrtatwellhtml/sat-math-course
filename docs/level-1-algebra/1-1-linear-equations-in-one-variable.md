@@ -5,8 +5,8 @@ level: 1
 domain: algebra
 prereqs: ["0.5"]
 est_minutes: 50
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-19"
 ---
 
 # 1.1 Linear Equations in One Variable
