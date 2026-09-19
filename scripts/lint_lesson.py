@@ -210,9 +210,17 @@ def check_practice(rep: Report, body: str) -> None:
         if chip not in practice:
             rep.error("missing difficulty chip `%s`" % chip)
 
+    # The real digital SAT is about one-quarter grid-in, which is 3 of 12.
+    # Fewer is a defect; more misrepresents the test and costs the student
+    # practice at eliminating distractors, so it warns rather than failing.
     spr = practice.count(SPR_MARK)
-    if spr < 4:
-        rep.error("only %d student-produced-response question(s), need at least 4" % spr)
+    if spr < 3:
+        rep.error("only %d student-produced-response question(s), need 3 or 4" % spr)
+    elif spr > 4:
+        rep.warn(
+            "%d student-produced-response questions; the real test is about "
+            "one-quarter grid-in, so 3 or 4 of 12" % spr
+        )
 
     if re.search(r"^\s*\d+\.\s", practice, flags=re.MULTILINE):
         rep.error("question numbered as a markdown ordered list; use `**1.**` or A-D options break")

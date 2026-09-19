@@ -129,8 +129,8 @@ ordered list swallows the A-D options into the list item and breaks the
 rendering. Mark student-produced responses with a trailing
 `*(student-produced response)*`.
 
-At least four of the twelve must be student-produced response format
-(no answer choices), matching the roughly one-quarter share on the real test.
+Three or four of the twelve are student-produced response format (no answer
+choices). The real test is about one-quarter grid-in, which is 3 of 12.
 
 ---
 

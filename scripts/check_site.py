@@ -90,10 +90,20 @@ def audit_lessons():
                 qs = len(re.findall(r"^\s*\*\*(\d{1,2})\.\*\*\s", practice, re.M))
                 if qs != 12:
                     errors.append(f"{rel}: {qs} practice questions, expected 12")
+                # The real digital SAT is about one-quarter grid-in: 3 of 12.
+                # Too few is a defect. Too many misrepresents the test and
+                # starves the student of distractor-elimination practice, so it
+                # warns rather than blocking - the lessons written before this
+                # was noticed sit at 5.
                 spr = len(re.findall(r"student-produced response", practice, re.I))
-                if spr < 4:
+                if spr < 3:
                     errors.append(
-                        f"{rel}: {spr} student-produced responses, expected at least 4"
+                        f"{rel}: {spr} student-produced responses, expected 3 or 4"
+                    )
+                elif spr > 4:
+                    warns.append(
+                        f"{rel}: {spr} student-produced responses, expected 3 or 4 "
+                        f"(the real test is about one-quarter grid-in)"
                     )
 
         # The point is to catch `.4`, not `0.4`. Written `0?\.\d` the leading

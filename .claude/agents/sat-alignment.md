@@ -15,7 +15,7 @@ Check the lesson against `curriculum/templates/lesson-template.md` and
 - Frontmatter complete and well formed; `lesson_id` matches the filename
 - Exactly three worked examples, each with a **Thinking** line
 - Exactly twelve practice questions, in the 4 / 5 / 3 split
-- At least four student-produced-response questions
+- 3 or 4 student-produced-response questions, not more
 - All twelve appear in the answers table and in the solutions block
 - Difficulty chips present and correct
 - Maths delimiters balanced: every `$` and `$$` closes

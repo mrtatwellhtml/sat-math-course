@@ -30,8 +30,11 @@ Exactly twelve questions:
 
 Constraints that are not negotiable:
 
-- **At least 4 of the 12 are student-produced response** (no answer choices),
-  matching the real test's roughly one-quarter share.
+- **3 or 4 of the 12 are student-produced response** (no answer choices).
+  The real digital SAT is about one-quarter grid-in, which is 3 of 12. Aim at
+  3, allow 4. Do not go higher: a set that is half grid-in misrepresents the
+  test and starves the student of practice at eliminating distractors, which
+  is a scored skill in its own right and the whole basis of lesson 5.5.
 - Multiple choice has exactly four options, A) through D).
 - **Every distractor comes from a real error.** For each multiple-choice
   question, you must be able to name the mistake that produces each wrong
