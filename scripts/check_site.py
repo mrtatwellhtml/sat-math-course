@@ -77,12 +77,24 @@ def audit_lessons():
 
         if "## Practice" in text:
             practice = text.split("## Practice")[1].split("## Answers")[0]
-            qs = len(re.findall(r"^\s*\*\*(\d{1,2})\.\*\*\s", practice, re.M))
-            if qs != 12:
-                errors.append(f"{rel}: {qs} practice questions, expected 12")
-            spr = len(re.findall(r"student-produced response", practice, re.I))
-            if spr < 4:
-                errors.append(f"{rel}: {spr} student-produced responses, expected at least 4")
+            # The template's own placeholder carries six `**n.**` markers and one
+            # `*(student-produced response)*`. Counting those reports "6 practice
+            # questions" for a lesson whose problem-writer never ran at all, which
+            # reads as half-finished work rather than absent work. Say which it is.
+            if "Question stem." in practice or "Number questions as" in practice:
+                errors.append(
+                    f"{rel}: Practice section is still the unfilled template "
+                    f"placeholder - the problem-writer stage has not run"
+                )
+            else:
+                qs = len(re.findall(r"^\s*\*\*(\d{1,2})\.\*\*\s", practice, re.M))
+                if qs != 12:
+                    errors.append(f"{rel}: {qs} practice questions, expected 12")
+                spr = len(re.findall(r"student-produced response", practice, re.I))
+                if spr < 4:
+                    errors.append(
+                        f"{rel}: {spr} student-produced responses, expected at least 4"
+                    )
 
         for n in re.findall(r"^\s*0?\.\d", text, re.M):
             warns.append(f"{rel}: decimal missing leading zero")

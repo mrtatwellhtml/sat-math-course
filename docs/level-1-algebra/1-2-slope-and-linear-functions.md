@@ -5,8 +5,8 @@ level: 1
 domain: algebra
 prereqs: ["0.6", "1.1"]
 est_minutes: 55
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-19"
 ---
 
 # 1.2 Slope and Linear Functions
@@ -173,36 +173,91 @@ does converting to slope-intercept form make sense.
 
 **Set A — build fluency** <span class="chip chip-easy">easy</span>
 
-**1.** Question stem.
+**1.** A line in the $xy$-plane passes through the points $(2, 5)$ and
+$(6, 13)$. What is the slope of the line?
 
-- A) option
-- B) option
-- C) option
-- D) option
+- A) $\dfrac{1}{2}$
+- B) $2$
+- C) $\dfrac{4}{3}$
+- D) $-2$
 
-**2.** Question stem. *(student-produced response)*
+**2.** The table shows values of a linear function.
 
-**3.** ...
+| $x$ | 0 | 3 | 6 |
+|---|---|---|---|
+| $y$ | 4 | 10 | 16 |
 
-**4.** ...
+What is the slope of the line? *(student-produced response)*
+
+**3.** A line in the $xy$-plane is given by $2x + y = 9$. What is the slope
+of the line?
+
+- A) $-2$
+- B) $2$
+- C) $9$
+- D) $-\dfrac{1}{2}$
+
+**4.** A line is given by $y - 5 = -4(x - 2)$. What is the $y$-intercept of
+the line? *(student-produced response)*
 
 **Set B — test level** <span class="chip chip-medium">medium</span>
 
-**5.** ... through **9.**
+**5.** A moving company charges according to the equation
+$C = 45h + 120$, where $C$ is the total cost in dollars and $h$ is the
+number of hours the move takes. What does $120$ represent in this
+equation?
+
+- A) the cost per hour of the move
+- B) the total number of hours the move takes
+- C) a flat fee charged regardless of how many hours the move takes
+- D) the cost of only the first hour of the move
+
+**6.** A line passes through the point $(4, 9)$ and has slope $-3$. What is
+the $y$-intercept of the line? *(student-produced response)*
+
+**7.** The graph of a line in the $xy$-plane passes through the point
+$(1, 2)$, and for every 2 units the line moves to the right, it moves down
+3 units. What is the slope of the line?
+
+- A) $-\dfrac{3}{2}$
+- B) $-\dfrac{2}{3}$
+- C) $\dfrac{2}{3}$
+- D) $\dfrac{3}{2}$
+
+**8.** A line in the $xy$-plane is given by $3x - 4y = 12$. What is the
+slope of the line?
+
+- A) $\dfrac{3}{4}$
+- B) $-\dfrac{3}{4}$
+- C) $\dfrac{4}{3}$
+- D) $3$
+
+**9.** A hiker's distance from a trailhead, in miles, is a linear function
+of time. After 0 minutes she is 2 miles out, and after 4 minutes she is 10
+miles out. How many miles from the trailhead is she after 15 minutes?
+*(student-produced response)*
 
 **Set C — stretch** <span class="chip chip-hard">hard</span>
 
-**10.** ... through **12.**
+**10.** The line $y = mx + b$ passes through the points $(2, 7)$ and
+$(5, 19)$. What is the value of $m + b$?
+
+- A) $3$
+- B) $-1$
+- C) $11$
+- D) $5$
+
+**11.** A line passes through the points $(a, 5)$ and $(a + 3, 14)$ for some constant $a$. What is the slope of the line? *(student-produced response)*
+
+**12.** The equation $4x + ky = 20$, where $k$ is a constant, represents a
+line with slope $-\dfrac{1}{3}$. What is the value of $k$?
+
+- A) $12$
+- B) $-12$
+- C) $\dfrac{4}{3}$
+- D) $-\dfrac{4}{3}$
 
 </div>
-
-Number questions as **bold** `**1.**`, never as a markdown ordered list — an
-ordered list swallows the A-D options into the list item and breaks the
-rendering. Mark student-produced responses with a trailing
-`*(student-produced response)*`.
-
-At least four of the twelve must be student-produced response format
-(no answer choices), matching the roughly one-quarter share on the real test.
 
 ---
 
@@ -211,16 +266,73 @@ At least four of the twelve must be student-produced response format
 ??? success "Show answers"
     | # | Answer |
     |---|--------|
-    | 1 | |
-    | 2 | |
+    | 1 | B |
+    | 2 | 2 |
+    | 3 | A |
+    | 4 | 13 |
+    | 5 | C |
+    | 6 | 21 |
+    | 7 | A |
+    | 8 | A |
+    | 9 | 32 |
+    | 10 | A |
+    | 11 | 3 |
+    | 12 | A |
 
 ??? success "Show full solutions"
-    **1.** Worked solution, every step shown.
+    **1.** Substitute the two points into the slope formula, keeping each
+    subtraction in its own step: $m = \dfrac{13 - 5}{6 - 2} = \dfrac{8}{4} = 2$.
+    **Answer:** B
 
-    **2.** ...
+    **2.** Pick any two rows and divide the change in $y$ by the change in
+    $x$: using $x = 0$ and $x = 3$, $m = \dfrac{10 - 4}{3 - 0} = \dfrac{6}{3} = 2$.
+    Checking against the third row confirms it: $\dfrac{16 - 10}{6 - 3} = 2$.
+    **Answer:** 2
 
-Every one of the twelve gets a full solution, not just a final value. A
-student working alone needs to see where they diverged.
+    **3.** Solve the equation for $y$ to reach slope-intercept form:
+    $2x + y = 9$ becomes $y = -2x + 9$. The coefficient of $x$ is the
+    slope. **Answer:** A
+
+    **4.** Expand the point-slope form: $y - 5 = -4(x - 2)$ becomes
+    $y - 5 = -4x + 8$, so $y = -4x + 13$. The $y$-intercept is the constant
+    term. **Answer:** 13
+
+    **5.** In $C = 45h + 120$, the term $45h$ changes with the number of
+    hours, so $45$ is the rate — the cost per hour. The $120$ does not
+    depend on $h$ at all, so it is charged no matter how long the move
+    takes: a flat fee. **Answer:** C
+
+    **6.** Substitute the point and slope into point-slope form:
+    $y - 9 = -3(x - 4)$. Expand: $y - 9 = -3x + 12$, so $y = -3x + 21$. The
+    $y$-intercept is the constant term. **Answer:** 21
+
+    **7.** "Down 3 units for every 2 units right" is rise over run directly:
+    a rise of $-3$ for a run of $2$, so $m = \dfrac{-3}{2} = -\dfrac{3}{2}$.
+    The point $(1, 2)$ is not needed to find the slope — it only locates the
+    line. **Answer:** A
+
+    **8.** Solve $3x - 4y = 12$ for $y$: subtract $3x$ from both sides to
+    get $-4y = -3x + 12$, then divide every term by $-4$:
+    $y = \dfrac{3}{4}x - 3$. The slope is the coefficient of $x$.
+    **Answer:** A
+
+    **9.** Find the rate from the two given values: $m = \dfrac{10 - 2}{4 - 0} = 2$
+    miles per minute. The starting distance is $2$ miles, so the model is
+    $d = 2t + 2$. Substitute $t = 15$: $d = 2(15) + 2 = 32$. **Answer:** 32
+
+    **10.** Use the two points to find $m$: $m = \dfrac{19 - 7}{5 - 2} = \dfrac{12}{3} = 4$.
+    Substitute one point into $y = mx + b$ to find $b$: $7 = 4(2) + b$, so
+    $b = 7 - 8 = -1$. Then $m + b = 4 + (-1) = 3$. **Answer:** A
+
+    **11.** The unknown $a$ shifts both $x$-coordinates but the *difference*
+    between them is fixed at $3$, and it cancels out of the slope
+    calculation entirely: $m = \dfrac{14 - 5}{(a + 3) - a} = \dfrac{9}{3} = 3$.
+    The value of $a$ never matters. **Answer:** 3
+
+    **12.** Solve $4x + ky = 20$ for $y$: $ky = -4x + 20$, so
+    $y = -\dfrac{4}{k}x + \dfrac{20}{k}$. Set the slope equal to the given
+    value: $-\dfrac{4}{k} = -\dfrac{1}{3}$. Cross-multiply: $-4(3) = -1(k)$,
+    so $-12 = -k$, and $k = 12$. **Answer:** A
 
 ---
 
