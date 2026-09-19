@@ -96,7 +96,10 @@ def audit_lessons():
                         f"{rel}: {spr} student-produced responses, expected at least 4"
                     )
 
-        for n in re.findall(r"^\s*0?\.\d", text, re.M):
+        # The point is to catch `.4`, not `0.4`. Written `0?\.\d` the leading
+        # zero is optional, so the pattern matched correctly-formatted decimals
+        # too and fired on any line starting with one.
+        for n in re.findall(r"(?<![\d.\w])\.\d", text):
             warns.append(f"{rel}: decimal missing leading zero")
             break
 
