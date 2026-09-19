@@ -5,8 +5,8 @@ level: 1
 domain: algebra
 prereqs: ["1.2"]
 est_minutes: 50
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-19"
 ---
 
 # 1.4 Linear Equations in Two Variables
@@ -165,26 +165,88 @@ slope between $q$'s two given points and solve.
 
 **Set A — build fluency** <span class="chip chip-easy">easy</span>
 
-**1.** Question stem.
+**1.** A line in the $xy$-plane has a slope of $5$ and passes through the
+point $(2, 3)$. What is the equation of this line in slope-intercept form?
 
-- A) option
-- B) option
-- C) option
-- D) option
+- A) $y = 5x - 13$
+- B) $y = 5x + 1$
+- C) $y = 5x - 7$
+- D) $y = 5x + 7$
 
-**2.** Question stem. *(student-produced response)*
+**2.** A line has a slope of $-3$ and passes through the point $(4, -1)$.
+If the equation of the line is written as $y = mx + b$, what is the value
+of $b$? *(student-produced response)*
 
-**3.** ...
+**3.** Line $\ell$ is defined by $5x + 2y = 20$. What is the slope of
+line $\ell$?
 
-**4.** ...
+- A) $-\dfrac{5}{2}$
+- B) $5$
+- C) $\dfrac{5}{2}$
+- D) $-\dfrac{2}{5}$
+
+**4.** The line $y = 2x - 3$ passes through the point $(a, 7)$. What is
+the value of $a$? *(student-produced response)*
 
 **Set B — test level** <span class="chip chip-medium">medium</span>
 
-**5.** ... through **9.**
+**5.** A line in the $xy$-plane passes through the points $(1, -2)$ and
+$(4, 7)$. What is the equation of this line in slope-intercept form?
+
+- A) $y = 3x - 1$
+- B) $y = -3x + 1$
+- C) $y = \dfrac{1}{3}x - \dfrac{7}{3}$
+- D) $y = 3x - 5$
+
+**6.** Line $p$ is defined by $4x + 3y = 12$. Line $q$ is perpendicular
+to line $p$ and passes through the point $(0, 5)$. What is the slope of
+line $q$? *(student-produced response)*
+
+**7.** Line $\ell$ is defined by the equation $3x - 2y = 12$. Which of the
+following points lies on line $\ell$?
+
+- A) $(2, 3)$
+- B) $(-3, 2)$
+- C) $(2, -3)$
+- D) $(2, 9)$
+
+**8.** A line in the $xy$-plane passes through the points $(0, -2)$ and
+$(3, 7)$. If the point $(6, k)$ lies on this line, what is the value of
+$k$? *(student-produced response)*
+
+**9.** A moving company charges a flat booking fee plus a fee per mile
+driven. A 20-mile job costs \$130 total, and a 50-mile job costs \$220
+total. If $C$ is the total charge in dollars for a job of $m$ miles,
+which equation represents this relationship?
+
+- A) $C = 3m + 70$
+- B) $C = 3m + 130$
+- C) $C = 3m$
+- D) $C = 3m - 70$
 
 **Set C — stretch** <span class="chip chip-hard">hard</span>
 
-**10.** ... through **12.**
+**10.** In the $xy$-plane, line $p$ is defined by $2x - 3y = 6$. Line $q$
+is perpendicular to line $p$ and passes through the origin and the point
+$(a, a - 10)$, where $a$ is a constant. What is the value of $a$?
+
+- A) $a = -20$
+- B) $a = 6$
+- C) $a = 30$
+- D) $a = 4$
+
+**11.** Line $p$ is defined by $kx + 4y = 8$, where $k$ is a constant.
+Line $q$ is defined by $6x + 8y = 16$. Lines $p$ and $q$ are parallel.
+What is the value of $k$? *(student-produced response)*
+
+**12.** In the $xy$-plane, line $p$ passes through the points $(3, 1)$
+and $(7, k)$, where $k$ is a constant. Line $p$ is perpendicular to line
+$q$, defined by $x + 2y = 10$. What is the value of $k$?
+
+- A) $k = -1$
+- B) $k = -7$
+- C) $k = 9$
+- D) $k = 3$
 
 </div>
 
@@ -195,13 +257,89 @@ slope between $q$'s two given points and solve.
 ??? success "Show answers"
     | # | Answer |
     |---|--------|
-    | 1 | |
-    | 2 | |
+    | 1 | C |
+    | 2 | $b = 11$ |
+    | 3 | A |
+    | 4 | $a = 5$ |
+    | 5 | D |
+    | 6 | $\dfrac{3}{4}$ |
+    | 7 | C |
+    | 8 | $k = 16$ |
+    | 9 | A |
+    | 10 | D |
+    | 11 | $k = 3$ |
+    | 12 | C |
 
 ??? success "Show full solutions"
-    **1.** Worked solution, every step shown.
+    **1.** Substitute $m = 5$ and $(x_1, y_1) = (2, 3)$ into point-slope
+    form: $y - 3 = 5(x - 2)$. Distribute: $y - 3 = 5x - 10$. Add $3$ to
+    both sides: $y = 5x - 7$. **Answer: C.**
 
-    **2.** ...
+    **2.** Substitute the point and slope into $y = mx + b$:
+    $-1 = -3(4) + b$, so $-1 = -12 + b$. Add $12$ to both sides:
+    $b = 11$.
+
+    **3.** Rearrange $5x + 2y = 20$ into slope-intercept form: subtract
+    $5x$ from both sides to get $2y = -5x + 20$, then divide by $2$:
+    $y = -\dfrac{5}{2}x + 10$. The slope is $-\dfrac{5}{2}$. **Answer: A.**
+
+    **4.** Substitute the point into the line's equation: $7 = 2a - 3$.
+    Add $3$ to both sides: $2a = 10$. Divide by $2$: $a = 5$.
+
+    **5.** Find the slope from the two points:
+    $m = \dfrac{7 - (-2)}{4 - 1} = \dfrac{9}{3} = 3$. Substitute
+    $m = 3$ and $(x_1, y_1) = (1, -2)$ into point-slope form:
+    $y - (-2) = 3(x - 1)$, so $y + 2 = 3x - 3$. Subtract $2$ from both
+    sides: $y = 3x - 5$. **Answer: D.**
+
+    **6.** Rearrange line $p$ into slope-intercept form to read its slope:
+    $4x + 3y = 12 \Rightarrow y = -\dfrac{4}{3}x + 4$, so
+    $m_p = -\dfrac{4}{3}$. A line perpendicular to $p$ has slope equal to
+    the negative reciprocal: $m_q = \dfrac{3}{4}$. The point $(0, 5)$ is
+    extra information here — it fixes line $q$'s position, but the slope
+    of a perpendicular line depends only on line $p$'s slope.
+
+    **7.** A point lies on line $\ell$ exactly when its coordinates make
+    $3x - 2y = 12$ true, so substitute each option directly. For
+    $(2, 3)$: $3(2) - 2(3) = 6 - 6 = 0 \neq 12$. For $(-3, 2)$:
+    $3(-3) - 2(2) = -9 - 4 = -13 \neq 12$. For $(2, -3)$:
+    $3(2) - 2(-3) = 6 + 6 = 12$ — this checks out. For $(2, 9)$:
+    $3(2) - 2(9) = 6 - 18 = -12 \neq 12$. **Answer: C.**
+
+    **8.** Find the slope from the two given points:
+    $m = \dfrac{7 - (-2)}{3 - 0} = \dfrac{9}{3} = 3$. Write the line's
+    equation using $(0, -2)$ as the $y$-intercept: $y = 3x - 2$.
+    Substitute $x = 6$: $k = 3(6) - 2 = 18 - 2 = 16$.
+
+    **9.** Find the rate per mile from the two data points:
+    $m = \dfrac{220 - 130}{50 - 20} = \dfrac{90}{30} = 3$ dollars per
+    mile. Substitute $m = 3$ and the point $(20, 130)$ into point-slope
+    form: $C - 130 = 3(m - 20)$. Distribute: $C - 130 = 3m - 60$. Add
+    $130$ to both sides: $C = 3m + 70$. **Answer: A.**
+
+    **10.** Rearrange line $p$ into slope-intercept form:
+    $2x - 3y = 6 \Rightarrow y = \dfrac{2}{3}x - 2$, so
+    $m_p = \dfrac{2}{3}$. Line $q$ is perpendicular to line $p$, so
+    $m_q = -\dfrac{3}{2}$. Write the slope of line $q$ using its two
+    points, the origin $(0, 0)$ and $(a, a - 10)$:
+    $\dfrac{a - 10 - 0}{a - 0} = -\dfrac{3}{2}$. Cross-multiply:
+    $2(a - 10) = -3a$, so $2a - 20 = -3a$. Add $3a$ to both sides:
+    $5a = 20$, so $a = 4$. **Answer: D.**
+
+    **11.** Rearrange line $q$ into slope-intercept form to read its
+    slope: $6x + 8y = 16 \Rightarrow y = -\dfrac{3}{4}x + 2$, so
+    $m_q = -\dfrac{3}{4}$. Rearrange line $p$:
+    $kx + 4y = 8 \Rightarrow y = -\dfrac{k}{4}x + 2$, so
+    $m_p = -\dfrac{k}{4}$. Parallel lines share a slope, so
+    $-\dfrac{k}{4} = -\dfrac{3}{4}$, which gives $k = 3$.
+
+    **12.** Rearrange line $q$ into slope-intercept form:
+    $x + 2y = 10 \Rightarrow y = -\dfrac{1}{2}x + 5$, so
+    $m_q = -\dfrac{1}{2}$. Line $p$ is perpendicular to line $q$, so
+    $m_p = 2$. Write the slope of line $p$ using its two points,
+    $(3, 1)$ and $(7, k)$: $\dfrac{k - 1}{7 - 3} = 2$, so
+    $\dfrac{k - 1}{4} = 2$. Multiply both sides by $4$: $k - 1 = 8$, so
+    $k = 9$. **Answer: C.**
 
 ---
 
