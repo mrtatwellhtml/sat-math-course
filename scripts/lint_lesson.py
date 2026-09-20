@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+from difflib import SequenceMatcher
 from pathlib import Path
 
 import yaml
@@ -352,6 +353,74 @@ def check_boilerplate(rep: Report, body: str) -> None:
             rep.error("template boilerplate left in the lesson: %r" % phrase)
 
 
+def normalise_for_compare(text: str) -> str:
+    """Reduce a question to its bones so near-copies compare as near-equal.
+
+    The numbers are the entire signal and must survive. Two questions built on
+    the same template with different values are exactly what a good practice
+    set looks like; it is the *same values* that means the student has already
+    been shown the answer. An earlier version of this stripped `$...$` wholesale
+    and so compared only the prose scaffolding, scoring 95% on questions whose
+    numbers were completely different.
+    """
+    t = re.sub(r"\*\(student-produced response\)\*", " ", text)
+    t = re.sub(r"^\s*-?\s*[A-D]\)\s.*$", " ", t, flags=re.MULTILINE)  # options
+    t = t.replace("$", " ")                          # delimiters, not contents
+    t = re.sub(r"\\[a-zA-Z]+", " ", t)               # latex command names
+    t = re.sub(r"[^a-z0-9\s]", " ", t.lower())       # keeps digits
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def numeric_signature(text: str) -> list:
+    """Every number in a question, sorted. Two stems sharing one are twins."""
+    body = re.sub(r"^\s*-?\s*[A-D]\)\s.*$", " ", text, flags=re.MULTILINE)
+    return sorted(re.findall(r"\d+(?:\.\d+)?", body))
+
+
+def check_examples_not_reused(rep: Report, body: str) -> None:
+    """A practice question must not be a worked example with the serial filed off.
+
+    A model that writes the examples and the questions in one pass tends to
+    reproduce the examples - the student has already been shown the answer, so
+    the question tests recall. It is why this repo splits authoring from
+    problem-writing across two agents, and it is the first thing to break when
+    something writes both.
+    """
+    worked = section(body, "## Worked examples")
+    practice = section(body, "## Practice")
+    if not worked or not practice:
+        return
+
+    raw_examples = re.findall(r"^>\s?(.+(?:\n>.*)*)", worked, flags=re.MULTILINE)
+    examples = [(normalise_for_compare(m), numeric_signature(m)) for m in raw_examples]
+    examples = [(t, n) for t, n in examples if len(t) > 40]
+    if not examples:
+        return
+
+    blocks = re.split(r"^\s*\*\*(\d{1,2})\.\*\*", practice, flags=re.MULTILINE)
+    for i in range(1, len(blocks) - 1, 2):
+        qnum, raw = blocks[i], blocks[i + 1]
+        stem = normalise_for_compare(raw)
+        if len(stem) < 40:
+            continue
+        stem_nums = numeric_signature(raw)
+        for n, (ex, ex_nums) in enumerate(examples, 1):
+            # Prose similarity alone means nothing - every question in a lesson
+            # shares its phrasing, and two stems differing only in their digits
+            # still score ~98% on a character diff. A reused example is one that
+            # kept the *same numbers*, so that is the test. The prose ratio is
+            # only a guard against coincidentally equal number sets.
+            if len(stem_nums) < 3 or stem_nums != ex_nums:
+                continue
+            ratio = SequenceMatcher(None, stem[:400], ex[:400]).ratio()
+            if ratio >= 0.60:
+                rep.error(
+                    "Q%s reuses Worked Example %d - same numbers (%s), %.0f%% "
+                    "identical wording; the answer is already on the page"
+                    % (qnum, n, ", ".join(stem_nums[:6]), ratio * 100)
+                )
+
+
 def check_admonition_indent(rep: Report, body: str) -> None:
     """Content inside `???`/`!!!` blocks must be indented four spaces.
 
@@ -412,6 +481,7 @@ def lint(lesson_id: str, entry: dict) -> Report:
     check_prose(rep, body)
     check_length(rep, body)
     check_boilerplate(rep, body)
+    check_examples_not_reused(rep, body)
     check_admonition_indent(rep, body)
     check_nav(rep, body)
     return rep
