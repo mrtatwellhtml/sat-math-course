@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["0.3", "3.1"]
 est_minutes: 55
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.5 Exponential Functions: Growth and Decay
@@ -36,13 +36,21 @@ $$
 
 Here, $a$ is the starting value and $b$ is the growth factor. For a growth rate of $r$, use $b=1+r$. For a decay rate of $r$, use $b=1-r$. Write a percentage as a decimal before using it.
 
-Linear change adds the same amount each period. Exponential change multiplies by the same amount each period. In a table, constant first differences suggest linear change; a constant ratio between consecutive positive values suggests exponential change. On a graph, a line signals linear change, while exponential growth curves upward and exponential decay falls toward zero.
+Linear change adds the same amount each period; exponential change multiplies by the same amount each period. In a table, constant first differences suggest linear change, while a constant ratio between consecutive positive values suggests exponential change. On a graph, a line signals linear change, while exponential growth curves upward and exponential decay falls toward zero.
 
 If the time period changes, change the exponent or convert the rate. A 10% increase every 6 months means a factor of $1.10$ for each 6-month period. Two years contains four such periods, so the model is $a(1.10)^4$. A quantity that doubles every 3 hours has factor $2$ per 3-hour period. After 7.5 hours, the exponent is $7.5/3=2.5$.
 
-You can also work backward from data. If $f(0)=a$, the value at time zero gives the initial amount. If two consecutive values are known, divide the later value by the earlier value to find the factor. For example, values 50, 60, and 72 have ratio $1.2$, so the model is $50(1.2)^t$. If the listed times are not one period apart, use the time difference carefully: values at $t=2$ and $t=5$ represent three periods, so their quotient is $b^3$, not $b$.
+Some questions state an **annual** rate but compound $n$ times a year. Divide the rate by $n$ for the periodic rate, and multiply the years by $n$ for the period count:
 
-For a graph, check the scale and the labels before deciding what the curve means. A horizontal stretch or a non-unit starting time does not change the model's basic distinction. A decreasing exponential approaches zero but does not become negative when the starting value and factor are positive. When a question asks for a first whole period, calculate the nearby integer values and compare them; an estimate alone does not establish the first one.
+$$
+A=P\left(1+\frac{r}{n}\right)^{nt}
+$$
+
+Here $r/n$ is the rate per period and $nt$ is the number of periods. The trap is doing only half the conversion: $(1+r)^{nt}$ reuses the full annual rate too many times, and $(1+r/n)^{t}$ divides the rate but never expands the exponent.
+
+You can also work backward from data. If $f(0)=a$, that value gives the initial amount. For two consecutive values, divide the later by the earlier to find the factor: 50, 60, 72 have ratio $1.2$, so the model is $50(1.2)^t$. If the listed times aren't one period apart, use the time difference carefully: values at $t=2$ and $t=5$ are three periods apart, so their quotient is $b^3$, not $b$.
+
+For a graph, check the scale and labels before deciding what the curve means. A horizontal stretch or non-unit starting time does not change the model's basic distinction. A decreasing exponential approaches zero but stays positive when the starting value and factor are positive. When a question asks for a first whole period, compare the nearby integer values directly; an estimate alone does not establish the first one.
 
 !!! tip "Desmos shortcut"
     To compare models, enter `y_1=1000(1.1)^x` and `y_2=1210(1.05)^x`. Use the table or intersection to compare the values at the requested time. Keep the time units the same in both models.
@@ -158,12 +166,12 @@ Which statement best describes the change in $f(t)$?
 - C) $100(2)^{3/7.5}$
 - D) $100(2)^{7.5-3}$
 
-**8.** An investment of 1,000 dollars earns 12% interest compounded annually or 1% interest compounded monthly. After 1 year, how much greater is the monthly-compounded balance than the annually compounded balance, to the nearest dollar?
+**8.** A savings account of \$5,000 earns an annual interest rate of 8%, compounded quarterly. Using $A=P\left(1+\dfrac{r}{n}\right)^{nt}$, what is the balance after 3 years, to the nearest dollar?
 
-- A) 0 dollars
-- B) 6 dollars
-- C) 7 dollars
-- D) 12 dollars
+- A) \$5,306
+- B) \$6,200
+- C) \$6,341
+- D) \$12,591
 
 **9.** A water tank contains 80 liters and loses 20% of its water every hour. How many liters remain after 3 hours? *(student-produced response)*
 
@@ -227,7 +235,9 @@ Which statement best describes the change in $f(t)$?
 
     **7.** The number of doubling periods is elapsed time divided by doubling time: $7.5/3=2.5$. The model gives $100(2)^{2.5}$, so the answer is B.
 
-    **8.** Annual compounding gives $1{,}000(1.12)=1{,}120$. Monthly compounding gives $1{,}000(1.01)^{12}\approx1{,}126.83$. The difference is about $6.83$, which rounds to 7 dollars. The answer is C.
+    **8.** The account compounds quarterly, so $n=4$ and the periodic rate is $r/n=0.08/4=0.02$. Over 3 years there are $nt=4(3)=12$ periods, so the balance is $5{,}000(1.02)^{12}\approx6{,}341.21$, which rounds to \$6,341. The answer is C.
+
+    The most tempting wrong answer is \$5,306, from $5{,}000(1.02)^3$ — using the correct periodic rate but leaving the exponent as $t=3$ instead of expanding it to $nt=12$, so the account only compounds once a year instead of four times. Choice D, \$12,591, comes from the opposite half of the same mistake, $5{,}000(1.08)^{12}$: correctly using 12 periods but applying the full annual rate each time instead of dividing it by $n$ first. Choice B, \$6,200, is simple interest, $5{,}000(1+0.08\times3)$, which adds interest instead of compounding it.
 
     **9.** Losing 20% means retaining 80%, or a factor of $0.8$. After 3 hours, the amount is $80(0.8)^3=80(0.512)=40.96$ liters.
 
