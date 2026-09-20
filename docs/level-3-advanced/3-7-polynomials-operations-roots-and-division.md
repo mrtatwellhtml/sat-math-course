@@ -179,14 +179,14 @@ Division can also answer a context question. If $P(x)$ measures a quantity and $
 
 **Set C — stretch** <span class="chip chip-hard">hard</span>
 
-**10.** When $2x^3-3x^2-11x+6$ is divided by $x-3$, what is the remainder?
+**10.** The polynomial $2x^3+kx^2-11x+6$ has $x-3$ as a factor. What is the value of $k$?
 
-- A) $-12$
-- B) $0$
-- C) $6$
-- D) $12$
+- A) $-9$
+- B) $-3$
+- C) $3$
+- D) $9$
 
-**11.** A polynomial has roots $x=1$ with multiplicity $2$, $x=-2$ with multiplicity $1$, and $x=4$ with multiplicity $1$. What is the least possible degree? *(student-produced response)*
+**11.** A polynomial's graph crosses the x-axis at $x=-2$ and at $x=4$, and touches the x-axis without crossing at $x=1$, with no other x-intercepts. What is the least possible degree of the polynomial? *(student-produced response)*
 
 **12.** Let $F(x)=x^4-5x^2+4$. Which statement is true?
 
@@ -236,9 +236,9 @@ Division can also answer a context question. If $P(x)$ measures a quantity and $
 
     **9.** The root $x=-3$ has multiplicity $3$, which is odd, so the graph crosses there. The root $x=2$ has multiplicity $2$, so the graph touches and turns around there. The answer is **A**.
 
-    **10.** The Remainder Theorem says the remainder from division by $x-3$ is $P(3)$. Evaluate: $2(3)^3-3(3)^2-11(3)+6=54-27-33+6=0$. The answer is **B**.
+    **10.** By the Factor Theorem, $x-3$ is a factor exactly when the remainder is $0$, so $f(3)=0$ for $f(x)=2x^3+kx^2-11x+6$. Evaluate: $f(3)=2(3)^3+k(3)^2-11(3)+6=54+9k-33+6=27+9k$. Setting $27+9k=0$ gives $k=-3$. The answer is **B**.
 
-    **11.** The least degree counts multiplicities: $2+1+1=4$. A polynomial such as $(x-1)^2(x+2)(x-4)$ has that degree.
+    **11.** Crossing at $x=-2$ and $x=4$ requires odd multiplicity at each, and the least odd multiplicity is $1$. Touching without crossing at $x=1$ requires even multiplicity, and the least even multiplicity is $2$. The least degree counts these multiplicities: $1+1+2=4$. A polynomial such as $(x-1)^2(x+2)(x-4)$ has that degree.
 
     **12.** Factor by treating the expression as a quadratic in $x^2$: $x^4-5x^2+4=(x^2-1)(x^2-4)=(x-1)(x+1)(x-2)(x+2)$. Each root has multiplicity $1$, so the graph crosses at each. The answer is **B**.
 
