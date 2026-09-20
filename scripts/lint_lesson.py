@@ -377,6 +377,28 @@ def numeric_signature(text: str) -> list:
     return sorted(re.findall(r"\d+(?:\.\d+)?", body))
 
 
+def canonical_maths(expr: str) -> str:
+    """Put LaTeX and calculator syntax into one form so they can be compared.
+
+    `g(x)=\\frac{3x+2}{x-5}` and the Desmos tip's `y=(3x+2)/(x-5)` are the same
+    function written two ways; without this they share no substring worth
+    noticing and a question rebuilt from a tip box goes unflagged.
+    """
+    e = expr
+    e = re.sub(r"\\d?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"(\1)/(\2)", e)
+    e = re.sub(r"\\(left|right|qquad|quad|,|;|!|ne|neq|cdot|times)\b", " ", e)
+    e = re.sub(r"\\[a-zA-Z]+", " ", e)
+    e = e.replace("{", "").replace("}", "").replace("$", "")
+    e = re.sub(r"\s+", "", e)
+    return e.lower()
+
+
+def longest_shared_run(a: str, b: str) -> str:
+    """The longest substring two expressions have in common."""
+    m = SequenceMatcher(None, a, b, autojunk=False).find_longest_match(0, len(a), 0, len(b))
+    return a[m.a: m.a + m.size]
+
+
 def concrete_expressions(text: str) -> set:
     """The specific maths in a question, whitespace-normalised.
 
@@ -391,9 +413,21 @@ def concrete_expressions(text: str) -> set:
     expression needs at least two digits to be considered a specific case.
     """
     body = re.sub(r"^\s*-?\s*[A-D]\)\s.*$", " ", text, flags=re.MULTILINE)
+
+    # Three places maths hides, and all three have produced a missed duplicate:
+    #   $$...$$  display blocks put the maths on its own line, so an inline
+    #            pattern that cannot cross a newline never sees it
+    #   $...$    ordinary inline maths
+    #   `...`    code spans - the Desmos tips are written in calculator syntax
+    #            rather than LaTeX, and a question was rebuilt from one
+    without_display = re.sub(r"\$\$.+?\$\$", " ", body, flags=re.DOTALL)
+    spans = re.findall(r"\$\$(.+?)\$\$", body, flags=re.DOTALL)
+    spans += re.findall(r"(?<!\$)\$([^$\n]{4,})\$(?!\$)", without_display)
+    spans += re.findall(r"`([^`\n]{6,})`", body)
+
     out = set()
-    for span in re.findall(r"\$([^$\n]{4,})\$", body):
-        norm = re.sub(r"\s+", "", span)
+    for span in spans:
+        norm = canonical_maths(span)
         if len(norm) >= 8 and len(re.findall(r"\d", norm)) >= 2:
             out.add(norm)
     return out
@@ -436,11 +470,21 @@ def check_examples_not_reused(rep: Report, body: str) -> None:
 
         for n, (ex, ex_nums, ex_exprs) in enumerate(examples, 1):
             where = "Worked Example %d" % n if n <= len(raw_examples) else "`The idea`"
-            shared = stem_exprs & ex_exprs
-            if shared:
+
+            # Not set equality. A display block often works a whole chain
+            # through - `A = B = C` - while the question quotes only `A`, and
+            # the same function turns up in LaTeX in one place and calculator
+            # syntax in another. What identifies a copy is a long shared run.
+            best = ""
+            for se in stem_exprs:
+                for ee in ex_exprs:
+                    run = longest_shared_run(se, ee)
+                    if len(run) > len(best) and len(re.findall(r"\d", run)) >= 2:
+                        best = run
+            if len(best) >= 12:
                 rep.error(
                     "Q%s reuses %s - both contain `%s`; the answer is already "
-                    "on the page" % (qnum, where, sorted(shared)[0][:46])
+                    "on the page" % (qnum, where, best[:46])
                 )
                 break
 

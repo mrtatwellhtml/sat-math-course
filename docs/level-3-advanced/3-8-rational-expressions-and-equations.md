@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["3.7"]
 est_minutes: 50
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.8 Rational Expressions and Equations
@@ -36,7 +36,7 @@ To add rational expressions, use a common denominator. To divide, multiply by th
 
 For a rational equation, write every restriction first. Multiply by the least common denominator to remove fractions, solve the resulting equation, and substitute each candidate into the original equation. A candidate that makes an original denominator zero is an extraneous root and must be rejected.
 
-An undefined value can describe a hole or a vertical asymptote. A cancelled factor creates a hole. If the denominator still has a zero after all common factors cancel, the graph has a vertical asymptote there. For a quotient with equal numerator and denominator degrees, the horizontal asymptote is the ratio of leading coefficients. A lower numerator degree gives horizontal asymptote $y=0$.
+An undefined value can describe a hole or a vertical asymptote. A cancelled factor creates a hole, not an asymptote. If the denominator still has a zero after all common factors cancel, the graph has a vertical asymptote there. For a quotient with equal numerator and denominator degrees, the horizontal asymptote is the ratio of leading coefficients. A lower numerator degree gives horizontal asymptote $y=0$.
 
 For a reliable simplification, factor first, record original denominator restrictions, use a common denominator for addition or subtraction, combine and refactor, then cancel only common factors while keeping the restrictions.
 
@@ -50,7 +50,7 @@ For division, multiply by the reciprocal of the second fraction. Factor first, c
 
 When the denominator has more than one factor, clear fractions by multiplying every term by the entire least common denominator. After solving, test each candidate in the original equation. If substitution makes the original expression undefined, reject that candidate.
 
-To read end behavior, compare degrees after factoring and cancelling. If the denominator's degree is larger, the horizontal asymptote is $y=0$. If the degrees are equal, divide the leading coefficients. If the numerator's degree is exactly one larger, polynomial division gives an oblique asymptote. A vertical asymptote comes from a denominator zero that remains after cancellation. A cancelled denominator zero is instead a hole, whose coordinates come from the simplified rule.
+To read end behavior, compare degrees after factoring and cancelling. If the denominator's degree is larger, the horizontal asymptote is $y=0$. If the degrees are equal, divide the leading coefficients to get the horizontal asymptote. A vertical asymptote comes from a denominator zero that remains after cancellation. A cancelled denominator zero gives a hole instead, never an asymptote, and its coordinates come from the simplified rule.
 
 
 !!! tip "Desmos shortcut"
@@ -76,34 +76,36 @@ To read end behavior, compare degrees after factoring and cancelling. If the den
 
 ### Example 2 — typical test difficulty
 
-> Solve $\frac{2}{x-1}+\frac{1}{x+1}=1$.
+> Solve $\frac{x^2-4}{x-2}=2x-3$.
 
-**Thinking:** The restrictions are $x\ne 1$ and $x\ne -1$. I will clear both denominators, then test the candidates in the original equation.
+**Thinking:** The original denominator forbids $x=2$. I will clear the fraction and solve the resulting equation, but a candidate equal to $2$ cannot be reported as a solution even if the algebra produces it.
 
 **Solution:**
 
-1. The least common denominator is $(x-1)(x+1)$, so $x\ne 1,-1$.
-2. Multiply every term by the least common denominator: $2(x+1)+(x-1)=x^2-1$.
-3. Simplify: $3x+1=x^2-1$, so $x^2-3x-2=0$.
-4. The quadratic formula gives $x=\frac{3+\sqrt{17}}{2}$ or $x=\frac{3-\sqrt{17}}{2}$. Neither candidate is $1$ or $-1$, so both are valid.
+1. The original denominator is zero when $x-2=0$, so $x\ne 2$.
+2. Multiply both sides by $x-2$ to clear the fraction: $x^2-4=(2x-3)(x-2)$.
+3. Expand the right side: $x^2-4=2x^2-7x+6$.
+4. Collect terms: $0=x^2-7x+10$, which factors as $(x-2)(x-5)=0$, giving candidates $x=2$ and $x=5$.
+5. Check each candidate in the original equation. Substituting $x=2$ makes the original denominator $x-2$ equal to zero, so $x=2$ is extraneous and must be rejected. Substituting $x=5$ gives $\frac{25-4}{5-2}=7$ on the left and $2(5)-3=7$ on the right, so $x=5$ checks and is valid.
 
-**Answer:** $\frac{3+\sqrt{17}}{2}$ and $\frac{3-\sqrt{17}}{2}$
+**Answer:** $x=5$ (the candidate $x=2$ is extraneous and is rejected)
 
 ### Example 3 — the hard version
 
-> Let $f(x)=\frac{x^2-5x+6}{x-2}$. Identify any hole and the function's oblique asymptote.
+> Let $f(x)=\frac{x^2-2x-3}{x^2-7x+12}$. Identify the hole and the vertical asymptote of the graph of $f$.
 
-**Thinking:** A common factor can create a hole, while the quotient after cancellation describes the line the graph follows. I must report the missing point as well as the asymptote.
+**Thinking:** A factor that cancels between numerator and denominator produces a hole, not an asymptote; a factor that survives in the denominator after cancelling produces a vertical asymptote. I have to factor both completely before I can tell which is which.
 
 **Solution:**
 
-1. The original denominator gives $x\ne 2$.
-2. Factor the numerator: $x^2-5x+6=(x-2)(x-3)$.
-3. Cancel the common factor to get $f(x)=x-3$, still with $x\ne 2$.
-4. The missing point has $x=2$ and would have $y=2-3=-1$, so the hole is $(2,-1)$.
-5. The simplified line $y=x-3$ is the oblique asymptote because the numerator's degree is one greater than the denominator's degree.
+1. Factor the numerator: $x^2-2x-3=(x-3)(x+1)$.
+2. Factor the denominator: $x^2-7x+12=(x-3)(x-4)$.
+3. The original denominator is zero at $x=3$ and $x=4$, so both values are excluded: $x\ne 3,4$.
+4. The factor $x-3$ is common to numerator and denominator, so it cancels: $f(x)=\frac{x+1}{x-4}$ for $x\ne 3$. A cancelled factor gives a hole, not an asymptote, so the graph has a hole at $x=3$, not a break that runs to infinity.
+5. The factor $x-4$ does not cancel, so the denominator is still zero there after simplifying. That remaining zero is the vertical asymptote, $x=4$.
+6. Find the hole's height from the simplified rule: $y=\frac{3+1}{3-4}=-4$, so the hole sits at $(3,-4)$.
 
-**Answer:** Hole $(2,-1)$; oblique asymptote $y=x-3$
+**Answer:** Hole at $(3,-4)$; vertical asymptote $x=4$
 
 ---
 
@@ -124,12 +126,12 @@ To read end behavior, compare degrees after factoring and cancelling. If the den
 
 **Set A — build fluency** <span class="chip chip-easy">easy</span>
 
-**1.** For $x\ne -3$, which expression is equivalent to $\frac{x^2-9}{x+3}$?
+**1.** For $x\ne -5$, which expression is equivalent to $\frac{x^2-25}{x+5}$?
 
-- A) $x-3$
-- B) $x+3$
-- C) $x^2-6$
-- D) $\frac{x-3}{x+3}$
+- A) $x-5$
+- B) $x+5$
+- C) $x^2-10$
+- D) $\frac{x-5}{x+5}$
 
 **2.** Which expression is equivalent to $\frac{2}{x+1}+\frac{3}{x+1}$?
 
@@ -163,39 +165,39 @@ To read end behavior, compare degrees after factoring and cancelling. If the den
 - C) $x=2$
 - D) $x=5$
 
-**7.** Which expression is equivalent to $\frac{1}{x-2}+\frac{2}{x+2}$, where $x\ne 2,-2$?
+**7.** Which expression is equivalent to $\frac{4}{x-3}+\frac{1}{x+3}$, where $x\ne 3,-3$?
 
-- A) $\frac{3x}{x^2-4}$
-- B) $\frac{3x-2}{x^2-4}$
-- C) $\frac{3x+2}{x^2-4}$
-- D) $\frac{3}{2x}$
+- A) $\frac{5}{x^2-9}$
+- B) $\frac{4x+13}{x^2-9}$
+- C) $\frac{5x+9}{x^2-9}$
+- D) $\frac{5x+9}{2x}$
 
 **8.** What is the solution to $\frac{x}{x-3}=2$? *(student-produced response)*
 
-**9.** The function $g(x)=\frac{3x+2}{x-5}$ has which horizontal and vertical asymptotes?
+**9.** The function $g(x)=\frac{4x-1}{x+2}$ has which horizontal and vertical asymptotes?
 
-- A) Horizontal $y=3$ and vertical $x=5$
-- B) Horizontal $y=5$ and vertical $x=3$
-- C) Horizontal $y=2$ and vertical $x=5$
-- D) Horizontal $y=0$ and vertical $x=-5$
+- A) Horizontal $y=4$ and vertical $x=-2$
+- B) Horizontal $y=-2$ and vertical $x=4$
+- C) Horizontal $y=-1$ and vertical $x=-2$
+- D) Horizontal $y=0$ and vertical $x=2$
 
 **Set C — stretch** <span class="chip chip-hard">hard</span>
 
-**10.** Which statement correctly solves $\frac{x-2}{x-2}=0$?
+**10.** What is the solution to $\frac{2}{x-1}-\frac{3}{x+2}=\frac{1}{x^2+x-2}$?
 
-- A) $x=0$
-- B) $x=2$
-- C) $x=-2$
-- D) There is no solution
+- A) $x=-6$
+- B) $x=-2$
+- C) $x=0$
+- D) $x=6$
 
-**11.** Let $h(x)=\frac{x^2-5x+6}{x-2}$. What is the $y$-coordinate of the hole in the graph of $h$? *(student-produced response)*
+**11.** The function $r(x)=\frac{x^2+bx-12}{x-3}$, where $b$ is a constant, has a hole at $x=3$. What is the value of $b$? *(student-produced response)*
 
-**12.** The equation $-\frac{1}{x-1}+\frac{3}{x-3}=1$ has two solutions. What is the sum of the solutions?
+**12.** The equation $\frac{x^2-36}{x-6}=2x-2$ has exactly one valid solution; a second algebraic candidate is extraneous. What is the valid solution?
 
-- A) $3$
-- B) $5$
-- C) $6$
-- D) $8$
+- A) $x=2$
+- B) $x=6$
+- C) $x=8$
+- D) $x=14$
 
 </div>
 
@@ -212,15 +214,15 @@ To read end behavior, compare degrees after factoring and cancelling. If the den
     | 4 | B |
     | 5 | D |
     | 6 | C |
-    | 7 | B |
+    | 7 | C |
     | 8 | 6 |
     | 9 | A |
     | 10 | D |
-    | 11 | -1 |
+    | 11 | 1 |
     | 12 | C |
 
 ??? success "Show full solutions"
-    **1.** Factor the numerator: $x^2-9=(x-3)(x+3)$. Since $x\ne -3$, cancel $x+3$ to get $x-3$. The answer is **A**.
+    **1.** Factor the numerator: $x^2-25=(x-5)(x+5)$. Since $x\ne -5$, cancel $x+5$ to get $x-5$. The answer is **A**.
 
     **2.** The denominators match, so add the numerators: $\frac{2+3}{x+1}=\frac{5}{x+1}$. The answer is **A**.
 
@@ -232,17 +234,17 @@ To read end behavior, compare degrees after factoring and cancelling. If the den
 
     **6.** Combine the left side: $\frac{3}{x+3}=\frac{3}{5}$. Since $x\ne -3$, cross-multiply to get $15=3x+9$, so $x=2$. The answer is **C**.
 
-    **7.** The common denominator is $(x-2)(x+2)=x^2-4$. The numerator is $(x+2)+2(x-2)=3x-2$, giving $\frac{3x-2}{x^2-4}$. The answer is **B**.
+    **7.** The common denominator is $(x-3)(x+3)=x^2-9$. The numerator is $4(x+3)+1(x-3)=5x+9$, giving $\frac{5x+9}{x^2-9}$. The answer is **C**.
 
     **8.** The restriction is $x\ne 3$. Multiply by $x-3$: $x=2x-6$. Thus $x=6$, which is allowed.
 
-    **9.** The denominator is zero at $x=5$, so the vertical asymptote is $x=5$. The degrees match, so the horizontal asymptote is the ratio of leading coefficients, $y=3$. The answer is **A**.
+    **9.** The denominator is zero at $x=-2$, so the vertical asymptote is $x=-2$. The degrees match, so the horizontal asymptote is the ratio of leading coefficients, $y=4$. The answer is **A**.
 
-    **10.** The expression is undefined at $x=2$, so $x=2$ cannot be a solution. For every allowed $x$, $\frac{x-2}{x-2}=1$, never $0$. There is no solution, so the answer is **D**.
+    **10.** Factor the third denominator: $x^2+x-2=(x-1)(x+2)$, the same least common denominator as the first two terms, so $x\ne 1,-2$. Multiply every term by $(x-1)(x+2)$: $2(x+2)-3(x-1)=1$. Distributing gives $2x+4-3x+3=1$, so $-x+7=1$ and $x=6$. This is allowed since $6\ne 1,-2$. The answer is **D**. (Dropping the negative sign while distributing $-3(x-1)$ gives the distractor $x=-6$; a sign error on the other term gives $x=0$; mistaking an excluded value for a solution gives $x=-2$.)
 
-    **11.** Factor: $h(x)=\frac{(x-2)(x-3)}{x-2}=x-3$, with $x\ne 2$. The missing point has $y=2-3=-1$.
+    **11.** A hole at $x=3$ means the numerator must also equal zero there, so $(x-3)$ is a factor of $x^2+bx-12$. Substitute $x=3$: $9+3b-12=0$, so $3b=3$ and $b=1$.
 
-    **12.** The restrictions are $x\ne 1,3$. Multiply by $(x-1)(x-3)$: $-(x-3)+3(x-1)=(x-1)(x-3)$. Simplifying gives $2x=x^2-4x+3$, or $x^2-6x+3=0$. By the sum-of-roots relationship, the two solutions have sum $6$. Neither solution is $1$ or $3$, so both are allowed. The answer is **C**.
+    **12.** The restriction is $x\ne 6$. Multiply both sides by $x-6$: $x^2-36=(2x-2)(x-6)$. Expanding the right side gives $2x^2-14x+12$, so $0=x^2-14x+48=(x-6)(x-8)$, giving candidates $x=6$ and $x=8$. Substituting $x=6$ makes the original denominator zero, so it is extraneous and must be rejected. Substituting $x=8$ gives $\frac{64-36}{8-6}=14$ on the left and $2(8)-2=14$ on the right, so $x=8$ checks and is the valid solution. The answer is **C**.
 
 ---
 
