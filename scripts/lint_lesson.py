@@ -377,6 +377,28 @@ def numeric_signature(text: str) -> list:
     return sorted(re.findall(r"\d+(?:\.\d+)?", body))
 
 
+def concrete_expressions(text: str) -> set:
+    """The specific maths in a question, whitespace-normalised.
+
+    This is the reliable signal for a reused example, because a maths question
+    is mostly maths: comparing the prose around it fails badly when the stem is
+    a formula and three words. Example 3 of lesson 3.6 normalises to fourteen
+    characters of prose, so a verbatim copy of it scored 0.32 on a word diff
+    and slipped through.
+
+    Only concrete instances count. A general form such as `f(x)=a(x-h)^2+k`
+    legitimately appears in both the teaching and the questions, so an
+    expression needs at least two digits to be considered a specific case.
+    """
+    body = re.sub(r"^\s*-?\s*[A-D]\)\s.*$", " ", text, flags=re.MULTILINE)
+    out = set()
+    for span in re.findall(r"\$([^$\n]{4,})\$", body):
+        norm = re.sub(r"\s+", "", span)
+        if len(norm) >= 8 and len(re.findall(r"\d", norm)) >= 2:
+            out.add(norm)
+    return out
+
+
 def check_examples_not_reused(rep: Report, body: str) -> None:
     """A practice question must not be a worked example with the serial filed off.
 
@@ -387,13 +409,21 @@ def check_examples_not_reused(rep: Report, body: str) -> None:
     something writes both.
     """
     worked = section(body, "## Worked examples")
+    idea = section(body, "## The idea")
     practice = section(body, "## Practice")
     if not worked or not practice:
         return
 
     raw_examples = re.findall(r"^>\s?(.+(?:\n>.*)*)", worked, flags=re.MULTILINE)
-    examples = [(normalise_for_compare(m), numeric_signature(m)) for m in raw_examples]
-    examples = [(t, n) for t, n in examples if len(t) > 40]
+    examples = [
+        (normalise_for_compare(m), numeric_signature(m), concrete_expressions(m))
+        for m in raw_examples
+    ]
+    # The concept section often works a full computation through as an
+    # illustration. A question rebuilt on those numbers is just as much a
+    # giveaway as one copied from a worked example - lesson 3.8 had one.
+    if idea:
+        examples.append((normalise_for_compare(idea), [], concrete_expressions(idea)))
     if not examples:
         return
 
@@ -401,24 +431,30 @@ def check_examples_not_reused(rep: Report, body: str) -> None:
     for i in range(1, len(blocks) - 1, 2):
         qnum, raw = blocks[i], blocks[i + 1]
         stem = normalise_for_compare(raw)
-        if len(stem) < 40:
-            continue
         stem_nums = numeric_signature(raw)
-        for n, (ex, ex_nums) in enumerate(examples, 1):
-            # Prose similarity alone means nothing - every question in a lesson
-            # shares its phrasing, and two stems differing only in their digits
-            # still score ~98% on a character diff. A reused example is one that
-            # kept the *same numbers*, so that is the test. The prose ratio is
-            # only a guard against coincidentally equal number sets.
-            if len(stem_nums) < 3 or stem_nums != ex_nums:
-                continue
-            ratio = SequenceMatcher(None, stem[:400], ex[:400]).ratio()
-            if ratio >= 0.60:
+        stem_exprs = concrete_expressions(raw)
+
+        for n, (ex, ex_nums, ex_exprs) in enumerate(examples, 1):
+            where = "Worked Example %d" % n if n <= len(raw_examples) else "`The idea`"
+            shared = stem_exprs & ex_exprs
+            if shared:
                 rep.error(
-                    "Q%s reuses Worked Example %d - same numbers (%s), %.0f%% "
-                    "identical wording; the answer is already on the page"
-                    % (qnum, n, ", ".join(stem_nums[:6]), ratio * 100)
+                    "Q%s reuses %s - both contain `%s`; the answer is already "
+                    "on the page" % (qnum, where, sorted(shared)[0][:46])
                 )
+                break
+
+            # Fallback for questions carrying little inline maths: identical
+            # number sets plus closely matching prose.
+            if len(stem_nums) >= 3 and stem_nums == ex_nums and len(stem) >= 40:
+                ratio = SequenceMatcher(None, stem[:400], ex[:400]).ratio()
+                if ratio >= 0.60:
+                    rep.error(
+                        "Q%s reuses Worked Example %d - same numbers (%s), %.0f%% "
+                        "identical wording; the answer is already on the page"
+                        % (qnum, n, ", ".join(stem_nums[:6]), ratio * 100)
+                    )
+                    break
 
 
 def check_admonition_indent(rep: Report, body: str) -> None:

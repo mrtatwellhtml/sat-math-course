@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["3.7"]
 est_minutes: 50
-status: verified
-verified_by: "math-verifier 2026-09-20"
+status: drafted
+verified_by: ""
 ---
 
 # 3.8 Rational Expressions and Equations
