@@ -4,66 +4,45 @@ State of the build, decisions already made, and what to do next. Update this
 at the end of any working session. `CLAUDE.md` says how the pipeline is meant
 to work; this file says where the work actually got to and what it ran into.
 
-**Last updated:** 2026-09-20
+**Last updated:** 2026-09-20 (Levels 1 and 3 complete)
 
 ---
 
 ## Where the course stands
 
-**11 of 48 lessons verified. 2 drafted. 35 not started.**
+**19 of 48 lessons verified. 0 drafted. 29 not started.**
 
 | Level | Domain | Share of test | State |
 |-------|--------|---------------|-------|
 | 1 — Algebra | ~35% | **Complete, all 8 verified** |
-| 3 — Advanced Math | ~35% | 3.2 and 3.4 verified; 3.1 and 3.3 drafted; 3.5–3.10 not started |
+| 3 — Advanced Math | ~35% | **Complete, all 10 verified** |
 | 5 — Test Craft | strategy | 5.2 verified; 5.1, 5.3–5.7 not started |
 | 2 — Data | ~15% | not started |
 | 4 — Geometry | ~15% | not started |
 | 0 — Foundations | gated | not started |
 
-Both placement instruments (Level 0 gate, full diagnostic) were written in the
-first session and are usable.
+Levels 1 and 3 together are roughly 70% of the scored section, and both are
+done. Both placement instruments are usable.
 
-Run `python scripts/status.py` for the live picture. Do not trust this table
+Run `python scripts/status.py` for the live picture; do not trust this table
 over the script.
+
+The site is live and self-updating, and every written lesson also publishes a
+printable worksheet and a separate answer key.
 
 ---
 
-## Immediate next actions, in order
+## Immediate next actions
 
-These three were dispatched and killed by a session limit before doing
-anything. The repo is clean — no partial edits to undo.
+Build order by exam value is **Level 5, then 2, then 4, then 0** — set out in
+`CLAUDE.md`. Level 5 is next because it is strategy that lifts scores across
+every domain, and 5.1, 5.3–5.7 are unwritten.
 
-1. **Rebalance grid-ins in 3.2** — it has 6 student-produced responses,
-   spec is 3–4. A verifier recommended converting **Q2** (find `b` in the
-   expansion of `(x+6)(x-4)`) and **Q4** (find `c` in `(x-9)(x-2)`)
-   specifically, with a good reason: both are "distribute and read off a
-   coefficient" tasks, and as grid-ins a sign slip just produces a wrong
-   number with no diagnostic signal. As multiple choice with sign-flipped
-   distractors they catch the exact misconception the lesson's Common Errors
-   section names. Leave Q6, Q8, Q10, Q12 as grid-ins. **3.2 is currently
-   marked `verified`; that verification predates this change, so set it back
-   to `drafted` and re-verify afterwards.**
-
-2. **Rebalance grid-ins in 3.3** — also 6, bring to 4. Prefer converting
-   questions whose characteristic errors give nameable wrong values (taking
-   only the positive square root, a sign error on `-b`, giving the sum of the
-   roots when one root was asked for). **Do not convert the discriminant
-   tangency question** — a parameter value is a clean grid-in, it is the
-   set's hardest question, and four options would let a student backsolve
-   past the reasoning. Watch that no remaining grid-in has an irrational
-   answer; quadratic roots often are, and those cannot be entered.
-
-3. **Verify 3.1** — drafted, 12 questions, 4 grid-ins, never verified. Three
-   things to press on: that no question needs a picture (see *No images*
-   below), that `f(a)` and `f(x) = k` questions are unambiguous and do not
-   accidentally give the same value under both readings, and that composition
-   distractors really are what the reversed order produces. Its teaching
-   section runs ~1,830 words against a 1,200–1,800 target — an authorial call,
-   not a blocker.
-
-Then continue Level 3 (3.5–3.10), then Level 5, then 2, then 4, then 0. Build
-order is by exam value and is set out in `CLAUDE.md`.
+**The one piece of known outstanding work** is the grid-in cleanup. Ten
+lessons still carry 5 or 6 student-produced responses against the corrected
+band of 3–4: 1.1, 1.2, 1.3, 1.4, 1.7, 1.8, 3.4 and 5.2 at 5, and two others.
+None is wrong — all were verified — so it is polish, and both checkers warn
+rather than fail on it.
 
 ---
 
