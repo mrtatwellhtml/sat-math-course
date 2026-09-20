@@ -352,6 +352,32 @@ def check_boilerplate(rep: Report, body: str) -> None:
             rep.error("template boilerplate left in the lesson: %r" % phrase)
 
 
+def check_admonition_indent(rep: Report, body: str) -> None:
+    """Content inside `???`/`!!!` blocks must be indented four spaces.
+
+    One to three spaces silently drops the line out of the collapsible block
+    when MkDocs renders it - the answer row or solution paragraph simply is not
+    where the student expects it, and nothing else here notices, because every
+    other check allows arbitrary leading whitespace. Editing a question in
+    place is how this gets introduced.
+    """
+    in_block = False
+    for i, line in enumerate(body.splitlines(), 1):
+        if re.match(r"^(\?\?\?|!!!)", line):
+            in_block = True
+            continue
+        if not in_block or not line.strip():
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        if indent == 0:
+            in_block = False
+        elif indent < 4:
+            rep.error(
+                "line %d: indented %d space(s) inside an admonition - needs 4, "
+                "or it drops out of the block: %r" % (i, indent, line.strip()[:48])
+            )
+
+
 def check_nav(rep: Report, body: str) -> None:
     tail = body[body.find("## Tutor notes"):] if "## Tutor notes" in body else body
     links = re.findall(r"\[([^\]]+)\]\(([^)\s]+\.md)\)", tail)
@@ -386,6 +412,7 @@ def lint(lesson_id: str, entry: dict) -> Report:
     check_prose(rep, body)
     check_length(rep, body)
     check_boilerplate(rep, body)
+    check_admonition_indent(rep, body)
     check_nav(rep, body)
     return rep
 

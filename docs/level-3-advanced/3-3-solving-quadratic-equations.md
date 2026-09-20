@@ -266,11 +266,11 @@ terms of $k$ and force $b^2 - 4ac = 0$.
     | # | Answer |
     |---|--------|
     | 1 | A |
-   | 2 | D |
+    | 2 | D |
     | 3 | B |
     | 4 | B |
     | 5 | B |
-   | 6 | C |
+    | 6 | C |
     | 7 | B |
     | 8 | A |
     | 9 | 5 |
@@ -287,14 +287,14 @@ terms of $k$ and force $b^2 - 4ac = 0$.
     forgetting to divide by 2 before taking the square root, then doubling
     by mistake.)
 
-   **2.** There is a linear term, and the coefficients are small, so try
-   factoring. Look for two integers that multiply to $-10$ and add to
-   $-3$: those are $-5$ and $2$. So $x^2 - 3x - 10 = (x-5)(x+2)$.
-   Setting each factor to zero gives $x = 5$ or $x = -2$. The greater
-   solution is $x = 5$, so choice D is correct. Choice A comes from
-   changing the sign while solving $x-5=0$, choice B gives the other
-   root, and choice C gives the sum of the two roots instead of the
-   greater root.
+    **2.** There is a linear term, and the coefficients are small, so try
+    factoring. Look for two integers that multiply to $-10$ and add to
+    $-3$: those are $-5$ and $2$. So $x^2 - 3x - 10 = (x-5)(x+2)$.
+    Setting each factor to zero gives $x = 5$ or $x = -2$. The greater
+    solution is $x = 5$, so choice D is correct. Choice A comes from
+    changing the sign while solving $x-5=0$, choice B gives the other
+    root, and choice C gives the sum of the two roots instead of the
+    greater root.
 
     **3.** Read off $a = 1$, $b = -6$, $c = 9$. The discriminant is
     $b^2 - 4ac = (-6)^2 - 4(1)(9) = 36 - 36 = 0$. A discriminant of zero
@@ -316,15 +316,15 @@ terms of $k$ and force $b^2 - 4ac = 0$.
     square roots skip entirely, and the quadratic formula works but is
     the slowest correct path.
 
-   **6.** The leading coefficient is not 1, but the numbers are still
-   small enough to try factoring by grouping. Multiply $a$ and $c$:
-   $3 \times (-2) = -6$. Find two integers that multiply to $-6$ and add
-   to $5$: those are $6$ and $-1$. Rewrite: $3x^2 + 6x - x - 2 = 0$, then
-   group: $3x(x+2) - 1(x+2) = 0$, so $(3x-1)(x+2) = 0$. This gives
-   $x = \frac{1}{3}$ or $x = -2$. The positive solution is
-   $x = \dfrac{1}{3}$, so choice C is correct. Choice A gives the
-   negative root, choice B changes the sign while solving $3x-1=0$, and
-   choice D changes the sign of the negative root.
+    **6.** The leading coefficient is not 1, but the numbers are still
+    small enough to try factoring by grouping. Multiply $a$ and $c$:
+    $3 \times (-2) = -6$. Find two integers that multiply to $-6$ and add
+    to $5$: those are $6$ and $-1$. Rewrite: $3x^2 + 6x - x - 2 = 0$, then
+    group: $3x(x+2) - 1(x+2) = 0$, so $(3x-1)(x+2) = 0$. This gives
+    $x = \frac{1}{3}$ or $x = -2$. The positive solution is
+    $x = \dfrac{1}{3}$, so choice C is correct. Choice A gives the
+    negative root, choice B changes the sign while solving $3x-1=0$, and
+    choice D changes the sign of the negative root.
 
     **7.** The constant term 1 does not factor with any pair of integers
     that adds to 4, so factoring will not work cleanly — go straight to

@@ -311,9 +311,12 @@ What is that constant? *(student-produced response)*
 
     **2.** Expand by distributing every term:
     $(x + 6)(x - 4) = x^2 - 4x + 6x - 24 = x^2 + 2x - 24$. Matching to
-    $x^2 + bx + c$ gives $b = 2$, so choice C is correct. The other
-    choices come from combining the middle terms with the wrong signs or
-    using their magnitudes without combining them correctly. **Answer: C**
+    $x^2 + bx + c$ gives $b = 2$, so choice C is correct. A is the sign
+    slip this lesson warns about: distributing $6(x - 4)$ as $-6x - 24$
+    instead of $+6x - 24$ turns the middle term into $-4x - 6x = -10x$.
+    D drops the negative on $-4$ entirely, adding $6 + 4$. B swaps the
+    subtraction order on the magnitudes, $4 - 6$, instead of correctly
+    combining $-4x + 6x$. **Answer: C**
 
     **3.** $x^2 - 64$ is a difference of squares:
     $x^2 - 8^2 = (x - 8)(x + 8)$. B applies the perfect-square-trinomial

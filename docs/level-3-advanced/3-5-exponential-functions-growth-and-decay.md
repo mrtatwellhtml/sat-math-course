@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["0.3", "3.1"]
 est_minutes: 55
-status: verified
-verified_by: "math-verifier 2026-09-20"
+status: drafted
+verified_by: ""
 ---
 
 # 3.5 Exponential Functions: Growth and Decay
@@ -85,8 +85,8 @@ For a graph, check the scale and the labels before deciding what the curve means
 **Solution:**
 
 1. Write the models using $n$ 2-year periods: $A(n)=900(1.08)^n$ and $B(n)=1{,}100(1.04)^n$.
-2. Check $n=5$: $A(5)=900(1.08)^5\approx1{,}322.41$, while $B(5)=1{,}100(1.04)^5\approx1{,}338.72$. A has not exceeded B.
-3. Check $n=6$: $A(6)=900(1.08)^6\approx1{,}428.20$, while $B(6)=1{,}100(1.04)^6\approx1{,}392.27$. A now exceeds B.
+2. Check $n=5$: $A(5)=900(1.08)^5\approx1{,}322.40$, while $B(5)=1{,}100(1.04)^5\approx1{,}338.32$. A has not exceeded B.
+3. Check $n=6$: $A(6)=900(1.08)^6\approx1{,}428.19$, while $B(6)=1{,}100(1.04)^6\approx1{,}391.85$. A now exceeds B.
 4. Because the question asks for the first whole number of periods, the answer is 6 periods, or 12 years.
 
 **Answer:** 6 two-year periods, or 12 years
