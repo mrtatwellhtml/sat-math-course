@@ -24,6 +24,12 @@ Concretely:
   reference, not the model's. `curriculum/reference-index.md` has their
   tables of contents, which is all any lesson needs.
 
+## Start here
+
+`HANDOVER.md` has the current build state, the next actions in order, the
+decisions already made and the traps this build has hit. Read it before
+starting work and update it before stopping.
+
 ## Repository map
 
 ```
