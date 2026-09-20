@@ -125,7 +125,7 @@ The rule works for every family. For instance, $|x|$ with a right shift becomes 
 - C) $g(x)=-f(x)+4$
 - D) $g(x)=f(x+4)$
 
-**3.** The graph of $y=f(x)$ contains the point $(2,-1)$. If $g(x)=f(x+3)-2$, what is the $y$-coordinate of the corresponding point on $g$? *(student-produced response)*
+**3.** The graph of $y=f(x)$ contains the point $(2,7)$. If $g(x)=f(x+3)-2$, what is the $y$-coordinate of the corresponding point on $g$? *(student-produced response)*
 
 **4.** A table gives $f(0)=1$, $f(1)=3$, and $f(2)=5$. If $g(x)=f(x-2)+1$, what is $g(2)$?
 
@@ -136,12 +136,12 @@ The rule works for every family. For instance, $|x|$ with a right shift becomes 
 
 **Set B — test level** <span class="chip chip-medium">medium</span>
 
-**5.** Let $p(x)=|x|$ and $q(x)=-2p(x+1)+3$. Which description is correct?
+**5.** Let $p(x)=|x|$ and $q(x)=-3p(x-2)+1$. Which description is correct?
 
-- A) left 1, reflection across the $x$-axis, vertical stretch by 2, up 3
-- B) right 1, reflection across the $y$-axis, horizontal stretch by 2, up 3
-- C) left 1, vertical stretch by 2, down 3
-- D) right 1, reflection across the $x$-axis, vertical stretch by 2, down 3
+- A) right 2, reflection across the $x$-axis, vertical stretch by 3, up 1
+- B) left 2, reflection across the $y$-axis, horizontal stretch by 3, up 1
+- C) right 2, vertical stretch by 3, down 1
+- D) left 2, reflection across the $x$-axis, vertical stretch by 3, down 1
 
 **6.** The domain of $f$ is $[-2,5]$. What is the domain of $g(x)=f(x-4)+1$?
 
@@ -173,7 +173,7 @@ The rule works for every family. For instance, $|x|$ with a right shift becomes 
 
 **Set C — stretch** <span class="chip chip-hard">hard</span>
 
-**10.** The graph of $y=f(x)$ contains the point $(-2,5)$. If $g(x)=-f(2x+6)+4$, what is the $y$-coordinate of the corresponding point on $g$? *(student-produced response)*
+**10.** The graph of $y=f(x)$ contains the point $(-2,1)$. If $g(x)=-f(2x+6)+4$, what is the $y$-coordinate of the corresponding point on $g$? *(student-produced response)*
 
 **11.** The vertex of $f(x)$ is $(-2,4)$. Define $g(x)=2f(-x+3)-1$. What is the vertex of $g$?
 
@@ -195,14 +195,14 @@ The rule works for every family. For instance, $|x|$ with a right shift becomes 
     |---|--------|
     | 1 | C |
     | 2 | C |
-    | 3 | $-3$ |
+    | 3 | $5$ |
     | 4 | B |
     | 5 | A |
     | 6 | C |
     | 7 | B |
     | 8 | B |
     | 9 | B |
-    | 10 | $-1$ |
+    | 10 | $3$ |
     | 11 | B |
     | 12 | $3$ |
 
@@ -211,11 +211,11 @@ The rule works for every family. For instance, $|x|$ with a right shift becomes 
 
     **2.** Reflection across the $x$-axis changes $f(x)$ to $-f(x)$. Adding 4 shifts the result up 4, so $g(x)=-f(x)+4$. The answer is **C**.
 
-    **3.** The new input is found from $x+3=2$, giving $x=-1$. The new output is $-1-2=-3$.
+    **3.** The new input is found from $x+3=2$, giving $x=-1$. The new output is $7-2=5$.
 
     **4.** In $g(2)=f(2-2)+1=f(0)+1$, substitute $f(0)=1$. Thus $g(2)=2$, which is **B**.
 
-    **5.** The input $x+1$ shifts left 1. The factor $-2$ reflects across the $x$-axis and stretches vertically by 2. The outside $+3$ shifts up 3. The answer is **A**.
+    **5.** The input $x-2$ shifts right 2. The factor $-3$ reflects across the $x$-axis and stretches vertically by 3. The outside $+1$ shifts up 1. The answer is **A**.
 
     **6.** The input to $f$ must be between $-2$ and 5: $-2\le x-4\le5$. Adding 4 throughout gives $2\le x\le9$. The answer is **C**.
 
@@ -225,7 +225,7 @@ The rule works for every family. For instance, $|x|$ with a right shift becomes 
 
     **9.** The input 2 in $g(2)$ matches the input 0 in $f(0)$, so the horizontal shift is right 2: use $f(x-2)$. The outputs change from $2,5,10$ to $-1,2,7$, which is subtracting 3. Thus $g(x)=f(x-2)-3$, **B**.
 
-    **10.** Match the transformed input to the old input: $2x+6=-2$, so $2x=-8$ and $x=-4$. The new output is $-f(-2)+4=-5+4=-1$.
+    **10.** Match the transformed input to the old input: $2x+6=-2$, so $2x=-8$ and $x=-4$. The new output is $-f(-2)+4=-1+4=3$.
 
     **11.** The old vertex input is $-2$. Solve the transformed input equation $-x+3=-2$, giving $x=5$. The output becomes $2(4)-1=7$. The vertex is $(5,7)$, **B**.
 

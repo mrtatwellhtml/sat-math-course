@@ -116,12 +116,12 @@ The repeated root in a tangent case is also useful. If $ax^2+bx+c=0$ has $\Delta
 
 **Set A — build fluency** <span class="chip chip-easy">easy</span>
 
-**1.** The graphs of $y=x^2$ and $y=2x+3$ intersect at two points. What is the larger $x$-coordinate of an intersection?
+**1.** The graphs of $y=x^2$ and $y=3x+4$ intersect at two points. What is the larger $x$-coordinate of an intersection?
 
 - A) $-1$
-- B) $1$
-- C) $2$
-- D) $3$
+- B) $2$
+- C) $3$
+- D) $4$
 
 **2.** Which pair gives the $x$-coordinates of the intersections of $y=x^2$ and $y=x+2$?
 
@@ -148,7 +148,7 @@ The repeated root in a tangent case is also useful. If $ax^2+bx+c=0$ has $\Delta
 - C) $(3-\sqrt{2},12-4\sqrt{2})$ and $(3+\sqrt{2},12+4\sqrt{2})$
 - D) $(3-\sqrt{3},4-2\sqrt{3})$ and $(3+\sqrt{3},4+2\sqrt{3})$
 
-**6.** How many points of intersection are there between $y=x^2+2x+5$ and $y=-2x+1$?
+**6.** How many points of intersection are there between $y=x^2+3x+10$ and $y=-3x+1$?
 
 - A) 0
 - B) 1
@@ -187,7 +187,7 @@ The repeated root in a tangent case is also useful. If $ax^2+bx+c=0$ has $\Delta
 - C) 2
 - D) 3
 
-**12.** The line $y=6x+b$ is tangent to the parabola $y=x^2-2x+20$. What is the value of $b$? *(student-produced response)*
+**12.** The line $y=2x+b$ is tangent to the parabola $y=x^2-6x+34$. What is the value of $b$? *(student-produced response)*
 
 </div>
 
@@ -209,10 +209,10 @@ The repeated root in a tangent case is also useful. If $ax^2+bx+c=0$ has $\Delta
     | 9 | C |
     | 10 | C |
     | 11 | C |
-    | 12 | 4 |
+    | 12 | 18 |
 
 ??? success "Show full solutions"
-    **1.** Set the equations equal: $x^2=2x+3$, so $x^2-2x-3=0$. Factoring gives $(x-3)(x+1)=0$, so the larger $x$-coordinate is $3$. The answer is **D**.
+    **1.** Set the equations equal: $x^2=3x+4$, so $x^2-3x-4=0$. Factoring gives $(x-4)(x+1)=0$, so the larger $x$-coordinate is $4$. The answer is **D**.
 
     **2.** Set the equations equal: $x^2=x+2$, so $x^2-x-2=0$. Factoring gives $(x-2)(x+1)=0$, so the $x$-coordinates are $-1$ and $2$. The answer is **B**.
 
@@ -222,7 +222,7 @@ The repeated root in a tangent case is also useful. If $ax^2+bx+c=0$ has $\Delta
 
     **5.** Set the equations equal: $x^2-2x+6=4x$, so $x^2-6x+6=0$. The quadratic formula gives $x=3\pm\sqrt{3}$. Using $y=4x$ gives $y=12\pm4\sqrt{3}$ with matching signs. The answer is **A**.
 
-    **6.** Set the equations equal: $x^2+2x+5=-2x+1$, so $x^2+4x+4=0$. The discriminant is $4^2-4(1)(4)=0$, so there is 1 intersection point. The answer is **B**.
+    **6.** Set the equations equal: $x^2+3x+10=-3x+1$, so $x^2+6x+9=0$. The discriminant is $6^2-4(1)(9)=0$, so there is 1 intersection point. The answer is **B**.
 
     **7.** Set the equations equal: $x^2+4x+k=2x+1$, so $x^2+2x+(k-1)=0$. Tangency requires $\Delta=0$: $2^2-4(1)(k-1)=0$. Thus $4-4k+4=0$, so $k=2$.
 
@@ -234,7 +234,7 @@ The repeated root in a tangent case is also useful. If $ax^2+bx+c=0$ has $\Delta
 
     **11.** Set the equations equal: $2x^2-8x+9=4x-3$, so $2x^2-12x+12=0$. Dividing by 2 gives $x^2-6x+6=0$, whose discriminant is $36-24=12>0$. Therefore there are 2 intersection points. The answer is **C**.
 
-    **12.** Set the equations equal: $x^2-2x+20=6x+b$, so $x^2-8x+(20-b)=0$. Tangency requires $(-8)^2-4(1)(20-b)=0$, so $64-80+4b=0$. Therefore $b=4$.
+    **12.** Set the equations equal: $x^2-6x+34=2x+b$, so $x^2-8x+(34-b)=0$. Tangency requires $(-8)^2-4(1)(34-b)=0$, so $64-136+4b=0$. Therefore $4b=72$ and $b=18$.
 
 ---
 
