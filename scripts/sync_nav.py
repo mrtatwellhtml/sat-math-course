@@ -37,6 +37,7 @@ def main() -> int:
         "      - Overview: placement/index.md",
         "      - Level 0 Placement Check: placement/level-0-check.md",
         "      - Full Diagnostic: placement/full-diagnostic.md",
+        "  - Printable worksheets: worksheets/index.md",
     ]
     stubbed = 0
 
@@ -77,7 +78,10 @@ def main() -> int:
             nav_lines.append(f'      - "{lesson["id"]} {lesson["title"]}": {rel.as_posix()}')
 
     text = MKDOCS.read_text(encoding="utf-8")
-    head = text.split("nav:")[0].rstrip() + "\n\n"
+    # Anchor to a line start. Splitting on the bare string "nav:" also
+    # matches keys that merely contain it, such as not_in_nav:, and
+    # truncates the config mid-key - a YAML error far from its cause.
+    head = re.split(r"^nav:", text, maxsplit=1, flags=re.M)[0].rstrip() + "\n\n"
     MKDOCS.write_text(head + "\n".join(nav_lines) + "\n", encoding="utf-8")
 
     total = sum(len(l["lessons"]) for l in data["levels"])

@@ -1,0 +1,142 @@
+/* Print and Save-as-PDF styling.
+ *
+ * The goal is that Ctrl+P on a worksheet produces something you could hand to
+ * a student: questions, room to work, no site furniture, no colour that a
+ * mono laser printer turns into grey mud.
+ */
+
+/* Name/date rule on a worksheet, on screen and on paper. */
+.worksheet-meta {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+@media print {
+  /* Site furniture: none of it belongs on a printed sheet. */
+  .md-header,
+  .md-tabs,
+  .md-sidebar,
+  .md-footer,
+  .md-nav,
+  .md-search,
+  .md-top,
+  .md-content__button,
+  .md-source,
+  .md-dialog {
+    display: none !important;
+  }
+
+  /* Material constrains the content column; on paper we want the page. */
+  .md-main__inner,
+  .md-content,
+  .md-content__inner,
+  .md-grid {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  /* Force light regardless of the reader's theme - dark mode prints as a
+     black rectangle and empties the toner cartridge doing it. */
+  :root,
+  [data-md-color-scheme="slate"] {
+    --md-default-bg-color: #fff !important;
+    --md-default-fg-color: #000 !important;
+    --md-typeset-color: #000 !important;
+    --md-primary-fg-color: #000 !important;
+  }
+
+  body,
+  .md-typeset {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  /* A question and its options must not be split across a page break. */
+  .md-typeset p:has(+ ul),
+  .md-typeset ul,
+  .md-typeset table,
+  .md-typeset .admonition,
+  .md-typeset details {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .md-typeset h1,
+  .md-typeset h2,
+  .md-typeset h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .md-typeset h1 {
+    font-size: 16pt;
+    border-bottom: 1.5pt solid #000;
+    padding-bottom: 3pt;
+  }
+
+  .md-typeset h2 {
+    font-size: 13pt;
+    margin-top: 14pt;
+  }
+
+  /* Working space after each question. Numbered questions are bold-first
+     paragraphs; give them room rather than packing the page. */
+  .practice p {
+    margin-bottom: 10pt;
+  }
+
+  .practice ul {
+    margin-top: 2pt;
+  }
+
+  /* Difficulty chips print as outlines so they survive greyscale. */
+  .chip {
+    border: 0.5pt solid #000 !important;
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 4pt;
+    border-radius: 3pt;
+    font-size: 8pt;
+  }
+
+  /* Collapsible blocks are open on the answer-key page; make sure print
+     honours that rather than emitting a summary line alone. */
+  .md-typeset details {
+    display: block !important;
+    border: 0.5pt solid #666;
+  }
+
+  .md-typeset details > summary {
+    font-weight: 700;
+  }
+
+  .md-typeset details[open] > summary ~ * {
+    display: revert !important;
+  }
+
+  /* Link URLs are noise on a worksheet; the student cannot click paper. */
+  .md-typeset a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  .worksheet-meta {
+    border: 0.75pt solid #000;
+  }
+
+  /* MathJax occasionally renders with a scrollbar container; flatten it. */
+  mjx-container {
+    overflow: visible !important;
+  }
+}

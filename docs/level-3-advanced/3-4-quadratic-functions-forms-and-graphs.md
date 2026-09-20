@@ -6,7 +6,7 @@ domain: advanced_math
 prereqs: ["3.3"]
 est_minutes: 55
 status: verified
-verified_by: "math-verifier 2026-09-18"
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.4 Quadratic Functions: Forms and Graphs
@@ -175,7 +175,12 @@ One more habit worth building. A maximum or minimum **value** is the $y$-coordin
 - C) $36$
 - D) $144$
 
-**11.** The function $f$ is defined by $f(x) = 3x^2 - 12x + 5$ and can be written in the form $f(x) = a(x - h)^2 + k$, where $a$, $h$ and $k$ are constants. What is the value of $k$? *(student-produced response)*
+**11.** The function $f$ is defined by $f(x) = 3x^2 - 12x + 5$ and can be written in the form $f(x) = a(x - h)^2 + k$, where $a$, $h$ and $k$ are constants. What is the value of $k$?
+
+- A) $-12$
+- B) $-7$
+- C) $5$
+- D) $7$
 
 **12.** The graph of $y = f(x)$ is a parabola that crosses the $x$-axis at $x = -2$ and $x = 6$ and passes through the point $(0, -36)$. What is the minimum value of $f(x)$?
 
@@ -203,7 +208,7 @@ One more habit worth building. A maximum or minimum **value** is the $y$-coordin
     | 8 | D |
     | 9 | 1800 |
     | 10 | B |
-    | 11 | -7 |
+    | 11 | B |
     | 12 | A |
 
 ??? success "Show full solutions"
@@ -227,7 +232,7 @@ One more habit worth building. A maximum or minimum **value** is the $y$-coordin
 
     **10.** Touching the $x$-axis at exactly one point means $x^2 + kx + 36 = 0$ has exactly one real solution, so the discriminant is zero: $k^2 - 4(1)(36) = 0$. Then $k^2 = 144$ and $k = 12$ or $k = -12$. The question says $k$ is positive, so $k = 12$. Check: $x^2 + 12x + 36 = (x + 6)^2$, which is zero only at $x = -6$. Note that $6$ is the vertex's $x$-coordinate reversed, not $k$. **B**
 
-    **11.** Factor the leading coefficient out of the first two terms only: $f(x) = 3(x^2 - 4x) + 5$. Half of $-4$ is $-2$, and $(-2)^2 = 4$, so add and subtract $4$ inside the bracket: $f(x) = 3(x^2 - 4x + 4 - 4) + 5$. Then $f(x) = 3(x - 2)^2 - 12 + 5$, because the $-4$ inside is multiplied by the $3$ on its way out. So $f(x) = 3(x - 2)^2 - 7$ and $k = -7$. Check at $x = 0$: $3(4) - 7 = 5$, matching the original constant. **-7**
+    **11.** Factor the leading coefficient out of the first two terms only: $f(x) = 3(x^2 - 4x) + 5$. Half of $-4$ is $-2$, and $(-2)^2 = 4$, so add and subtract $4$ inside the bracket: $f(x) = 3(x^2 - 4x + 4 - 4) + 5$. Then $f(x) = 3(x - 2)^2 - 12 + 5$, because the $-4$ inside is multiplied by the $3$ on its way out. So $f(x) = 3(x - 2)^2 - 7$. Check at $x = 0$: $3(4) - 7 = 5$, matching the original constant. **B**
 
     **12.** The $x$-intercepts give factored form: $f(x) = a(x + 2)(x - 6)$. Use the point $(0, -36)$ to find $a$: $-36 = a(2)(-6) = -12a$, so $a = 3$. The vertex sits halfway between the intercepts, at $x = \dfrac{-2 + 6}{2} = 2$. Then $f(2) = 3(2 + 2)(2 - 6) = 3(4)(-4) = -48$. Since $a = 3 > 0$ the parabola opens upward, so this is the minimum value. Dropping the $a$ would give $-16$; giving the $x$-coordinate would give $2$. **A**
 

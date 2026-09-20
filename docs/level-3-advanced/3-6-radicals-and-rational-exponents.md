@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["0.3", "3.3"]
 est_minutes: 45
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.6 Radicals and Rational Exponents
