@@ -6,7 +6,7 @@ domain: advanced_math
 prereqs: ["0.4", "1.1"]
 est_minutes: 55
 status: verified
-verified_by: "math-verifier 2026-09-19"
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.2 Equivalent Expressions: Factoring and Expanding
@@ -205,7 +205,12 @@ factoring will not get you $k$.
 - D) $5x^2(2 - 3x)$
 
 **2.** When $(x + 6)(x - 4)$ is expanded and written in the form
-$x^2 + bx + c$, what is the value of $b$? *(student-produced response)*
+$x^2 + bx + c$, what is the value of $b$?
+
+- A) $-10$
+- B) $-2$
+- C) $2$
+- D) $10$
 
 **3.** Which expression is equivalent to $x^2 - 64$?
 
@@ -215,7 +220,12 @@ $x^2 + bx + c$, what is the value of $b$? *(student-produced response)*
 - D) $x(x - 64)$
 
 **4.** What is the constant term when $(x - 9)(x - 2)$ is written in
-standard form $x^2 + bx + c$? *(student-produced response)*
+standard form $x^2 + bx + c$?
+
+- A) $-18$
+- B) $-7$
+- C) $7$
+- D) $18$
 
 **Set B — test level** <span class="chip chip-medium">medium</span>
 
@@ -278,9 +288,9 @@ What is that constant? *(student-produced response)*
     | # | Answer |
     |---|--------|
     | 1 | A |
-    | 2 | $b = 2$ |
+    | 2 | C |
     | 3 | A |
-    | 4 | $c = 18$ |
+    | 4 | D |
     | 5 | A |
     | 6 | $g(0) = 30$ |
     | 7 | A |
@@ -301,7 +311,9 @@ What is that constant? *(student-produced response)*
 
     **2.** Expand by distributing every term:
     $(x + 6)(x - 4) = x^2 - 4x + 6x - 24 = x^2 + 2x - 24$. Matching to
-    $x^2 + bx + c$ gives $b = 2$. **Answer: $b = 2$**
+    $x^2 + bx + c$ gives $b = 2$, so choice C is correct. The other
+    choices come from combining the middle terms with the wrong signs or
+    using their magnitudes without combining them correctly. **Answer: C**
 
     **3.** $x^2 - 64$ is a difference of squares:
     $x^2 - 8^2 = (x - 8)(x + 8)$. B applies the perfect-square-trinomial
@@ -311,8 +323,10 @@ What is that constant? *(student-produced response)*
     expression, giving $x^2 - 64x$, not $x^2 - 64$. **Answer: A**
 
     **4.** Expand:
-    $(x - 9)(x - 2) = x^2 - 2x - 9x + 18 = x^2 - 11x + 18$. The constant
-    term is $18$. **Answer: $c = 18$**
+    $(x - 9)(x - 2) = x^2 - 2x - 9x + 18 = x^2 - 11x + 18$. The
+    constant term is $18$, so choice D is correct. Choice A keeps the
+    wrong sign when multiplying the two negative constants; choices B and
+    C use the numbers from the middle-term calculation instead. **Answer: D**
 
     **5.** Find two numbers that multiply to $-24$ and add to $-5$: $-8$
     and $3$ work, so $x^2 - 5x - 24 = (x - 8)(x + 3)$, which displays the

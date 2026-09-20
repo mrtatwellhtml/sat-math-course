@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["1.3"]
 est_minutes: 50
-status: drafted
-verified_by: ""
+status: verified
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.1 Function Notation and Interpretation
