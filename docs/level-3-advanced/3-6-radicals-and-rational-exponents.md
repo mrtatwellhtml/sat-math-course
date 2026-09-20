@@ -5,8 +5,8 @@ level: 3
 domain: advanced_math
 prereqs: ["0.3", "3.3"]
 est_minutes: 45
-status: drafted
-verified_by:
+status: verified
+verified_by: "math-verifier 2026-09-20"
 ---
 
 # 3.6 Radicals and Rational Exponents
@@ -175,12 +175,12 @@ The word principal means the nonnegative square root. A negative version, $-(2+\
 
 **8.** What is the value of $\dfrac{81^{1/2}}{27^{1/3}}$? *(student-produced response)*
 
-**9.** What is the solution to $\sqrt{x+1}=x-1$?
+**9.** What is the solution to $\sqrt{x+6}=x-6$?
 
-- A) $0$
-- B) $1$
-- C) $3$
-- D) $4$
+- A) $3$
+- B) $10$
+- C) $13$
+- D) $30$
 
 **Set C — stretch** <span class="chip chip-hard">hard</span>
 
@@ -193,12 +193,12 @@ The word principal means the nonnegative square root. A negative version, $-(2+\
 - C) $9$
 - D) $27$
 
-**12.** Which expression is equivalent to $\sqrt{7+4\sqrt3}$?
+**12.** Which expression is equivalent to $\sqrt{14+6\sqrt5}$?
 
-- A) $2+\sqrt3$
-- B) $4+\sqrt3$
-- C) $2+2\sqrt3$
-- D) $7+2\sqrt3$
+- A) $3+\sqrt5$
+- B) $9+\sqrt5$
+- C) $3+2\sqrt5$
+- D) $14+3\sqrt5$
 
 </div>
 
@@ -217,7 +217,7 @@ The word principal means the nonnegative square root. A negative version, $-(2+\
     | 6 | B |
     | 7 | A |
     | 8 | 3 |
-    | 9 | C |
+    | 9 | B |
     | 10 | 16 |
     | 11 | A |
     | 12 | A |
@@ -239,13 +239,13 @@ The word principal means the nonnegative square root. A negative version, $-(2+\
 
     **8.** Evaluate each fractional power: $81^{1/2}=\sqrt{81}=9$ and $27^{1/3}=\sqrt[3]{27}=3$. Divide to get $9/3=3$. The answer is $3$.
 
-    **9.** The square root is nonnegative, so $x-1\ge0$ and $x\ge1$. Squaring gives $x+1=(x-1)^2=x^2-2x+1$, so $x^2-3x=0$ and $x=0$ or $x=3$. The candidate $0$ violates the domain restriction and gives $1\ne-1$ in the original equation. The candidate $3$ gives $2=2$, so the answer is C.
+    **9.** The square root is nonnegative, so $x-6\ge0$ and $x\ge6$. Squaring gives $x+6=(x-6)^2=x^2-12x+36$, so $0=x^2-13x+30=(x-3)(x-10)$, giving $x=3$ or $x=10$. The candidate $x=3$ violates the domain restriction and fails the check: $\sqrt{9}=3$ but $3-6=-3$. The candidate $x=10$ satisfies the domain and checks: $\sqrt{16}=4$ and $10-6=4$. Option C, $13$, is the *sum* of the two algebraic roots, and option D, $30$, is their *product* — both come from stopping at Vieta's shortcuts instead of testing each root in the original equation. The answer is B.
 
     **10.** The domain requires $x\ge0$. Isolate one radical: $\sqrt{x+9}=9-\sqrt x$, so the right side must also be nonnegative. Square once: $x+9=81-18\sqrt x+x$, which gives $18\sqrt x=72$ and $\sqrt x=4$. Therefore $x=16$. Check in the original: $\sqrt{25}+\sqrt{16}=5+4=9$. The answer is $16$.
 
     **11.** Let $b=a^{1/3}$. Because $a$ is positive, $b$ is positive. Then $a^{2/3}=(a^{1/3})^2=b^2=9$, so $b=3$ rather than $-3$. This gives $a^{1/3}=3$, so the answer is A.
 
-    **12.** Look for a square of the form $(a+b)^2=a^2+2ab+b^2$. Taking $a=2$ and $b=\sqrt3$ gives $a^2+b^2=4+3=7$ and $2ab=4\sqrt3$. Thus $7+4\sqrt3=(2+\sqrt3)^2$, and the principal square root is $2+\sqrt3$. The answer is A.
+    **12.** Look for $\sqrt m+\sqrt n$ with $m+n=14$ and $2\sqrt{mn}=6\sqrt5$, so $\sqrt{mn}=3\sqrt5$ and $mn=45$. Solving $t^2-14t+45=0$ gives $t=9$ or $t=5$, so $m=9$ and $n=5$. Then $14+6\sqrt5=(\sqrt9+\sqrt5)^2=(3+\sqrt5)^2$, and since $3+\sqrt5$ is positive, the principal square root is $3+\sqrt5$. Option B, $9+\sqrt5$, forgets to take $\sqrt m$ and uses $m=9$ itself. Option C, $3+2\sqrt5$, keeps the correct $\sqrt m=3$ but doubles the coefficient of $\sqrt5$ by reusing the $2$ from the pattern equation instead of taking $\sqrt n$. Option D, $14+3\sqrt5$, writes $a$ and half of $b$ directly ($6/2=3$) without ever solving for $m$ and $n$ — the un-denested guess. The answer is A.
 
 ---
 
