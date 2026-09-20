@@ -209,9 +209,20 @@ tested.
 - **One commit is unpushed** as of this writing (`9a503dd`, the grid-in spec
   change). `git push` may be refused by the sandbox classifier; if so, run it
   yourself in a terminal.
-- **GitHub Pages:** Settings → Pages → Source → **GitHub Actions**. Needs a
-  paid plan because the repo is private. If the first workflow run failed for
-  want of Pages being enabled, re-run it from the Actions tab.
+- **GitHub Pages is live** at <https://mrtatwellhtml.github.io/sat-math-course/>
+  — 58 pages, deploying from `deploy.yml` on every push to `main`.
+  Source must stay on **GitHub Actions**. Set to "Deploy from a branch"
+  instead, GitHub silently runs its built-in Jekyll builder and serves
+  `README.md` as the homepage; the tell is a page title ending
+  `| sat-math-course` and a 404 on `/sitemap.xml`. Switching the source does
+  not retroactively run the workflow — push, or dispatch it from Actions.
+
+- **Maths rendering.** `pymdownx.arithmatex` converts `$...$` to
+  `<span class="arithmatex">\(...\)</span>` **at build time**; MathJax then
+  only touches those spans (`processHtmlClass: "arithmatex"`). So an
+  unescaped currency `$` is swallowed by the Markdown extension, not by
+  MathJax — which is why `\$` is the fix and why it cannot be worked around
+  in the JavaScript config. Verified live: prices render as text.
 
 ---
 
