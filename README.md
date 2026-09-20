@@ -4,8 +4,7 @@ A complete, self-paced digital SAT Math course — 48 lessons from arithmetic
 foundations to the hardest Module 2 questions — published as a static site
 for students to work through between tutoring sessions.
 
-**Live site:** https://mrtatwellhtml.github.io/sat-math-course/
-*(update this once GitHub Pages is enabled)*
+**Live site:** <https://mrtatwellhtml.github.io/sat-math-course/>
 
 ## What is here
 
@@ -24,8 +23,7 @@ for students to work through between tutoring sessions.
 ```bash
 python -m venv .venv
 .venv\Scripts\activate          # Windows
-pip install -r requirements.txt
-pip install sympy               # needed by the verification agents
+pip install -r requirements-dev.txt   # site deps plus sympy/numpy for verification
 
 python scripts/index_textbooks.py   # once, if you have the PDFs
 python scripts/status.py            # see what is built
