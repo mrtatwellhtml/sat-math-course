@@ -1,8 +1,6 @@
 site_name: SAT Math - Foundations to Mastery
 site_description: A complete, self-paced SAT Math course from arithmetic foundations to the hardest Module 2 questions.
-site_url: https://mrtatwellhtml.github.io/sat-math-course/
-repo_url: https://github.com/mrtatwellhtml/sat-math-course
-edit_uri: edit/main/docs/
+site_url: https://satmathprep.web.app/
 
 theme:
   name: material
@@ -50,10 +48,19 @@ extra_javascript:
 plugins:
   - search
 
+# Hides the "Made with Material for MkDocs" footer credit.
+extra:
+  generator: false
+
 # Regenerates docs/worksheets/ before every build, so the printable sheets
 # can never drift from the lessons they are extracted from.
 hooks:
   - scripts/build_worksheets.py
+  # Cuts each lesson's "Tutor notes" section from the published page and
+  # collects them in tutor/lesson-notes.md - students read this site.
+  - scripts/strip_tutor_notes.py
+  # Copies the online workbook (workbook/public) into the site at /workbook/.
+  - scripts/copy_workbook.py
 
 # The worksheets are generated and listed from their own index page, so they
 # are deliberately absent from the nav tree; without this --strict fails on

@@ -1,0 +1,57 @@
+// Firestore rules for the WHOLE mathlessons-7cc22 project, not just this site.
+// Deploying replaces the live ruleset, so the slides/sessions blocks below are
+// copied verbatim from the live rules (2026-05-01) and must stay. Before
+// deploying, check nothing was changed in the console since:
+//   Firebase console > Firestore > Rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /slides/{slideId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /sessions/{sessionId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+
+      match /participants/{participantId} {
+        allow read: if true;
+        allow write: if true;
+      }
+
+      match /answers/{answerId} {
+        allow read: if request.auth != null;
+        allow write: if true;
+      }
+    }
+
+    // SAT workbook attempt log (workbook/public). Students write one record
+    // per question without signing in; only the tutor can read or delete.
+    match /satAttempts/{attemptId} {
+      function isTutor() {
+        return request.auth != null
+          && request.auth.token.email == 'mrtatwellhtmls@gmail.com'
+          && request.auth.token.email_verified == true;
+      }
+      function str(v, max) { return v is string && v.size() <= max; }
+
+      allow create: if request.resource.data.keys().hasOnly(
+            ['student', 'sid', 'qid', 'topic', 'topicTitle', 'difficulty', 'type',
+             'given', 'answer', 'result', 'stem', 'at'])
+        && str(request.resource.data.student, 60)
+        && str(request.resource.data.sid, 40)
+        && str(request.resource.data.qid, 40)
+        && str(request.resource.data.topic, 20)
+        && str(request.resource.data.topicTitle, 120)
+        && str(request.resource.data.difficulty, 20)
+        && str(request.resource.data.type, 10)
+        && str(request.resource.data.given, 200)
+        && str(request.resource.data.answer, 200)
+        && str(request.resource.data.stem, 2000)
+        && request.resource.data.result in ['correct', 'wrong', 'skipped']
+        && request.resource.data.at == request.time;
+      allow read, delete: if isTutor();
+    }
+  }
+}

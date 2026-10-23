@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Practice Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+  window.MathJax = { tex: { inlineMath: [['$','$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.js" async></script>
+<style>
+:root{
+  --navy:#1f4e79; --bg:#fbfbfc; --surface:#fff; --sunk:#eef2f7;
+  --fg:#1b2430; --muted:#5d6b7a; --line:#dde4ec;
+  --good:#1d7a4c; --good-bg:#e8f5ee; --bad:#b4342a; --bad-bg:#fcecea; --skip:#8a6d1f; --skip-bg:#fbf3df;
+  --display:"Source Serif 4", Georgia, serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace; --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --navy:#8fb6dd; --bg:#11161c; --surface:#19212a; --sunk:#141b23;
+  --fg:#e6ecf3; --muted:#9aa9b8; --line:#2a3542;
+  --good:#6fd49b; --good-bg:#15301f; --bad:#f09a90; --bad-bg:#331a17; --skip:#e2c26f; --skip-bg:#2e2715; } }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--body)}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 64px}
+h1{font-family:var(--display);font-weight:600;font-size:30px;margin:0 0 4px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:30px 0 10px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.muted{color:var(--muted)}
+button,select{font:inherit;font-size:14px;border-radius:8px;border:1px solid var(--line);
+  background:var(--surface);color:var(--fg);padding:7px 12px;cursor:pointer}
+button.primary{background:var(--navy);color:var(--bg);border-color:var(--navy);font-weight:600;padding:10px 18px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.stat b{display:block;font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}
+.stat small{color:var(--muted)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:12.5px;background:var(--sunk)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{display:inline-block;width:70px;height:6px;border-radius:3px;background:var(--sunk);vertical-align:middle;margin-right:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy)}
+details.sess{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);margin-bottom:8px}
+details.sess>summary{cursor:pointer;padding:12px 14px;display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;list-style:none}
+details.sess>summary::-webkit-details-marker{display:none}
+details.sess>summary::before{content:"\25B8";color:var(--muted)}
+details.sess[open]>summary::before{content:"\25BE"}
+.when{font-weight:600}
+.score{font-family:var(--mono);font-size:13.5px}
+details.sess .tablewrap{border:0;border-top:1px solid var(--line);border-radius:0 0 var(--r) var(--r)}
+.res{font-size:12px;font-weight:600;border-radius:4px;padding:2px 7px;white-space:nowrap}
+.res.correct{color:var(--good);background:var(--good-bg)}
+.res.wrong{color:var(--bad);background:var(--bad-bg)}
+.res.skipped{color:var(--skip);background:var(--skip-bg)}
+.mono{font-family:var(--mono);font-size:12.5px}
+.stem{max-width:46ch}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+.err{color:var(--bad)}
+mjx-container{font-size:inherit!important}
+@media (max-width:640px){ .stats{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <h1>Practice log</h1>
+      <div class="muted">Every question attempted in the online workbook, newest first.</div>
+    </div>
+    <div id="auth"></div>
+  </div>
+  <div id="view"><p class="empty">Loading…</p></div>
+</main>
+
+<script type="module">
+import { firebaseConfig, SDK } from "./firebase-config.js";
+const TUTOR = "mrtatwellhtmls@gmail.com";
+
+const { initializeApp } = await import(SDK + "/firebase-app.js");
+const { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } =
+  await import(SDK + "/firebase-auth.js");
+const { getFirestore, collection, query, orderBy, limit, onSnapshot } =
+  await import(SDK + "/firebase-firestore.js");
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app), db = getFirestore(app);
+const authEl = document.getElementById("auth"), view = document.getElementById("view");
+let rows = [], unsub = null;
+const openSids = new Set(); // keeps sessions open across live updates
+const F = { student: "", days: "30" };
+
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pct = (a, b) => (b ? Math.round((a / b) * 100) + "%" : "–");
+const day = (d) => d.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+const time = (d) => d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+const typeset = (el) => window.MathJax?.typesetPromise?.([el]).catch(() => {});
+
+onAuthStateChanged(auth, (user) => {
+  if (unsub) { unsub(); unsub = null; }
+  if (!user) {
+    authEl.innerHTML = "";
+    view.innerHTML = '<p class="empty"><button class="primary" id="in">Sign in with Google</button></p>';
+    document.getElementById("in").onclick = () =>
+      signInWithPopup(auth, new GoogleAuthProvider()).catch((e) => {
+        view.insertAdjacentHTML("beforeend", '<p class="empty err">Sign-in failed: ' + esc(e.code || e.message) + "</p>");
+      });
+    return;
+  }
+  authEl.innerHTML = '<span class="muted">' + esc(user.email) + '</span> <button id="out">Sign out</button>';
+  document.getElementById("out").onclick = () => signOut(auth);
+  if (user.email !== TUTOR) {
+    view.innerHTML = '<p class="empty err">This account cannot see the practice log.</p>';
+    return;
+  }
+  view.innerHTML = '<p class="empty">Loading attempts…</p>';
+  unsub = onSnapshot(
+    query(collection(db, "satAttempts"), orderBy("at", "desc"), limit(5000)),
+    (snap) => {
+      rows = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+        .filter((r) => r.at).map((r) => ({ ...r, at: r.at.toDate() }));
+      render();
+    },
+    (e) => { view.innerHTML = '<p class="empty err">Could not load the log: ' + esc(e.code || e.message) + "</p>"; }
+  );
+});
+
+function render() {
+  const students = [...new Set(rows.map((r) => r.student))].sort();
+  if (F.student && !students.includes(F.student)) F.student = "";
+  const since = F.days === "all" ? 0 : Date.now() - Number(F.days) * 864e5;
+  const list = rows.filter((r) => (!F.student || r.student === F.student) && r.at.getTime() >= since);
+
+  let h = '<div class="controls">' +
+    '<select id="fs"><option value="">All students</option>' +
+    students.map((s) => '<option' + (s === F.student ? " selected" : "") + ">" + esc(s) + "</option>").join("") +
+    "</select>" +
+    '<select id="fd">' + [["7", "Last 7 days"], ["30", "Last 30 days"], ["all", "All time"]]
+      .map(([v, t]) => '<option value="' + v + '"' + (v === F.days ? " selected" : "") + ">" + t + "</option>").join("") +
+    "</select></div>";
+
+  if (!list.length) {
+    view.innerHTML = h + '<p class="empty">No attempts in this period yet.</p>';
+    return bind();
+  }
+
+  const done = list.filter((r) => r.result !== "skipped");
+  const right = done.filter((r) => r.result === "correct").length;
+  h += '<div class="stats">' +
+    stat(done.length, "Questions answered") +
+    stat(pct(right, done.length), "Correct") +
+    stat(list.length - done.length, "Skipped") +
+    stat(day(list[0].at).replace(/,? \d{4}$/, ""), "Last practised " + time(list[0].at)) + "</div>";
+
+  // by topic
+  const topics = {};
+  list.forEach((r) => {
+    const t = (topics[r.topic] ??= { title: r.topicTitle, n: 0, ok: 0, skip: 0, last: r.at });
+    if (r.result === "skipped") t.skip++; else { t.n++; if (r.result === "correct") t.ok++; }
+  });
+  h += "<h2>By topic</h2><div class=\"tablewrap\"><table><tr><th>Topic</th><th>Answered</th><th>Correct</th><th>Skipped</th><th>Last practised</th></tr>" +
+    Object.entries(topics).sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true })).map(([id, t]) =>
+      "<tr><td>" + esc(id) + " " + esc(t.title) + '</td><td class="num">' + t.n +
+      '</td><td class="num"><span class="bar"><i style="width:' + (t.n ? (t.ok / t.n) * 100 : 0) + '%"></i></span>' +
+      t.ok + "/" + t.n + " (" + pct(t.ok, t.n) + ')</td><td class="num">' + t.skip +
+      '</td><td class="num">' + esc(day(t.last)) + "</td></tr>").join("") + "</table></div>";
+
+  // sessions: one per run of the workbook, keyed by sid
+  const sessions = [];
+  const bySid = {};
+  list.forEach((r) => {
+    let s = bySid[r.sid];
+    if (!s) { s = bySid[r.sid] = { items: [] }; sessions.push(s); }
+    s.items.push(r);
+  });
+  h += "<h2>Sessions</h2>";
+  sessions.forEach((s) => {
+    const items = s.items.slice().reverse(); // oldest first within a session
+    const first = items[0].at, last = items[items.length - 1].at;
+    const ans = items.filter((r) => r.result !== "skipped"), ok = ans.filter((r) => r.result === "correct").length;
+    const mins = Math.max(1, Math.round((last - first) / 60000));
+    const tps = [...new Set(items.map((r) => r.topic))];
+    h += '<details class="sess" data-sid="' + esc(items[0].sid) + '"' + (openSids.has(items[0].sid) ? " open" : "") + '><summary><span class="when">' + esc(day(first)) + ", " + esc(time(first)) + "</span>" +
+      (students.length > 1 ? "<span>" + esc(items[0].student) + "</span>" : "") +
+      '<span class="muted">' + (tps.length === 1 ? esc(tps[0] + " " + items[0].topicTitle) : "Mixed: " + esc(tps.join(", "))) + "</span>" +
+      '<span class="score">' + ok + "/" + ans.length + " correct (" + pct(ok, ans.length) + ")" +
+      (ans.length < items.length ? ", " + (items.length - ans.length) + " skipped" : "") + "</span>" +
+      '<span class="muted">' + (items.length > 1 ? "about " + mins + " min" : "") + "</span></summary>" +
+      '<div class="tablewrap"><table><tr><th>Time</th><th>Question</th><th>Their answer</th><th>Correct answer</th><th>Result</th></tr>' +
+      items.map((r) =>
+        '<tr><td class="num">' + esc(time(r.at)) + '</td><td class="stem"><div class="mono muted">' + esc(r.qid) + " · " + esc(r.difficulty) +
+        "</div>" + esc(r.stem) + "</td><td>" + (esc(r.given) || '<span class="muted">—</span>') + "</td><td>" + esc(r.answer) +
+        '</td><td><span class="res ' + esc(r.result) + '">' + esc(r.result) + "</span></td></tr>").join("") +
+      "</table></div></details>";
+  });
+
+  view.innerHTML = h;
+  bind();
+  view.querySelectorAll("details.sess").forEach((d) => {
+    if (d.open) typeset(d);
+    d.addEventListener("toggle", () => {
+      if (d.open) { openSids.add(d.dataset.sid); typeset(d); } else openSids.delete(d.dataset.sid);
+    });
+  });
+}
+
+function stat(v, label) { return '<div class="stat"><b>' + esc(v) + "</b><small>" + esc(label) + "</small></div>"; }
+function bind() {
+  document.getElementById("fs").onchange = (e) => { F.student = e.target.value; render(); };
+  document.getElementById("fd").onchange = (e) => { F.days = e.target.value; render(); };
+}
+</script>
+</body>
+</html>

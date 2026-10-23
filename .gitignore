@@ -8,6 +8,7 @@ textbooks/
 # Build output
 site/
 .cache/
+.firebase/
 
 # Python
 __pycache__/
