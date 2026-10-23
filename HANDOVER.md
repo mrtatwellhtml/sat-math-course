@@ -10,16 +10,16 @@ to work; this file says where the work actually got to and what it ran into.
 
 ## Where the course stands
 
-**19 of 48 lessons verified. 0 drafted. 29 not started.**
+**19 of 48 lessons verified. 8 drafted. 21 not started.**
 
 | Level | Domain | Share of test | State |
 |-------|--------|---------------|-------|
 | 1 — Algebra | ~35% | **Complete, all 8 verified** |
 | 3 — Advanced Math | ~35% | **Complete, all 10 verified** |
-| 5 — Test Craft | strategy | 5.2 verified; 5.1, 5.3–5.7 not started |
-| 2 — Data | ~15% | not started |
-| 4 — Geometry | ~15% | not started |
-| 0 — Foundations | gated | not started |
+| 0 — Foundations | gated | all 8 drafted, none verified |
+| 5 — Test Craft | strategy | 5.2 verified; 5.1, 5.3–5.7 planned |
+| 2 — Data | ~15% | planned |
+| 4 — Geometry | ~15% | planned |
 
 Levels 1 and 3 together are roughly 70% of the scored section, and both are
 done. Both placement instruments are usable.
@@ -30,19 +30,54 @@ over the script.
 The site is live and self-updating, and every written lesson also publishes a
 printable worksheet and a separate answer key.
 
+### Beyond the lessons
+
+Three things now exist alongside the course site, all committed:
+
+- **`workbook/`** — a single-page practice app with a 750-question verified
+  bank across ten topics (0.2, 1.1–1.7, 3.2, 3.3). Not deployed yet;
+  `firebase deploy` from that directory.
+- **`tutor/decks/`** — six self-contained HTML session presentations covering
+  25 Oct to 29 Nov, 167 slides and 172 questions. Rebuildable from
+  `tutor/decks/src/`; see the README there.
+- **`classroom/`** — an Apps Script that builds five auto-graded Google Forms.
+  Not run yet; it needs a Google sign-in, so it is a human job.
+
 ---
 
 ## Immediate next actions
 
 Build order by exam value is **Level 5, then 2, then 4, then 0** — set out in
-`CLAUDE.md`. Level 5 is next because it is strategy that lifts scores across
-every domain, and 5.1, 5.3–5.7 are unwritten.
+`CLAUDE.md`. Level 0 is drafted but unverified, so it sits outside that order:
+run the verifier over it when there is slack, not before Level 5.
 
-**The one piece of known outstanding work** is the grid-in cleanup. Ten
-lessons still carry 5 or 6 student-produced responses against the corrected
-band of 3–4: 1.1, 1.2, 1.3, 1.4, 1.7, 1.8, 3.4 and 5.2 at 5, and two others.
-None is wrong — all were verified — so it is polish, and both checkers warn
-rather than fail on it.
+**The session decks are a head start on the three unwritten levels.** The
+material in `tutor/decks/src/` was written to the same standard as a lesson and
+verified the same way, and it maps almost one to one onto what is missing:
+
+| Deck | Covers lessons |
+|---|---|
+| `d6-testcraft.js` | 5.1, 5.3, 5.4, 5.5, 5.6, 5.7 |
+| `d4-data.js` | 2.1–2.7 |
+| `d5-geometry.js` | 4.1–4.6 |
+| `d2-functions.js` | reinforces 3.1, 3.5, 3.6 (already verified) |
+
+Read the matching deck source before running `/build-lesson` on any of those —
+the worked examples, the distractor analysis and the trap notes are reusable,
+and reusing them keeps the voice consistent. The questions still need the
+normal verification pass; being verified for a deck is not the same as being
+verified in a lesson's practice set.
+
+**Known outstanding work:**
+
+1. The grid-in cleanup. Ten lessons still carry 5 or 6 student-produced
+   responses against the corrected band of 3–4: 1.1, 1.2, 1.3, 1.4, 1.7, 1.8,
+   3.4 and 5.2 at 5, and two others. None is wrong — all were verified — so it
+   is polish, and both checkers warn rather than fail on it.
+2. The ~110 questions written inline in the session decks are not in
+   `workbook/data/bank.json`, so the online workbook still stops at quadratics
+   and offers nothing for functions, data, geometry or test craft.
+3. Printable worksheets and Classroom quizzes exist only up to Session 5.
 
 ---
 
