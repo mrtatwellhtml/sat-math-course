@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAT Math Mastery Practice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">SAT Math</p>
+          <h1>Mastery Practice</h1>
+        </div>
+
+        <p class="sidebar-intro">
+          Comprehensive mixed-practice by level, difficulty, and Bloom's taxonomy. The app is fully independent of the lesson files.
+        </p>
+
+        <div class="sidebar-section">
+          <h3>Course levels</h3>
+          <nav id="topicList" aria-label="Topic navigation"></nav>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Study mode</p>
+            <h2 id="topicTitle">Select a level</h2>
+          </div>
+          <div class="summary-box">
+            <span id="currentScore">0</span>
+            <span>/</span>
+            <span id="totalQuestions">0</span>
+          </div>
+        </header>
+
+        <section class="toolbar" aria-label="Practice filters">
+          <div class="filter-group">
+            <span class="filter-label">Difficulty</span>
+            <div id="difficultyFilters" class="chip-row"></div>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Bloom</span>
+            <div id="bloomFilters" class="chip-row"></div>
+          </div>
+        </section>
+
+        <section class="quiz-panel">
+          <div id="topicMeta" class="topic-meta"></div>
+
+          <div id="questionCard" class="question-card hidden">
+            <div class="meta-row">
+              <span id="questionNumber" class="question-number">Q1</span>
+              <span id="bloomBadge" class="meta-pill bloom-pill">Remember</span>
+              <span id="difficultyBadge" class="meta-pill difficulty-pill">Easy</span>
+              <span id="timeBadge" class="meta-pill time-pill">20s</span>
+            </div>
+
+            <p id="questionText" class="question-text"></p>
+            <div id="answerArea" class="answer-area"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+
+            <div class="controls">
+              <button id="submitBtn" class="primary-btn">Check answer</button>
+              <button id="nextBtn" class="secondary-btn hidden">Next question</button>
+              <button id="resetBtn" class="ghost-btn">Reset set</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

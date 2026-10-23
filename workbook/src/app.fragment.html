@@ -1,0 +1,466 @@
+<title>SAT Math Workbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\\[','\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.js" id="MathJax-script" async></script>
+
+<style>
+/* Layout: one column, a sticky progress rail, a question card at a time.
+   Palette continues the printed course: exam navy, a worked-pencil amber,
+   and semantic green/red kept separate from the accent. */
+:root{
+  --navy:#1f4e79; --navy-deep:#14355a; --amber:#b4731f;
+  --bg:#fbfbfc; --surface:#ffffff; --sunk:#eef2f7;
+  --fg:#1b2430; --muted:#5d6b7a; --line:#dde4ec;
+  --good:#1d7a4c; --good-bg:#e8f5ee; --bad:#b4342a; --bad-bg:#fcecea;
+  --shadow:0 1px 2px rgba(20,53,90,.06), 0 8px 24px -16px rgba(20,53,90,.35);
+  --on-accent:#ffffff;
+  --display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --on-accent:#11161c;
+  --navy:#8fb6dd; --navy-deep:#cfe0f2; --amber:#e2a94f;
+  --bg:#11161c; --surface:#19212a; --sunk:#141b23;
+  --fg:#e6ecf3; --muted:#9aa9b8; --line:#2a3542;
+  --good:#6fd49b; --good-bg:#15301f; --bad:#f09a90; --bad-bg:#331a17;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --on-accent:#11161c;
+  --navy:#8fb6dd; --navy-deep:#cfe0f2; --amber:#e2a94f;
+  --bg:#11161c; --surface:#19212a; --sunk:#141b23;
+  --fg:#e6ecf3; --muted:#9aa9b8; --line:#2a3542;
+  --good:#6fd49b; --good-bg:#15301f; --bad:#f09a90; --bad-bg:#331a17;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);
+     font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:780px;margin:0 auto;padding-inline:16px;padding-block:0 56px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:780px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.brand{font-family:var(--display);font-weight:700;font-size:17px;color:var(--navy);
+  letter-spacing:-.01em;margin-right:auto;min-width:0}
+.brand span{display:block;font-family:var(--body);font-weight:400;font-size:11px;
+  color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.ghost{background:none;border:1px solid var(--line);color:var(--muted);
+  border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.ghost:hover{border-color:var(--navy);color:var(--navy)}
+
+/* ---------- home ---------- */
+h1{font-family:var(--display);font-size:clamp(26px,6vw,36px);line-height:1.15;
+   margin:28px 0 8px;text-wrap:balance;letter-spacing:-.02em}
+.lede{color:var(--muted);margin:0 0 24px;max-width:58ch}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:12px 14px;min-width:0}
+.stat b{display:block;font-family:var(--display);font-size:26px;line-height:1.1;
+  font-variant-numeric:tabular-nums;color:var(--navy)}
+.stat small{color:var(--muted);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+
+h2{font-family:var(--display);font-size:19px;margin:30px 0 12px;letter-spacing:-.01em}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  border-radius:99px;padding:6px 13px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
+
+.topics{display:grid;gap:8px}
+.topic{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;
+  width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);padding:13px 15px;font:inherit;color:inherit;cursor:pointer}
+.topic:hover{border-color:var(--navy)}
+.tnum{font-family:var(--mono);font-size:12.5px;color:var(--amber);font-weight:500}
+.tname{font-weight:500;min-width:0}
+.tname em{display:block;font-style:normal;font-size:12.5px;color:var(--muted);font-weight:400}
+.meter{width:62px;height:6px;border-radius:99px;background:var(--sunk);overflow:hidden;flex:none}
+.meter i{display:block;height:100%;background:var(--good);border-radius:99px}
+.tright{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+
+.cta{display:block;width:100%;margin-top:18px;background:var(--navy);color:var(--on-accent);border:0;
+  border-radius:var(--r);padding:14px;font:inherit;font-weight:600;font-size:16px;cursor:pointer}
+.cta:hover{background:var(--navy-deep)}
+.cta[disabled]{opacity:.45;cursor:not-allowed}
+.cta.sec{background:none;color:var(--navy);border:1px solid var(--line);font-weight:500}
+.cta.sec:hover{background:var(--sunk)}
+
+/* ---------- question ---------- */
+.rail{height:4px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:18px 0 6px}
+.rail i{display:block;height:100%;background:var(--navy);transition:width .25s ease}
+.crumb{display:flex;gap:10px;align-items:center;font-size:12.5px;color:var(--muted);
+  margin-bottom:16px;font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.tag{border:1px solid var(--line);border-radius:99px;padding:2px 9px;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase}
+.tag.easy{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+.tag.medium{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 40%,transparent)}
+.tag.hard{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.stem{font-size:17.5px;line-height:1.6;margin:0 0 18px}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;
+  text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--r);
+  padding:12px 14px;font:inherit;font-size:16px;color:inherit;cursor:pointer;width:100%}
+.opt:hover:not([disabled]){border-color:var(--navy)}
+.opt kbd{font-family:var(--mono);font-size:13px;color:var(--muted);background:none;
+  border:0;padding:0;font-weight:500}
+.opt[aria-pressed="true"]{border-color:var(--navy);background:var(--sunk)}
+.opt.right{border-color:var(--good);background:var(--good-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt[disabled]{cursor:default}
+
+.spr{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spr label{font-size:13px;color:var(--muted)}
+.spr input{font-family:var(--mono);font-size:19px;padding:11px 14px;width:170px;
+  border:1.5px solid var(--line);border-radius:var(--r);background:var(--bg);color:inherit}
+.spr input:focus{outline:2px solid var(--navy);outline-offset:1px;border-color:var(--navy)}
+
+.verdict{margin-top:16px;border-radius:var(--r);padding:14px 16px;font-size:15px}
+.verdict.ok{background:var(--good-bg);border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.verdict.no{background:var(--bad-bg);border:1px solid color-mix(in srgb,var(--bad) 35%,transparent)}
+.verdict b{display:block;margin-bottom:4px}
+.verdict.ok b{color:var(--good)} .verdict.no b{color:var(--bad)}
+details.sol{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+details.sol summary{cursor:pointer;font-size:14px;color:var(--navy);font-weight:500}
+details.sol .body{margin-top:10px;font-size:15.5px;line-height:1.65;color:var(--fg)}
+.row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.row .cta{margin-top:0;flex:1;min-width:140px}
+
+/* ---------- results ---------- */
+.score{font-family:var(--display);font-size:52px;line-height:1;color:var(--navy);
+  font-variant-numeric:tabular-nums}
+.missed{display:grid;gap:8px;margin-top:10px}
+.missed .m{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px}
+.missed .m p{margin:0 0 6px;font-size:15px}
+.missed .m small{color:var(--muted);font-size:12.5px;font-family:var(--mono)}
+
+.empty{text-align:center;color:var(--muted);padding:48px 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+mjx-container{font-size:inherit!important}
+mjx-container svg{max-width:100%}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:430px){
+  .stats{grid-template-columns:1fr 1fr}
+  .topic{grid-template-columns:auto 1fr;gap:10px}
+  .tright{grid-column:1/-1;justify-content:space-between}
+}
+</style>
+
+<header>
+  <div class="bar">
+    <div class="brand">SAT Math Workbook<span id="sub">Foundations to Mastery</span></div>
+    <button class="ghost" id="themeBtn" type="button">Theme</button>
+    <button class="ghost" id="homeBtn" type="button" hidden>Finish</button>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <div class="empty" id="boot">Loading the question bank&hellip;</div>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var app=document.getElementById('app'), homeBtn=document.getElementById('homeBtn'),
+      sub=document.getElementById('sub');
+  var BANK=null, S={topic:null, diffs:{easy:true,medium:true,hard:true}, size:20, queue:[], i:0, log:[]};
+
+  /* ---------- storage: per-viewer convenience only ---------- */
+  var KEY='satmath.progress.v1';
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ return {}; } }
+  function save(p){ try{ localStorage.setItem(KEY, JSON.stringify(p)); }catch(e){} }
+  var P=load();
+  function mark(id,ok){ var r=P[id]||{n:0,ok:0}; r.n++; if(ok) r.ok++; r.last=ok?1:0; P[id]=r; save(P); }
+
+  /* ---------- helpers ---------- */
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var mathReady=false;
+  function typeset(el){
+    if(window.MathJax&&window.MathJax.typesetPromise){
+      mathReady=true;
+      window.MathJax.typesetPromise([el]).catch(function(){ plain(el); });
+    } else if(mathFailed){ plain(el); }
+  }
+  // If the maths renderer never arrives (a blocked CDN, a bad connection), drop the
+  // delimiters so the student reads 14 rather than $14$.
+  var mathFailed=false;
+  setTimeout(function(){
+    if(window.MathJax&&window.MathJax.typesetPromise) return;
+    mathFailed=true; plain(document.getElementById('app'));
+  }, 3500);
+  function plain(el){
+    if(!el) return;
+    var w=document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, hits=[];
+    while((n=w.nextNode())){ if(n.nodeValue.indexOf('$')>-1) hits.push(n); }
+    hits.forEach(function(t){
+      t.nodeValue = t.nodeValue
+        .replace(/\$\$?([^$]*)\$\$?/g, function(m,inner){ return tidy(inner); });
+    });
+  }
+  function tidy(t){
+    return t.replace(/\\d?frac\{([^{}]+)\}\{([^{}]+)\}/g,'$1/$2')
+            .replace(/\\ge(?![a-z])/g,'\u2265').replace(/\\le(?![a-z])/g,'\u2264')
+            .replace(/\\neq/g,'\u2260').replace(/\\times/g,'\u00d7').replace(/\\div/g,'\u00f7')
+            .replace(/\\pm/g,'\u00b1').replace(/\\cdot/g,'\u00b7')
+            .replace(/\^\{?2\}?/g,'\u00b2').replace(/\^\{?3\}?/g,'\u00b3')
+            .replace(/\\[a-zA-Z]+/g,'').replace(/[{}]/g,'').replace(/\s+/g,' ');
+  }
+  function norm(v){
+    return String(v).trim().toLowerCase().replace(/\s+/g,'')
+      .replace(/^\+/,'').replace(/[$,]/g,'').replace(/^(-?)0+(\d)/,'$1$2').replace(/\.0+$/,'');
+  }
+  function accepts(q,v){
+    var g=norm(v); if(!g) return false;
+    var list=(q.accept&&q.accept.length?q.accept:[q.answer]);
+    for(var i=0;i<list.length;i++){ if(norm(list[i])===g) return true; }
+    var n=val(g); if(n===null) return false;
+    // A rounded or truncated decimal counts, as it does on the real test: judge it
+    // to the precision the student actually typed, never tighter.
+    // Rounding is allowed only from three decimal places on, the same bar the real
+    // test sets; 0.3 is not an acceptable way to write two sevenths.
+    var dp=(g.split('.')[1]||'').length;
+    var tol = dp>=3 ? 0.5*Math.pow(10,-dp) : 1e-9;
+    for(var j=0;j<list.length;j++){
+      var m=val(norm(list[j]));
+      if(m!==null && Math.abs(n-m)<=tol+1e-12) return true;
+    }
+    return false;
+  }
+  function val(s){
+    if(/^-?(\d+(\.\d+)?|\.\d+)$/.test(s)) return parseFloat(s);
+    var f=s.match(/^(-?\d+)\/(\d+)$/); if(f) return parseInt(f[1],10)/parseInt(f[2],10);
+    return null;
+  }
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1));
+    var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+  /* ---------- home ---------- */
+  function home(){
+    homeBtn.hidden=true; sub.textContent='Foundations to Mastery';
+    var qs=BANK.questions, done=0, right=0;
+    qs.forEach(function(q){ var r=P[q.id]; if(r&&r.n){ done++; if(r.last) right++; } });
+    var pct=done?Math.round(right/done*100):0;
+
+    var h='<h1>Pick a topic and start</h1>'+
+      '<p class="lede">Every question here is written in the style of the digital SAT. '+
+      'Work it on paper first, then type your answer — the workbook marks it straight away '+
+      'and tells you which mistake produced each wrong option.</p>'+
+      '<div class="stats">'+
+        '<div class="stat"><b>'+qs.length+'</b><small>Questions</small></div>'+
+        '<div class="stat"><b>'+done+'</b><small>Attempted</small></div>'+
+        '<div class="stat"><b>'+pct+'%</b><small>Right so far</small></div>'+
+        '<div class="stat"><b>'+(qs.length-done)+'</b><small>Not yet seen</small></div>'+
+      '</div>'+
+      '<h2>Difficulty</h2><div class="filters" id="filters">'+
+        ['easy','medium','hard'].map(function(d){
+          return '<button class="chip" type="button" data-d="'+d+'" aria-pressed="'+
+            (S.diffs[d]?'true':'false')+'">'+d[0].toUpperCase()+d.slice(1)+'</button>'; }).join('')+
+      '</div>'+
+      '<h2>Questions per go</h2><div class="filters" id="sizes">'+
+        [10,20,40,0].map(function(n){
+          return '<button class="chip" type="button" data-n="'+n+'" aria-pressed="'+
+            (S.size===n?'true':'false')+'">'+(n||'All')+'</button>'; }).join('')+
+      '</div>'+
+      '<h2>Topics</h2><div class="topics">';
+
+    BANK.topics.forEach(function(t){
+      var inT=qs.filter(function(q){ return q.topic===t.id; });
+      var at=inT.filter(function(q){ return P[q.id]&&P[q.id].n; });
+      var ok=at.filter(function(q){ return P[q.id].last; }).length;
+      var w=at.length?Math.round(ok/at.length*100):0;
+      h+='<button class="topic" type="button" data-t="'+t.id+'">'+
+         '<span class="tnum">'+t.id+'</span>'+
+         '<span class="tname">'+esc(t.title)+'<em>'+t.count+' questions</em></span>'+
+         '<span class="tright"><span class="meter"><i style="width:'+w+'%"></i></span>'+
+         '<span>'+at.length+'/'+inT.length+'</span></span></button>';
+    });
+    h+='</div><button class="cta" id="all" type="button">Practise everything, mixed</button>';
+    var wrong=qs.filter(function(q){ return P[q.id]&&P[q.id].n&&!P[q.id].last; });
+    if(wrong.length) h+='<button class="cta sec" id="redo" type="button">Redo the '+
+      wrong.length+' I got wrong</button>';
+
+    app.innerHTML=h;
+    document.getElementById('filters').addEventListener('click',function(e){
+      var b=e.target.closest('[data-d]'); if(!b) return;
+      S.diffs[b.dataset.d]=!S.diffs[b.dataset.d];
+      b.setAttribute('aria-pressed', S.diffs[b.dataset.d]?'true':'false');
+    });
+    document.getElementById('sizes').addEventListener('click',function(e){
+      var b=e.target.closest('[data-n]'); if(!b) return;
+      S.size=parseInt(b.dataset.n,10);
+      app.querySelectorAll('#sizes .chip').forEach(function(c){
+        c.setAttribute('aria-pressed', parseInt(c.dataset.n,10)===S.size?'true':'false'); });
+    });
+    app.querySelectorAll('[data-t]').forEach(function(b){
+      b.addEventListener('click',function(){ start(b.dataset.t); }); });
+    document.getElementById('all').addEventListener('click',function(){ start(null); });
+    var r=document.getElementById('redo');
+    if(r) r.addEventListener('click',function(){ start(null,wrong.slice()); });
+  }
+
+  function start(topic, preset){
+    var pool = preset || BANK.questions.filter(function(q){
+      return (!topic||q.topic===topic) && S.diffs[q.difficulty]; });
+    if(!pool.length){ return; }
+    // unseen first, then ones he got wrong last time, then the rest
+    var unseen=[], wrongly=[], rest=[];
+    shuffle(pool.slice()).forEach(function(q){
+      var r=P[q.id];
+      if(!r||!r.n) unseen.push(q); else if(!r.last) wrongly.push(q); else rest.push(q);
+    });
+    var ordered=unseen.concat(wrongly, rest);
+    S.topic=topic; S.queue=(S.size?ordered.slice(0,S.size):ordered); S.i=0; S.log=[];
+    homeBtn.hidden=false;
+    var t=topic?BANK.topics.filter(function(x){return x.id===topic;})[0]:null;
+    sub.textContent = t ? t.id+'  '+t.title : 'Mixed practice';
+    question();
+  }
+
+  /* ---------- one question ---------- */
+  function question(){
+    if(S.i>=S.queue.length) return results();
+    var q=S.queue[S.i], picked=null, checked=false;
+
+    var h='<div class="rail"><i style="width:'+(S.i/S.queue.length*100)+'%"></i></div>'+
+      '<div class="crumb"><span>Question '+(S.i+1)+' of '+S.queue.length+'</span>'+
+      '<span class="tag '+q.difficulty+'">'+q.difficulty+'</span>'+
+      '<span>'+esc(q.topicTitle)+'</span>'+
+      (q.type==='spr'?'<span class="tag">write your answer</span>':'')+'</div>'+
+      '<div class="card"><p class="stem">'+esc(q.stem)+'</p>';
+
+    if(q.type==='mc'){
+      h+='<div class="opts" id="opts">';
+      q.choices.forEach(function(c,i){
+        h+='<button class="opt" type="button" data-l="'+'ABCD'[i]+'" aria-pressed="false">'+
+           '<kbd>'+'ABCD'[i]+'</kbd><span>'+esc(c)+'</span></button>';
+      });
+      h+='</div>';
+    } else {
+      h+='<div class="spr"><label for="ans">Your answer</label>'+
+         '<input id="ans" type="text" inputmode="text" autocomplete="off" spellcheck="false" '+
+         'placeholder="e.g. 7 or 3/4"></div>';
+    }
+    h+='<div id="fb"></div><div class="row">'+
+       '<button class="cta" id="check" type="button">Check</button>'+
+       '<button class="cta sec" id="skip" type="button">Skip</button></div></div>';
+
+    app.innerHTML=h; typeset(app);
+    var fb=document.getElementById('fb'), checkBtn=document.getElementById('check');
+
+    if(q.type==='mc'){
+      document.getElementById('opts').addEventListener('click',function(e){
+        var b=e.target.closest('.opt'); if(!b||checked) return;
+        app.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true'); picked=b.dataset.l;
+      });
+    } else {
+      var inp=document.getElementById('ans');
+      inp.focus();
+      inp.addEventListener('keydown',function(e){ if(e.key==='Enter') checkBtn.click(); });
+    }
+
+    document.getElementById('skip').addEventListener('click',function(){ S.i++; question(); });
+
+    checkBtn.addEventListener('click',function(){
+      if(checked){ S.i++; return question(); }
+      var ok, given;
+      if(q.type==='mc'){
+        if(!picked) return;
+        given=picked; ok = picked===q.answer;
+        app.querySelectorAll('.opt').forEach(function(o){
+          o.disabled=true;
+          if(o.dataset.l===q.answer) o.classList.add('right');
+          else if(o.dataset.l===picked) o.classList.add('wrong');
+        });
+      } else {
+        var inp2=document.getElementById('ans');
+        given=inp2.value; if(!given.trim()) return;
+        ok=accepts(q,given); inp2.disabled=true;
+      }
+      checked=true; mark(q.id,ok);
+      S.log.push({q:q, ok:ok, given:given});
+
+      var note = (!ok && q.type==='mc' && q.distractors && q.distractors[picked])
+        ? '<br>That option comes from '+esc(q.distractors[picked])+'.' : '';
+      var shown = q.type==='mc'
+        ? q.answer+')  '+q.choices['ABCD'.indexOf(q.answer)]
+        : q.answer;
+      fb.innerHTML='<div class="verdict '+(ok?'ok':'no')+'">'+
+        '<b>'+(ok?'Correct':'Not quite')+'</b>'+
+        (ok?'':'The answer is '+esc(shown)+'.'+note)+
+        '</div><details class="sol"'+(ok?'':' open')+'>'+
+        '<summary>Worked solution</summary><div class="body">'+esc(q.solution)+'</div></details>';
+      typeset(fb);
+      checkBtn.textContent = (S.i+1>=S.queue.length) ? 'See results' : 'Next question';
+      checkBtn.focus();
+    });
+  }
+
+  /* ---------- results ---------- */
+  function results(){
+    homeBtn.hidden=true; sub.textContent='Foundations to Mastery';
+    var n=S.log.length, ok=S.log.filter(function(r){return r.ok;}).length;
+    var missed=S.log.filter(function(r){return !r.ok;});
+    var h='<h1>'+(n?'You got '+ok+' of '+n:'Nothing attempted')+'</h1>'+
+      '<div class="score">'+(n?Math.round(ok/n*100)+'%':'—')+'</div>';
+    if(missed.length){
+      h+='<h2>Worth a second look</h2><div class="missed">';
+      missed.forEach(function(r){
+        h+='<div class="m"><p>'+esc(r.q.stem)+'</p>'+
+           '<small>'+r.q.id+' &middot; '+esc(r.q.topicTitle)+'</small>'+
+           '<details class="sol"><summary>Worked solution</summary>'+
+           '<div class="body">'+esc(r.q.solution)+'</div></details></div>';
+      });
+      h+='</div>';
+    } else if(n){
+      h+='<p class="lede">Every one right. Raise the difficulty or take another topic.</p>';
+    }
+    h+='<button class="cta" id="back" type="button">Back to topics</button>';
+    app.innerHTML=h; typeset(app);
+    document.getElementById('back').addEventListener('click',home);
+  }
+
+  /* ---------- theme + boot ---------- */
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var r=document.documentElement, cur=r.getAttribute('data-theme');
+    var dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+    r.setAttribute('data-theme', dark?'light':'dark');
+    try{ localStorage.setItem('satmath.theme', dark?'light':'dark'); }catch(e){}
+  });
+  try{ var th=localStorage.getItem('satmath.theme');
+       if(th) document.documentElement.setAttribute('data-theme',th); }catch(e){}
+  homeBtn.addEventListener('click',results);
+
+  fetch('data/bank.json').then(function(r){ return r.json(); }).then(function(d){
+    BANK=d; home();
+  }).catch(function(){
+    app.innerHTML='<div class="empty">The question bank did not load.<br>'+
+      'Check that <code>data/bank.json</code> sits beside this page.</div>';
+  });
+})();
+</script>
