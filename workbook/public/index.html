@@ -100,6 +100,13 @@ h2{font-family:var(--display);font-size:19px;margin:30px 0 12px;letter-spacing:-
 .chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
 
 .topics{display:grid;gap:8px}
+.topics .tgroup{grid-column:1/-1}
+.tgroup{display:flex;align-items:center;gap:10px;margin:22px 0 10px;font-size:11.5px;
+  letter-spacing:.13em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.tgroup:first-child{margin-top:4px}
+.tgroup::after{content:'';flex:1;height:1px;background:var(--line)}
+.tgroup b{font-weight:600;color:var(--muted)}
+.tgroup span{font-family:var(--mono);letter-spacing:0;text-transform:none;font-size:11px;opacity:.75}
 .topic{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;
   width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);
   border-radius:var(--r);padding:13px 15px;font:inherit;color:inherit;cursor:pointer}
@@ -162,6 +169,18 @@ details.sol .body{margin-top:10px;font-size:15.5px;line-height:1.65;color:var(--
 .row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
 .row .cta{margin-top:0;flex:1;min-width:140px}
 
+/* ---------- who is practising ---------- */
+.who{font-size:14px;color:var(--muted);margin:0 0 14px}
+.who b{color:var(--fg)}
+.link{background:none;border:0;padding:0;font:inherit;color:var(--navy);
+  text-decoration:underline;cursor:pointer}
+.who-form{margin-bottom:24px}
+.who-form label{font-size:14px;color:var(--muted)}
+.who-form .row{margin-top:10px}
+.who-form input{flex:2;min-width:160px;font:inherit;font-size:17px;padding:11px 14px;
+  border:1.5px solid var(--line);border-radius:var(--r);background:var(--bg);color:inherit}
+.who-form input:focus{outline:2px solid var(--navy);outline-offset:1px;border-color:var(--navy)}
+
 /* ---------- results ---------- */
 .score{font-family:var(--display);font-size:52px;line-height:1;color:var(--navy);
   font-variant-numeric:tabular-nums}
@@ -209,6 +228,24 @@ mjx-container svg{max-width:100%}
   function save(p){ try{ localStorage.setItem(KEY, JSON.stringify(p)); }catch(e){} }
   var P=load();
   function mark(id,ok){ var r=P[id]||{n:0,ok:0}; r.n++; if(ok) r.ok++; r.last=ok?1:0; P[id]=r; save(P); }
+
+  /* ---------- attempt log: sent to the tutor (see tutor.html) ---------- */
+  var NAME_KEY='satmath.student';
+  function student(){ try{ return localStorage.getItem(NAME_KEY)||''; }catch(e){ return ''; } }
+  function setStudent(n){ try{ localStorage.setItem(NAME_KEY,n); }catch(e){} }
+  function newSid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+  function shown(q,v){
+    return q.type==='mc' ? v+')  '+q.choices['ABCD'.indexOf(v)] : String(v);
+  }
+  // window.satLog arrives with the Firebase module, which loads after this script
+  // and may never load at all; until then attempts wait in window.satQueue.
+  function logAttempt(q,result,given){
+    var rec={student:(student()||'Unnamed').slice(0,60), sid:S.sid, qid:q.id,
+      topic:q.topic, topicTitle:q.topicTitle, difficulty:q.difficulty, type:q.type,
+      given:given?shown(q,given).slice(0,200):'', answer:shown(q,q.answer).slice(0,200),
+      result:result, stem:String(q.stem).slice(0,2000)};
+    if(window.satLog) window.satLog(rec); else (window.satQueue=window.satQueue||[]).push(rec);
+  }
 
   /* ---------- helpers ---------- */
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
@@ -280,7 +317,15 @@ mjx-container svg{max-width:100%}
     qs.forEach(function(q){ var r=P[q.id]; if(r&&r.n){ done++; if(r.last) right++; } });
     var pct=done?Math.round(right/done*100):0;
 
-    var h='<h1>Pick a topic and start</h1>'+
+    var who=student();
+    var h=(who
+      ? '<p class="who">Practising as <b>'+esc(who)+'</b> '+
+        '<button class="link" id="notMe" type="button">Not you?</button></p>'
+      : '<form class="card who-form" id="whoForm"><label for="whoName">Your first name, '+
+        'so your tutor can see your practice</label><div class="row">'+
+        '<input id="whoName" type="text" maxlength="60" autocomplete="given-name" required>'+
+        '<button class="cta" type="submit">Save</button></div></form>')+
+      '<h1>Pick a topic and start</h1>'+
       '<p class="lede">Every question here is written in the style of the digital SAT. '+
       'Work it on paper first, then type your answer — the workbook marks it straight away '+
       'and tells you which mistake produced each wrong option.</p>'+
@@ -302,7 +347,19 @@ mjx-container svg{max-width:100%}
       '</div>'+
       '<h2>Topics</h2><div class="topics">';
 
+    var GROUP={0:'Foundations',1:'Algebra',2:'Problem solving and data',
+               3:'Advanced maths',4:'Geometry and trigonometry'};
+    var lastLevel=null;
     BANK.topics.forEach(function(t){
+      var lv=t.level==null?parseInt(String(t.id).split('.')[0],10):t.level;
+      if(lv!==lastLevel){
+        lastLevel=lv;
+        var inL=BANK.topics.filter(function(x){
+          var l=x.level==null?parseInt(String(x.id).split('.')[0],10):x.level; return l===lv; });
+        var nL=inL.reduce(function(a,x){ return a+(x.count||0); },0);
+        h+='<div class="tgroup"><b>'+esc(GROUP[lv]||('Level '+lv))+'</b>'+
+           '<span>'+nL+'</span></div>';
+      }
       var inT=qs.filter(function(q){ return q.topic===t.id; });
       var at=inT.filter(function(q){ return P[q.id]&&P[q.id].n; });
       var ok=at.filter(function(q){ return P[q.id].last; }).length;
@@ -319,6 +376,12 @@ mjx-container svg{max-width:100%}
       wrong.length+' I got wrong</button>';
 
     app.innerHTML=h;
+    var wf=document.getElementById('whoForm');
+    if(wf) wf.addEventListener('submit',function(e){
+      e.preventDefault(); var n=document.getElementById('whoName').value.trim();
+      if(n){ setStudent(n); home(); } });
+    var nm=document.getElementById('notMe');
+    if(nm) nm.addEventListener('click',function(){ setStudent(''); home(); });
     document.getElementById('filters').addEventListener('click',function(e){
       var b=e.target.closest('[data-d]'); if(!b) return;
       S.diffs[b.dataset.d]=!S.diffs[b.dataset.d];
@@ -349,6 +412,7 @@ mjx-container svg{max-width:100%}
     });
     var ordered=unseen.concat(wrongly, rest);
     S.topic=topic; S.queue=(S.size?ordered.slice(0,S.size):ordered); S.i=0; S.log=[];
+    S.sid=newSid();
     homeBtn.hidden=false;
     var t=topic?BANK.topics.filter(function(x){return x.id===topic;})[0]:null;
     sub.textContent = t ? t.id+'  '+t.title : 'Mixed practice';
@@ -398,7 +462,9 @@ mjx-container svg{max-width:100%}
       inp.addEventListener('keydown',function(e){ if(e.key==='Enter') checkBtn.click(); });
     }
 
-    document.getElementById('skip').addEventListener('click',function(){ S.i++; question(); });
+    document.getElementById('skip').addEventListener('click',function(){
+      if(!checked) logAttempt(q,'skipped','');
+      S.i++; question(); });
 
     checkBtn.addEventListener('click',function(){
       if(checked){ S.i++; return question(); }
@@ -416,7 +482,7 @@ mjx-container svg{max-width:100%}
         given=inp2.value; if(!given.trim()) return;
         ok=accepts(q,given); inp2.disabled=true;
       }
-      checked=true; mark(q.id,ok);
+      checked=true; mark(q.id,ok); logAttempt(q, ok?'correct':'wrong', given);
       S.log.push({q:q, ok:ok, given:given});
 
       var note = (!ok && q.type==='mc' && q.distractors && q.distractors[picked])
@@ -478,6 +544,19 @@ mjx-container svg{max-width:100%}
   });
 })();
 </script>
-
+<script type="module">
+// Sends each attempt to Firestore. Failures are silent: practice must never
+// break because the log is unreachable.
+import { firebaseConfig, SDK } from "./firebase-config.js";
+try {
+  const { initializeApp } = await import(SDK + "/firebase-app.js");
+  const { getFirestore, collection, addDoc, serverTimestamp } =
+    await import(SDK + "/firebase-firestore.js");
+  const db = getFirestore(initializeApp(firebaseConfig));
+  window.satLog = (rec) =>
+    addDoc(collection(db, "satAttempts"), { ...rec, at: serverTimestamp() }).catch(() => {});
+  (window.satQueue || []).splice(0).forEach(window.satLog);
+} catch (e) { /* offline or blocked: the workbook still works */ }
+</script>
 </body>
 </html>
