@@ -1,5 +1,7 @@
 # Never commit copyrighted textbooks
 *.pdf
+# ...but the worksheets we generate ourselves are part of the course
+!tutor/homework/*.pdf
 textbooks/
 .textbook-index/
 
