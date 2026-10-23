@@ -1,0 +1,60 @@
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+__CSS__
+</style>
+
+<div id="rail"><div id="railFill"></div></div>
+
+<header id="top">
+  <div id="brand"><span id="deckName"></span><span id="deckSession"></span></div>
+  <span class="sp"></span>
+  <span id="counter">1 / 1</span>
+  <button class="tbtn" id="ovBtn" title="Overview (O)">Contents</button>
+  <button class="tbtn" id="notesBtn" title="Tutor notes (N)">Notes</button>
+  <button class="tbtn" id="thBtn" title="Theme">Theme</button>
+  <button class="tbtn" id="fsBtn" title="Fullscreen (F)">Full</button>
+</header>
+
+<main id="stage"></main>
+
+<div id="notes" hidden></div>
+
+<footer id="bot">
+  <button class="nav" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <span id="hint">← → to move · O contents · N notes · F fullscreen</span>
+  <button class="nav" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</footer>
+
+<div id="overview" hidden><div id="ovGrid"></div></div>
+
+<script>
+(function(){
+  var r=document.documentElement, k='satdeck.theme', t=null;
+  try{ t=localStorage.getItem(k); }catch(e){}
+  r.setAttribute('data-theme', t || 'dark');
+  document.getElementById('thBtn').addEventListener('click', function(){
+    var n = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', n);
+    try{ localStorage.setItem(k,n); }catch(e){}
+  });
+})();
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js" id="MathJax-script" async></script>
+
+<script>
+var DECK = __DECK__;
+</script>
+<script>
+__ENGINE__
+</script>

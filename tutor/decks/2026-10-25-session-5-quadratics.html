@@ -1,0 +1,665 @@
+<title>Quadratics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ SAT Math deck — premium slide shell ============ */
+:root{
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* light */
+  --base:#F7F5F1; --surf:#FFFFFF; --rise:#FFFFFF; --rise2:#F3F0EA;
+  --line:rgba(16,24,40,.12); --line2:rgba(16,24,40,.22);
+  --ink:#121923; --mid:#3D4A5C; --mute:#6B7A8E;
+  --gold:#9A6B18; --gold-d:#7E5611; --goldw:rgba(154,107,24,.10);
+  --good:#117A52; --goodw:rgba(17,122,82,.10);
+  --bad:#B6301F; --badw:rgba(182,48,31,.09);
+  --on-gold:#FFFFFF; --goldb:rgba(154,107,24,.32);
+  --shadow:0 18px 50px -26px rgba(16,24,40,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+    --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+    --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+    --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+    --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+    --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+    --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+    --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+  --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+  --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+  --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+  --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+  --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+  --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+  --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 78% -10%, var(--goldw), transparent 65%),
+    radial-gradient(700px 480px at -5% 105%, rgba(79,214,160,.07), transparent 62%);
+}
+
+/* ---------- chrome ---------- */
+#top{
+  position:fixed; top:0; left:0; right:0; height:52px; z-index:30;
+  display:flex; align-items:center; gap:14px; padding:0 20px;
+  font-size:12.5px; letter-spacing:.02em;
+}
+#brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+#deckName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#deckSession{color:var(--mute);white-space:nowrap;font-size:11.5px}
+#top .sp{flex:1}
+.tbtn{
+  appearance:none;border:1px solid var(--line);background:transparent;color:var(--mid);
+  font:inherit;font-size:11.5px;padding:5px 11px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease); white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--line2);color:var(--ink);background:var(--rise)}
+#counter{color:var(--mute);font-variant-numeric:tabular-nums;font-size:11.5px}
+
+#rail{position:fixed;top:0;left:0;right:0;height:2px;z-index:31;background:var(--line)}
+#railFill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-d),var(--gold));
+  transition:width .55s var(--ease)}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:52px 0 62px;z-index:1}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+.slide::-webkit-scrollbar{width:7px}
+.slide::-webkit-scrollbar-thumb{background:var(--line2);border-radius:9px}
+.sl{
+  min-height:100%; width:min(1120px,100%); margin:0 auto;
+  padding:30px 32px 40px; display:flex; flex-direction:column;
+}
+.slide.in{animation:sIn .55s var(--ease) both}
+.slide.in.back{animation:sInB .55s var(--ease) both}
+.slide.nomo{animation:none!important}
+@keyframes sIn{from{opacity:0;transform:translate3d(28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes sInB{from{opacity:0;transform:translate3d(-28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+
+.r{opacity:0;transform:translateY(16px);filter:blur(7px);
+  transition:opacity .62s var(--ease) var(--d,0ms),transform .62s var(--ease) var(--d,0ms),filter .62s var(--ease) var(--d,0ms)}
+.r.on{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){
+  .r{transition-duration:.01ms!important}
+  .slide.in,.slide.in.back{animation:none}
+}
+
+/* ---------- typography ---------- */
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:9px;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent);max-width:160px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6.6vw,86px);line-height:1.02;
+  letter-spacing:-.018em;margin:0 0 18px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,50px);line-height:1.08;
+  letter-spacing:-.012em;margin:0 0 16px}
+h2.sh{font-size:clamp(25px,3.1vw,38px);margin-bottom:18px}
+.lede{font-size:clamp(15px,1.7vw,20px);color:var(--mid);max-width:62ch;margin:0;line-height:1.55}
+.lead{font-size:clamp(14.5px,1.5vw,17.5px);color:var(--mid);max-width:70ch;margin:0 0 22px;line-height:1.6}
+
+/* ---------- title / section ---------- */
+.sl-title,.sl-section{justify-content:center;padding-top:10px}
+.sl-title h1{max-width:17ch}
+.tmeta{display:flex;flex-wrap:wrap;gap:34px;margin-top:38px;padding-top:24px;border-top:1px solid var(--line)}
+.tmeta span{display:flex;flex-direction:column;gap:3px;font-size:11.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--mute)}
+.tmeta b{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink)}
+.sl-section h2{font-size:clamp(34px,5.2vw,64px);max-width:16ch}
+.sl-close h2{color:var(--gold)}
+
+/* ---------- lists ---------- */
+.pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.pts li{display:flex;gap:14px;align-items:flex-start;font-size:clamp(14.5px,1.5vw,18px);line-height:1.55;color:var(--mid)}
+.dot{flex:0 0 7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.55em;
+  box-shadow:0 0 0 4px var(--goldw)}
+
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.step{display:flex;gap:16px;align-items:flex-start;background:var(--rise);border:1px solid var(--line);
+  border-radius:14px;padding:15px 18px}
+.step i{flex:0 0 28px;height:28px;border-radius:9px;background:var(--goldw);color:var(--gold);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12.5px;font-family:var(--mono)}
+.step div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.step b{font-size:clamp(14.5px,1.45vw,17px);font-weight:700;color:var(--ink);line-height:1.4}
+.step span{font-size:14px;color:var(--mute);line-height:1.5}
+
+.recap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.recap li{display:flex;gap:16px;align-items:flex-start;font-size:clamp(15px,1.6vw,19px);
+  line-height:1.5;color:var(--mid);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.recap li:last-child{border-bottom:0}
+.recap i{font-family:var(--serif);font-style:normal;font-size:28px;color:var(--gold);
+  line-height:1;flex:0 0 32px;opacity:.85}
+
+.callout{margin-top:22px;background:var(--goldw);border:1px solid var(--goldb);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:15px 19px;
+  font-size:clamp(14px,1.45vw,16.5px);line-height:1.55;color:var(--ink)}
+
+/* ---------- table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--rise)}
+table{width:100%;border-collapse:collapse;font-size:clamp(13.5px,1.35vw,16px)}
+th{text-align:left;padding:12px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mute);font-weight:700;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tr.good td{background:var(--goodw)} tr.bad td{background:var(--badw)}
+
+/* ---------- compare ---------- */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--rise)}
+.card.bad{border-color:rgba(255,126,110,.32);background:var(--badw)}
+.card.good{border-color:rgba(79,214,160,.32);background:var(--goodw)}
+.ctag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:11px}
+.card.bad .ctag{color:var(--bad)} .card.good .ctag{color:var(--good)}
+.cbody{font-family:var(--mono);font-size:clamp(13px,1.35vw,15.5px);line-height:1.85;color:var(--ink)}
+
+/* ---------- worked example ---------- */
+.qbox{border:1px solid var(--line2);border-radius:16px;background:var(--rise);padding:18px 20px;margin-bottom:18px}
+.qtag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:9px}
+.qstem{font-size:clamp(15px,1.6vw,19px);line-height:1.55;color:var(--ink)}
+.think{background:var(--rise2);border-radius:12px;padding:13px 17px;margin-bottom:16px;
+  font-size:clamp(13.5px,1.4vw,16px);color:var(--mid);line-height:1.55}
+.think b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.wsteps{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:0}
+.wsteps li{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.wsteps li:last-child{border-bottom:0}
+.wsteps i{flex:0 0 24px;height:24px;border-radius:7px;border:1px solid var(--line2);color:var(--mute);
+  display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;font-family:var(--mono)}
+.wsteps div{font-size:clamp(14px,1.45vw,17px);line-height:1.6;color:var(--mid)}
+.ans{margin-top:auto;display:flex;align-items:center;gap:14px;background:var(--goodw);
+  border:1px solid rgba(79,214,160,.32);border-radius:14px;padding:14px 20px}
+.ans span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--good)}
+.ans b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.6vw,32px);color:var(--ink);line-height:1}
+
+/* ---------- practice ---------- */
+.qgrid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.qgrid.n1,.qgrid.n3{grid-template-columns:1fr 1fr}
+.qgrid.n1{grid-template-columns:1fr}
+.q{border:1px solid var(--line);border-radius:16px;background:var(--rise);padding:16px 18px;
+  display:flex;flex-direction:column;gap:11px;transition:border-color .25s var(--ease)}
+.q.open{border-color:var(--line2)}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;min-height:1px}
+.chip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  padding:3px 9px;border-radius:999px;background:var(--goldw);color:var(--gold)}
+.chip.w{background:transparent;border:1px solid var(--line2);color:var(--mute)}
+.qs{font-size:clamp(14px,1.4vw,16.5px);line-height:1.55;color:var(--ink)}
+.opts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.opts li{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);
+  border-radius:10px;cursor:pointer;font-size:14px;color:var(--mid);
+  transition:all .18s var(--ease);user-select:none}
+.opts li:hover{border-color:var(--line2);background:var(--rise2)}
+.opts kbd{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--mute);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px;flex:0 0 auto}
+.opts li.pick{border-color:var(--line2);background:var(--rise2)}
+.opts li.right{border-color:var(--good);background:var(--goodw);color:var(--ink)}
+.opts li.right kbd{color:var(--good);border-color:var(--good)}
+.opts li.wrong{border-color:var(--bad);background:var(--badw)}
+.opts li.wrong kbd{color:var(--bad);border-color:var(--bad)}
+.show{appearance:none;border:1px solid var(--line2);background:transparent;color:var(--mid);
+  font:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:9px;cursor:pointer;
+  align-self:flex-start;transition:all .18s var(--ease)}
+.show:hover{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.q.open .show{display:none}
+.sol[hidden]{display:none}
+.sol{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:9px;
+  animation:fadeU .4s var(--ease) both}
+@keyframes fadeU{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.solA{font-family:var(--serif);font-size:clamp(19px,2vw,25px);color:var(--good);line-height:1.2}
+.solT{font-size:14px;line-height:1.6;color:var(--mid)}
+.solW{font-size:13px;line-height:1.55;color:var(--mute);background:var(--badw);
+  border-radius:9px;padding:9px 12px}
+.solW b{color:var(--bad);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  display:block;margin-bottom:3px}
+.revealAll{appearance:none;margin:18px auto 0;border:1px dashed var(--line2);background:transparent;
+  color:var(--mute);font:inherit;font-size:12.5px;padding:9px 20px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease)}
+.revealAll:hover:not(:disabled){color:var(--ink);border-color:var(--gold)}
+.revealAll:disabled{opacity:.4;cursor:default}
+
+/* ---------- bottom bar ---------- */
+#bot{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:30;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(to top,var(--base) 55%,transparent)}
+.nav{appearance:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:var(--surf);color:var(--mid);cursor:pointer;display:grid;place-items:center;
+  transition:all .2s var(--ease)}
+.nav:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.nav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#hint{font-size:11px;color:var(--mute);letter-spacing:.04em}
+#notes{position:fixed;bottom:62px;left:0;right:0;z-index:29;background:var(--rise2);
+  border-top:1px solid var(--line);padding:13px 24px;font-size:13.5px;color:var(--mid);
+  max-height:30vh;overflow:auto;line-height:1.55}
+
+/* ---------- overview ---------- */
+#overview{position:fixed;inset:0;z-index:40;background:rgba(247,245,241,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:auto;padding:60px 24px;opacity:0;transition:opacity .22s var(--ease)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #overview{background:rgba(7,10,18,.86)}}
+:root[data-theme="dark"] #overview{background:rgba(7,10,18,.86)}
+#overview.on{opacity:1}
+#ovGrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  max-width:1100px;margin:0 auto}
+.ovc{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surf);
+  border-radius:12px;padding:13px 15px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;
+  color:var(--mid);font:inherit;font-size:13.5px;line-height:1.4;transition:all .18s var(--ease)}
+.ovc:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.ovc i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--mute);flex:0 0 auto;padding-top:2px}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .cmp,.qgrid,.qgrid.n3{grid-template-columns:1fr}
+  .sl{padding:22px 16px 34px}
+  .tmeta{gap:22px}
+}
+@media (max-width:560px){
+  .opts{grid-template-columns:1fr}
+  #hint{display:none}
+  #top{gap:9px;padding:0 13px}
+  #deckSession{display:none}
+}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container svg{vertical-align:-.12em}
+
+</style>
+
+<div id="rail"><div id="railFill"></div></div>
+
+<header id="top">
+  <div id="brand"><span id="deckName"></span><span id="deckSession"></span></div>
+  <span class="sp"></span>
+  <span id="counter">1 / 1</span>
+  <button class="tbtn" id="ovBtn" title="Overview (O)">Contents</button>
+  <button class="tbtn" id="notesBtn" title="Tutor notes (N)">Notes</button>
+  <button class="tbtn" id="thBtn" title="Theme">Theme</button>
+  <button class="tbtn" id="fsBtn" title="Fullscreen (F)">Full</button>
+</header>
+
+<main id="stage"></main>
+
+<div id="notes" hidden></div>
+
+<footer id="bot">
+  <button class="nav" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <span id="hint">← → to move · O contents · N notes · F fullscreen</span>
+  <button class="nav" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</footer>
+
+<div id="overview" hidden><div id="ovGrid"></div></div>
+
+<script>
+(function(){
+  var r=document.documentElement, k='satdeck.theme', t=null;
+  try{ t=localStorage.getItem(k); }catch(e){}
+  r.setAttribute('data-theme', t || 'dark');
+  document.getElementById('thBtn').addEventListener('click', function(){
+    var n = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', n);
+    try{ localStorage.setItem(k,n); }catch(e){}
+  });
+})();
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js" id="MathJax-script" async></script>
+
+<script>
+var DECK = {"id":"sat-quadratics","title":"Quadratics","session":"Session 5 · 25 October","slides":[{"type":"title","eyebrow":"Session 5 · 25 October","title":"Quadratics","sub":"Everything that happens once an $x^2$ shows up: how to open brackets, how to close them again, and how to find the values of $x$ that make it zero.","meta":[{"v":"~22%","k":"of the exam"},{"v":"2","k":"answers, not one"},{"v":"28","k":"questions today"}],"notes":"Open by saying what fraction of the test this is. Advanced Math is ~35% of the paper and quadratics are the biggest single slice of it. This hour is worth more marks than any other hour we have left."},{"type":"idea","kicker":"Why this hour matters","title":"The one topic you cannot skip","lead":"Every quadratic question on the SAT is one of four shapes. Once you can tell them apart, you already know which tool to pick.","points":["Open the brackets — \"which expression is equivalent to $(2x-3)(x+5)$?\"","Close the brackets — \"which expression is equivalent to $x^2-7x+12$?\"","Solve for $x$ — \"what are the solutions to $x^2-7x+12=0$?\"","Read the shape — how many solutions, what is the maximum, where does it cross."],"callout":"The first three are the same skill pointed in different directions. Today we build that one skill and then aim it three ways.","notes":"Resist the urge to teach these as four unrelated topics. Expanding and factoring are the same multiplication read forwards and backwards; solving is factoring plus one extra line."},{"type":"section","kicker":"Part one","title":"Opening the brackets","sub":"Multiply every term in the first bracket by every term in the second. There are no shortcuts worth learning, only one method done carefully."},{"type":"steps","kicker":"The method","title":"Four multiplications, every time","lead":"$(a+b)(c+d)$ means four products added together. People lose marks here for exactly one reason: they forget a sign, not because they forget a product.","steps":[{"label":"Multiply the two front terms","body":"In $(2x-3)(x+5)$ that is $2x \\times x = 2x^2$."},{"label":"Multiply the outer pair","body":"$2x \\times 5 = 10x$. Write the sign that belongs to it."},{"label":"Multiply the inner pair","body":"$-3 \\times x = -3x$. The minus travels with the $3$. It always does."},{"label":"Multiply the two back terms","body":"$-3 \\times 5 = -15$. Negative times positive is negative."},{"label":"Collect the middle","body":"$10x - 3x = 7x$, so the answer is $2x^2+7x-15$."}],"callout":"Write the sign onto the number before you multiply. $-3$ is a single object, not a $3$ with a mark in front of it. This is the same habit that fixed the sign errors in Session 2.","notes":"This links straight back to the diagnostic. Seven of his seventeen errors were a dropped negative. Say that out loud here — it is the same mistake wearing a different hat."},{"type":"compare","kicker":"The slip that costs the mark","title":"Where the minus goes","lead":"Expand $(x-4)(x-6)$. Both brackets have a minus in them, so the middle terms are both negative and the end is positive.","left":{"label":"What most students write","body":"x² − 6x − 4x − 24\n= x² − 10x − 24"},"right":{"label":"What is actually true","body":"(−4)(−6) = +24\nx² − 6x − 4x + 24\n= x² − 10x + 24"},"callout":"Two negatives multiplied give a positive. The last term of $(x-4)(x-6)$ must be $+24$. If your constant came out negative, one of your brackets had a plus in it.","notes":"Have him say the rule back: \"minus times minus is plus.\" Then ask what the constant term would be for (x-4)(x+6) — answer -24 — so he hears the difference."},{"type":"worked","kicker":"Worked example","title":"A harder expansion, slowly","question":"Which expression is equivalent to $(3x-2)(2x+5)$?","thinking":"The front terms are $3x$ and $2x$, so the answer starts with $6x^2$. That alone usually eliminates two of the four options before any other work.","steps":["Front: $3x \\times 2x = 6x^2$.","Outer: $3x \\times 5 = 15x$.","Inner: $-2 \\times 2x = -4x$. Keep the minus with the 2.","Back: $-2 \\times 5 = -10$.","Middle terms: $15x - 4x = 11x$."],"answer":"$6x^2+11x-10$","notes":"Point out the elimination move explicitly: on a multiple-choice expansion, the x-squared term and the constant term are each one multiplication. Two multiplications usually leave one option standing."},{"type":"idea","kicker":"A shortcut worth having","title":"Two patterns you should recognise on sight","lead":"These two turn up constantly. Knowing them saves twenty seconds a question, and twenty seconds across a module is a question you get to finish.","points":["Difference of two squares: $(x+a)(x-a) = x^2-a^2$. The middle term cancels — there is no $x$ term at all.","So $(x+9)(x-9)=x^2-81$, and read backwards, $9x^2-25=(3x+5)(3x-5)$.","Perfect square: $(x+a)^2 = x^2+2ax+a^2$. The middle is twice $a$, not $a$.","So $(x+6)^2=x^2+12x+36$ — and it is **not** $x^2+36$."],"callout":"$(x+6)^2$ means $(x+6)(x+6)$. Squaring a bracket is never \"square each bit\". That single misunderstanding is one of the most common wrong answers the SAT offers you.","notes":"Test him: ask for (x+6)^2 and watch whether he says x^2+36. If he does, do not move on — write out the four products."},{"type":"practice","kicker":"Your turn","title":"Expanding — warm-up","lead":"Do these on paper before you reveal anything. Say each sign out loud as you write it.","questions":[{"stem":"Which expression is equivalent to $(x-3)(x+8)$?","answer":"B","solution":"The cross terms are $x\\cdot 8=8x$ and $-3\\cdot x=-3x$, which combine to $5x$. The last terms give $(-3)(8)=-24$. So $(x-3)(x+8)=x^2+5x-24$. Keeping the minus sign attached to the $3$ throughout is what controls both the middle term and the constant.","tag":"warm-up","choices":["$x^2-5x-24$","$x^2+5x-24$","$x^2+11x-24$","$x^2+5x+24$"],"trap":"A) is what you get if you subtracted the cross terms in the wrong order, using $3-8$ instead of $8-3$; C) is what you get if you treated the $-3$ as $+3$, so the middle term became $3+8=11$; D) is what you get if you found the middle term correctly but made $(-3)(8)$ positive."},{"stem":"Which expression is equivalent to $(x+6)^2$?","answer":"D","solution":"A square of a binomial means the binomial times itself: $(x+6)(x+6)$. The cross terms are $6x$ and $6x$, which add to $12x$, and the last terms give $36$. So $(x+6)^2=x^2+12x+36$, matching $(a+b)^2=a^2+2ab+b^2$.","tag":"warm-up","choices":["$x^2+36$","$x^2+6x+36$","$x^2+12x+12$","$x^2+12x+36$"],"trap":"A) is what you get if you squared each term separately, writing $x^2+6^2$; B) is what you get if you used $6$ rather than $2\\cdot 6$ for the middle term; C) is what you get if you doubled the $6$ for the constant instead of squaring it."},{"stem":"Which expression is equivalent to $(x+5)(x-5)$?","answer":"A","solution":"The cross terms are $-5x$ and $+5x$, which cancel. What is left is $x\\cdot x=x^2$ and $(5)(-5)=-25$, so the product is $x^2-25$. This is the difference of squares pattern $(a+b)(a-b)=a^2-b^2$.","tag":"warm-up","choices":["$x^2-25$","$x^2-10x-25$","$x^2+25$","$x^2-10x+25$"],"trap":"B) is what you get if you combined the cross terms as $-5x-5x$ instead of noticing that $5x$ and $-5x$ cancel; C) is what you get if you applied the difference of squares but kept the constant positive; D) is what you get if you expanded it as $(x-5)^2$."},{"stem":"In the expansion of $(2x+1)(x+4)$, what is the coefficient of $x$?","answer":"9","solution":"The two cross terms are $2x\\cdot 4=8x$ and $1\\cdot x=x$. Together they give $9x$, so the coefficient of $x$ is $9$. The full expansion is $2x^2+9x+4$.","tag":"warm-up"}],"notes":"Give four minutes. Circulate. The one to watch is the squared bracket."},{"type":"practice","kicker":"Your turn","title":"Expanding — exam level","lead":"These are the version the test actually asks. Same four multiplications, bigger numbers.","questions":[{"stem":"Which expression is equivalent to $(4x+3)(2x-7)$?","answer":"B","solution":"The four products are $8x^2$, $4x\\cdot(-7)=-28x$, $3\\cdot 2x=6x$, and $3\\cdot(-7)=-21$. The middle terms give $-28x+6x=-22x$. So $(4x+3)(2x-7)=8x^2-22x-21$.","tag":"medium","choices":["$8x^2-28x-21$","$8x^2-22x-21$","$8x^2-22x+21$","$8x^2+22x-21$"],"trap":"A) is what you get if you found $4x\\cdot(-7)$ but left out $3\\cdot 2x$; C) is what you get if you multiplied $3\\cdot(-7)$ and recorded the result as positive; D) is what you get if you combined the cross terms as $28x-6x$, reversing both signs."},{"stem":"Which expression is equivalent to $(2x-7)^2$?","answer":"C","solution":"Write the square as $(2x-7)(2x-7)$. The first terms give $4x^2$, each cross term is $2x\\cdot(-7)=-14x$ for a total of $-28x$, and the last terms give $49$. So $(2x-7)^2=4x^2-28x+49$.","tag":"medium","choices":["$4x^2+49$","$4x^2-14x+49$","$4x^2-28x+49$","$4x^2-28x-49$"],"trap":"A) is what you get if you squared each term separately, writing $(2x)^2+(-7)^2$; B) is what you get if you used $2\\cdot 7$ for the middle term instead of $2\\cdot 2\\cdot 7$; D) is what you get if you found the middle term correctly but wrote $(-7)^2$ as $-49$."},{"stem":"In the expansion of $(5x-3)(2x+9)$, what is the coefficient of $x$?","answer":"39","solution":"The two cross terms are $5x\\cdot 9=45x$ and $-3\\cdot 2x=-6x$. Combining them gives $45x-6x=39x$, so the coefficient of $x$ is $39$. The full expansion is $10x^2+39x-27$.","tag":"medium"},{"stem":"Which expression is equivalent to $(x+3)^2-(x-3)^2$?","answer":"D","solution":"Expand both squares: $(x+3)^2=x^2+6x+9$ and $(x-3)^2=x^2-6x+9$. Subtracting, the $x^2$ terms and the $9$s cancel, and $6x-(-6x)=12x$. So the expression equals $12x$.","tag":"medium","choices":["$0$","$18$","$6x$","$12x$"],"trap":"A) is what you get if you assumed the two squares are equal and cancel; B) is what you get if you expanded each square as $x^2+9$ and $x^2-9$, then subtracted; C) is what you get if you found $6x$ and $-6x$ but subtracted only one of them."}],"notes":"The last one is a difference-of-squares trick in disguise: (x+3)^2-(x-3)^2 = 12x. If he grinds it out term by term that is fine — but show the pattern after."},{"type":"section","kicker":"Part two","title":"Closing the brackets","sub":"Factoring is expanding run backwards. You are looking for the two numbers that were there before someone multiplied them out."},{"type":"steps","kicker":"The method","title":"The two-number game","lead":"To factor $x^2+bx+c$ you need two numbers that multiply to $c$ and add to $b$. That is the whole technique.","steps":[{"label":"Look at the last number first","body":"For $x^2-7x+12$, the pair must multiply to $+12$."},{"label":"List the pairs","body":"$1 \\times 12$, $2 \\times 6$, $3 \\times 4$. Only three to check."},{"label":"Now use the sign of the last number","body":"$+12$ means both numbers have the same sign. $-7$ in the middle means both are negative."},{"label":"Find the pair that adds to the middle","body":"$-3 + -4 = -7$. That is the pair."},{"label":"Write the brackets","body":"$x^2-7x+12=(x-3)(x-4)$. Expand it back mentally to check."}],"callout":"The sign of the constant tells you everything. **Positive constant** → the two numbers match in sign. **Negative constant** → one is positive and one is negative, and the bigger one takes the sign of the middle term.","notes":"That callout is the single most useful sentence in the topic. Make him copy it into his notes verbatim."},{"type":"table","kicker":"The sign rule in one view","title":"Reading the signs before you guess","lead":"Before you hunt for numbers, decide what signs you are hunting for. It halves the work.","cols":["Expression","Constant","Middle","Both numbers"],"rows":[{"cells":["$x^2+7x+12$","positive","positive","both positive → $(x+3)(x+4)$"]},{"cells":["$x^2-7x+12$","positive","negative","both negative → $(x-3)(x-4)$"]},{"cells":["$x^2+x-12$","negative","positive","mixed, bigger is positive → $(x+4)(x-3)$"]},{"cells":["$x^2-x-12$","negative","negative","mixed, bigger is negative → $(x-4)(x+3)$"]}],"callout":"All four rows use the same pair, 3 and 4. Only the signs change. If you can place the signs, the numbers are the easy part.","notes":"Cover the last column and have him fill it in himself. Thirty seconds, and it will stick better than anything you say."},{"type":"worked","kicker":"Worked example","title":"When there is a number in front of $x^2$","question":"Which expression is equivalent to $3x^2-10x+8$?","thinking":"The $3$ in front means the brackets start $(3x \\ldots)(x \\ldots)$, because $3$ is prime. The constant $+8$ is positive and the middle is negative, so both numbers are negative.","steps":["Set up the shape: $(3x\\;\\square)(x\\;\\square)$ with two negative numbers multiplying to $8$.","Pairs for $8$: $1$ and $8$, or $2$ and $4$.","Try $(3x-4)(x-2)$: middle is $-6x-4x=-10x$. That works.","Check the ends: $3x \\times x = 3x^2$ and $(-4)(-2)=+8$. Both right.","If it had failed, swap the pair around and try again — there are only a few options."],"answer":"$(3x-4)(x-2)$","notes":"The honest message: with a leading coefficient you guess and check, but the guessing is bounded. Four tries maximum. That is faster than any formal method."},{"type":"practice","kicker":"Your turn","title":"Factoring — warm-up","lead":"Signs first, numbers second.","questions":[{"stem":"Which expression is equivalent to $x^2-7x+12$?","answer":"B","solution":"The constant $+12$ is positive and the middle coefficient $-7$ is negative, so both numbers must be negative. Pairs of negatives multiplying to $12$ are $-1,-12$; $-2,-6$; $-3,-4$. Only $-3+(-4)=-7$. So $x^2-7x+12=(x-3)(x-4)$.","tag":"warm-up","choices":["$(x-2)(x-6)$","$(x-3)(x-4)$","$(x+3)(x-4)$","$(x+3)(x+4)$"],"trap":"A) is what you get if you used a pair multiplying to $12$ without checking that they add to $-7$; C) is what you get if you made only one of the two numbers negative, which changes the constant to $-12$; D) is what you get if you ignored the minus sign on $7x$ and made both numbers positive."},{"stem":"Which expression is equivalent to $x^2+2x-15$?","answer":"C","solution":"The constant is negative, so the two numbers have opposite signs, and their sum must be $+2$. Trying $5$ and $-3$: the product is $-15$ and the sum is $2$. So $x^2+2x-15=(x+5)(x-3)$. The larger number carries the sign of the middle term.","tag":"warm-up","choices":["$(x+15)(x-1)$","$(x+5)(x+3)$","$(x+5)(x-3)$","$(x-5)(x+3)$"],"trap":"A) is what you get if you used the pair $15$ and $-1$, which multiplies to $-15$ but adds to $14$; B) is what you get if you ignored that the constant $-15$ is negative and made both numbers positive; D) is what you get if you put the minus sign on the $5$ instead of the $3$, giving a middle term of $-2x$."},{"stem":"Which expression is the complete factorization of $4x^2-16$?","answer":"D","solution":"First take out the common factor: $4x^2-16=4(x^2-4)$. Now $x^2-4$ is a difference of squares, so $x^2-4=(x+2)(x-2)$. Altogether $4x^2-16=4(x+2)(x-2)$. Checking, $4(x^2-4)=4x^2-16$.","tag":"warm-up","choices":["$(x+4)(x-4)$","$4(x-2)^2$","$4(x+4)(x-4)$","$4(x+2)(x-2)$"],"trap":"A) is what you get if you took the square root of $16$ as the constant but dropped the factor of $4$ in front; B) is what you get if you treated $4x^2-16$ as a perfect square trinomial; C) is what you get if you factored out the $4$ and then used $\\sqrt{16}=4$ again inside the parentheses."},{"stem":"The expression $x^2-x-20$ is equivalent to $(x+4)(x-k)$, where $k$ is a constant. What is the value of $k$?","answer":"5","solution":"Multiplying out $(x+4)(x-k)$ gives $x^2+(4-k)x-4k$. Matching the constant, $-4k=-20$, so $k=5$. Checking the middle term, $4-5=-1$, which agrees with $-x$. So $x^2-x-20=(x+4)(x-5)$.","tag":"warm-up"}],"notes":"Five minutes."},{"type":"practice","kicker":"Your turn","title":"Factoring — exam level","lead":"Two of these have a number in front of $x^2$. Set up the shape before you hunt for the pair.","questions":[{"stem":"Which expression is equivalent to $3x^2-10x+8$?","answer":"B","solution":"The $3x^2$ comes from $3x\\cdot x$, and $8$ from two negatives since the middle term is negative and the constant positive. Testing $(3x-4)(x-2)$: the cross terms are $-6x$ and $-4x$, giving $-10x$. That matches, so the factorization is $(3x-4)(x-2)$.","tag":"medium","choices":["$(3x+4)(x+2)$","$(3x-4)(x-2)$","$(3x-2)(x-4)$","$(x-4)(x-2)$"],"trap":"A) is what you get if you used the right numbers but made both constants positive; C) is what you get if you swapped the two constants, which gives a middle term of $-14x$; D) is what you get if you factored as though the leading coefficient were $1$."},{"stem":"Which expression is equivalent to $6x^2+x-12$?","answer":"C","solution":"Since the constant is negative, the two constants have opposite signs. Testing $(3x-4)(2x+3)$: the cross terms are $3x\\cdot 3=9x$ and $-4\\cdot 2x=-8x$, which combine to $x$, and $(-4)(3)=-12$. So $6x^2+x-12=(3x-4)(2x+3)$.","tag":"medium","choices":["$(2x-4)(3x+3)$","$(3x+4)(2x-3)$","$(3x-4)(2x+3)$","$(6x-4)(x+3)$"],"trap":"A) is what you get if you paired the numbers so the cross terms give $-6x$ rather than $x$; B) is what you get if you placed the minus sign on the $3$ instead of the $4$, giving $-x$ in the middle; D) is what you get if you split $6x^2$ as $6x\\cdot x$ without checking the middle term."},{"stem":"Which expression is equivalent to $4x^2-12x+9$?","answer":"C","solution":"Both outer terms are perfect squares: $4x^2=(2x)^2$ and $9=3^2$. The middle term $-12x$ equals $-2(2x)(3)$, which fits $(a-b)^2=a^2-2ab+b^2$. So $4x^2-12x+9=(2x-3)^2$.","tag":"medium","choices":["$(2x+3)^2$","$(2x-3)(2x+3)$","$(2x-3)^2$","$(4x-3)(x-3)$"],"trap":"A) is what you get if you ignored the minus sign on the middle term; B) is what you get if you used the difference of squares pattern, which has no middle term; D) is what you get if you split $4x^2$ as $4x\\cdot x$, which gives a middle term of $-15x$."},{"stem":"Which expression is equivalent to $6x^2+7x-3$?","answer":"C","solution":"The constant is negative, so the two constants have opposite signs. Testing $(3x-1)(2x+3)$: the cross terms are $3x\\cdot 3=9x$ and $-1\\cdot 2x=-2x$, which combine to $7x$, and $(-1)(3)=-3$. So $6x^2+7x-3=(3x-1)(2x+3)$.","tag":"harder","choices":["$(3x+1)(2x-3)$","$(2x-1)(3x+3)$","$(3x-1)(2x+3)$","$(6x-1)(x+3)$"],"trap":"A) is what you get if you placed the minus sign on the $3$ instead of the $1$, giving $-7x$; B) is what you get if you paired the numbers so the cross terms give $3x$ rather than $7x$; D) is what you get if you split $6x^2$ as $6x\\cdot x$ without checking the middle term."}],"notes":"These are genuinely hard for him. If he stalls, remind him that a wrong guess costs ten seconds and tells him which way to move."},{"type":"section","kicker":"Part three","title":"Solving","sub":"Finding the values of $x$ that make the whole thing equal zero. There are almost always two of them."},{"type":"idea","kicker":"The idea underneath","title":"Why zero is the magic number","lead":"If two things multiply to give zero, at least one of them must be zero. Nothing else has that property.","points":["If $(x-3)(x-4)=0$, then either $x-3=0$ or $x-4=0$.","So $x=3$ or $x=4$. Two answers, and both are correct.","If $(x-3)(x-4)=2$, you can say nothing at all — the two factors could be $1$ and $2$, or $4$ and $0.5$, or anything.","So the first move is always: get everything on one side so the other side is zero."],"callout":"Before you solve anything, write down how many answers you expect. A quadratic normally has two. If you finish with one, you are not finished.","notes":"This is the habit that matters most. He lost marks on the diagnostic by stopping at one root. Make him write \"2 answers?\" at the top of the working."},{"type":"steps","kicker":"Choosing a tool","title":"Four routes, and when to take each","lead":"You are not supposed to use the same method every time. Spend five seconds choosing and you save a minute.","steps":[{"label":"It already factors → factor it","body":"Best for $x^2+bx+c$ with small whole numbers. $x^2-7x+12=0 \\Rightarrow x=3,4$."},{"label":"Something is squared → square-root both sides","body":"$(x-3)^2=16$ gives $x-3=\\pm 4$, so $x=7$ or $x=-1$. Do not forget the $\\pm$."},{"label":"Nothing factors → the quadratic formula","body":"$x=\\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}$. It always works. It is on the reference sheet."},{"label":"You only need a number → Desmos","body":"Type the equation in, read the crossing points. Faster than all of the above, and it is built into Bluebook."}],"callout":"Desmos is on every question of the exam, including the no-calculator-feel ones. For \"what are the solutions to…\" you can type the equation and read the answers straight off the graph.","notes":"Demonstrate Desmos live for one question. He should leave today having typed a quadratic into it himself at least once."},{"type":"worked","kicker":"Worked example","title":"The one where it is not already zero","question":"What are the solutions to $x(x+4)=21$?","thinking":"The right-hand side is not zero, so the factored form on the left tells us nothing yet. Expand first, move everything over, then factor.","steps":["Expand the left: $x^2+4x=21$.","Move the $21$ across: $x^2+4x-21=0$.","Constant is negative, so the two numbers have mixed signs; middle is positive, so the bigger one is positive.","Pairs for $21$: $1$ and $21$, $3$ and $7$. We need a difference of $4$, so $7$ and $-3$.","$(x+7)(x-3)=0$, giving $x=-7$ or $x=3$."],"answer":"$x=-7$ and $x=3$","notes":"The trap answer here is x=0 and x=-4, from treating the original as if it equalled zero. Ask him why that is wrong before you show the answer."},{"type":"worked","kicker":"Worked example","title":"When nothing factors: the formula","question":"What are the solutions to $(x-4)^2=20$?","thinking":"There is a perfect square sitting on its own on the left. Do not expand it — that would make the problem harder. Square-root both sides instead.","steps":["Square-root both sides: $x-4 = \\pm\\sqrt{20}$.","Simplify the root: $\\sqrt{20}=\\sqrt{4 \\times 5}=2\\sqrt{5}$.","Add $4$ to both sides: $x = 4 \\pm 2\\sqrt{5}$.","That is two answers: $4+2\\sqrt{5}$ and $4-2\\sqrt{5}$.","Sanity check in Desmos: the graph of $y=(x-4)^2-20$ crosses near $x \\approx 8.47$ and $x \\approx -0.47$. Matches."],"answer":"$x=4\\pm 2\\sqrt{5}$","notes":"The missing ± is the classic error. If he writes only the positive root, show him on Desmos that the parabola crosses twice."},{"type":"table","kicker":"Reading the discriminant","title":"How many solutions, without solving","lead":"The part under the square root, $b^2-4ac$, decides how many real answers exist. Some questions ask only this — and then you never need the rest of the formula.","cols":["$b^2-4ac$","Real solutions","What the graph does"],"rows":[{"cells":["positive","two","crosses the $x$-axis twice"],"flag":"good"},{"cells":["zero","exactly one","just touches the $x$-axis"]},{"cells":["negative","none","never reaches the $x$-axis"],"flag":"bad"}],"callout":"\"Exactly one solution\" is the SAT's favourite way of saying $b^2-4ac=0$. The moment you read those words, write that equation down.","notes":"He will see at least one of these. The phrase to drill is \"exactly one real solution\" → discriminant = 0."},{"type":"practice","kicker":"Your turn","title":"Solving — warm-up","lead":"Write \"two answers?\" at the top of every one before you start.","questions":[{"stem":"What are the solutions to $x^2-7x+12=0$?","answer":"A","solution":"Two numbers multiplying to $12$ and adding to $7$ are $3$ and $4$, so $x^2-7x+12=(x-3)(x-4)$. Setting each factor to zero gives $x=3$ and $x=4$. Checking: $9-21+12=0$ and $16-28+12=0$.","tag":"warm-up","choices":["$x=3$ or $x=4$","$x=-3$ or $x=-4$","$x=2$ or $x=6$","$x=1$ or $x=12$"],"trap":"B) is what you get if you factored as $(x+3)(x+4)$, leaving both signs wrong; C) is what you get if you chose the factor pair of $12$ that multiplies correctly but sums to $8$, not $7$; D) is what you get if you picked the factor pair $1$ and $12$ without checking the sum."},{"stem":"What are the solutions to $x(x+4)=21$?","answer":"A","solution":"Expand first: $x^2+4x=21$, so $x^2+4x-21=0$. This factors as $(x+7)(x-3)=0$, giving $x=-7$ or $x=3$. Checking: $3(7)=21$ and $(-7)(-3)=21$.","tag":"warm-up","choices":["$x=3$ or $x=-7$","$x=0$ or $x=-4$","$x=21$ or $x=17$","$x=-3$ or $x=7$"],"trap":"B) is what you get if you set each factor equal to zero while $21$ was still on the right side; C) is what you get if you set $x=21$ and $x+4=21$ instead of expanding first; D) is what you get if you factored to $(x-7)(x+3)$, reversing both signs."},{"stem":"If $(x+2)^2=25$, which of the following lists all solutions?","answer":"B","solution":"Taking the square root gives $x+2=\\pm 5$. Then $x=-2+5=3$ or $x=-2-5=-7$. Checking: $(3+2)^2=25$ and $(-7+2)^2=(-5)^2=25$.","tag":"warm-up","choices":["$x=3$ only","$x=3$ or $x=-7$","$x=-3$ or $x=7$","$x=5$ or $x=-5$"],"trap":"A) is what you get if you took only the positive square root of $25$ and lost the negative one; C) is what you get if you subtracted the $2$ on the wrong side, writing $x=-2\\pm 5$ as $-3$ and $7$ with the signs swapped; D) is what you get if you ignored the $+2$ inside the bracket."},{"stem":"What is the positive solution to $x^2+6x=7$?","answer":"1","solution":"Add $9$ to both sides to complete the square: $x^2+6x+9=16$, so $(x+3)^2=16$ and $x+3=\\pm 4$. That gives $x=1$ or $x=-7$. The positive solution is $1$, and $1+6=7$.","tag":"warm-up"}],"notes":"Four minutes."},{"type":"practice","kicker":"Your turn","title":"Solving — exam level","lead":"Choose your route before you write anything. Factor, square-root, formula, or Desmos.","questions":[{"stem":"What are the solutions to $2x^2-7x+3=0$?","answer":"A","solution":"Since $ac=6$ and the middle coefficient is $-7$, split it as $-6x-x$: $2x^2-6x-x+3=2x(x-3)-(x-3)=(2x-1)(x-3)$. So $x=\\dfrac{1}{2}$ or $x=3$. Checking $x=\\dfrac12$: $2\\left(\\dfrac14\\right)-\\dfrac72+3=\\dfrac12-\\dfrac72+3=0$.","tag":"medium","choices":["$x=3$ or $x=\\dfrac{1}{2}$","$x=\\dfrac{3}{2}$ or $x=1$","$x=-3$ or $x=-\\dfrac{1}{2}$","$x=6$ or $x=1$"],"trap":"B) is what you get if you put the $1$ and the $3$ in the wrong factors, writing $(2x-3)(x-1)$; C) is what you get if you reversed the sign in both factors; D) is what you get if you used the $ac$-method pair $6$ and $1$ as the solutions themselves."},{"stem":"The equation $2(x-3)^2=50$ has two solutions. What is the larger one?","answer":"8","solution":"Divide by $2$: $(x-3)^2=25$. Taking the square root gives $x-3=\\pm 5$, so $x=8$ or $x=-2$. The greater solution is $8$, and $2(8-3)^2=2(25)=50$.","tag":"medium"},{"stem":"For what value of $c$ does $x^2-8x+c=0$ have exactly one real solution?","answer":"C","solution":"Exactly one solution means $b^2-4ac=0$, so $(-8)^2-4(1)c=0$ and $64=4c$, giving $c=16$. Then $x^2-8x+16=(x-4)^2$, which is zero only at $x=4$.","tag":"medium","choices":["$4$","$-16$","$16$","$64$"],"trap":"A) is what you get if you halved $-8$ but never squared the result; B) is what you get if you carried the minus sign from $b$ into the squared value; D) is what you get if you squared $b$ itself instead of $\\dfrac{b}{2}$."},{"stem":"What are the solutions to $x^2+x=4x+10$?","answer":"D","solution":"Bring every term to the left: $x^2+x-4x-10=0$, so $x^2-3x-10=0$ and $(x-5)(x+2)=0$. The solutions are $5$ and $-2$. Checking $x=-2$: $4-2=2$ and $-8+10=2$.","tag":"medium","choices":["$x=-5$ or $x=2$","$x=5$ or $x=2$","$x=0$ or $x=3$","$x=5$ or $x=-2$"],"trap":"A) is what you get if you reversed the sign of both solutions when factoring; B) is what you get if you used the factor pair of $10$ while ignoring that the constant is $-10$; C) is what you get if you subtracted $4x$ from both sides but forgot to subtract the $10$."}],"notes":"Ask him to announce the route out loud before solving each one. The choosing is the skill."},{"type":"practice","kicker":"Your turn","title":"Solving — the stretch","lead":"These are the hardest versions you will meet. Two of them are quicker with the sum-and-product shortcut than with any solving at all.","questions":[{"stem":"The equation $2x^2-8x+c=0$ has exactly one real solution. What is the value of $c$?","answer":"A","solution":"Set the discriminant to zero: $(-8)^2-4(2)c=0$, so $64=8c$ and $c=8$. Then $2x^2-8x+8=2(x-2)^2$, zero only at $x=2$.","tag":"harder","choices":["$8$","$16$","$4$","$32$"],"trap":"B) is what you get if you used $\\left(\\dfrac{b}{2}\\right)^2$ and ignored the leading coefficient $2$; C) is what you get if you halved $b$ without squaring; D) is what you get if you solved $b^2=4c$, leaving out the factor $a$."},{"stem":"What is the sum of the solutions to $(x-4)(x+1)=14$?","answer":"3","solution":"Expand first: $x^2-3x-4=14$, so $x^2-3x-18=0$. The solutions add to $-\\dfrac{b}{a}=3$. Factoring confirms it: $(x-6)(x+3)=0$ gives $6$ and $-3$, and $6+(-3)=3$. Setting each original factor to $14$ would be invalid.","tag":"harder"},{"stem":"What is the greatest integer value of $k$ for which $x^2+6x+k=0$ has two distinct real solutions?","answer":"8","solution":"Two distinct real solutions need $b^2-4ac>0$, so $36-4k>0$ and $k<9$. The greatest integer below $9$ is $8$. Checking $k=8$: the discriminant is $36-32=4>0$, while $k=9$ gives $0$ and only one solution.","tag":"harder"},{"stem":"The solutions to $x^2-7x+10=0$ are $r$ and $s$. What is the value of $r^2+s^2$?","answer":"29","solution":"The solutions add to $7$ and multiply to $10$. Since $(r+s)^2=r^2+2rs+s^2$, we get $r^2+s^2=(r+s)^2-2rs=49-20=29$. Factoring confirms it: the roots are $2$ and $5$, and $4+25=29$.","tag":"harder"}],"notes":"Mention the shortcut: for ax^2+bx+c=0 the roots sum to -b/a and multiply to c/a. Several questions ask only for the sum, so you never have to solve."},{"type":"idea","kicker":"One shortcut, lots of marks","title":"Sum and product, without solving","lead":"For $ax^2+bx+c=0$, the two solutions add up to $-\\dfrac{b}{a}$ and multiply to $\\dfrac{c}{a}$. You do not need to find them.","points":["Sum of the solutions to $2x^2-10x+3=0$ is $\\dfrac{10}{2}=5$. No working needed.","Product of the solutions to $x^2-9x+20=0$ is $\\dfrac{20}{1}=20$.","The SAT asks for the sum or the product far more often than you would expect.","If the question says \"the sum of the solutions\", stop and use this."],"callout":"Write both formulas on the scratch paper at the start of the module, before the clock pressure starts. They are not on the reference sheet.","notes":"Two or three marks a paper live here. Worth the five minutes."},{"type":"recap","kicker":"Before you go","title":"The six things from today","points":["Four multiplications, and the sign belongs to the number in front of it.","Squaring a bracket means multiplying it by itself — never square the pieces.","To factor, read the sign of the constant first; it tells you what signs to look for.","Before solving, get one side to zero, and write down that you expect two answers.","\"Exactly one real solution\" means $b^2-4ac=0$. Every time.","If the question asks for the sum or product of the solutions, use $-b/a$ and $c/a$ and do not solve at all."],"notes":"Have him read these back and say which one he is least sure of. That is the first thing in next week's warm-up."},{"type":"close","small":"This week","big":"Forty questions, four sittings.","foot":"Workbook topics 3.2 and 3.3, twenty questions each, plus the printed sheet. Quiz 3 is due Friday. Do the practice in four short goes rather than one long one — spaced work is what makes this stick by December.","notes":"Confirm he knows where the workbook link is and that the quiz is posted. Ask him to bring the error log."}]};
+</script>
+<script>
+/* ===========================================================
+   SAT Math — slide engine
+   Shared by every lesson deck. The deck's content is a DECK
+   object defined before this script runs.
+   =========================================================== */
+(function () {
+  "use strict";
+
+  var stage = document.getElementById('stage');
+  var railFill = document.getElementById('railFill');
+  var counter = document.getElementById('counter');
+  var deckName = document.getElementById('deckName');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+  var notesEl = document.getElementById('notes');
+
+  var i = 0, built = [], notesOn = false, reveal = 0;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  deckName.textContent = DECK.title;
+  document.getElementById('deckSession').textContent = DECK.session || '';
+
+  /* ---------- maths ---------- */
+  var mathReady = false, mathFailed = false;
+  function typeset(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      mathReady = true;
+      window.MathJax.typesetPromise([el]).catch(function () { plain(el); });
+    } else if (mathFailed) { plain(el); }
+  }
+  setTimeout(function () {
+    if (window.MathJax && window.MathJax.typesetPromise) return;
+    mathFailed = true; plain(stage);
+  }, 3000);
+  function plain(el) {
+    if (!el) return;
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, hits = [];
+    while ((n = w.nextNode())) { if (n.nodeValue.indexOf('$') > -1) hits.push(n); }
+    hits.forEach(function (t) {
+      t.nodeValue = t.nodeValue.replace(/\$\$?([^$]*)\$\$?/g, function (m, s) { return tidy(s); });
+    });
+  }
+  var SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶',
+    '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', 'n': 'ⁿ', 'x': 'ˣ', 't': 'ᵗ', '/': 'ᐟ' };
+  function sup(s) {
+    var o = '', ok = true;
+    for (var i = 0; i < s.length; i++) { if (SUP[s[i]]) o += SUP[s[i]]; else { ok = false; break; } }
+    return ok ? o : '^(' + s + ')';
+  }
+  function tidy(t) {
+    var s = String(t)
+      .replace(/\{\s*,\s*\}/g, ',')                       // 64{,}000
+      .replace(/\\(?:text|mathrm|mbox)\{([^{}]*)\}/g, '$1')
+      .replace(/\\left|\\right/g, '')
+      .replace(/\\([%&#_$])/g, '$1');                     // \% \$ \&
+    for (var k = 0; k < 4; k++) {                         // innermost first, a few passes
+      s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)')
+           .replace(/\\sqrt\s*\[\s*([^\]]*)\s*\]\s*\{([^{}]*)\}/g, '$1√($2)')
+           .replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)');
+    }
+    return s
+      .replace(/\^\{([^{}]*)\}/g, function (m, e) { return sup(e); })
+      .replace(/\^(-?\w)/g, function (m, e) { return sup(e); })
+      .replace(/\\ge\b/g, '≥').replace(/\\le\b/g, '≤')
+      .replace(/\\cdot/g, '·').replace(/\\neq/g, '≠').replace(/\\approx/g, '≈')
+      .replace(/\\ldots|\\dots/g, '…').replace(/\\square/g, '□')
+      .replace(/\\pi\b/g, 'π').replace(/\\theta\b/g, 'θ').replace(/\\ell\b/g, 'ℓ')
+      .replace(/\\circ\b/g, '°').replace(/\\infty/g, '∞')
+      .replace(/\\times/g, '×').replace(/\\div/g, '÷').replace(/\\pm/g, '±')
+      .replace(/\\[;,:! ]/g, ' ').replace(/\\[a-zA-Z]+/g, '').replace(/[{}]/g, '')
+      .replace(/\((\w+)\)\/\((\w+)\)/g, '$1/$2')          // (3)/(4) -> 3/4
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /* ---------- slide builders ---------- */
+  var B = {
+    title: function (d) {
+      return '<div class="sl sl-title">' +
+        '<div class="eyebrow r">' + esc(d.eyebrow || DECK.session || '') + '</div>' +
+        '<h1 class="r">' + esc(d.title) + '</h1>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') +
+        (d.meta ? '<div class="tmeta r">' + d.meta.map(function (m) {
+          return '<span><b>' + esc(m.v) + '</b>' + esc(m.k) + '</span>'; }).join('') + '</div>' : '') +
+        '</div>';
+    },
+    section: function (d) {
+      return '<div class="sl sl-section">' +
+        (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.title) + '</h2>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') + '</div>';
+    },
+    idea: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        (d.points ? '<ul class="pts">' + d.points.map(function (p) {
+          return '<li class="r"><span class="dot"></span><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' : '') +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') +
+        '</div>';
+    },
+    table: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="tw r"><table><thead><tr>' +
+        d.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+        '</tr></thead><tbody>' +
+        d.rows.map(function (row) {
+          return '<tr class="' + (row.flag || '') + '">' + row.cells.map(function (c, j) {
+            return '<td' + (j === 0 ? ' class="k"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    steps: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<ol class="steps">' + d.steps.map(function (s, n) {
+          return '<li class="r step"><i>' + (n + 1) + '</i><div><b>' + esc(s.label) + '</b>' +
+            (s.body ? '<span>' + esc(s.body) + '</span>' : '') + '</div></li>';
+        }).join('') + '</ol>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    compare: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="cmp">' +
+        '<div class="card bad r"><div class="ctag">' + esc(d.left.label) + '</div><div class="cbody">' +
+        esc(d.left.body).replace(/\n/g, '<br>') + '</div></div>' +
+        '<div class="card good r"><div class="ctag">' + esc(d.right.label) + '</div><div class="cbody">' +
+        esc(d.right.body).replace(/\n/g, '<br>') + '</div></div></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    worked: function (d) {
+      return '<div class="sl sl-worked">' + head(d) +
+        '<div class="qbox r"><div class="qtag">Question</div><div class="qstem">' + esc(d.question) + '</div></div>' +
+        (d.thinking ? '<div class="think r"><b>First, notice</b>' + esc(d.thinking) + '</div>' : '') +
+        '<ol class="wsteps">' + d.steps.map(function (s, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><div>' + esc(s) + '</div></li>';
+        }).join('') + '</ol>' +
+        '<div class="ans r"><span>Answer</span><b>' + esc(d.answer) + '</b></div></div>';
+    },
+    practice: function (d, idx) {
+      return '<div class="sl sl-practice">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="qgrid n' + d.questions.length + '">' +
+        d.questions.map(function (q, j) { return qCard(q, idx + '-' + j); }).join('') +
+        '</div>' +
+        '<button class="revealAll r" data-all>Show every answer</button></div>';
+    },
+    recap: function (d) {
+      return '<div class="sl">' + head(d) +
+        '<ul class="recap">' + d.points.map(function (p, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    close: function (d) {
+      return '<div class="sl sl-section sl-close">' +
+        (d.small ? '<div class="eyebrow r">' + esc(d.small) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.big) + '</h2>' +
+        (d.foot ? '<p class="lede r">' + esc(d.foot) + '</p>' : '') + '</div>';
+    }
+  };
+
+  function head(d) {
+    return (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+      '<h2 class="r sh">' + esc(d.title) + '</h2>';
+  }
+
+  function qCard(q, key) {
+    var mc = !!(q.choices && q.choices.length);
+    var h = '<div class="q" data-q="' + key + '">' +
+      '<div class="qhead">' + (q.tag ? '<span class="chip">' + esc(q.tag) + '</span>' : '') +
+      (mc ? '' : '<span class="chip w">write your answer</span>') + '</div>' +
+      '<div class="qs">' + esc(q.stem) + '</div>';
+    if (mc) {
+      h += '<ul class="opts">' + q.choices.map(function (c, j) {
+        return '<li data-l="' + 'ABCD'[j] + '"><kbd>' + 'ABCD'[j] + '</kbd><span>' + esc(c) + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    h += '<button class="show">Show answer</button>' +
+      '<div class="sol" hidden><div class="solA">' +
+      (mc ? esc(q.answer) + ')&nbsp; ' + esc(q.choices['ABCD'.indexOf(q.answer)]) : esc(q.answer)) +
+      '</div><div class="solT">' + esc(q.solution) + '</div>' +
+      (q.trap ? '<div class="solW"><b>The usual slip</b> ' + esc(q.trap) + '</div>' : '') +
+      '</div></div>';
+    return h;
+  }
+
+  /* ---------- build ---------- */
+  DECK.slides.forEach(function (d, n) {
+    var el = document.createElement('section');
+    el.className = 'slide';
+    el.innerHTML = (B[d.type] || B.idea)(d, n);
+    el.hidden = true;
+    stage.appendChild(el);
+    built.push({ el: el, data: d });
+  });
+
+  // overview
+  ovGrid.innerHTML = DECK.slides.map(function (d, n) {
+    return '<button class="ovc" data-go="' + n + '"><i>' + (n + 1) + '</i><span>' +
+      esc(d.title || d.big || DECK.title) + '</span></button>';
+  }).join('');
+  ovGrid.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]'); if (!b) return;
+    go(parseInt(b.dataset.go, 10)); closeOverview();
+  });
+
+  /* ---------- navigation ---------- */
+  function revealables(el) { return [].slice.call(el.querySelectorAll('.r')); }
+
+  function paint(dir) {
+    var cur = built[i];
+    built.forEach(function (b, n) { if (n !== i) { b.el.hidden = true; b.el.className = 'slide'; } });
+    cur.el.hidden = false;
+    cur.el.className = 'slide in' + (reduce ? ' nomo' : (dir < 0 ? ' back' : ''));
+    var rs = revealables(cur.el);
+    rs.forEach(function (r, n) {
+      r.classList.remove('on');
+      r.style.setProperty('--d', (reduce ? 0 : n * 55) + 'ms');
+    });
+    // first paint shows everything except stepped lists
+    reveal = 0;
+    rs.forEach(function (r) { r.classList.add('on'); });
+    railFill.style.width = ((i + 1) / built.length * 100) + '%';
+    counter.textContent = (i + 1) + ' / ' + built.length;
+    notesEl.textContent = cur.data.notes || 'No note for this slide.';
+    typeset(cur.el);
+    if (mathFailed) plain(cur.el);
+  }
+
+  function go(n, dir) {
+    if (n < 0 || n >= built.length) return;
+    var d = dir !== undefined ? dir : (n > i ? 1 : -1);
+    i = n; paint(d);
+    try { location.hash = 's' + (i + 1); } catch (e) { }
+    try { localStorage.setItem('satdeck.' + DECK.id, String(i)); } catch (e) { }
+  }
+  function next() { if (i < built.length - 1) go(i + 1, 1); }
+  function prev() { if (i > 0) go(i - 1, -1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(built.length - 1); }
+    else if (k === 'o' || k === 'O') { e.preventDefault(); toggleOverview(); }
+    else if (k === 'Escape') { closeOverview(); }
+    else if (k === 'n' || k === 'N') { notesOn = !notesOn; notesEl.hidden = !notesOn; }
+    else if (k === 'f' || k === 'F') { toggleFull(); }
+  });
+
+  // swipe
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function (e) {
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  // answers
+  stage.addEventListener('click', function (e) {
+    var all = e.target.closest('[data-all]');
+    if (all) {
+      all.closest('.sl').querySelectorAll('.q').forEach(function (q) { openQ(q); });
+      all.textContent = 'All answers shown'; all.disabled = true; return;
+    }
+    var btn = e.target.closest('.show');
+    if (btn) { openQ(btn.closest('.q')); return; }
+    var opt = e.target.closest('.opts li');
+    if (opt) {
+      var box = opt.closest('.q');
+      if (box.classList.contains('open')) return;
+      box.querySelectorAll('.opts li').forEach(function (o) { o.classList.remove('pick'); });
+      opt.classList.add('pick');
+    }
+  });
+  function openQ(box) {
+    if (!box || box.classList.contains('open')) return;
+    box.classList.add('open');
+    var sol = box.querySelector('.sol'); sol.hidden = false;
+    var a = sol.querySelector('.solA').textContent.trim().charAt(0);
+    box.querySelectorAll('.opts li').forEach(function (o) {
+      if (o.dataset.l === a) o.classList.add('right');
+      else if (o.classList.contains('pick')) o.classList.add('wrong');
+    });
+    typeset(sol); if (mathFailed) plain(sol);
+  }
+
+  /* ---------- overview, fullscreen ---------- */
+  function toggleOverview() { overview.hidden ? openOverview() : closeOverview(); }
+  function openOverview() { overview.hidden = false; requestAnimationFrame(function () { overview.classList.add('on'); }); }
+  function closeOverview() { overview.classList.remove('on'); setTimeout(function () { overview.hidden = true; }, 220); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOverview);
+  overview.addEventListener('click', function (e) { if (e.target === overview) closeOverview(); });
+
+  function toggleFull() {
+    var r = document.documentElement;
+    if (!document.fullscreenElement && r.requestFullscreen) r.requestFullscreen().catch(function () { });
+    else if (document.exitFullscreen) document.exitFullscreen().catch(function () { });
+  }
+  document.getElementById('fsBtn').addEventListener('click', toggleFull);
+
+  document.getElementById('notesBtn').addEventListener('click', function () {
+    notesOn = !notesOn; notesEl.hidden = !notesOn;
+  });
+
+  /* ---------- start ---------- */
+  var start = 0;
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) start = Math.min(built.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  else { try { var v = localStorage.getItem('satdeck.' + DECK.id); if (v !== null) start = Math.min(built.length - 1, parseInt(v, 10) || 0); } catch (e) { } }
+  i = start; paint(1);
+
+  // MathJax loads async — typeset once it lands.
+  var waited = 0, poll = setInterval(function () {
+    waited += 120;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      clearInterval(poll); mathReady = true; typeset(built[i].el);
+    } else if (waited > 3000) { clearInterval(poll); }
+  }, 120);
+})();
+
+</script>

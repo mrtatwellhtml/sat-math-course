@@ -1,0 +1,398 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm,top=2.0cm,bottom=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{mdframed}
+\usepackage{multicol}
+
+\definecolor{navy}{HTML}{1F4E79}
+\definecolor{rule}{HTML}{333333}
+\definecolor{boxbg}{HTML}{F4F6F9}
+\definecolor{keyred}{HTML}{B02020}
+
+% \ANSWERStrue for the tutor key
+\newif\ifANSWERS
+\input{mode}
+
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\footnotesize\color{navy}SAT Math: Foundations to Mastery \ $\cdot$\ Quadratics\ifANSWERS\ $\cdot$\ \textbf{\color{keyred}ANSWER KEY}\fi}
+\fancyfoot[R]{\footnotesize\color{navy}Page \thepage\ of \pageref{LastPage}}
+\usepackage{lastpage}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\newcommand{\PartHead}[2]{%
+  \vspace{6pt}
+  {\color{navy}\rule{\textwidth}{0.8pt}}\\[2pt]
+  {\large\bfseries\color{navy}#1}\hfill{\small\itshape #2}\\[-4pt]
+  {\color{navy}\rule{\textwidth}{0.4pt}}
+  \vspace{4pt}
+}
+\newcommand{\sitting}[1]{{\footnotesize\textsc{\color{navy}#1}}\par\vspace{2pt}}
+\newcommand{\spr}{\\[3pt]\hspace*{6pt}Answer: \underline{\hspace{3.2cm}}\hfill{\footnotesize\itshape(write your answer)}}
+\ifANSWERS
+  \newcommand{\ans}[1]{\ {\color{keyred}\bfseries #1}}
+  \newcommand{\note}[1]{\par{\footnotesize\color{keyred}#1}}
+\else
+  \newcommand{\ans}[1]{}
+  \newcommand{\note}[1]{}
+\fi
+
+% four lettered options, one per line, under the stem
+\newenvironment{choices}
+  {\par\nopagebreak\begin{itemize}[label={},leftmargin=16pt,itemsep=0pt,topsep=2pt,parsep=0pt,%
+     beginpenalty=10000,midpenalty=10000]}
+  {\end{itemize}}
+
+\begin{document}
+\label{firstpage}
+
+\begin{center}
+{\LARGE\bfseries\color{navy}Quadratics}\\[4pt]
+{\color{navy}SAT Math $\cdot$ Foundations to Mastery $\cdot$ Week of 25 October}
+\ifANSWERS\\[4pt]{\color{keyred}\bfseries ANSWER KEY --- tutor copy}\fi
+\end{center}
+\vspace{2pt}
+{\color{rule}\rule{\textwidth}{1pt}}
+\vspace{6pt}
+
+\ifANSWERS\else
+Name: \underline{\hspace{6cm}} \hfill Due: \underline{\hspace{3.2cm}}
+\vspace{6pt}
+\fi
+
+\begin{mdframed}[backgroundcolor=boxbg,linecolor=navy,linewidth=0.6pt,innertopmargin=6pt,innerbottommargin=8pt]
+{\bfseries\color{navy}How to use this sheet}\par\vspace{2pt}
+This is four short sittings, not one long one. Four half-hours across the week will
+do more for you than one long Saturday, and you are far more likely to finish it.
+
+\begin{itemize}[leftmargin=14pt,itemsep=1pt,topsep=3pt]
+  \item \textbf{This is new ground.} Parts A and B are built so you can finish them. Expect to go slowly in Part C, and expect that to be normal.
+  \item \textbf{A squared bracket has two answers, not one.} Whenever you take a square root, write $\pm$ before you write anything else. That single habit is the point of the week.
+  \item When you get one wrong, write it in your error log: what you did, and what you should have done.
+\end{itemize}
+\end{mdframed}
+
+\vspace{4pt}
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}l l X r@{}}
+\textbf{Sitting} & \textbf{Part} & \textbf{What it drills} & \textbf{Minutes}\\[2pt]
+\hline\rule{0pt}{11pt}
+Sunday   & A    & Retention: translation setups                 & 15\\
+Tuesday  & B    & Expanding and factoring                       & 25\\
+Thursday & C    & Solving quadratics                            & 25\\
+Saturday & D, E & In context; six mixed, timed                  & 27\\
+\hline
+\end{tabularx}
+\end{center}
+
+% ------------------------------------------------ PART A
+\PartHead{Part A --- Retention}{No calculator. 15 minutes.}
+\sitting{Sunday}
+The first six are last week's work: \textbf{write the equation only, do not solve it.}
+The last four keep weeks two and three alive. Three weeks running at once, in fifteen minutes.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=7pt]
+\item A gym charges a \$40 joining fee plus \$29 for each month. Write an equation for the total cost $C$ after $m$ months.\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $C=40+29m$. The fee is paid once, so it is not attached to $m$.}
+
+\item Five more than twice a number $n$ is 31. Write the equation.\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $2n+5=31$. ``Five more than twice $n$'' is $2n+5$, not $2(n+5)$.}
+
+\item A rectangle's length $L$ is 4 cm less than three times its width $W$, and its perimeter is 72 cm. Write two equations.\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $L=3W-4$ \ and \ $2L+2W=72$. ``4 less than three times $W$'' is $3W-4$. Writing $L+W=72$ for the perimeter is the usual slip.}
+
+\item A shop sells 150 items in all, hats at \$6 and scarves at \$11, taking \$1{,}245. Let $h$ be the number of hats and $s$ the number of scarves. Write two equations.\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $h+s=150$ \ and \ $6h+11s=1245$. One count equation, one money equation.}
+
+\item A tank holds 400 litres and drains at 12 litres each minute. Write an equation for the volume $V$ left after $t$ minutes.\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $V=400-12t$. Draining makes the rate negative.}
+
+\item The sum of three consecutive integers is 84. Let $n$ be the smallest. Write the equation.\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $n+(n+1)+(n+2)=84$, which tidies to $3n+3=84$.}
+
+\item A line passes through $(-3,8)$ and $(5,-4)$. Its slope is \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$\frac{-4-8}{5-(-3)}=\frac{-12}{8}=-1.5$}
+
+\item For $4x-5y=20$, the $y$-coordinate of the $y$-intercept is \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$-4$ \ (put $x=0$: $-5y=20$)}
+
+\item $y=2x+1$ \ and \ $3x+y=16$. \ What is the value of $x$? \spr
+  \ans{\\ $x=3$ (and $y=7$). Substitution: $3x+(2x+1)=16$, so $5x=15$. Check: $9+7=16$.}
+
+\item $5x+2y=4$ \ and \ $3x-2y=12$. \ What is the value of $x$? \spr
+  \ans{\\ $x=2$ (and $y=-3$). Elimination: $+2y$ and $-2y$ are opposites, so adding gives $8x=16$.}
+\end{enumerate}
+
+\note{\textbf{Marking rule: below 8 of 10 means last week's translation work has not stuck.} Items 3 and 4 are the diagnostic ones --- they need two equations, and a student who writes one has not seen the pattern yet.}
+
+% ------------------------------------------------ PART B
+\PartHead{Part B --- Expanding and factoring}{Calculator allowed. 25 minutes.}
+\sitting{Tuesday}
+This is the whole of Advanced Math in one skill: moving between $(x+a)(x+b)$ and
+$x^2+bx+c$, in both directions. Expanding is multiplication you already know.
+Factoring is the same thing read backwards --- find two numbers that multiply to the
+last term and add to the middle one. Nothing here is beyond you.
+
+Expand and simplify.
+\begin{enumerate}[leftmargin=20pt,itemsep=7pt]
+\item $(x+5)(x+3)$ \ifANSWERS\ans{$=x^2+8x+15$}\else\ \underline{\hspace{5.4cm}}\fi
+\item $(x-7)(x+2)$ \ifANSWERS\ans{$=x^2-5x-14$ \ (the middle term is $2x-7x$)}\else\ \underline{\hspace{5.4cm}}\fi
+\item $(2x+3)(x-5)$ \ifANSWERS\ans{$=2x^2-7x-15$ \ ($-10x+3x$)}\else\ \underline{\hspace{5.4cm}}\fi
+\item $(x+6)(x-6)$ \ifANSWERS\ans{$=x^2-36$ \ (the $x$ terms cancel: difference of squares)}\else\ \underline{\hspace{5.4cm}}\fi
+\item $(x-5)^2$ \ifANSWERS\ans{$=x^2-10x+25$, \emph{not} $x^2+25$}\else\ \underline{\hspace{5.4cm}}\fi
+\end{enumerate}
+
+\vspace{2pt}
+Factor.
+\begin{enumerate}[leftmargin=20pt,itemsep=7pt,start=6]
+\item $x^2-49$ \ifANSWERS\ans{$=(x+7)(x-7)$}\else\ \underline{\hspace{5.4cm}}\fi
+\item $x^2+12x+36$ \ifANSWERS\ans{$=(x+6)^2$ \ (a perfect square: $6+6=12$ and $6\times6=36$)}\else\ \underline{\hspace{5.4cm}}\fi
+\item $x^2+9x+20$ \ifANSWERS\ans{$=(x+4)(x+5)$}\else\ \underline{\hspace{5.4cm}}\fi
+\item $x^2-3x-28$ \ifANSWERS\ans{$=(x-7)(x+4)$ \ (multiply to $-28$, add to $-3$)}\else\ \underline{\hspace{5.4cm}}\fi
+\item $2x^2-8x-24$ \ifANSWERS\ans{$=2(x-6)(x+2)$ \ (pull the 2 out first, then factor $x^2-4x-12$)}\else\ \underline{\hspace{5.4cm}}\fi
+\end{enumerate}
+
+\vspace{2pt}
+Choose one answer.
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt,start=11]
+\item Which expression is equivalent to $3x^2+15x-42$?
+  \begin{choices}
+  \item A) $3(x-7)(x+2)$
+  \item B) $3(x+7)(x-2)$
+  \item C) $3(x+14)(x-1)$
+  \item D) $(x+7)(x-2)$
+  \end{choices}
+  \ans{\\ B. Pull out the 3 to get $3(x^2+5x-14)$, then two numbers multiplying to $-14$ and adding to $+5$ are $+7$ and $-2$. \\ A swaps the signs in the factor pair and gives $3x^2-15x-42$. C uses the wrong factor pair of $-14$ and gives $3x^2+39x-42$. D drops the common factor on the way back out.}
+
+\item Which expression is equivalent to $(x-9)^2$?
+  \begin{choices}
+  \item A) $x^2-81$
+  \item B) $x^2-18x-81$
+  \item C) $x^2+18x+81$
+  \item D) $x^2-18x+81$
+  \end{choices}
+  \ans{\\ D. $(x-9)(x-9)=x^2-9x-9x+81$. \\ A squares each term separately and loses the middle term entirely --- the most common error on this page. B forgets that $(-9)(-9)$ is positive. C loses the minus in the middle term.}
+\end{enumerate}
+
+% ------------------------------------------------ PART C
+\PartHead{Part C --- Solving quadratics}{Calculator allowed. 25 minutes.}
+\sitting{Thursday}
+A quadratic almost always has \emph{two} answers. Before you start each item, write
+the number 2 in the margin, and do not move on until you have found both.
+
+Two routes. If one side is already zero, factor and set each bracket to zero. If the
+equation looks like $(x-h)^2=k$, take the square root of both sides --- and write
+$\pm$ on the right-hand side \emph{as you write it}, not afterwards.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item $x^2-7x+12=0$. \ What is the greater of the two solutions? \spr
+  \ans{\\ $4$. $(x-3)(x-4)=0$, so $x=3$ or $x=4$. Check: $16-28+12=0$.}
+
+\item $x^2+2x-15=0$. \ What is the lesser of the two solutions? \spr
+  \ans{\\ $-5$. $(x+5)(x-3)=0$, so $x=-5$ or $x=3$. Check: $25-10-15=0$.}
+
+\item $x^2-5x=24$. \ What is the greater of the two solutions? \spr
+  \ans{\\ $8$. Set it to zero first: $x^2-5x-24=0$, so $(x-8)(x+3)=0$ and $x=8$ or $x=-3$. Check: $64-40=24$. Factoring before moving the 24 across gets you nowhere.}
+
+\item $x^2=6x+16$. \ What is the lesser of the two solutions? \spr
+  \ans{\\ $-2$. Set it to zero: $x^2-6x-16=0$, so $(x-8)(x+2)=0$ and $x=8$ or $x=-2$. Check: $(-2)^2=4$ and $6(-2)+16=4$.}
+
+\item $(x-3)^2=49$. \ What is the lesser of the two solutions?
+  \begin{choices}
+  \item A) $-10$
+  \item B) $-4$
+  \item C) $4$
+  \item D) $10$
+  \end{choices}
+  \ans{\\ B. $x-3=\pm7$, so $x=10$ or $x=-4$. Check $x=-4$: $(-7)^2=49$. \\ D is the positive root, taken by a student who wrote $x-3=7$ and stopped. C is $-4$ with the minus dropped on the way to the page. A is $-10$, the positive root negated instead of solved for.}
+
+\item $(x+2)^2=36$. \ What is the lesser of the two solutions?
+  \begin{choices}
+  \item A) $-8$
+  \item B) $-4$
+  \item C) $4$
+  \item D) $8$
+  \end{choices}
+  \ans{\\ A. $x+2=\pm6$, so $x=4$ or $x=-8$. Check $x=-8$: $(-6)^2=36$. \\ C is the positive root, kept alone. D is $-8$ with the minus lost. B subtracts 2 from $-6$ with a sign slip.}
+
+\item $(x+6)^2=25$. \ What is the lesser of the two solutions?
+  \begin{choices}
+  \item A) $-11$
+  \item B) $-1$
+  \item C) $1$
+  \item D) $11$
+  \end{choices}
+  \ans{\\ A. $x+6=\pm5$, so $x=-1$ or $x=-11$. Check $x=-11$: $(-5)^2=25$. \\ B is the root you reach from $+5$ alone. D is $-11$ with the minus dropped. C is $-1$ with the minus dropped. Here \emph{both} solutions are negative, which catches a student who assumes one of each.}
+
+\item $(x-1)^2=64$. \ What is the lesser of the two solutions?
+  \begin{choices}
+  \item A) $-9$
+  \item B) $-7$
+  \item C) $7$
+  \item D) $9$
+  \end{choices}
+  \ans{\\ B. $x-1=\pm8$, so $x=9$ or $x=-7$. Check $x=-7$: $(-8)^2=64$. \\ D is the positive root alone. C is $-7$ with the minus dropped. A negates the positive root rather than solving for the second one.}
+
+\item $2x^2-7x+3=0$. \ Use the quadratic formula. What is the greater of the two solutions? \spr
+  \ans{\\ $3$. $x=\frac{7\pm\sqrt{49-24}}{4}=\frac{7\pm5}{4}$, giving $3$ and $0.5$. Check $x=3$: $18-21+3=0$. The sign trap is $-b$: with $b=-7$ the top of the fraction starts $+7$.}
+
+\item $3x^2+5x-2=0$. \ Use the quadratic formula. What is the lesser of the two solutions? \spr
+  \ans{\\ $-2$. $x=\frac{-5\pm\sqrt{25+24}}{6}=\frac{-5\pm7}{6}$, giving $\tfrac13$ and $-2$. Check $x=-2$: $12-10-2=0$. Note $-4ac=-4(3)(-2)=+24$, so the discriminant grows.}
+
+\item How many real solutions does $x^2+4x+9=0$ have?
+  \begin{choices}
+  \item A) Zero
+  \item B) Exactly one
+  \item C) Exactly two
+  \item D) Infinitely many
+  \end{choices}
+  \ans{\\ A. The discriminant is $b^2-4ac=16-36=-20$. A negative discriminant means no real solution, because no real number squares to a negative. \\ C is the default assumption that every quadratic has two roots. B is the answer for a discriminant of exactly zero. D is a habit carried over from systems of equations.}
+
+\item What is the sum of the two solutions of $x^2-11x+24=0$? \spr
+  \ans{\\ $11$. The solutions are 3 and 8, and $3+8=11$. Faster: for $x^2+bx+c=0$ the two roots always add to $-b$, so you can read 11 straight off without solving.}
+\end{enumerate}
+
+% ------------------------------------------------ PART D
+\PartHead{Part D --- In context}{Calculator allowed. 15 minutes.}
+\sitting{Saturday}
+Here the algebra gives you two answers and the situation throws one away. A time
+before the ball was thrown, a width of $-10$ metres: the equation does not know
+these are impossible, so you have to. Solve, then look at both answers and ask which
+one could happen.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=10pt]
+\item A ball is thrown from a roof. Its height in feet after $t$ seconds is
+  $h(t)=-16t^2+48t+64$. After how many seconds does it hit the ground? \spr
+  \ans{\\ $4$. Set $h=0$: $-16(t^2-3t-4)=0$, so $(t-4)(t+1)=0$ and $t=4$ or $t=-1$. Check $t=4$: $-256+192+64=0$.}\\[2pt]
+  The other solution is rejected. Why?\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $t=-1$ is one second \emph{before} the ball was thrown, and the model only describes what happens from the throw onwards. Negative time is not a moment in this story.}
+
+\item A rectangular garden is 3 metres longer than it is wide, and its area is
+  70 square metres. What is its width, in metres? \spr
+  \ans{\\ $7$. $w(w+3)=70$, so $w^2+3w-70=0$ and $(w-7)(w+10)=0$, giving $w=7$ or $w=-10$. Check: $7\times10=70$.}\\[2pt]
+  The other solution is rejected. Why?\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ A width of $-10$ metres is not a length. A side of a rectangle has to be positive, so only $w=7$ describes a real garden.}
+
+\item A stall's daily revenue, in dollars, is modelled by $R(p)=-5p^2+90p$, where
+  $p$ is the price in dollars. For which lower of the two prices is the revenue
+  exactly \$400? \spr
+  \ans{\\ $8$. $-5p^2+90p=400$ gives $p^2-18p+80=0$, so $(p-8)(p-10)=0$ and $p=8$ or $p=10$. Check $p=8$: $-320+720=400$. Here both answers are possible prices, so nothing is rejected --- that is the point of putting it next to the others.}
+
+\ifANSWERS\else\newpage\fi
+\item A ball is thrown upward and its height in feet after $t$ seconds is
+  $h(t)=-16t^2+64t+5$. What is the greatest height, in feet, that the ball reaches?
+  \begin{choices}
+  \item A) $2$
+  \item B) $5$
+  \item C) $64$
+  \item D) $69$
+  \end{choices}
+  \ans{\\ D. The vertex is at $t=\frac{-64}{2(-16)}=2$, and $h(2)=-64+128+5=69$. \\ A is $t=2$, the time rather than the height --- the question asked how high, not when. B is the starting height at $t=0$. C reads the 64 out of the equation without doing anything with it.}
+
+\item A stall's daily profit, in dollars, is $P(n)=n^2+10n-1200$, where $n$ is the
+  number of items sold. How many items must it sell to break even, that is, for the
+  profit to be \$0? \spr
+  \ans{\\ $30$. $n^2+10n-1200=0$ has discriminant $100+4800=4900=70^2$, so $n=\frac{-10\pm70}{2}$, giving $30$ and $-40$. Check: $900+300-1200=0$.}\\[2pt]
+  The other solution is rejected. Why?\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ $n=-40$ would mean selling a negative number of items, which cannot happen. A count of things is never negative.}
+\end{enumerate}
+
+% ------------------------------------------------ PART E
+\PartHead{Part E --- Mixed, timed}{Calculator allowed. 12 minutes, timed.}
+\sitting{Saturday}
+Set a timer for 12 minutes. These span Parts B to D. Answer every one --- there is no
+penalty for a wrong answer, so a blank is a mark thrown away. Where you find two
+solutions, read the question again before you write one of them down.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item Which expression is equivalent to $(x-6)(x+2)$?
+  \begin{choices}
+  \item A) $x^2-12$
+  \item B) $x^2-4x-12$
+  \item C) $x^2+4x-12$
+  \item D) $x^2-8x-12$
+  \end{choices}
+  \ans{\\ B. The middle term is $2x-6x=-4x$. \\ A multiplies the first and last terms only. C has the sign of the middle term backwards. D adds $-6$ and $-2$ instead of $-6$ and $+2$.}
+
+\item $x^2-9x+18=0$. \ What is the greater of the two solutions? \spr
+  \ans{\\ $6$. $(x-3)(x-6)=0$. Check: $36-54+18=0$.}
+
+\item $(x+5)^2=81$. \ What is the lesser of the two solutions?
+  \begin{choices}
+  \item A) $-14$
+  \item B) $-4$
+  \item C) $4$
+  \item D) $14$
+  \end{choices}
+  \ans{\\ A. $x+5=\pm9$, so $x=4$ or $x=-14$. Check $x=-14$: $(-9)^2=81$. \\ C is the positive root kept alone. D is $-14$ with the minus dropped. B comes from $-9+5$ with a sign slip.}
+
+\item Which expression is equivalent to $4x^2-25$?
+  \begin{choices}
+  \item A) $(2x-5)(2x+5)$
+  \item B) $(2x-5)^2$
+  \item C) $(4x-5)(x+5)$
+  \item D) $(4x-25)(x+1)$
+  \end{choices}
+  \ans{\\ A. Both terms are squares, $4x^2=(2x)^2$ and $25=5^2$, so this is a difference of squares. \\ B is the perfect square confused with the difference of squares, and expands to $4x^2-20x+25$. C and D split the 4 and the 25 into a pair that does not cancel the middle term: they give $4x^2+15x-25$ and $4x^2-21x-25$.}
+
+\item A ball is thrown from a ledge and its height in feet after $t$ seconds is
+  $h(t)=-16t^2+32t+48$. After how many seconds does it hit the ground? \spr
+  \ans{\\ $3$. $-16(t^2-2t-3)=0$, so $(t-3)(t+1)=0$ and $t=3$ or $t=-1$. Reject $t=-1$: the clock starts at the throw. Check $t=3$: $-144+96+48=0$.}
+
+\item What is the sum of the two solutions of $2x^2-14x+5=0$? \spr
+  \ans{\\ $7$. The roots are not whole numbers, but their sum is $-\frac{b}{a}=\frac{14}{2}=7$. The discriminant is $196-40=156$, so there are two real roots and you never need to write either one down.}
+\end{enumerate}
+
+\ifANSWERS\else
+\newpage
+\PartHead{Error log}{Fill this in as you go.}
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|c|X|X|}
+\hline
+\textbf{Date} & \textbf{Q} & \textbf{What I did} & \textbf{What I should have done}\\
+\hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\end{tabularx}
+\end{center}
+\vspace{4pt}
+\begin{center}\small\itshape
+Bring this sheet and your error log to the next session.
+\end{center}
+\fi
+
+\ifANSWERS
+\vspace{8pt}
+\PartHead{Five-minute marking routine}{Tutor}
+\begin{enumerate}[leftmargin=20pt,itemsep=4pt]
+\item \textbf{Score Part A only.} Below 8/10 means last week's translation work has not stuck, and the next session opens by repairing that rather than pushing further into quadratics.
+\item \textbf{In Part C, count how many times he gave only the positive root.} Items 5 to 8 are built for it. That single error is the one to name out loud --- give it a number, say it once, and let him hear that every other mistake on the page is smaller than this one.
+\item \textbf{Pick two wrong answers from Part E} and have him narrate his thinking out loud. Leave the rest unmarked.
+\end{enumerate}
+This is his first week of Advanced Math and he answered nothing in it on the diagnostic. Any part finished is progress worth saying out loud.
+\fi
+
+\end{document}

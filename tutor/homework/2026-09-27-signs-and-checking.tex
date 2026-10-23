@@ -1,0 +1,299 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm,top=2.0cm,bottom=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{mdframed}
+\usepackage{multicol}
+
+\definecolor{navy}{HTML}{1F4E79}
+\definecolor{rule}{HTML}{333333}
+\definecolor{boxbg}{HTML}{F4F6F9}
+\definecolor{keyred}{HTML}{B02020}
+
+% \ANSWERStrue for the tutor key
+\newif\ifANSWERS
+\input{mode}
+
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\footnotesize\color{navy}SAT Math: Foundations to Mastery \ $\cdot$\ Signs and Checking\ifANSWERS\ $\cdot$\ \textbf{\color{keyred}ANSWER KEY}\fi}
+\fancyfoot[R]{\footnotesize\color{navy}Page \thepage\ of \pageref{LastPage}}
+\usepackage{lastpage}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\newcommand{\PartHead}[2]{%
+  \vspace{6pt}
+  {\color{navy}\rule{\textwidth}{0.8pt}}\\[2pt]
+  {\large\bfseries\color{navy}#1}\hfill{\small\itshape #2}\\[-4pt]
+  {\color{navy}\rule{\textwidth}{0.4pt}}
+  \vspace{4pt}
+}
+\newcommand{\sitting}[1]{{\footnotesize\textsc{\color{navy}#1}}\par\vspace{2pt}}
+\newcommand{\spr}{\\[3pt]\hspace*{6pt}Answer: \underline{\hspace{3.2cm}}\hfill{\footnotesize\itshape(write your answer)}}
+\ifANSWERS
+  \newcommand{\ans}[1]{\ {\color{keyred}\bfseries #1}}
+  \newcommand{\note}[1]{\par{\footnotesize\color{keyred}#1}}
+\else
+  \newcommand{\ans}[1]{}
+  \newcommand{\note}[1]{}
+\fi
+
+\begin{document}
+\label{firstpage}
+
+\begin{center}
+{\LARGE\bfseries\color{navy}Signs and Checking}\\[4pt]
+{\color{navy}SAT Math $\cdot$ Foundations to Mastery $\cdot$ Week of 27 September}
+\ifANSWERS\\[4pt]{\color{keyred}\bfseries ANSWER KEY --- tutor copy}\fi
+\end{center}
+\vspace{2pt}
+{\color{rule}\rule{\textwidth}{1pt}}
+\vspace{6pt}
+
+\ifANSWERS\else
+Name: \underline{\hspace{6cm}} \hfill Due: \underline{\hspace{3.2cm}}
+\vspace{6pt}
+\fi
+
+\begin{mdframed}[backgroundcolor=boxbg,linecolor=navy,linewidth=0.6pt,innertopmargin=6pt,innerbottommargin=8pt]
+{\bfseries\color{navy}How to use this sheet}\par\vspace{2pt}
+This is four short sittings, not one long one. Four half-hours across the week will
+do more for you than one long Saturday, and you are far more likely to finish it.
+
+\begin{itemize}[leftmargin=14pt,itemsep=1pt,topsep=3pt]
+  \item \textbf{Part A is no calculator.} None. It is 25 minutes and it is the most important part.
+  \item \textbf{Write every substitution in brackets.} Every one. This is the habit that carries the most marks.
+  \item When you get one wrong, write it in your error log: what you did, and what you should have done.
+\end{itemize}
+\end{mdframed}
+
+\vspace{4pt}
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}l l X r@{}}
+\textbf{Sitting} & \textbf{Part} & \textbf{What it drills} & \textbf{Minutes}\\[2pt]
+\hline\rule{0pt}{11pt}
+Sunday   & A    & Signed arithmetic, no calculator            & 25\\
+Tuesday  & B, C & Substitution, and the four traps            & 30\\
+Thursday & D    & ``Could that be true?''                     & 20\\
+Saturday & E    & Six mixed questions, timed                  & 25\\
+\hline
+\end{tabularx}
+\end{center}
+
+% ------------------------------------------------ PART A
+\PartHead{Part A --- Signed arithmetic}{No calculator. 25 minutes.}
+\sitting{Sunday}
+Work down the list. If you are unsure of a sign, draw a number line in the margin.
+
+\begin{multicols}{2}
+\begin{enumerate}[leftmargin=20pt,itemsep=5pt]
+\item $7-(-1)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{8}
+\item $-5-3=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{-8}
+\item $-4-(-9)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{5}
+\item $6-(-6)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{12}
+\item $(-3)(-7)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{21}
+\item $(-2)^4=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{16}
+\item $(-2)^3=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{-8}
+\item $-2^4=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{-16 \ (the minus is not inside the power)}
+\item $-(-11)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{11}
+\item $\dfrac{-20}{-4}=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{5}
+\item $12-(-8)+(-5)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{15}
+\item $-(3-8)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{5}
+\item $(-1)(-1)(-1)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{-1}
+\item $5-2(-4)=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{13}
+\item $(-6)^2-6^2=$ \ifANSWERS\else\underline{\hspace{1.5cm}}\fi \ans{0}
+\end{enumerate}
+\end{multicols}
+
+Expand and simplify.
+\begin{enumerate}[leftmargin=20pt,itemsep=6pt,start=16]
+\item $-3(x-4)$ \ifANSWERS\ans{$=-3x+12$}\else\ \underline{\hspace{6cm}}\fi
+\item $-(2x-7)$ \ifANSWERS\ans{$=-2x+7$}\else\ \underline{\hspace{6cm}}\fi
+\item $(x-5)(x+2)$ \ifANSWERS\ans{$=x^2-3x-10$}\else\ \underline{\hspace{5.4cm}}\fi
+\item $(x+4)(x-6)$ \ifANSWERS\ans{$=x^2-2x-24$}\else\ \underline{\hspace{5.4cm}}\fi
+\item $-2(3-x)+4$ \ifANSWERS\ans{$=2x-2$}\else\ \underline{\hspace{5.4cm}}\fi
+\end{enumerate}
+
+\ifANSWERS
+\note{\textbf{Marking rule: below 17 of 20 means the sign work has not landed.} Open Session 3 with more of Part A rather than moving on. Items 6--8 and 15 are the diagnostic ones: they separate a student who knows the rule from one who has memorised a slogan.}
+\fi
+
+\newpage
+% ------------------------------------------------ PART B
+\PartHead{Part B --- Substitution, in brackets}{Calculator allowed. 15 minutes.}
+\sitting{Tuesday}
+Write the substitution in brackets \emph{before} you work anything out. Like this:
+\[
+f(x)=3x^2-x,\qquad f(-2)=3(-2)^2-(-2)=3(4)+2=14
+\]
+You lost marks on the diagnostic by skipping that middle step. Do not skip it here.
+
+\begin{multicols}{2}
+\begin{enumerate}[leftmargin=20pt,itemsep=7pt]
+\item $f(x)=3x^2-x$. \ Find $f(-1)$. \ans{$=3(1)+1=4$}
+\item $g(x)=x^2-5x$. \ Find $g(-3)$. \ans{$=9+15=24$}
+\item $h(x)=-x^2+4$. \ Find $h(-5)$. \ans{$=-25+4=-21$}
+\item $p(x)=2x^2+3x-1$. \ Find $p(-4)$. \ans{$=32-12-1=19$}
+\item $q(x)=5-x^2$. \ Find $q(-6)$. \ans{$=5-36=-31$}
+\item $r(x)=x^3+2x$. \ Find $r(-2)$. \ans{$=-8-4=-12$}
+\item $s(x)=-2x-x^2$. \ Find $s(-3)$. \ans{$=6-9=-3$}
+\item $f(x)=3x^2-x$. \ Find $f(-2)$. \ans{$=14$ \ (the diagnostic question)}
+\end{enumerate}
+\end{multicols}
+
+% ------------------------------------------------ PART C
+\PartHead{Part C --- The four traps}{Calculator allowed. 15 minutes.}
+\sitting{Tuesday}
+These are the four places a sign went wrong on your diagnostic, with new numbers.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=8pt]
+\item A line passes through $(3,-2)$ and $(7,6)$. What is its slope?\\
+  \makebox[3.2cm][l]{A) $1$}\makebox[3.2cm][l]{B) $2$}\makebox[3.2cm][l]{C) $4$}\makebox[3.2cm][l]{D) $8$}
+  \ans{\\ B. $\dfrac{6-(-2)}{7-3}=\dfrac{8}{4}=2$. A comes from reading $6-(-2)$ as $6-2$.}
+
+\item A line passes through $(-1,5)$ and $(3,-3)$. What is its slope?\\
+  \makebox[3.2cm][l]{A) $-4$}\makebox[3.2cm][l]{B) $-2$}\makebox[3.2cm][l]{C) $2$}\makebox[3.2cm][l]{D) $4$}
+  \ans{\\ B. $\dfrac{-3-5}{3-(-1)}=\dfrac{-8}{4}=-2$. A comes from $3-1$ in the denominator.}
+
+\item Which expression is equivalent to $(x+6)(x-4)$?\\
+  \makebox[4.2cm][l]{A) $x^2-24$}\makebox[4.2cm][l]{B) $x^2-2x-24$}%
+  \makebox[4.2cm][l]{C) $x^2+2x-24$}\makebox[4.2cm][l]{D) $x^2+10x-24$}
+  \ans{\\ C. $-4x+6x=+2x$. B is the sign slip you made on diagnostic Q2.}
+
+\item Which expression is equivalent to $(x-7)(x+3)$?\\
+  \makebox[4.2cm][l]{A) $x^2-4x-21$}\makebox[4.2cm][l]{B) $x^2+4x-21$}%
+  \makebox[4.2cm][l]{C) $x^2-21$}\makebox[4.2cm][l]{D) $x^2-10x-21$}
+  \ans{\\ A. $3x-7x=-4x$.}
+
+\item Which inequality gives all values of $x$ for which $7-3x\ge 19$?\\
+  \makebox[3.6cm][l]{A) $x\ge-4$}\makebox[3.6cm][l]{B) $x\le-4$}%
+  \makebox[3.6cm][l]{C) $x\ge4$}\makebox[3.6cm][l]{D) $x\le4$}
+  \ans{\\ B. $-3x\ge12$, then divide by $-3$ \emph{and flip}. Check: $x=-5$ gives $22\ge19$, true.}
+
+\item Which inequality gives all values of $x$ for which $4-5x<24$?\\
+  \makebox[3.6cm][l]{A) $x<-4$}\makebox[3.6cm][l]{B) $x>-4$}%
+  \makebox[3.6cm][l]{C) $x<4$}\makebox[3.6cm][l]{D) $x>4$}
+  \ans{\\ B. $-5x<20$, divide by $-5$ and flip. Check: $x=0$ gives $4<24$, true.}
+
+\item The graph of $y=(x-2)^2-9$ crosses the $x$-axis at two points. What are their $x$-coordinates?\\
+  \makebox[4.2cm][l]{A) $-1$ and $5$}\makebox[4.2cm][l]{B) $1$ and $5$}%
+  \makebox[4.2cm][l]{C) $-5$ and $1$}\makebox[4.2cm][l]{D) $2$ and $9$}
+  \ans{\\ A. $(x-2)^2=9$, so $x-2=\pm3$, giving $x=5$ and $x=-1$.}
+
+\item A line is given by $5x-2y=14$. What is the $y$-coordinate of its $y$-intercept? \spr
+  \ans{\\ $-7$. Put $x=0$: $-2y=14$, so $y=-7$.}
+\end{enumerate}
+
+\newpage
+% ------------------------------------------------ PART D
+\PartHead{Part D --- Could that be true?}{No calculator. 20 minutes.}
+\sitting{Thursday}
+For each one, a student has given an answer. \textbf{Do not work the question out.}
+Say whether the answer could possibly be right, and in one sentence say how you know.
+
+This is the most valuable part of the sheet. Five of the marks you lost on the
+diagnostic would have survived thirty seconds of this.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=10pt]
+\item A right triangle has legs of length 9 and 12. A student says the hypotenuse is $0.013$.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ No. The hypotenuse is the longest side, so it must be more than 12.}
+
+\item Of 45 students who walk to school, 26 are in Grade 11. One walker is chosen at random.
+  A student says the probability they are in Grade 11 is $1$.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ No. A probability of 1 means every walker is in Grade 11, but only 26 of the 45 are.}
+
+\item Solve $5-2x\ge11$. A student says $x\ge3$. Test $x=4$.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ No. $5-8=-3$, which is not $\ge11$, so the answer refutes itself in one line.}
+
+\item A jacket costs \$260 and is reduced by 15\%. A student says the sale price is \$299.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ No. A discount makes the price smaller, so it must be under \$260.}
+
+\item A town of 250 people grows by 8\% a year. A student says that after 3 years there are 472.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ No. 8\% of 250 is about 20 a year, so three years adds roughly 60--65, not 220.}
+
+\item A cylinder has radius 3 and height 10. A student says the volume is $30\pi$.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ No. The base circle alone has area $9\pi$, and the cylinder is 10 tall, so the volume is about ten times that.}
+\end{enumerate}
+
+% ------------------------------------------------ PART E
+\PartHead{Part E --- Mixed, timed}{Calculator allowed. 12 minutes, timed.}
+\sitting{Saturday}
+Set a timer for 12 minutes. Answer every one --- there is no penalty for a wrong answer,
+so a blank is a mark thrown away. Then check each answer by substituting it back.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=8pt]
+\item What value of $x$ satisfies $3(x-4)=x+2$?\\
+  \makebox[3.2cm][l]{A) $5$}\makebox[3.2cm][l]{B) $7$}\makebox[3.2cm][l]{C) $-5$}\makebox[3.2cm][l]{D) $-7$}
+  \ans{\\ B. $3x-12=x+2$, so $2x=14$ and $x=7$.}
+
+\item A line passes through $(-2,3)$ and $(2,-5)$. What is its slope?\\
+  \makebox[3.2cm][l]{A) $-4$}\makebox[3.2cm][l]{B) $-2$}\makebox[3.2cm][l]{C) $2$}\makebox[3.2cm][l]{D) $4$}
+  \ans{\\ B. $\dfrac{-5-3}{2-(-2)}=\dfrac{-8}{4}=-2$.}
+
+\item The function $f$ is defined by $f(x)=x^2-4x$. What is the value of $f(-3)$? \spr
+  \ans{\\ $21$. \ $(-3)^2-4(-3)=9+12=21$.}
+
+\item Which inequality gives all values of $x$ for which $8-4x>20$?\\
+  \makebox[3.6cm][l]{A) $x>-3$}\makebox[3.6cm][l]{B) $x<-3$}%
+  \makebox[3.6cm][l]{C) $x>3$}\makebox[3.6cm][l]{D) $x<3$}
+  \ans{\\ B. $-4x>12$, divide by $-4$ and flip. Check: $x=-4$ gives $24>20$, true.}
+
+\item Which expression is equivalent to $(x-5)(x+2)$?\\
+  \makebox[4.2cm][l]{A) $x^2-10$}\makebox[4.2cm][l]{B) $x^2+3x-10$}%
+  \makebox[4.2cm][l]{C) $x^2-3x-10$}\makebox[4.2cm][l]{D) $x^2-7x-10$}
+  \ans{\\ C. $2x-5x=-3x$.}
+
+\item The graph of $y=(x+1)^2-16$ crosses the $x$-axis at two points.
+  What is the greater of the two $x$-coordinates? \spr
+  \ans{\\ $3$. \ $(x+1)^2=16$, so $x+1=\pm4$, giving $x=3$ and $x=-5$.}
+\end{enumerate}
+
+\ifANSWERS\else
+\vspace{10pt}
+\PartHead{Error log}{Fill this in as you go.}
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|c|X|X|}
+\hline
+\textbf{Date} & \textbf{Q} & \textbf{What I did} & \textbf{What I should have done}\\
+\hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\end{tabularx}
+\end{center}
+\vspace{4pt}
+\begin{center}\small\itshape
+Bring this sheet and your error log to the next session.
+\end{center}
+\fi
+
+\ifANSWERS
+\vspace{8pt}
+\PartHead{Five-minute marking routine}{Tutor}
+\begin{enumerate}[leftmargin=20pt,itemsep=4pt]
+\item \textbf{Score Part A only.} Below 17/20, Session 3 opens with more sign work rather than moving on.
+\item \textbf{Read Part D.} One line each. It tells you whether the plausibility habit is forming, and it is the part most likely to be skipped.
+\item \textbf{Pick two wrong answers from Part E} and have him narrate his thinking. Leave the rest unmarked.
+\end{enumerate}
+If the error log is filled in, say so out loud. He will do more of what you visibly value.
+\fi
+
+\end{document}

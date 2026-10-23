@@ -1,0 +1,665 @@
+<title>Ratios, Rates & Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ SAT Math deck — premium slide shell ============ */
+:root{
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* light */
+  --base:#F7F5F1; --surf:#FFFFFF; --rise:#FFFFFF; --rise2:#F3F0EA;
+  --line:rgba(16,24,40,.12); --line2:rgba(16,24,40,.22);
+  --ink:#121923; --mid:#3D4A5C; --mute:#6B7A8E;
+  --gold:#9A6B18; --gold-d:#7E5611; --goldw:rgba(154,107,24,.10);
+  --good:#117A52; --goodw:rgba(17,122,82,.10);
+  --bad:#B6301F; --badw:rgba(182,48,31,.09);
+  --on-gold:#FFFFFF; --goldb:rgba(154,107,24,.32);
+  --shadow:0 18px 50px -26px rgba(16,24,40,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+    --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+    --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+    --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+    --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+    --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+    --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+    --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+  --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+  --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+  --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+  --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+  --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+  --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+  --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 78% -10%, var(--goldw), transparent 65%),
+    radial-gradient(700px 480px at -5% 105%, rgba(79,214,160,.07), transparent 62%);
+}
+
+/* ---------- chrome ---------- */
+#top{
+  position:fixed; top:0; left:0; right:0; height:52px; z-index:30;
+  display:flex; align-items:center; gap:14px; padding:0 20px;
+  font-size:12.5px; letter-spacing:.02em;
+}
+#brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+#deckName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#deckSession{color:var(--mute);white-space:nowrap;font-size:11.5px}
+#top .sp{flex:1}
+.tbtn{
+  appearance:none;border:1px solid var(--line);background:transparent;color:var(--mid);
+  font:inherit;font-size:11.5px;padding:5px 11px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease); white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--line2);color:var(--ink);background:var(--rise)}
+#counter{color:var(--mute);font-variant-numeric:tabular-nums;font-size:11.5px}
+
+#rail{position:fixed;top:0;left:0;right:0;height:2px;z-index:31;background:var(--line)}
+#railFill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-d),var(--gold));
+  transition:width .55s var(--ease)}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:52px 0 62px;z-index:1}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+.slide::-webkit-scrollbar{width:7px}
+.slide::-webkit-scrollbar-thumb{background:var(--line2);border-radius:9px}
+.sl{
+  min-height:100%; width:min(1120px,100%); margin:0 auto;
+  padding:30px 32px 40px; display:flex; flex-direction:column;
+}
+.slide.in{animation:sIn .55s var(--ease) both}
+.slide.in.back{animation:sInB .55s var(--ease) both}
+.slide.nomo{animation:none!important}
+@keyframes sIn{from{opacity:0;transform:translate3d(28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes sInB{from{opacity:0;transform:translate3d(-28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+
+.r{opacity:0;transform:translateY(16px);filter:blur(7px);
+  transition:opacity .62s var(--ease) var(--d,0ms),transform .62s var(--ease) var(--d,0ms),filter .62s var(--ease) var(--d,0ms)}
+.r.on{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){
+  .r{transition-duration:.01ms!important}
+  .slide.in,.slide.in.back{animation:none}
+}
+
+/* ---------- typography ---------- */
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:9px;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent);max-width:160px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6.6vw,86px);line-height:1.02;
+  letter-spacing:-.018em;margin:0 0 18px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,50px);line-height:1.08;
+  letter-spacing:-.012em;margin:0 0 16px}
+h2.sh{font-size:clamp(25px,3.1vw,38px);margin-bottom:18px}
+.lede{font-size:clamp(15px,1.7vw,20px);color:var(--mid);max-width:62ch;margin:0;line-height:1.55}
+.lead{font-size:clamp(14.5px,1.5vw,17.5px);color:var(--mid);max-width:70ch;margin:0 0 22px;line-height:1.6}
+
+/* ---------- title / section ---------- */
+.sl-title,.sl-section{justify-content:center;padding-top:10px}
+.sl-title h1{max-width:17ch}
+.tmeta{display:flex;flex-wrap:wrap;gap:34px;margin-top:38px;padding-top:24px;border-top:1px solid var(--line)}
+.tmeta span{display:flex;flex-direction:column;gap:3px;font-size:11.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--mute)}
+.tmeta b{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink)}
+.sl-section h2{font-size:clamp(34px,5.2vw,64px);max-width:16ch}
+.sl-close h2{color:var(--gold)}
+
+/* ---------- lists ---------- */
+.pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.pts li{display:flex;gap:14px;align-items:flex-start;font-size:clamp(14.5px,1.5vw,18px);line-height:1.55;color:var(--mid)}
+.dot{flex:0 0 7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.55em;
+  box-shadow:0 0 0 4px var(--goldw)}
+
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.step{display:flex;gap:16px;align-items:flex-start;background:var(--rise);border:1px solid var(--line);
+  border-radius:14px;padding:15px 18px}
+.step i{flex:0 0 28px;height:28px;border-radius:9px;background:var(--goldw);color:var(--gold);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12.5px;font-family:var(--mono)}
+.step div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.step b{font-size:clamp(14.5px,1.45vw,17px);font-weight:700;color:var(--ink);line-height:1.4}
+.step span{font-size:14px;color:var(--mute);line-height:1.5}
+
+.recap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.recap li{display:flex;gap:16px;align-items:flex-start;font-size:clamp(15px,1.6vw,19px);
+  line-height:1.5;color:var(--mid);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.recap li:last-child{border-bottom:0}
+.recap i{font-family:var(--serif);font-style:normal;font-size:28px;color:var(--gold);
+  line-height:1;flex:0 0 32px;opacity:.85}
+
+.callout{margin-top:22px;background:var(--goldw);border:1px solid var(--goldb);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:15px 19px;
+  font-size:clamp(14px,1.45vw,16.5px);line-height:1.55;color:var(--ink)}
+
+/* ---------- table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--rise)}
+table{width:100%;border-collapse:collapse;font-size:clamp(13.5px,1.35vw,16px)}
+th{text-align:left;padding:12px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mute);font-weight:700;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tr.good td{background:var(--goodw)} tr.bad td{background:var(--badw)}
+
+/* ---------- compare ---------- */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--rise)}
+.card.bad{border-color:rgba(255,126,110,.32);background:var(--badw)}
+.card.good{border-color:rgba(79,214,160,.32);background:var(--goodw)}
+.ctag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:11px}
+.card.bad .ctag{color:var(--bad)} .card.good .ctag{color:var(--good)}
+.cbody{font-family:var(--mono);font-size:clamp(13px,1.35vw,15.5px);line-height:1.85;color:var(--ink)}
+
+/* ---------- worked example ---------- */
+.qbox{border:1px solid var(--line2);border-radius:16px;background:var(--rise);padding:18px 20px;margin-bottom:18px}
+.qtag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:9px}
+.qstem{font-size:clamp(15px,1.6vw,19px);line-height:1.55;color:var(--ink)}
+.think{background:var(--rise2);border-radius:12px;padding:13px 17px;margin-bottom:16px;
+  font-size:clamp(13.5px,1.4vw,16px);color:var(--mid);line-height:1.55}
+.think b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.wsteps{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:0}
+.wsteps li{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.wsteps li:last-child{border-bottom:0}
+.wsteps i{flex:0 0 24px;height:24px;border-radius:7px;border:1px solid var(--line2);color:var(--mute);
+  display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;font-family:var(--mono)}
+.wsteps div{font-size:clamp(14px,1.45vw,17px);line-height:1.6;color:var(--mid)}
+.ans{margin-top:auto;display:flex;align-items:center;gap:14px;background:var(--goodw);
+  border:1px solid rgba(79,214,160,.32);border-radius:14px;padding:14px 20px}
+.ans span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--good)}
+.ans b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.6vw,32px);color:var(--ink);line-height:1}
+
+/* ---------- practice ---------- */
+.qgrid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.qgrid.n1,.qgrid.n3{grid-template-columns:1fr 1fr}
+.qgrid.n1{grid-template-columns:1fr}
+.q{border:1px solid var(--line);border-radius:16px;background:var(--rise);padding:16px 18px;
+  display:flex;flex-direction:column;gap:11px;transition:border-color .25s var(--ease)}
+.q.open{border-color:var(--line2)}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;min-height:1px}
+.chip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  padding:3px 9px;border-radius:999px;background:var(--goldw);color:var(--gold)}
+.chip.w{background:transparent;border:1px solid var(--line2);color:var(--mute)}
+.qs{font-size:clamp(14px,1.4vw,16.5px);line-height:1.55;color:var(--ink)}
+.opts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.opts li{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);
+  border-radius:10px;cursor:pointer;font-size:14px;color:var(--mid);
+  transition:all .18s var(--ease);user-select:none}
+.opts li:hover{border-color:var(--line2);background:var(--rise2)}
+.opts kbd{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--mute);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px;flex:0 0 auto}
+.opts li.pick{border-color:var(--line2);background:var(--rise2)}
+.opts li.right{border-color:var(--good);background:var(--goodw);color:var(--ink)}
+.opts li.right kbd{color:var(--good);border-color:var(--good)}
+.opts li.wrong{border-color:var(--bad);background:var(--badw)}
+.opts li.wrong kbd{color:var(--bad);border-color:var(--bad)}
+.show{appearance:none;border:1px solid var(--line2);background:transparent;color:var(--mid);
+  font:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:9px;cursor:pointer;
+  align-self:flex-start;transition:all .18s var(--ease)}
+.show:hover{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.q.open .show{display:none}
+.sol[hidden]{display:none}
+.sol{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:9px;
+  animation:fadeU .4s var(--ease) both}
+@keyframes fadeU{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.solA{font-family:var(--serif);font-size:clamp(19px,2vw,25px);color:var(--good);line-height:1.2}
+.solT{font-size:14px;line-height:1.6;color:var(--mid)}
+.solW{font-size:13px;line-height:1.55;color:var(--mute);background:var(--badw);
+  border-radius:9px;padding:9px 12px}
+.solW b{color:var(--bad);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  display:block;margin-bottom:3px}
+.revealAll{appearance:none;margin:18px auto 0;border:1px dashed var(--line2);background:transparent;
+  color:var(--mute);font:inherit;font-size:12.5px;padding:9px 20px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease)}
+.revealAll:hover:not(:disabled){color:var(--ink);border-color:var(--gold)}
+.revealAll:disabled{opacity:.4;cursor:default}
+
+/* ---------- bottom bar ---------- */
+#bot{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:30;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(to top,var(--base) 55%,transparent)}
+.nav{appearance:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:var(--surf);color:var(--mid);cursor:pointer;display:grid;place-items:center;
+  transition:all .2s var(--ease)}
+.nav:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.nav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#hint{font-size:11px;color:var(--mute);letter-spacing:.04em}
+#notes{position:fixed;bottom:62px;left:0;right:0;z-index:29;background:var(--rise2);
+  border-top:1px solid var(--line);padding:13px 24px;font-size:13.5px;color:var(--mid);
+  max-height:30vh;overflow:auto;line-height:1.55}
+
+/* ---------- overview ---------- */
+#overview{position:fixed;inset:0;z-index:40;background:rgba(247,245,241,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:auto;padding:60px 24px;opacity:0;transition:opacity .22s var(--ease)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #overview{background:rgba(7,10,18,.86)}}
+:root[data-theme="dark"] #overview{background:rgba(7,10,18,.86)}
+#overview.on{opacity:1}
+#ovGrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  max-width:1100px;margin:0 auto}
+.ovc{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surf);
+  border-radius:12px;padding:13px 15px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;
+  color:var(--mid);font:inherit;font-size:13.5px;line-height:1.4;transition:all .18s var(--ease)}
+.ovc:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.ovc i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--mute);flex:0 0 auto;padding-top:2px}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .cmp,.qgrid,.qgrid.n3{grid-template-columns:1fr}
+  .sl{padding:22px 16px 34px}
+  .tmeta{gap:22px}
+}
+@media (max-width:560px){
+  .opts{grid-template-columns:1fr}
+  #hint{display:none}
+  #top{gap:9px;padding:0 13px}
+  #deckSession{display:none}
+}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container svg{vertical-align:-.12em}
+
+</style>
+
+<div id="rail"><div id="railFill"></div></div>
+
+<header id="top">
+  <div id="brand"><span id="deckName"></span><span id="deckSession"></span></div>
+  <span class="sp"></span>
+  <span id="counter">1 / 1</span>
+  <button class="tbtn" id="ovBtn" title="Overview (O)">Contents</button>
+  <button class="tbtn" id="notesBtn" title="Tutor notes (N)">Notes</button>
+  <button class="tbtn" id="thBtn" title="Theme">Theme</button>
+  <button class="tbtn" id="fsBtn" title="Fullscreen (F)">Full</button>
+</header>
+
+<main id="stage"></main>
+
+<div id="notes" hidden></div>
+
+<footer id="bot">
+  <button class="nav" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <span id="hint">← → to move · O contents · N notes · F fullscreen</span>
+  <button class="nav" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</footer>
+
+<div id="overview" hidden><div id="ovGrid"></div></div>
+
+<script>
+(function(){
+  var r=document.documentElement, k='satdeck.theme', t=null;
+  try{ t=localStorage.getItem(k); }catch(e){}
+  r.setAttribute('data-theme', t || 'dark');
+  document.getElementById('thBtn').addEventListener('click', function(){
+    var n = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', n);
+    try{ localStorage.setItem(k,n); }catch(e){}
+  });
+})();
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js" id="MathJax-script" async></script>
+
+<script>
+var DECK = {"id":"sat-data","title":"Ratios, Rates & Data","session":"Session 8 · 15 November","slides":[{"type":"title","eyebrow":"Session 8 · 15 November","title":"Ratios, Percentages and Data","sub":"The domain where almost nothing is hard algebra and almost everything is reading carefully: proportions, percentages, tables, averages and the line through a scatterplot.","meta":[{"v":"~15%","k":"of the exam"},{"v":"0","k":"formulas to memorise"},{"v":"28","k":"questions today"}],"notes":"Say the honest thing up front: this is the most winnable domain on the paper for him. The arithmetic is school-level. The marks are lost in the setup, not the sums."},{"type":"section","kicker":"Part one","title":"Ratios, rates and proportions","sub":"A ratio compares two amounts. A rate is a ratio with units attached. A proportion says two ratios are equal — and that is the single most useful sentence in this whole domain."},{"type":"steps","kicker":"The method","title":"Set it up, then cross-multiply","lead":"Almost every ratio question is the same shape: you know three numbers out of four and you want the fourth. Write the two fractions, match the units, cross-multiply.","steps":[{"label":"Write the known ratio as a fraction","body":"A recipe needs $3$ cups of flour to $4$ cups of milk, so $\\dfrac{\\text{flour}}{\\text{milk}} = \\dfrac{3}{4}$."},{"label":"Write the unknown ratio the same way up","body":"If you use $15$ cups of flour, that is $\\dfrac{15}{m}$. Flour on top both times."},{"label":"Set them equal","body":"$\\dfrac{3}{4} = \\dfrac{15}{m}$. This is the proportion. Write it down even when it feels obvious."},{"label":"Cross-multiply","body":"$3m = 4 \\times 15 = 60$, so $m = 20$ cups of milk."},{"label":"Sanity-check the direction","body":"You used five times as much flour, so you need five times as much milk. $4 \\times 5 = 20$. It agrees."}],"callout":"The one rule: **the same thing has to be on top of both fractions**. Flour over milk equals flour over milk. If you put flour over milk on one side and milk over flour on the other, every number afterwards is wrong.","notes":"Make him label the top and bottom of each fraction with the word, not just the number. Thirty seconds of writing that kills most of the errors in this part."},{"type":"worked","kicker":"Worked example","title":"A proportion with awkward numbers","question":"A $12$-metre length of cable weighs $4.5$ kilograms. What is the weight of a $20$-metre length of the same cable?","thinking":"Same cable, so weight and length stay in the same ratio. I can either set up a proportion or find the weight of one metre first. The second route is usually cleaner on the SAT because the unit rate is often useful again later.","steps":["Proportion route: $\\dfrac{4.5}{12} = \\dfrac{w}{20}$, with kilograms on top both times.","Cross-multiply: $12w = 4.5 \\times 20 = 90$.","Divide: $w = \\dfrac{90}{12} = 7.5$.","Unit-rate route: one metre weighs $4.5 \\div 12 = 0.375$ kg.","Then $20$ metres weigh $0.375 \\times 20 = 7.5$ kg. Same answer, and now you also know the per-metre figure."],"answer":"$7.5$ kilograms","notes":"Ask which route he would have picked. Either is fine, but he should notice that the unit rate gives him a number he can reuse, and the proportion does not."},{"type":"idea","kicker":"Rates and units","title":"Unit rates, and converting between them","lead":"A unit rate is \"how much for one\". Divide the top by the bottom and you have it. Converting units is the same idea applied twice, and the SAT loves to make you do exactly two steps.","points":["Unit rate: $84$ pages in $6$ minutes is $84 \\div 6 = 14$ pages per minute. Now any number of minutes is one multiplication.","Converting a single unit: multiply by a fraction that equals $1$. $3$ km is $3 \\times \\dfrac{1000\\text{ m}}{1\\text{ km}} = 3000$ m.","Converting a rate means converting both halves. $\\text{km/h} \\to \\text{m/s}$: multiply the top by $1000$, divide the bottom by $3600$.","So $72$ km/h $= \\dfrac{72 \\times 1000}{3600} = 20$ m/s. There are $3600$ seconds in an hour, not $60$ — that is two conversions, $60 \\times 60$."],"callout":"Before you touch a calculator, say out loud whether the answer should be bigger or smaller than the number you started with. Metres per second is a much smaller number than kilometres per hour. If your answer went up, you divided when you should have multiplied.","notes":"The 60-versus-3600 slip is the most common one in the whole topic. Have him write \"1 hour = 3600 s\" on the scratch paper at the start of every module."},{"type":"worked","kicker":"Worked example","title":"Two conversions in one question","question":"A train travels at a constant speed of $108$ kilometres per hour. How many metres does it travel in $5$ seconds?","thinking":"The speed is in km/h and the question is in metres and seconds. Convert the rate first, then use it. Doing it in one line invites a dropped zero.","steps":["Kilometres to metres: $108$ km $= 108 \\times 1000 = 108{,}000$ metres, so the speed is $108{,}000$ metres per hour.","Hours to seconds: one hour is $60 \\times 60 = 3600$ seconds.","So the speed is $\\dfrac{108{,}000}{3600} = 30$ metres per second.","Check the direction: $30$ is much smaller than $108$, which is what we expected.","Now answer the question asked: in $5$ seconds it travels $30 \\times 5 = 150$ metres."],"answer":"$150$ metres","notes":"The shortcut is divide by 3.6 for km/h to m/s, but do not give him that yet — he should do the two steps until the structure is automatic, or he will divide by 3.6 in the wrong direction."},{"type":"practice","kicker":"Your turn","title":"Ratios and rates — warm-up","lead":"Write the proportion out before you calculate anything. Label the top and bottom of both fractions with words.","questions":[{"stem":"A recipe uses $3$ cups of flour for every $4$ cups of milk. If a baker uses $15$ cups of flour, how many cups of milk are needed?","choices":["$11.25$","$16$","$20$","$45$"],"answer":"C","solution":"Flour over milk on both sides: $\\dfrac{3}{4}=\\dfrac{15}{m}$. Cross-multiply to get $3m=60$, so $m=20$.","trap":"A) is what you get if you write the second fraction upside down; B) is what you get if you add the extra $12$ cups of flour to the milk instead of scaling; D) is what you get if you multiply $15$ by the $3$ in the ratio instead of by the scale factor $5$.","tag":"warm-up"},{"stem":"A car travels $240$ kilometres in $3$ hours at a constant speed. How many kilometres does it travel in $7$ hours?","answer":"560","solution":"Find the unit rate first: $240 \\div 3 = 80$ km per hour. Then $80 \\times 7 = 560$.","tag":"warm-up"},{"stem":"A printer prints $84$ pages in $6$ minutes at a constant rate. How many pages does it print in $15$ minutes?","choices":["$33.6$","$93$","$210$","$1260$"],"answer":"C","solution":"Unit rate is $84 \\div 6 = 14$ pages per minute, so $14 \\times 15 = 210$.","trap":"A) is what you get if you set the proportion up upside down and work out $84 \\div 15 \\times 6$; B) is what you get if you add the extra $9$ minutes to the $84$ as though minutes were pages; D) is what you get if you multiply $84$ by $15$ and forget to divide by the $6$.","tag":"warm-up"},{"stem":"A model of a building is made to a scale of $1$ centimetre to $2.5$ metres. The model is $36$ centimetres tall. How many metres tall is the real building?","answer":"90","solution":"Each centimetre stands for $2.5$ metres, so multiply: $36 \\times 2.5 = 90$ metres.","tag":"warm-up"}],"notes":"Four minutes. If he gets the first one wrong, stop and look at which way up he wrote the second fraction — that will be the whole problem."},{"type":"practice","kicker":"Your turn","title":"Ratios and rates — exam level","lead":"Two of these are conversions. Say out loud whether the answer should be bigger or smaller before you divide.","questions":[{"stem":"A pipe delivers water at a constant rate of $180$ millilitres per second. How many litres does it deliver per hour? ($1$ litre $=1000$ millilitres.)","choices":["$10.8$","$64.8$","$648$","$6480$"],"answer":"C","solution":"In one hour: $180 \\times 3600 = 648{,}000$ millilitres. Divide by $1000$ to get litres: $648$.","trap":"A) is what you get if you multiply by $60$ and stop, giving litres per minute; B) is what you get if you drop a zero and use $360$ seconds in an hour; D) is what you get if you divide by $100$ instead of $1000$ when converting millilitres to litres.","tag":"medium"},{"stem":"A cyclist travels at a constant speed of $27$ kilometres per hour. What is this speed in metres per second?","choices":["$0.45$","$7.5$","$97.2$","$450$"],"answer":"B","solution":"Multiply the top by $1000$ and divide the bottom by $3600$: $\\dfrac{27 \\times 1000}{3600} = 7.5$ m/s.","trap":"A) is what you get if you divide by $60$ and never convert kilometres to metres; C) is what you get if you multiply by $3.6$ instead of dividing by it; D) is what you get if you convert to metres but divide by $60$ only once, which gives metres per minute.","tag":"medium"},{"stem":"Two triangles are similar. The smaller one has sides of length $6$, $8$ and $10$. The shortest side of the larger triangle is $15$. What is the perimeter of the larger triangle?","answer":"60","solution":"The scale factor is $15 \\div 6 = 2.5$. The small perimeter is $6+8+10=24$, so the large perimeter is $24 \\times 2.5 = 60$.","tag":"medium"},{"stem":"A machine produces $45$ components every $4$ minutes at a constant rate. How many components does it produce in $3$ hours?","choices":["$675$","$2025$","$3375$","$8100$"],"answer":"B","solution":"Three hours is $180$ minutes, which is $180 \\div 4 = 45$ intervals of four minutes. So $45 \\times 45 = 2025$ components.","trap":"A) is what you get if you work out one hour’s production and forget to multiply by three; C) is what you get if you use $100$ minutes in an hour instead of $60$; D) is what you get if you multiply $45$ by the $180$ minutes without dividing by the $4$.","tag":"harder"}],"notes":"Six minutes. The last one is the shape the test actually uses: a rate in one unit and a question in another. Make him write the conversion on its own line."},{"type":"section","kicker":"Part two","title":"Percentages","sub":"Four moves cover everything the SAT asks: a percentage of a number, an increase, a decrease, and working backwards from the answer to the original."},{"type":"steps","kicker":"The method","title":"The four percentage moves","lead":"A percentage is a fraction with $100$ on the bottom. Turn it into a decimal straight away and every question becomes one multiplication or one division.","steps":[{"label":"A percentage of a number — multiply","body":"$35\\%$ of $240$ is $0.35 \\times 240 = 84$. Move the decimal two places left, then multiply."},{"label":"An increase — multiply by more than one","body":"Up $15\\%$ means $\\times 1.15$. So $60$ becomes $60 \\times 1.15 = 69$. Do not work out the $9$ and then add it separately; one multiplication is fewer chances to slip."},{"label":"A decrease — multiply by less than one","body":"Down $20\\%$ means $\\times 0.80$. So $80$ becomes $80 \\times 0.8 = 64$."},{"label":"Percent change — subtract, then divide by the OLD value","body":"$\\text{percent change} = \\dfrac{\\text{new} - \\text{old}}{\\text{old}}$. From $2500$ to $2900$: $\\dfrac{400}{2500}=0.16$, a $16\\%$ increase."},{"label":"Working backwards — divide","body":"If a $20\\%$ discount leaves it at $48$, then $0.8 \\times \\text{original} = 48$, so original $= 48 \\div 0.8 = 60$."}],"callout":"The denominator in percent change is always the **old** value — the one you started from. Dividing by the new value is the single most common percentage error on the test, and it is always one of the four options.","notes":"Get him to write the percent-change formula on the scratch paper. It is not on the reference sheet and he will need it two or three times a paper."},{"type":"compare","kicker":"The slip that costs the mark","title":"Going backwards means dividing","lead":"After a 20% discount a coat costs 48 dollars. What was the original price? The instinct is to add 20% back on. That is the wrong operation.","left":{"label":"What most students write","body":"20% of 48 = 9.60\n48 + 9.60 = 57.60\noriginal = 57.60"},"right":{"label":"What is actually true","body":"0.80 × original = 48\noriginal = 48 ÷ 0.80\noriginal = 60\ncheck: 60 × 0.80 = 48 ✓"},"callout":"The $20\\%$ was taken off the **original**, not off the sale price. $20\\%$ of $60$ is $12$, and $60-12=48$. Adding $20\\%$ of $48$ takes the percentage of the wrong number, so it always lands short.","notes":"Make him do the check line every time — multiply the answer back and see whether it returns the number in the question. It takes five seconds and catches this instantly."},{"type":"worked","kicker":"Worked example","title":"Percent change, including a fall","question":"A shop had sales of $64{,}000$ dollars in 2023 and $56{,}000$ dollars in 2024. What was the percent change in sales?","thinking":"Sales went down, so I expect a negative answer, which I will report as a percent decrease. The old value is the 2023 figure, because that is the one we started from.","steps":["Find the change: $56{,}000 - 64{,}000 = -8{,}000$.","Divide by the old value: $\\dfrac{-8{,}000}{64{,}000} = -0.125$.","As a percentage: $-12.5\\%$, so a $12.5\\%$ decrease.","Check it: $12.5\\%$ of $64{,}000$ is $8{,}000$, and $64{,}000-8{,}000=56{,}000$. Correct.","If you had divided by $56{,}000$ you would get $14.3\\%$ — that is the distractor, and it answers a question nobody asked."],"answer":"A decrease of $12.5\\%$","notes":"Point at the final step. Both 12.5 and 14.3 will be on the screen in the real thing. The only way to tell them apart is to know which number goes on the bottom."},{"type":"idea","kicker":"The one they design to catch you","title":"Two changes in a row do not add up","lead":"Percentages are taken of whatever the amount is at that moment. After the first change the amount is different, so the second percentage is taken of a different number.","points":["Up $10\\%$ then up $10\\%$ is $\\times 1.1 \\times 1.1 = 1.21$, which is a $21\\%$ rise — not $20\\%$.","Up $25\\%$ then down $20\\%$ is $\\times 1.25 \\times 0.8 = 1.00$, so the price is exactly back where it started.","Down $50\\%$ then up $50\\%$ is $\\times 0.5 \\times 1.5 = 0.75$, a $25\\%$ fall overall. You never get back to where you were.","Multiply the factors together, then subtract $1$ to read off the overall change."],"callout":"Never add or subtract the percentages. Multiply the decimal factors. A factor of $1.21$ means $+21\\%$; a factor of $0.75$ means $-25\\%$; a factor of $1.00$ means no change at all.","notes":"The 50-down-then-50-up example is the one that lands. Ask him to predict it before you show it — almost everybody says \"back to the start\"."},{"type":"practice","kicker":"Your turn","title":"Percentages — warm-up","lead":"Decimal multiplier first, calculator second.","questions":[{"stem":"What is $35\\%$ of $240$?","choices":["$8.4$","$84$","$156$","$840$"],"answer":"B","solution":"$35\\% = 0.35$, and $0.35 \\times 240 = 84$.","trap":"A) is what you get if you use $0.035$ instead of $0.35$; C) is what you get if you work out the other $65\\%$, the part left over; D) is what you get if you use $3.5$ instead of $0.35$.","tag":"warm-up"},{"stem":"A jacket costs $60$ dollars. Its price is increased by $15\\%$. What is the new price, in dollars?","answer":"69","solution":"An increase of $15\\%$ means multiply by $1.15$: $60 \\times 1.15 = 69$.","tag":"warm-up"},{"stem":"The population of a town rose from $2{,}500$ to $2{,}900$. What was the percent increase?","choices":["$13.8\\%$","$16\\%$","$86.2\\%$","$116\\%$"],"answer":"B","solution":"The change is $400$. Divide by the old value: $\\dfrac{400}{2500}=0.16$, so $16\\%$.","trap":"A) is what you get if you divide the change by the new value instead of the old one; C) is what you get if you divide the old value by the new one; D) is what you get if you work out the new as a percentage of the old and forget to subtract the $100\\%$.","tag":"warm-up"},{"stem":"The price of a ticket fell from $80$ dollars to $68$ dollars. What was the percent decrease?","choices":["$12\\%$","$15\\%$","$17.6\\%$","$85\\%$"],"answer":"B","solution":"The fall is $12$. Divide by the old value: $\\dfrac{12}{80}=0.15$, so a $15\\%$ decrease.","trap":"A) is what you get if you read the size of the fall, $12$, as the percentage; C) is what you get if you divide the fall by the new price $68$; D) is what you get if you work out $68$ as a percentage of $80$, which is the part remaining rather than the fall.","tag":"warm-up"}],"notes":"Five minutes. On the last two, make him point at which number he put on the bottom before he reads out the answer."},{"type":"practice","kicker":"Your turn","title":"Percentages — exam level","lead":"Two of these go backwards and two chain changes together. Decide which kind you are looking at before you start.","questions":[{"stem":"After a $20\\%$ discount, a coat costs $48$ dollars. What was the original price, in dollars?","choices":["$38.40$","$57.60$","$60$","$68$"],"answer":"C","solution":"The sale price is $80\\%$ of the original, so $0.8p = 48$ and $p = 48 \\div 0.8 = 60$. Check: $60 \\times 0.8 = 48$.","trap":"A) is what you get if you take $20\\%$ off again; B) is what you get if you add $20\\%$ of the sale price instead of dividing; D) is what you get if you add $20$ dollars rather than $20$ percent.","tag":"medium"},{"stem":"After a $25\\%$ increase, a yearly membership costs $180$ dollars. What did it cost before the increase, in dollars?","answer":"144","solution":"The new price is $125\\%$ of the old, so $1.25p = 180$ and $p = 180 \\div 1.25 = 144$. Check: $144 \\times 1.25 = 180$.","tag":"medium"},{"stem":"A share price rises by $10\\%$ in one year and then rises by a further $10\\%$ the next year. What is the overall percent increase over the two years?","choices":["$10\\%$","$20\\%$","$21\\%$","$121\\%$"],"answer":"C","solution":"Multiply the factors: $1.1 \\times 1.1 = 1.21$. Subtract $1$ to get $0.21$, so a $21\\%$ increase.","trap":"A) is what you get if you apply only one of the two rises; B) is what you get if you add the two percentages together; D) is what you get if you read the factor $1.21$ as the answer and forget to subtract the original $100\\%$.","tag":"medium"},{"stem":"The price of an item rises by $25\\%$ and then falls by $20\\%$. Compared with the starting price, what has happened overall?","choices":["It has fallen by $5\\%$.","It is unchanged.","It has risen by $5\\%$.","It has risen by $45\\%$."],"answer":"B","solution":"Multiply the factors: $1.25 \\times 0.8 = 1.00$. A factor of exactly $1$ means the price is back where it started.","trap":"A) is what you get if you subtract the percentages as $20-25$; C) is what you get if you subtract them as $25-20$ and treat percentages as if they were fixed amounts; D) is what you get if you add the two percentages together.","tag":"harder"}],"notes":"Seven minutes. For the last one, ask him to pick a starting price of 100 and run it through — that turns an abstract question into two multiplications."},{"type":"section","kicker":"Part three","title":"Reading data","sub":"Tables, two-way tables, bar charts and histograms. No new mathematics here at all — the marks go to whoever reads the question slowly enough to pick the right denominator."},{"type":"table","kicker":"Two-way tables","title":"Which total goes on the bottom","lead":"A two-way table splits people two ways at once. Every question about one is a fraction, and the only thing that changes is what you divide by. Take this survey of $250$ students: Juniors walk $60$ and cycle $40$; Seniors walk $90$ and cycle $60$.","cols":["The question says","Top of the fraction","Bottom of the fraction","Value"],"rows":[{"cells":["\"of all students surveyed\"","the one cell","the grand total, $250$","$\\dfrac{60}{250}=0.24$"]},{"cells":["\"of the seniors\"","the one cell","the senior total, $150$","$\\dfrac{90}{150}=0.6$"],"flag":"good"},{"cells":["\"given that the student cycles\"","the one cell","the cycling total, $100$","$\\dfrac{40}{100}=0.4$"],"flag":"good"},{"cells":["\"of all students, walk AND junior\"","the one cell","the grand total, $250$","$\\dfrac{60}{250}=0.24$"]}],"callout":"The words **\"of the\"** and **\"given that\"** both mean the same thing: they tell you which total goes on the bottom. Find those words, underline them, and the denominator is decided before you do any arithmetic.","notes":"Have him compute the row and column totals himself before any question. Sixty seconds of filling in the margins makes every later question a lookup."},{"type":"worked","kicker":"Worked example","title":"A conditional relative frequency","question":"A survey of $300$ people recorded age group and bicycle ownership. Under $30$: own $84$, do not own $36$. Aged $30$ or over: own $72$, do not own $108$. Given that a person surveyed is under $30$, what is the probability that they own a bicycle?","thinking":"The phrase \"given that a person is under 30\" narrows the world to the under-30s only. Everyone aged 30 or over is now irrelevant, including the 72 who own bicycles.","steps":["Find the under-$30$ total: $84 + 36 = 120$ people.","The ones we want: the $84$ under-$30$s who own a bicycle.","So the probability is $\\dfrac{84}{120}$.","Simplify: divide both by $12$ to get $\\dfrac{7}{10} = 0.7$.","The numbers $72$, $108$ and the grand total $300$ play no part at all. They are there to tempt you."],"answer":"$0.7$, or $\\dfrac{7}{10}$","notes":"Ask him which of the four numbers he did not use and why. Naming the unused numbers out loud is what stops him reaching for the grand total by reflex."},{"type":"idea","kicker":"Charts","title":"Bar charts and histograms","lead":"A bar chart compares separate categories. A histogram shows how a set of numbers is spread out. The reading skill is the same: find the axis labels first, then the scale, then the bar.","points":["Read the vertical scale before anything else. If each gridline is $5$, a bar reaching the fourth line is $20$, not $4$.","In a histogram the bars touch, because the horizontal axis is a number line split into intervals.","\"How many had at least $2$?\" means add every bar from $2$ upwards. \"Fewer than $2$\" means the bars below it. They are not the same question.","The number of bars is not an answer to anything. The heights are the data."],"callout":"Underline \"at least\", \"more than\", \"fewer than\" and \"at most\" in the question before you count. Most lost marks here are a correct count of the wrong bars.","notes":"Drill the four phrases. \"At least 2\" includes 2; \"more than 2\" does not. He will meet that distinction at least once in December."},{"type":"practice","kicker":"Your turn","title":"Reading data","lead":"For the first three questions use this survey of $250$ students: Juniors walk $60$, Juniors cycle $40$, Seniors walk $90$, Seniors cycle $60$. Work out the row and column totals before you start.","questions":[{"stem":"Using the survey above, what fraction of all the students surveyed are seniors who cycle?","choices":["$0.24$","$0.36$","$0.4$","$0.6$"],"answer":"A","solution":"\"Of all the students surveyed\" puts the grand total on the bottom: $\\dfrac{60}{250}=0.24$.","trap":"B) is what you get if you take the seniors who walk, $90$, instead of those who cycle; C) is what you get if you divide by the senior total $150$; D) is what you get if you divide by the cycling total $100$.","tag":"warm-up"},{"stem":"Using the survey above, a student is chosen at random from those surveyed. Given that the student is a senior, what is the probability that the student walks? Give your answer as a decimal.","answer":"0.6","solution":"\"Given that the student is a senior\" makes the senior total the denominator: $\\dfrac{90}{150}=0.6$.","tag":"medium"},{"stem":"Using the survey above, of the students who cycle, what percentage are juniors?","choices":["$16\\%$","$40\\%$","$60\\%$","$67\\%$"],"answer":"B","solution":"\"Of the students who cycle\" makes the cycling total the denominator: $\\dfrac{40}{100}=0.4$, so $40\\%$.","trap":"A) is what you get if you divide by the grand total $250$; C) is what you get if you read the seniors’ cycling figure $60$ instead of the juniors’; D) is what you get if you compare juniors to seniors, $\\dfrac{40}{60}$, instead of to all cyclists.","tag":"medium"},{"stem":"A histogram shows the number of households owning each number of pets: $0$ pets, $12$ households; $1$ pet, $9$ households; $2$ pets, $6$ households; $3$ pets, $2$ households; $4$ pets, $1$ household. How many households own at least $2$ pets?","choices":["$3$","$8$","$9$","$21$"],"answer":"C","solution":"\"At least $2$\" means $2$, $3$ and $4$ pets, so add those three bars: $6+2+1=9$ households.","trap":"A) is what you get if you count the bars rather than the households in them; B) is what you get if you stop at $3$ pets and leave out the last bar; D) is what you get if you count \"fewer than $2$\" instead, $12+9$.","tag":"medium"}],"notes":"Six minutes. Before he answers each of the first three, ask him only one thing: \"what is on the bottom?\" Do not let him calculate until he has said it."},{"type":"section","kicker":"Part four","title":"Statistics and inference","sub":"Mean, median and range you can compute. Standard deviation you only have to describe. And the last few marks of the domain are about what a sample can honestly tell you."},{"type":"steps","kicker":"The method","title":"Mean, median, range","lead":"Three definitions, and the only hard part is remembering to sort the list before you look for the middle.","steps":[{"label":"Mean — add them up, divide by how many","body":"For $4, 7, 3, 9, 7$: the total is $30$ and there are $5$ values, so the mean is $6$."},{"label":"Median — sort first, then take the middle","body":"Sorted: $3, 4, 7, 7, 9$. The middle one is $7$. Sorting is not optional."},{"label":"An even number of values — average the middle two","body":"For $5, 5, 8, 12, 14, 19$ the middle two are $8$ and $12$, so the median is $\\dfrac{8+12}{2}=10$."},{"label":"Range — largest minus smallest","body":"For $3, 4, 7, 7, 9$ the range is $9-3=6$. One number, not two."},{"label":"Mode — the one that appears most","body":"Here that is $7$. The SAT asks for it rarely, but it costs nothing to know."}],"callout":"When a question gives you a frequency table — \"$3$ students scored $5$, $7$ students scored $6$\" — the mean is the total of all the scores divided by the total number of students, not the average of the scores listed.","notes":"Watch him with the even-length median. Taking the fourth value of six instead of averaging the middle pair is his most likely slip here."},{"type":"compare","kicker":"The slip that costs the mark","title":"What one extreme value does","lead":"The five values 20, 22, 24, 26, 28 have a mean of 24 and a median of 24. Now add one more value: 94.","left":{"label":"What most students write","body":"an outlier drags the mean\nthe median never moves\nso median stays 24"},"right":{"label":"What is actually true","body":"mean = 214 ÷ 6 = 35.67\nmedian of six values\n= (24 + 26) ÷ 2 = 25\nmean +11.67, median +1"},"callout":"The mean is pulled hard towards an extreme value because it uses the size of every number. The median only cares about position, so it barely moves — but \"barely\" is not \"not at all\". Adding a sixth value shifts where the middle sits.","notes":"This nuance is worth a mark. He should say \"the median is resistant, not frozen\" rather than \"the median does not change\"."},{"type":"idea","kicker":"Spread","title":"Standard deviation, and comparing two sets","lead":"Standard deviation measures how spread out the values are around the mean. You will never be asked to calculate one on the SAT — only to say which of two sets has the bigger one.","points":["Values packed tightly around the mean → small standard deviation. Values flung far from the mean → large standard deviation.","Two sets can have exactly the same mean and completely different standard deviations. That is the whole point of reporting it.","$11, 12, 13, 14, 15$ and $3, 8, 13, 18, 23$ both have a mean of $13$, but the second is far more spread out, so its standard deviation is larger.","A wider range usually goes with a larger standard deviation, which is enough to answer the comparison questions the test asks."],"callout":"If a question asks you to *calculate* a standard deviation, you have misread it. The exam asks only which is larger, which is smaller, or what happens to it when a value is added.","notes":"Say explicitly that he can stop worrying about the formula. Students waste revision time on this one and it is never tested computationally."},{"type":"worked","kicker":"Worked example","title":"Which average describes it honestly","question":"Seven houses on a street sold for the following prices, in thousands of dollars: $180$, $190$, $200$, $210$, $220$, $230$, $940$. Which measure better describes a typical selling price, and what is it?","thinking":"One value is wildly out of line with the other six. That is an outlier, and the first thing to ask is which average it distorts.","steps":["Mean: the total is $180+190+200+210+220+230+940 = 2{,}170$.","Divide by $7$: the mean is $310$ thousand dollars.","But six of the seven houses sold for less than $310$. The mean describes none of them.","Median: the list is already sorted and there are seven values, so the middle one is the fourth: $210$.","Six of the seven prices sit between $180$ and $230$, so $210$ is a fair description. The median is the better measure here."],"answer":"The median, which is $210$ thousand dollars","notes":"The sentence to keep is: \"when there is an outlier, the median describes the group and the mean describes the outlier.\" He can apply that to any version of this question."},{"type":"practice","kicker":"Your turn","title":"Statistics","lead":"Sort the list before you go looking for a middle. Every time.","questions":[{"stem":"What is the mean of the values $4$, $7$, $3$, $9$, $7$?","choices":["$6$","$7$","$7.5$","$9$"],"answer":"A","solution":"Add them: $4+7+3+9+7=30$. Divide by the five values: $30 \\div 5 = 6$.","trap":"B) is the median of the sorted list, not the mean; C) is what you get if you divide the total by $4$ instead of $5$; D) is simply the largest value in the list.","tag":"warm-up"},{"stem":"What is the median of the values $12$, $5$, $19$, $8$, $5$, $14$?","answer":"10","solution":"Sort them: $5, 5, 8, 12, 14, 19$. Six values, so average the middle two: $\\dfrac{8+12}{2}=10$.","tag":"warm-up"},{"stem":"The values $20$, $22$, $24$, $26$, $28$ have a mean of $24$ and a median of $24$. The value $94$ is then added to the set. Which of the following describes what happens?","choices":["The mean and the median both stay the same.","The mean rises sharply and the median rises slightly.","The median rises sharply and the mean rises slightly.","The mean rises sharply and the median is unchanged."],"answer":"B","solution":"The new total is $214$ over six values, so the mean becomes about $35.7$. The median of six values is $\\dfrac{24+26}{2}=25$, up by $1$.","trap":"A) ignores the outlier entirely; C) swaps the two measures over — it is the mean that an extreme value drags; D) assumes the median never moves, but with six values the middle now sits between $24$ and $26$.","tag":"medium"},{"stem":"Set P is $11$, $12$, $13$, $14$, $15$. Set Q is $3$, $8$, $13$, $18$, $23$. Both sets have a mean of $13$. Which statement is true?","choices":["P has the larger standard deviation.","Q has the larger standard deviation.","The standard deviations are equal, because the means are equal.","Q has the smaller range, so it has the smaller standard deviation."],"answer":"B","solution":"Standard deviation measures spread about the mean. P spans only $4$ while Q spans $20$, so Q’s values sit much further from $13$.","trap":"A) picks the set whose values are packed closest together, which is the smaller spread; C) treats an equal mean as an equal spread, which is exactly what standard deviation exists to distinguish; D) has the ranges the wrong way round — P spans $4$ and Q spans $20$.","tag":"harder"}],"notes":"Six minutes. The last two are read-and-reason, not calculate. If he reaches for the calculator, stop him."},{"type":"idea","kicker":"Scatterplots","title":"The line of best fit, and how far you can trust it","lead":"A scatterplot is points; the line of best fit is the straight line drawn through the middle of them. Once it has an equation, it behaves like any other line you have met.","points":["The slope is the predicted change in $y$ for each increase of one in $x$. In $y=6x+42$, each extra hour of study predicts $6$ more marks.","The $y$-intercept is the predicted $y$ when $x$ is zero. Here, $42$ marks for a student who studies no hours.","To predict, substitute. For $x=9$: $y=6(9)+42=96$.","**Interpolation** is predicting inside the range of the data you have. That is reasonable. **Extrapolation** is predicting outside it, and the further out you go, the less the line is worth."],"callout":"A line of best fit does not have to pass through any of the points, and a point sitting above the line simply means that person did better than predicted. \"Above the line\" is never an error in the data.","notes":"Have him read a slope out loud as a full sentence with units in it: \"six marks per extra hour.\" The interpretation questions are pure wording and that habit answers them."},{"type":"worked","kicker":"Worked example","title":"Reading a prediction off the line","question":"A scatterplot shows club membership against years since 2015, using data collected from 2015 to 2024. The line of best fit is $y = 23x + 140$, where $x$ is years since 2015. What does the line predict for 2021, and is that prediction an interpolation?","thinking":"Two separate jobs. First translate the year into the $x$ the equation wants, then substitute. Then check whether that $x$ sits inside the range the data covers.","steps":["Translate the year: $2021 - 2015 = 6$, so $x=6$.","Substitute: $y = 23(6) + 140$.","$23 \\times 6 = 138$, and $138 + 140 = 278$ members.","The data runs from 2015 to 2024, which is $x$ from $0$ to $9$.","$x=6$ sits inside that range, so this is interpolation and the prediction is reasonable. A prediction for 2040 would be extrapolation and worth very little."],"answer":"$278$ members, and yes — it is an interpolation","notes":"The year-to-x translation is where he will lose this one, not the arithmetic. Make him write \"x = 6\" on its own line before substituting anything."},{"type":"idea","kicker":"Samples and inference","title":"What a sample can honestly tell you","lead":"The test asks you to judge conclusions, not to compute anything. Two things decide whether a conclusion is allowed: how the sample was chosen, and what the margin of error covers.","points":["A conclusion can only be generalised to the population the sample was **randomly selected from**. A random sample of one school tells you about that school, not about the country.","If the sample was not random — volunteers, or people in one queue — you cannot generalise at all, however many people answered.","A margin of error gives a plausible range for the **population value**: \"mean $32$ minutes, margin of error $3$\" means the true mean for everyone is plausibly between $29$ and $35$.","It says nothing about individuals. It does not mean $95\\%$ of people fall in that range, and it does not mean nobody falls outside it."],"callout":"A larger sample makes the margin of error **smaller**, not larger. More information narrows the range. If an option says a bigger sample widens it, that option is wrong.","notes":"The phrase to rehearse: \"the interval is about the average of the whole population, not about any one person.\" Nearly every wrong option on these questions breaks that one sentence."},{"type":"practice","kicker":"Your turn","title":"Scatterplots and inference","lead":"For the first three questions, a scatterplot of study hours $x$ against test score $y$ has line of best fit $y = 6x + 42$, built from data covering $1$ to $10$ hours.","questions":[{"stem":"In the line of best fit $y = 6x + 42$, what does the $6$ represent?","choices":["The predicted score for a student who studies no hours.","The predicted increase in score for each additional hour of study.","The number of students in the sample.","The highest score achieved by any student."],"answer":"B","solution":"The coefficient of $x$ is the slope, which is the predicted change in $y$ for a one-unit rise in $x$ — here, one more hour of study.","trap":"A) describes the intercept $42$, not the slope; C) reads the slope as a count of data points; D) reads it as a maximum value, which a slope never is.","tag":"medium"},{"stem":"Using the line of best fit $y = 6x + 42$, what score does the line predict for a student who studies for $9$ hours?","answer":"96","solution":"Substitute $x=9$: $y = 6(9) + 42 = 54 + 42 = 96$.","tag":"medium"},{"stem":"A student uses the same line of best fit to predict the score for someone who studies for $30$ hours. Why is that prediction unreliable?","choices":["Because $30$ lies outside the range of study times the line was built from.","Because a line of best fit only works for whole numbers of hours.","Because the line has a positive slope.","Because $30$ was not one of the observed values, and a line can only predict values that actually occurred."],"answer":"A","solution":"The data covers $1$ to $10$ hours. Predicting at $30$ is extrapolation, and there is no evidence the relationship continues that far out.","trap":"B) invents a restriction that does not exist; C) confuses the direction of the line with its reliability; D) overcorrects — predicting at an unobserved value inside the data range is interpolation and is perfectly reasonable.","tag":"medium"},{"stem":"A random sample of $400$ adults in a city found a mean commute time of $32$ minutes, with a margin of error of $3$ minutes at the $95\\%$ confidence level. Which conclusion is best supported?","choices":["Every adult in the city commutes between $29$ and $35$ minutes.","It is plausible that the mean commute time for all adults in the city is between $29$ and $35$ minutes.","Exactly $95\\%$ of adults in the city commute between $29$ and $35$ minutes.","Surveying more adults would make the margin of error larger."],"answer":"B","solution":"A margin of error gives a plausible range for the population mean. It is a statement about the average of everyone, not about any individual.","trap":"A) applies the interval to every individual instead of to the mean; C) makes the same error dressed up as a percentage of people; D) has the relationship backwards — a larger sample narrows the margin of error.","tag":"harder"}],"notes":"Seven minutes. These are reading questions. Ask him to point at the word in the wrong options that makes them wrong — \"every\", \"exactly\", \"larger\"."},{"type":"recap","kicker":"Before you go","title":"The eight things from today","points":["In a proportion, the same quantity goes on top of both fractions. Label them with words.","For km/h to m/s, multiply by $1000$ and divide by $3600$ — an hour is $3600$ seconds, not $60$.","Percent change is $\\dfrac{\\text{new}-\\text{old}}{\\text{old}}$. The old value is always on the bottom.","To undo a percentage change, divide by the multiplier. Then multiply back to check.","Two changes in a row multiply, they never add. $1.1 \\times 1.1 = 1.21$, so $21\\%$.","In a two-way table, \"of the\" and \"given that\" tell you the denominator. Find those words first.","An outlier drags the mean a long way and the median hardly at all — but \"hardly\" is not \"never\".","A margin of error describes the population average, not any one person, and a bigger sample makes it smaller."],"callout":"Nothing in this list is difficult mathematics. All eight are reading habits. That is why this domain is the fastest place left to pick up marks before December.","notes":"Ask which of the eight he would get wrong under time pressure. Whatever he names goes in next week's warm-up."},{"type":"close","small":"This week","big":"Thirty questions, three sittings.","foot":"Workbook topics 4.1 to 4.4, plus the percent-change drill sheet — twenty of those thirty are percentages, because that is where the marks are. Quiz 5 is due Friday. Bring the error log and we will start Session 9 with whatever it shows.","notes":"Check he has the drill sheet. If he only does one thing this week it should be the percent-change twenty, done in two short sittings rather than one long one."}]};
+</script>
+<script>
+/* ===========================================================
+   SAT Math — slide engine
+   Shared by every lesson deck. The deck's content is a DECK
+   object defined before this script runs.
+   =========================================================== */
+(function () {
+  "use strict";
+
+  var stage = document.getElementById('stage');
+  var railFill = document.getElementById('railFill');
+  var counter = document.getElementById('counter');
+  var deckName = document.getElementById('deckName');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+  var notesEl = document.getElementById('notes');
+
+  var i = 0, built = [], notesOn = false, reveal = 0;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  deckName.textContent = DECK.title;
+  document.getElementById('deckSession').textContent = DECK.session || '';
+
+  /* ---------- maths ---------- */
+  var mathReady = false, mathFailed = false;
+  function typeset(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      mathReady = true;
+      window.MathJax.typesetPromise([el]).catch(function () { plain(el); });
+    } else if (mathFailed) { plain(el); }
+  }
+  setTimeout(function () {
+    if (window.MathJax && window.MathJax.typesetPromise) return;
+    mathFailed = true; plain(stage);
+  }, 3000);
+  function plain(el) {
+    if (!el) return;
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, hits = [];
+    while ((n = w.nextNode())) { if (n.nodeValue.indexOf('$') > -1) hits.push(n); }
+    hits.forEach(function (t) {
+      t.nodeValue = t.nodeValue.replace(/\$\$?([^$]*)\$\$?/g, function (m, s) { return tidy(s); });
+    });
+  }
+  var SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶',
+    '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', 'n': 'ⁿ', 'x': 'ˣ', 't': 'ᵗ', '/': 'ᐟ' };
+  function sup(s) {
+    var o = '', ok = true;
+    for (var i = 0; i < s.length; i++) { if (SUP[s[i]]) o += SUP[s[i]]; else { ok = false; break; } }
+    return ok ? o : '^(' + s + ')';
+  }
+  function tidy(t) {
+    var s = String(t)
+      .replace(/\{\s*,\s*\}/g, ',')                       // 64{,}000
+      .replace(/\\(?:text|mathrm|mbox)\{([^{}]*)\}/g, '$1')
+      .replace(/\\left|\\right/g, '')
+      .replace(/\\([%&#_$])/g, '$1');                     // \% \$ \&
+    for (var k = 0; k < 4; k++) {                         // innermost first, a few passes
+      s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)')
+           .replace(/\\sqrt\s*\[\s*([^\]]*)\s*\]\s*\{([^{}]*)\}/g, '$1√($2)')
+           .replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)');
+    }
+    return s
+      .replace(/\^\{([^{}]*)\}/g, function (m, e) { return sup(e); })
+      .replace(/\^(-?\w)/g, function (m, e) { return sup(e); })
+      .replace(/\\ge\b/g, '≥').replace(/\\le\b/g, '≤')
+      .replace(/\\cdot/g, '·').replace(/\\neq/g, '≠').replace(/\\approx/g, '≈')
+      .replace(/\\ldots|\\dots/g, '…').replace(/\\square/g, '□')
+      .replace(/\\pi\b/g, 'π').replace(/\\theta\b/g, 'θ').replace(/\\ell\b/g, 'ℓ')
+      .replace(/\\circ\b/g, '°').replace(/\\infty/g, '∞')
+      .replace(/\\times/g, '×').replace(/\\div/g, '÷').replace(/\\pm/g, '±')
+      .replace(/\\[;,:! ]/g, ' ').replace(/\\[a-zA-Z]+/g, '').replace(/[{}]/g, '')
+      .replace(/\((\w+)\)\/\((\w+)\)/g, '$1/$2')          // (3)/(4) -> 3/4
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /* ---------- slide builders ---------- */
+  var B = {
+    title: function (d) {
+      return '<div class="sl sl-title">' +
+        '<div class="eyebrow r">' + esc(d.eyebrow || DECK.session || '') + '</div>' +
+        '<h1 class="r">' + esc(d.title) + '</h1>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') +
+        (d.meta ? '<div class="tmeta r">' + d.meta.map(function (m) {
+          return '<span><b>' + esc(m.v) + '</b>' + esc(m.k) + '</span>'; }).join('') + '</div>' : '') +
+        '</div>';
+    },
+    section: function (d) {
+      return '<div class="sl sl-section">' +
+        (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.title) + '</h2>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') + '</div>';
+    },
+    idea: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        (d.points ? '<ul class="pts">' + d.points.map(function (p) {
+          return '<li class="r"><span class="dot"></span><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' : '') +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') +
+        '</div>';
+    },
+    table: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="tw r"><table><thead><tr>' +
+        d.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+        '</tr></thead><tbody>' +
+        d.rows.map(function (row) {
+          return '<tr class="' + (row.flag || '') + '">' + row.cells.map(function (c, j) {
+            return '<td' + (j === 0 ? ' class="k"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    steps: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<ol class="steps">' + d.steps.map(function (s, n) {
+          return '<li class="r step"><i>' + (n + 1) + '</i><div><b>' + esc(s.label) + '</b>' +
+            (s.body ? '<span>' + esc(s.body) + '</span>' : '') + '</div></li>';
+        }).join('') + '</ol>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    compare: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="cmp">' +
+        '<div class="card bad r"><div class="ctag">' + esc(d.left.label) + '</div><div class="cbody">' +
+        esc(d.left.body).replace(/\n/g, '<br>') + '</div></div>' +
+        '<div class="card good r"><div class="ctag">' + esc(d.right.label) + '</div><div class="cbody">' +
+        esc(d.right.body).replace(/\n/g, '<br>') + '</div></div></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    worked: function (d) {
+      return '<div class="sl sl-worked">' + head(d) +
+        '<div class="qbox r"><div class="qtag">Question</div><div class="qstem">' + esc(d.question) + '</div></div>' +
+        (d.thinking ? '<div class="think r"><b>First, notice</b>' + esc(d.thinking) + '</div>' : '') +
+        '<ol class="wsteps">' + d.steps.map(function (s, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><div>' + esc(s) + '</div></li>';
+        }).join('') + '</ol>' +
+        '<div class="ans r"><span>Answer</span><b>' + esc(d.answer) + '</b></div></div>';
+    },
+    practice: function (d, idx) {
+      return '<div class="sl sl-practice">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="qgrid n' + d.questions.length + '">' +
+        d.questions.map(function (q, j) { return qCard(q, idx + '-' + j); }).join('') +
+        '</div>' +
+        '<button class="revealAll r" data-all>Show every answer</button></div>';
+    },
+    recap: function (d) {
+      return '<div class="sl">' + head(d) +
+        '<ul class="recap">' + d.points.map(function (p, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    close: function (d) {
+      return '<div class="sl sl-section sl-close">' +
+        (d.small ? '<div class="eyebrow r">' + esc(d.small) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.big) + '</h2>' +
+        (d.foot ? '<p class="lede r">' + esc(d.foot) + '</p>' : '') + '</div>';
+    }
+  };
+
+  function head(d) {
+    return (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+      '<h2 class="r sh">' + esc(d.title) + '</h2>';
+  }
+
+  function qCard(q, key) {
+    var mc = !!(q.choices && q.choices.length);
+    var h = '<div class="q" data-q="' + key + '">' +
+      '<div class="qhead">' + (q.tag ? '<span class="chip">' + esc(q.tag) + '</span>' : '') +
+      (mc ? '' : '<span class="chip w">write your answer</span>') + '</div>' +
+      '<div class="qs">' + esc(q.stem) + '</div>';
+    if (mc) {
+      h += '<ul class="opts">' + q.choices.map(function (c, j) {
+        return '<li data-l="' + 'ABCD'[j] + '"><kbd>' + 'ABCD'[j] + '</kbd><span>' + esc(c) + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    h += '<button class="show">Show answer</button>' +
+      '<div class="sol" hidden><div class="solA">' +
+      (mc ? esc(q.answer) + ')&nbsp; ' + esc(q.choices['ABCD'.indexOf(q.answer)]) : esc(q.answer)) +
+      '</div><div class="solT">' + esc(q.solution) + '</div>' +
+      (q.trap ? '<div class="solW"><b>The usual slip</b> ' + esc(q.trap) + '</div>' : '') +
+      '</div></div>';
+    return h;
+  }
+
+  /* ---------- build ---------- */
+  DECK.slides.forEach(function (d, n) {
+    var el = document.createElement('section');
+    el.className = 'slide';
+    el.innerHTML = (B[d.type] || B.idea)(d, n);
+    el.hidden = true;
+    stage.appendChild(el);
+    built.push({ el: el, data: d });
+  });
+
+  // overview
+  ovGrid.innerHTML = DECK.slides.map(function (d, n) {
+    return '<button class="ovc" data-go="' + n + '"><i>' + (n + 1) + '</i><span>' +
+      esc(d.title || d.big || DECK.title) + '</span></button>';
+  }).join('');
+  ovGrid.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]'); if (!b) return;
+    go(parseInt(b.dataset.go, 10)); closeOverview();
+  });
+
+  /* ---------- navigation ---------- */
+  function revealables(el) { return [].slice.call(el.querySelectorAll('.r')); }
+
+  function paint(dir) {
+    var cur = built[i];
+    built.forEach(function (b, n) { if (n !== i) { b.el.hidden = true; b.el.className = 'slide'; } });
+    cur.el.hidden = false;
+    cur.el.className = 'slide in' + (reduce ? ' nomo' : (dir < 0 ? ' back' : ''));
+    var rs = revealables(cur.el);
+    rs.forEach(function (r, n) {
+      r.classList.remove('on');
+      r.style.setProperty('--d', (reduce ? 0 : n * 55) + 'ms');
+    });
+    // first paint shows everything except stepped lists
+    reveal = 0;
+    rs.forEach(function (r) { r.classList.add('on'); });
+    railFill.style.width = ((i + 1) / built.length * 100) + '%';
+    counter.textContent = (i + 1) + ' / ' + built.length;
+    notesEl.textContent = cur.data.notes || 'No note for this slide.';
+    typeset(cur.el);
+    if (mathFailed) plain(cur.el);
+  }
+
+  function go(n, dir) {
+    if (n < 0 || n >= built.length) return;
+    var d = dir !== undefined ? dir : (n > i ? 1 : -1);
+    i = n; paint(d);
+    try { location.hash = 's' + (i + 1); } catch (e) { }
+    try { localStorage.setItem('satdeck.' + DECK.id, String(i)); } catch (e) { }
+  }
+  function next() { if (i < built.length - 1) go(i + 1, 1); }
+  function prev() { if (i > 0) go(i - 1, -1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(built.length - 1); }
+    else if (k === 'o' || k === 'O') { e.preventDefault(); toggleOverview(); }
+    else if (k === 'Escape') { closeOverview(); }
+    else if (k === 'n' || k === 'N') { notesOn = !notesOn; notesEl.hidden = !notesOn; }
+    else if (k === 'f' || k === 'F') { toggleFull(); }
+  });
+
+  // swipe
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function (e) {
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  // answers
+  stage.addEventListener('click', function (e) {
+    var all = e.target.closest('[data-all]');
+    if (all) {
+      all.closest('.sl').querySelectorAll('.q').forEach(function (q) { openQ(q); });
+      all.textContent = 'All answers shown'; all.disabled = true; return;
+    }
+    var btn = e.target.closest('.show');
+    if (btn) { openQ(btn.closest('.q')); return; }
+    var opt = e.target.closest('.opts li');
+    if (opt) {
+      var box = opt.closest('.q');
+      if (box.classList.contains('open')) return;
+      box.querySelectorAll('.opts li').forEach(function (o) { o.classList.remove('pick'); });
+      opt.classList.add('pick');
+    }
+  });
+  function openQ(box) {
+    if (!box || box.classList.contains('open')) return;
+    box.classList.add('open');
+    var sol = box.querySelector('.sol'); sol.hidden = false;
+    var a = sol.querySelector('.solA').textContent.trim().charAt(0);
+    box.querySelectorAll('.opts li').forEach(function (o) {
+      if (o.dataset.l === a) o.classList.add('right');
+      else if (o.classList.contains('pick')) o.classList.add('wrong');
+    });
+    typeset(sol); if (mathFailed) plain(sol);
+  }
+
+  /* ---------- overview, fullscreen ---------- */
+  function toggleOverview() { overview.hidden ? openOverview() : closeOverview(); }
+  function openOverview() { overview.hidden = false; requestAnimationFrame(function () { overview.classList.add('on'); }); }
+  function closeOverview() { overview.classList.remove('on'); setTimeout(function () { overview.hidden = true; }, 220); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOverview);
+  overview.addEventListener('click', function (e) { if (e.target === overview) closeOverview(); });
+
+  function toggleFull() {
+    var r = document.documentElement;
+    if (!document.fullscreenElement && r.requestFullscreen) r.requestFullscreen().catch(function () { });
+    else if (document.exitFullscreen) document.exitFullscreen().catch(function () { });
+  }
+  document.getElementById('fsBtn').addEventListener('click', toggleFull);
+
+  document.getElementById('notesBtn').addEventListener('click', function () {
+    notesOn = !notesOn; notesEl.hidden = !notesOn;
+  });
+
+  /* ---------- start ---------- */
+  var start = 0;
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) start = Math.min(built.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  else { try { var v = localStorage.getItem('satdeck.' + DECK.id); if (v !== null) start = Math.min(built.length - 1, parseInt(v, 10) || 0); } catch (e) { } }
+  i = start; paint(1);
+
+  // MathJax loads async — typeset once it lands.
+  var waited = 0, poll = setInterval(function () {
+    waited += 120;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      clearInterval(poll); mathReady = true; typeset(built[i].el);
+    } else if (waited > 3000) { clearInterval(poll); }
+  }, 120);
+})();
+
+</script>

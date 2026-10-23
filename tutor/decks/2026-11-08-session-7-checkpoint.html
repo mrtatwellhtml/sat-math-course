@@ -1,0 +1,665 @@
+<title>Checkpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ SAT Math deck — premium slide shell ============ */
+:root{
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* light */
+  --base:#F7F5F1; --surf:#FFFFFF; --rise:#FFFFFF; --rise2:#F3F0EA;
+  --line:rgba(16,24,40,.12); --line2:rgba(16,24,40,.22);
+  --ink:#121923; --mid:#3D4A5C; --mute:#6B7A8E;
+  --gold:#9A6B18; --gold-d:#7E5611; --goldw:rgba(154,107,24,.10);
+  --good:#117A52; --goodw:rgba(17,122,82,.10);
+  --bad:#B6301F; --badw:rgba(182,48,31,.09);
+  --on-gold:#FFFFFF; --goldb:rgba(154,107,24,.32);
+  --shadow:0 18px 50px -26px rgba(16,24,40,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+    --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+    --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+    --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+    --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+    --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+    --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+    --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+  --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+  --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+  --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+  --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+  --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+  --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+  --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 78% -10%, var(--goldw), transparent 65%),
+    radial-gradient(700px 480px at -5% 105%, rgba(79,214,160,.07), transparent 62%);
+}
+
+/* ---------- chrome ---------- */
+#top{
+  position:fixed; top:0; left:0; right:0; height:52px; z-index:30;
+  display:flex; align-items:center; gap:14px; padding:0 20px;
+  font-size:12.5px; letter-spacing:.02em;
+}
+#brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+#deckName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#deckSession{color:var(--mute);white-space:nowrap;font-size:11.5px}
+#top .sp{flex:1}
+.tbtn{
+  appearance:none;border:1px solid var(--line);background:transparent;color:var(--mid);
+  font:inherit;font-size:11.5px;padding:5px 11px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease); white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--line2);color:var(--ink);background:var(--rise)}
+#counter{color:var(--mute);font-variant-numeric:tabular-nums;font-size:11.5px}
+
+#rail{position:fixed;top:0;left:0;right:0;height:2px;z-index:31;background:var(--line)}
+#railFill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-d),var(--gold));
+  transition:width .55s var(--ease)}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:52px 0 62px;z-index:1}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+.slide::-webkit-scrollbar{width:7px}
+.slide::-webkit-scrollbar-thumb{background:var(--line2);border-radius:9px}
+.sl{
+  min-height:100%; width:min(1120px,100%); margin:0 auto;
+  padding:30px 32px 40px; display:flex; flex-direction:column;
+}
+.slide.in{animation:sIn .55s var(--ease) both}
+.slide.in.back{animation:sInB .55s var(--ease) both}
+.slide.nomo{animation:none!important}
+@keyframes sIn{from{opacity:0;transform:translate3d(28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes sInB{from{opacity:0;transform:translate3d(-28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+
+.r{opacity:0;transform:translateY(16px);filter:blur(7px);
+  transition:opacity .62s var(--ease) var(--d,0ms),transform .62s var(--ease) var(--d,0ms),filter .62s var(--ease) var(--d,0ms)}
+.r.on{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){
+  .r{transition-duration:.01ms!important}
+  .slide.in,.slide.in.back{animation:none}
+}
+
+/* ---------- typography ---------- */
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:9px;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent);max-width:160px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6.6vw,86px);line-height:1.02;
+  letter-spacing:-.018em;margin:0 0 18px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,50px);line-height:1.08;
+  letter-spacing:-.012em;margin:0 0 16px}
+h2.sh{font-size:clamp(25px,3.1vw,38px);margin-bottom:18px}
+.lede{font-size:clamp(15px,1.7vw,20px);color:var(--mid);max-width:62ch;margin:0;line-height:1.55}
+.lead{font-size:clamp(14.5px,1.5vw,17.5px);color:var(--mid);max-width:70ch;margin:0 0 22px;line-height:1.6}
+
+/* ---------- title / section ---------- */
+.sl-title,.sl-section{justify-content:center;padding-top:10px}
+.sl-title h1{max-width:17ch}
+.tmeta{display:flex;flex-wrap:wrap;gap:34px;margin-top:38px;padding-top:24px;border-top:1px solid var(--line)}
+.tmeta span{display:flex;flex-direction:column;gap:3px;font-size:11.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--mute)}
+.tmeta b{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink)}
+.sl-section h2{font-size:clamp(34px,5.2vw,64px);max-width:16ch}
+.sl-close h2{color:var(--gold)}
+
+/* ---------- lists ---------- */
+.pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.pts li{display:flex;gap:14px;align-items:flex-start;font-size:clamp(14.5px,1.5vw,18px);line-height:1.55;color:var(--mid)}
+.dot{flex:0 0 7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.55em;
+  box-shadow:0 0 0 4px var(--goldw)}
+
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.step{display:flex;gap:16px;align-items:flex-start;background:var(--rise);border:1px solid var(--line);
+  border-radius:14px;padding:15px 18px}
+.step i{flex:0 0 28px;height:28px;border-radius:9px;background:var(--goldw);color:var(--gold);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12.5px;font-family:var(--mono)}
+.step div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.step b{font-size:clamp(14.5px,1.45vw,17px);font-weight:700;color:var(--ink);line-height:1.4}
+.step span{font-size:14px;color:var(--mute);line-height:1.5}
+
+.recap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.recap li{display:flex;gap:16px;align-items:flex-start;font-size:clamp(15px,1.6vw,19px);
+  line-height:1.5;color:var(--mid);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.recap li:last-child{border-bottom:0}
+.recap i{font-family:var(--serif);font-style:normal;font-size:28px;color:var(--gold);
+  line-height:1;flex:0 0 32px;opacity:.85}
+
+.callout{margin-top:22px;background:var(--goldw);border:1px solid var(--goldb);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:15px 19px;
+  font-size:clamp(14px,1.45vw,16.5px);line-height:1.55;color:var(--ink)}
+
+/* ---------- table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--rise)}
+table{width:100%;border-collapse:collapse;font-size:clamp(13.5px,1.35vw,16px)}
+th{text-align:left;padding:12px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mute);font-weight:700;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tr.good td{background:var(--goodw)} tr.bad td{background:var(--badw)}
+
+/* ---------- compare ---------- */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--rise)}
+.card.bad{border-color:rgba(255,126,110,.32);background:var(--badw)}
+.card.good{border-color:rgba(79,214,160,.32);background:var(--goodw)}
+.ctag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:11px}
+.card.bad .ctag{color:var(--bad)} .card.good .ctag{color:var(--good)}
+.cbody{font-family:var(--mono);font-size:clamp(13px,1.35vw,15.5px);line-height:1.85;color:var(--ink)}
+
+/* ---------- worked example ---------- */
+.qbox{border:1px solid var(--line2);border-radius:16px;background:var(--rise);padding:18px 20px;margin-bottom:18px}
+.qtag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:9px}
+.qstem{font-size:clamp(15px,1.6vw,19px);line-height:1.55;color:var(--ink)}
+.think{background:var(--rise2);border-radius:12px;padding:13px 17px;margin-bottom:16px;
+  font-size:clamp(13.5px,1.4vw,16px);color:var(--mid);line-height:1.55}
+.think b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.wsteps{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:0}
+.wsteps li{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.wsteps li:last-child{border-bottom:0}
+.wsteps i{flex:0 0 24px;height:24px;border-radius:7px;border:1px solid var(--line2);color:var(--mute);
+  display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;font-family:var(--mono)}
+.wsteps div{font-size:clamp(14px,1.45vw,17px);line-height:1.6;color:var(--mid)}
+.ans{margin-top:auto;display:flex;align-items:center;gap:14px;background:var(--goodw);
+  border:1px solid rgba(79,214,160,.32);border-radius:14px;padding:14px 20px}
+.ans span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--good)}
+.ans b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.6vw,32px);color:var(--ink);line-height:1}
+
+/* ---------- practice ---------- */
+.qgrid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.qgrid.n1,.qgrid.n3{grid-template-columns:1fr 1fr}
+.qgrid.n1{grid-template-columns:1fr}
+.q{border:1px solid var(--line);border-radius:16px;background:var(--rise);padding:16px 18px;
+  display:flex;flex-direction:column;gap:11px;transition:border-color .25s var(--ease)}
+.q.open{border-color:var(--line2)}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;min-height:1px}
+.chip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  padding:3px 9px;border-radius:999px;background:var(--goldw);color:var(--gold)}
+.chip.w{background:transparent;border:1px solid var(--line2);color:var(--mute)}
+.qs{font-size:clamp(14px,1.4vw,16.5px);line-height:1.55;color:var(--ink)}
+.opts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.opts li{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);
+  border-radius:10px;cursor:pointer;font-size:14px;color:var(--mid);
+  transition:all .18s var(--ease);user-select:none}
+.opts li:hover{border-color:var(--line2);background:var(--rise2)}
+.opts kbd{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--mute);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px;flex:0 0 auto}
+.opts li.pick{border-color:var(--line2);background:var(--rise2)}
+.opts li.right{border-color:var(--good);background:var(--goodw);color:var(--ink)}
+.opts li.right kbd{color:var(--good);border-color:var(--good)}
+.opts li.wrong{border-color:var(--bad);background:var(--badw)}
+.opts li.wrong kbd{color:var(--bad);border-color:var(--bad)}
+.show{appearance:none;border:1px solid var(--line2);background:transparent;color:var(--mid);
+  font:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:9px;cursor:pointer;
+  align-self:flex-start;transition:all .18s var(--ease)}
+.show:hover{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.q.open .show{display:none}
+.sol[hidden]{display:none}
+.sol{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:9px;
+  animation:fadeU .4s var(--ease) both}
+@keyframes fadeU{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.solA{font-family:var(--serif);font-size:clamp(19px,2vw,25px);color:var(--good);line-height:1.2}
+.solT{font-size:14px;line-height:1.6;color:var(--mid)}
+.solW{font-size:13px;line-height:1.55;color:var(--mute);background:var(--badw);
+  border-radius:9px;padding:9px 12px}
+.solW b{color:var(--bad);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  display:block;margin-bottom:3px}
+.revealAll{appearance:none;margin:18px auto 0;border:1px dashed var(--line2);background:transparent;
+  color:var(--mute);font:inherit;font-size:12.5px;padding:9px 20px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease)}
+.revealAll:hover:not(:disabled){color:var(--ink);border-color:var(--gold)}
+.revealAll:disabled{opacity:.4;cursor:default}
+
+/* ---------- bottom bar ---------- */
+#bot{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:30;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(to top,var(--base) 55%,transparent)}
+.nav{appearance:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:var(--surf);color:var(--mid);cursor:pointer;display:grid;place-items:center;
+  transition:all .2s var(--ease)}
+.nav:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.nav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#hint{font-size:11px;color:var(--mute);letter-spacing:.04em}
+#notes{position:fixed;bottom:62px;left:0;right:0;z-index:29;background:var(--rise2);
+  border-top:1px solid var(--line);padding:13px 24px;font-size:13.5px;color:var(--mid);
+  max-height:30vh;overflow:auto;line-height:1.55}
+
+/* ---------- overview ---------- */
+#overview{position:fixed;inset:0;z-index:40;background:rgba(247,245,241,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:auto;padding:60px 24px;opacity:0;transition:opacity .22s var(--ease)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #overview{background:rgba(7,10,18,.86)}}
+:root[data-theme="dark"] #overview{background:rgba(7,10,18,.86)}
+#overview.on{opacity:1}
+#ovGrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  max-width:1100px;margin:0 auto}
+.ovc{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surf);
+  border-radius:12px;padding:13px 15px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;
+  color:var(--mid);font:inherit;font-size:13.5px;line-height:1.4;transition:all .18s var(--ease)}
+.ovc:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.ovc i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--mute);flex:0 0 auto;padding-top:2px}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .cmp,.qgrid,.qgrid.n3{grid-template-columns:1fr}
+  .sl{padding:22px 16px 34px}
+  .tmeta{gap:22px}
+}
+@media (max-width:560px){
+  .opts{grid-template-columns:1fr}
+  #hint{display:none}
+  #top{gap:9px;padding:0 13px}
+  #deckSession{display:none}
+}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container svg{vertical-align:-.12em}
+
+</style>
+
+<div id="rail"><div id="railFill"></div></div>
+
+<header id="top">
+  <div id="brand"><span id="deckName"></span><span id="deckSession"></span></div>
+  <span class="sp"></span>
+  <span id="counter">1 / 1</span>
+  <button class="tbtn" id="ovBtn" title="Overview (O)">Contents</button>
+  <button class="tbtn" id="notesBtn" title="Tutor notes (N)">Notes</button>
+  <button class="tbtn" id="thBtn" title="Theme">Theme</button>
+  <button class="tbtn" id="fsBtn" title="Fullscreen (F)">Full</button>
+</header>
+
+<main id="stage"></main>
+
+<div id="notes" hidden></div>
+
+<footer id="bot">
+  <button class="nav" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <span id="hint">← → to move · O contents · N notes · F fullscreen</span>
+  <button class="nav" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</footer>
+
+<div id="overview" hidden><div id="ovGrid"></div></div>
+
+<script>
+(function(){
+  var r=document.documentElement, k='satdeck.theme', t=null;
+  try{ t=localStorage.getItem(k); }catch(e){}
+  r.setAttribute('data-theme', t || 'dark');
+  document.getElementById('thBtn').addEventListener('click', function(){
+    var n = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', n);
+    try{ localStorage.setItem(k,n); }catch(e){}
+  });
+})();
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js" id="MathJax-script" async></script>
+
+<script>
+var DECK = {"id":"sat-checkpoint","title":"Checkpoint","session":"Session 7 · 8 November","slides":[{"type":"title","eyebrow":"Session 7 · 8 November","title":"Checkpoint","sub":"Four weeks in, four weeks to go. Today is not a new topic — it is a hard look at what has actually stuck, and a plan for the time that is left.","meta":[{"v":"36","k":"questions today"},{"v":"4","k":"weeks to the exam"},{"v":"0","k":"new content"}],"notes":"Have the practice test score report and the Checkpoint Quiz results open before he arrives. This hour is wasted if you spend it finding out what he got wrong instead of fixing it."},{"type":"idea","kicker":"What today is for","title":"Three questions, and then we drill","lead":"You have now done a full practice test and a twenty-two question checkpoint quiz. Between them they tell us everything we need.","points":["What is actually wrong — which topics lose marks, and whether it is the method or the execution.","How fast you are — finishing is worth more than being clever, and we can measure it now.","What the last four sessions should contain — we change the plan today if the evidence says to."],"callout":"The rest of the hour is questions. Thirty-six of them, mixed and in exam order, because mixed practice is the only kind that tests whether you can tell the topics apart under pressure.","notes":"Be straight with him about the score. He is capable of improvement but not of a miracle, and pretending otherwise now costs trust in December."},{"type":"table","kicker":"Sorting the errors","title":"Five reasons a mark goes missing","lead":"Every wrong answer is one of these five, and each one has a different fix. Go through his marked test and put a letter beside every error before you do anything else.","cols":["Type","What it looks like","The fix"],"rows":[{"cells":["Sign","Right method, a minus went missing","Habit drill — the thing we fixed in week two"],"flag":"bad"},{"cells":["Setup","Translated the words into the wrong equation","Name the unknown, read the equation back"]},{"cells":["Method","Did not know what to do at all","Reteach — this is the only one that needs a lesson"]},{"cells":["Finish","Solved for $x$ when it asked for $2x$","Underline what is asked, before solving"]},{"cells":["Clock","Never reached the question","Pacing and triage — session ten"]}],"callout":"Only the \"method\" row needs teaching. The other four are habits, and habits change faster than knowledge. That is good news with four weeks left.","notes":"Do this sort together, out loud, with his actual paper. Ten minutes maximum. The point is that he learns to classify his own errors, because that is what the error log is for."},{"type":"section","kicker":"Part one","title":"Mixed, in exam order","sub":"Sixteen questions with no topic labels. This is the part nobody practises and everybody needs: deciding what kind of question you are looking at."},{"type":"practice","kicker":"Set one · questions 1–4","title":"Mixed set — opening pace","lead":"Give yourself about ninety seconds each. If one is taking longer than that, flag it and move on, exactly as you would in the exam.","questions":[{"stem":"What value of $x$ satisfies $6x-(2x-5)=29$?","answer":"6","solution":"The minus sign applies to both terms in the bracket: $6x-2x+5=29$, so $4x+5=29$. Subtract $5$: $4x=24$, so $x=6$. Checking, $36-(12-5)=36-7=29$.","tag":"medium"},{"stem":"What is the slope of the graph of $7x-2y=11$ in the $xy$-plane?","answer":"D","solution":"Solve for $y$: $-2y=-7x+11$, so $y=\\dfrac{7}{2}x-\\dfrac{11}{2}$. The slope is $\\dfrac{7}{2}$. Checking with $(1,-2)$ and $(3,5)$, both on the line: $\\dfrac{5-(-2)}{3-1}=\\dfrac{7}{2}$.","tag":"medium","choices":["$-\\dfrac{7}{2}$","$-\\dfrac{2}{7}$","$\\dfrac{2}{7}$","$\\dfrac{7}{2}$"],"trap":"A) is what you get if you divided $-7x$ by $2$ instead of by $-2$; B) is what you get if you inverted the fraction and kept a minus sign; C) is what you get if you wrote the coefficient of $y$ over the coefficient of $x$."},{"stem":"What is the value of $-4-2(3-7)$?","answer":"C","solution":"Work inside the brackets first: $3-7=-4$. Then $-2(-4)=+8$, so the expression is $-4+8=4$.","tag":"medium","choices":["$-17$","$-12$","$4$","$24$"],"trap":"A) is what you get if you ignored the brackets and read the expression as $-4-2\\cdot 3-7=-17$; B) is what you get if you took $-2$ times $-4$ as $-8$, missing that two negatives give a positive, and wrote $-4-8=-12$; D) is what you get if you grouped from the left as $(-4-2)(3-7)=(-6)(-4)=24$."},{"stem":"A taxi fare $F$, in dollars, for a ride of $d$ miles is $F=3+1.60d$. Which values of $d$ make sense in this context?","answer":"B","solution":"A ride covers a distance that is zero or more, and that distance need not be a whole number of miles, so every $d \\ge 0$ makes sense.","tag":"medium","choices":["Whole numbers only","All values with $d \\ge 0$","All values with $d \\ge 3$","All values of $d$, including negative values"],"trap":"A) is what you get if you assumed a distance must be a whole number of miles; C) is what you get if you used the 3-dollar fixed fare as a lower limit on the distance; D) is what you get if you ignored the context, where a negative distance has no meaning."}],"notes":"Time this properly — six minutes on the clock. The pacing matters as much as the answers."},{"type":"practice","kicker":"Set one · questions 5–8","title":"Mixed set — building","lead":"Same rules. Decide what the question is asking before you pick up the pen.","questions":[{"stem":"In the system $x=3y-2$ and $4x+5y=60$, what is the value of $x$?","answer":"10","solution":"Since $x$ is already isolated, substitute: $4(3y-2)+5y=60$, so $12y-8+5y=60$ and $17y=68$, giving $y=4$. Then $x=3(4)-2=10$. Check: $4(10)+5(4)=40+20=60$.","tag":"medium"},{"stem":"Which expression is equivalent to $3x^2-10x+8$?","answer":"B","solution":"The $3x^2$ comes from $3x\\cdot x$, and $8$ from two negatives since the middle term is negative and the constant positive. Testing $(3x-4)(x-2)$: the cross terms are $-6x$ and $-4x$, giving $-10x$. That matches, so the factorization is $(3x-4)(x-2)$.","tag":"medium","choices":["$(3x+4)(x+2)$","$(3x-4)(x-2)$","$(3x-2)(x-4)$","$(x-4)(x-2)$"],"trap":"A) is what you get if you used the right numbers but made both constants positive; C) is what you get if you swapped the two constants, which gives a middle term of $-14x$; D) is what you get if you factored as though the leading coefficient were $1$."},{"stem":"In the $xy$-plane, the graph of $4x-7y=-28$ crosses the $x$-axis at $(a,0)$. What is the value of $a$?","answer":"A","solution":"On the $x$-axis, $y=0$, so $4x-7(0)=-28$, giving $4x=-28$ and $x=-7$. The $x$-intercept is $(-7,0)$, so $a=-7$.","tag":"medium","choices":["$-7$","$-4$","$4$","$7$"],"trap":"B) is what you get if you found the $y$-intercept, $-7y=-28$ giving $y=4$, and then attached the wrong sign to it; C) is what you get if you found the $y$-intercept $y=4$ instead of the $x$-intercept; D) is what you get if you divided $28$ by $4$ and ignored the negative sign on the right side."},{"stem":"A cafe sold twice as many muffins as scones one morning. Together it sold $54$ of these two items. How many scones did it sell?","answer":"A","solution":"Let $s$ be the number of scones. Twice as many muffins as scones means muffins $=2s$. The total gives $s+2s=54$, so $3s=54$ and $s=18$ scones. (The cafe sold $36$ muffins, and $18+36=54$.)","tag":"medium","choices":["$18$","$27$","$36$","$108$"],"trap":"B) is what you get if you split the total into two equal parts, computing $\\dfrac{54}{2}=27$ and ignoring the two-to-one relationship; C) is what you get if you solved correctly but reported the number of muffins, $2s=36$, rather than the scones; D) is what you get if you doubled the total, computing $2(54)=108$, instead of doubling the smaller quantity."}],"notes":"Six minutes. Watch which ones he stalls on rather than which he gets wrong — a slow right answer is a wrong answer in module two."},{"type":"worked","kicker":"The error that keeps coming back","title":"Solving for the thing it asked for","question":"If $5(x-2)=3x+8$, what is the value of $2x+1$?","thinking":"The question does not want $x$. It wants $2x+1$. That is the whole trick, and it is the single most common way a correct piece of algebra still scores zero.","steps":["Expand the left: $5x-10=3x+8$.","Take $3x$ off both sides: $2x-10=8$.","Add $10$: $2x=18$, so $x=9$.","Now go back and read the question again. It asked for $2x+1$.","$2(9)+1=19$."],"answer":"$19$","notes":"Notice that line 3 already gave 2x = 18, so 2x+1 = 19 without ever finding x. Show him that shortcut, but the real lesson is the re-reading."},{"type":"practice","kicker":"Set two · questions 9–12","title":"Mixed set — harder","lead":"These are module-two difficulty. Two of them have a sting at the end.","questions":[{"stem":"If $5(x-2)=3x+8$, what is the value of $2x+1$?","answer":"D","solution":"Distribute: $5x-10=3x+8$. Subtract $3x$ and add $10$: $2x=18$. The question asks for $2x+1$, which is $18+1=19$. (Here $x=9$, but that is not what was requested.)","tag":"medium","choices":["$9$","$11$","$18$","$19$"],"trap":"A) is what you get if you solved for $x$ and stopped at $x=9$ without evaluating $2x+1$; B) is what you get if you distributed to the first term only, solving $5x-2=3x+8$ to get $x=5$ and $2x+1=11$; C) is what you get if you found $2x=18$ but left off the $+1$."},{"stem":"What is the greater solution to $2x^2-5x-12=0$?","answer":"A","solution":"The expression factors as $(2x+3)(x-4)=0$, so $x=-\\dfrac{3}{2}$ or $x=4$. Checking $x=4$: $32-20-12=0$. The greater solution is $4$.","tag":"medium","choices":["$4$","$-\\dfrac{3}{2}$","$\\dfrac{3}{2}$","$\\dfrac{5}{2}$"],"trap":"B) is what you get if you picked the lesser of the two solutions; C) is what you get if you solved $2x+3=0$ as $2x=3$, losing the minus sign; D) is what you get if you reported $-\\dfrac{b}{2a}$, the midpoint of the solutions, rather than a solution."},{"stem":"Which of the following describes all values of $x$ for which $4-7x<25$?","answer":"D","solution":"Subtract 4 from both sides: $-7x<21$. Divide by $-7$ and reverse the direction: $x>-3$. Test $x=-2$: $4-7(-2)=18<25$, true. Test $x=-4$: $4-7(-4)=32<25$, false. The solution is $x>-3$.","tag":"medium","choices":["$x<-3$","$x<3$","$x>3$","$x>-3$"],"trap":"A) is what you get if you divided by $-7$ without reversing the inequality sign; B) is what you get if you dropped the negative on the $x$-term, solving $7x<21$, and kept the direction; C) is what you get if you dropped the negative on the $x$-term and then reversed the direction."},{"stem":"The line through $(2,5)$ and $(k,17)$ has slope $4$. What is the value of $k$?","answer":"5","solution":"The slope equation gives $\\dfrac{17-5}{k-2}=4$, so $\\dfrac{12}{k-2}=4$. Then $k-2=\\dfrac{12}{4}=3$, so $k=5$. Checking: the line through $(2,5)$ and $(5,17)$ has slope $\\dfrac{12}{3}=4$.","tag":"medium"}],"notes":"Eight minutes. Ask him to underline what is being asked before he starts each one."},{"type":"practice","kicker":"Set two · questions 13–16","title":"Mixed set — the stretch","lead":"The last four. Harder than you will usually meet, which is the point.","questions":[{"stem":"If $x^2+8x+11=(x+4)^2+k$ for every value of $x$, what is the value of the constant $k$?","answer":"B","solution":"Expanding, $(x+4)^2=x^2+8x+16$. That is $5$ more than $x^2+8x+11$, so $x^2+8x+11=(x+4)^2-5$ and $k=-5$. Checking at $x=0$: the original gives $11$, and $(0+4)^2-5=16-5=11$.","tag":"harder","choices":["$-16$","$-5$","$5$","$27$"],"trap":"A) is what you get if you subtracted the $16$ but left the original constant $11$ out; C) is what you get if you computed $16-11$ instead of $11-16$; D) is what you get if you added the $16$ from the completed square instead of subtracting it."},{"stem":"If $7x+2y=46$ and $5x+10y=50$, what is the value of $x+y$?","answer":"C","solution":"Check the symmetry first: the $x$-coefficients add to $7+5=12$ and the $y$-coefficients add to $2+10=12$. Because those two sums match, adding the equations as they stand gives a multiple of $x+y$: $12x+12y=46+50=96$, so $12(x+y)=96$ and $x+y=8$. (Solving fully gives $x=6$ and $y=2$, which agrees.)","tag":"harder","choices":["$4$","$6$","$8$","$96$"],"trap":"A) is what you get if you found $x-y=6-2$ instead of $x+y$; B) is what you get if you solved the system fully and reported $x$ alone; D) is what you get if you added the equations to get $12x+12y=96$ but did not divide by 12."},{"stem":"A van rental costs $C$ dollars for a trip of $m$ miles, where $C=0.18m+45$. How many more dollars does a $400$-mile trip cost than a $250$-mile trip?","answer":"27","solution":"A $400$-mile trip costs $0.18(400)+45=72+45=117$ dollars and a $250$-mile trip costs $0.18(250)+45=45+45=90$ dollars, a difference of $117-90=27$ dollars. The fixed charge of $45$ dollars appears in both totals, so the difference is $0.18(400-250)=0.18(150)=27$ dollars.","tag":"harder"},{"stem":"What is the sum of the solutions to $(x-4)(x+1)=14$?","answer":"3","solution":"Expand first: $x^2-3x-4=14$, so $x^2-3x-18=0$. The solutions add to $-\\dfrac{b}{a}=3$. Factoring confirms it: $(x-6)(x+3)=0$ gives $6$ and $-3$, and $6+(-3)=3$. Setting each original factor to $14$ would be invalid.","tag":"harder"}],"notes":"Ten minutes. If he gets two of four here he is tracking fine."},{"type":"section","kicker":"Part two","title":"Repairing the weak spots","sub":"Four short blocks, one per topic we have covered. Do the block that matches what the sort said is broken — you do not have to do all of them today."},{"type":"idea","kicker":"How to use part two","title":"Pick two blocks, not four","lead":"There are twenty questions in the next five slides. You will not finish them in the hour, and you should not try.","points":["Start with whichever block matches the biggest column in your error sort.","Do four. If all four are right, move to the next block — that topic is fine.","If two or more are wrong, stop and work out *why* before doing anything else.","The rest become this week's homework, and they are already in the workbook."],"callout":"Four questions you understand afterwards beats twenty you rushed. This is the one place where doing less is the right call.","notes":"Resist completionism here — his and yours. The blocks are a menu, not a worksheet."},{"type":"practice","kicker":"Repair block A","title":"Signs and negatives","lead":"The one that cost seven marks in September. Say each sign out loud as you write it.","questions":[{"stem":"If $x=-3$, what is the value of $-x^2$?","answer":"A","solution":"Substitute with a bracket: $-x^2=-(-3)^2=-(9)=-9$. The square acts on $-3$ first, then the leading minus is applied.","tag":"medium","choices":["$-9$","$-6$","$6$","$9$"],"trap":"B) is what you get if you multiplied the base by the exponent, computing $-(-3)(2)$; C) is what you get if you multiplied the base by the exponent and dropped the sign; D) is what you get if you evaluated $(-3)^2=9$ and ignored the minus sign in front of $x^2$."},{"stem":"What is the value of $(-3)^2-4(-2)(3)$?","answer":"33","solution":"$(-3)^2=9$ and $4(-2)(3)=-24$. Subtracting gives $9-(-24)=9+24=33$.","tag":"medium"},{"stem":"What is the value of $-2^4+(-2)^3$?","answer":"-24","solution":"No bracket in the first term, so $-2^4=-(2^4)=-16$. The bracket in the second term gives $(-2)^3=-8$. Then $-16+(-8)=-24$.","tag":"medium"},{"stem":"What is the value of $\\dfrac{-6+(-2)(-9)}{-4}$?","answer":"B","solution":"Multiply inside the numerator first: $(-2)(-9)=18$, so the numerator is $-6+18=12$. Then $\\dfrac{12}{-4}=-3$.","tag":"medium","choices":["$-18$","$-3$","$3$","$6$"],"trap":"A) is what you get if you added before multiplying, computing $\\dfrac{(-6+(-2))(-9)}{-4}$; C) is what you get if you overlooked the negative sign on the denominator; D) is what you get if you took $(-2)(-9)$ as $-18$, giving a numerator of $-24$."}],"notes":"If he is still losing these, nothing else in the plan matters as much. Spend the rest of the hour here and say so."},{"type":"practice","kicker":"Repair block B","title":"Lines and linear equations","lead":"Slope, intercepts, and rewriting between forms.","questions":[{"stem":"A line passes through $(-5,-2)$ and $(3,-6)$. What is the slope of the line?","answer":"C","solution":"The change in $y$ is $-6-(-2)=-6+2=-4$. The change in $x$ is $3-(-5)=3+5=8$. The slope is $\\dfrac{-4}{8}=-\\dfrac{1}{2}$.","tag":"medium","choices":["$-2$","$-1$","$-\\dfrac{1}{2}$","$2$"],"trap":"A) is what you get if you inverted the fraction, computing $\\dfrac{8}{-4}=-2$; B) is what you get if you read $-6-(-2)$ as $-6-2=-8$, giving $\\dfrac{-8}{8}=-1$; D) is what you get if you read $3-(-5)$ as $3-5=-2$, giving $\\dfrac{-4}{-2}=2$."},{"stem":"The equation $7x-4y=20$ is rewritten in the form $y=mx+b$, where $m$ and $b$ are constants. What is the value of $b$?","answer":"-5","solution":"Subtract $7x$: $-4y=-7x+20$. Divide every term by $-4$: $y=\\dfrac{7}{4}x-5$. So $b=-5$. Dividing $20$ by $-4$ gives a negative constant.","tag":"medium"},{"stem":"In the $xy$-plane, line $j$ is perpendicular to the graph of $2x-5y=15$. What is the slope of line $j$?","answer":"A","solution":"Solve for $y$: $-5y=-2x+15$, so $y=\\dfrac{2}{5}x-3$ and the given slope is $\\dfrac{2}{5}$. A perpendicular slope is the negative reciprocal, which is $-\\dfrac{5}{2}$. Checking, $\\left(\\dfrac{2}{5}\\right)\\left(-\\dfrac{5}{2}\\right)=-1$.","tag":"medium","choices":["$-\\dfrac{5}{2}$","$-\\dfrac{2}{5}$","$\\dfrac{2}{5}$","$\\dfrac{5}{2}$"],"trap":"B) is what you get if you negated the slope without inverting it; C) is what you get if you used the parallel slope instead of the perpendicular slope; D) is what you get if you inverted the slope but did not change its sign."},{"stem":"The point $(k,7)$ lies on the graph of $4x-3y=1$ in the $xy$-plane. What is the value of $k$?","answer":"5.5","solution":"Substitute $x=k$ and $y=7$: $4k-3(7)=1$, so $4k-21=1$. Adding $21$ to both sides gives $4k=22$, so $k=\\dfrac{22}{4}=\\dfrac{11}{2}=5.5$.","tag":"medium"}],"notes":"The rewriting is usually the weak part, not the slope formula."},{"type":"practice","kicker":"Repair block C","title":"Systems and inequalities","lead":"Choose your method before you write anything — substitute, eliminate, or graph it in Desmos.","questions":[{"stem":"The system $3x+2y=19$ and $5x-4y=-5$ has solution $(x,y)$. What is the value of $y$?","answer":"C","solution":"Multiply the first equation by 2 to match the $y$-coefficients as opposites: $6x+4y=38$. Adding $5x-4y=-5$ gives $11x=33$, so $x=3$. Substituting into the first equation: $3(3)+2y=19$, so $2y=10$ and $y=5$. Check: $5(3)-4(5)=15-20=-5$.","tag":"medium","choices":["$-5$","$3$","$5$","$8$"],"trap":"A) is what you get if you substituted $x=3$ into $5x-4y=-5$ and divided $-20$ by $4$ instead of by $-4$; B) is what you get if you solved for $x=3$ and reported it as $y$; D) is what you get if you reported $x+y=3+5$ instead of $y$ alone."},{"stem":"Which of the following describes all values of $x$ for which $5x+4>9x-8$?","answer":"C","solution":"Subtract $9x$ from both sides: $-4x+4>-8$. Subtract $4$: $-4x>-12$. Divide by $-4$ and reverse the inequality: $x<3$. Testing $x=2$ gives $14>10$, true; testing $x=4$ gives $24>28$, false.","tag":"medium","choices":["$x>3$","$x<12$","$x<3$","$x>12$"],"trap":"A) is what you get if you divided by $-4$ without reversing the inequality; B) is what you get if you reached $-4x>-12$ and reversed the sign but forgot to divide by $4$; D) is what you get if you forgot both to reverse the inequality and to divide by $4$."},{"stem":"In the system $x=2y+1$ and $5x-3y=26$, what is the value of $x$?","answer":"7","solution":"Substitute $x=2y+1$ into the second equation: $5(2y+1)-3y=26$, so $10y+5-3y=26$, giving $7y=21$ and $y=3$. Then $x=2(3)+1=7$. Check: $5(7)-3(3)=35-9=26$.","tag":"medium"},{"stem":"Which of the following describes all values of $x$ for which $-\\frac{2}{3}x+1\\ge 5$?","answer":"D","solution":"Subtract 1 from both sides: $-\\frac{2}{3}x\\ge 4$. Multiply both sides by $-\\frac{3}{2}$, a negative number, so the direction reverses: $x\\le -6$. Test $x=-6$: $-\\frac{2}{3}(-6)+1=5\\ge 5$, true. Test $x=-5$: $\\frac{10}{3}+1\\approx 4.33\\ge 5$, false.","tag":"medium","choices":["$x\\ge -6$","$x\\le -\\frac{8}{3}$","$x\\le 6$","$x\\le -6$"],"trap":"A) is what you get if you multiplied by $-\\frac{3}{2}$ without reversing the inequality sign; B) is what you get if you multiplied 4 by $\\frac{2}{3}$ instead of dividing by $\\frac{2}{3}$; C) is what you get if you lost the negative sign on the coefficient while reversing the direction."}],"notes":"Make him announce the method out loud first. That decision is the skill."},{"type":"practice","kicker":"Repair block D","title":"Words into equations","lead":"Name the unknown on the paper. Then read your equation back as a sentence and check it tells the same story.","questions":[{"stem":"A phone plan costs $25$ dollars per month plus $0.10$ dollars for each text message sent. One month the bill was $43$ dollars. How many text messages were sent that month?","answer":"180","solution":"Let $t$ be the number of texts. The bill is the fixed $25$ dollars plus $0.10t$ dollars, so $25+0.10t=43$. Subtracting $25$ gives $0.10t=18$, and dividing by $0.10$ gives $t=180$ texts.","tag":"medium"},{"stem":"A number $n$ decreased by $12$ equals one third of $n$. Which equation represents this?","answer":"C","solution":"\"Decreased by $12$\" gives $n-12$, and \"one third of $n$\" gives $\\dfrac{n}{3}$. So $n-12=\\dfrac{n}{3}$. Solving, $\\dfrac{2}{3}n=12$ and $n=18$, since $18-12=6$ and $\\dfrac{18}{3}=6$.","tag":"medium","choices":["$12-n=\\dfrac{n}{3}$","$n-12=3n$","$n-12=\\dfrac{n}{3}$","$12-n=3n$"],"trap":"A) is what you get if you wrote the subtraction backwards as $12-n$; B) is what you get if you read \"one third of\" as multiplying by $3$; D) is what you get if you reversed the subtraction and multiplied by $3$."},{"stem":"A tank holds $240$ liters of water and drains at a steady rate of $15$ liters per minute. After how many minutes does the tank hold $90$ liters?","answer":"B","solution":"Let $t$ be the number of minutes. Draining removes $15t$ liters from the starting $240$, so $240-15t=90$. Subtracting $240$ gives $-15t=-150$, so $t=10$ minutes. Checking, $240-15(10)=90$.","tag":"medium","choices":["$6$","$10$","$16$","$22$"],"trap":"A) is what you get if you divided the amount remaining by the rate, computing $\\dfrac{90}{15}=6$, as though $90$ liters had drained out; C) is what you get if you found the time to empty the tank completely, $\\dfrac{240}{15}=16$, ignoring the $90$ liters left; D) is what you get if you added instead of subtracting, computing $\\dfrac{240+90}{15}=22$."},{"stem":"A bakery sells muffins for $3$ dollars each and cookies for $2$ dollars each. On Monday it sold twice as many cookies as muffins and took in $112$ dollars from these two items. How many cookies did it sell?","answer":"D","solution":"Let $m$ be the number of muffins, so the number of cookies is $2m$. The money taken in is $3m+2(2m)=7m$, so $7m=112$ and $m=16$. The number of cookies is $2m=32$. Checking, $3(16)+2(32)=48+64=112$.","tag":"harder","choices":["$14$","$16$","$28$","$32$"],"trap":"A) is what you get if you reversed the relationship, writing muffins $=2\\times$ cookies, which gives $3(2c)+2c=8c=112$ and $c=14$; B) is what you get if you solved correctly for $m=16$ but reported the number of muffins instead of the cookies; C) is what you get if you swapped the two prices, solving $2m+3(2m)=8m=112$ to get $m=14$ and $28$ cookies."}],"notes":"He should be writing \"let x = ...\" every time. If the paper is bare, that is the finding."},{"type":"practice","kicker":"Repair block E","title":"Quadratics","lead":"Last month's topic. Write \"two answers?\" at the top of each one.","questions":[{"stem":"What are the solutions to $x^2+x=4x+10$?","answer":"D","solution":"Bring every term to the left: $x^2+x-4x-10=0$, so $x^2-3x-10=0$ and $(x-5)(x+2)=0$. The solutions are $5$ and $-2$. Checking $x=-2$: $4-2=2$ and $-8+10=2$.","tag":"medium","choices":["$x=-5$ or $x=2$","$x=5$ or $x=2$","$x=0$ or $x=3$","$x=5$ or $x=-2$"],"trap":"A) is what you get if you reversed the sign of both solutions when factoring; B) is what you get if you used the factor pair of $10$ while ignoring that the constant is $-10$; C) is what you get if you subtracted $4x$ from both sides but forgot to subtract the $10$."},{"stem":"Which expression is equivalent to $6x^2+x-12$?","answer":"C","solution":"Since the constant is negative, the two constants have opposite signs. Testing $(3x-4)(2x+3)$: the cross terms are $3x\\cdot 3=9x$ and $-4\\cdot 2x=-8x$, which combine to $x$, and $(-4)(3)=-12$. So $6x^2+x-12=(3x-4)(2x+3)$.","tag":"medium","choices":["$(2x-4)(3x+3)$","$(3x+4)(2x-3)$","$(3x-4)(2x+3)$","$(6x-4)(x+3)$"],"trap":"A) is what you get if you paired the numbers so the cross terms give $-6x$ rather than $x$; B) is what you get if you placed the minus sign on the $3$ instead of the $4$, giving $-x$ in the middle; D) is what you get if you split $6x^2$ as $6x\\cdot x$ without checking the middle term."},{"stem":"For what value of $c$ does $x^2-8x+c=0$ have exactly one real solution?","answer":"C","solution":"Exactly one solution means $b^2-4ac=0$, so $(-8)^2-4(1)c=0$ and $64=4c$, giving $c=16$. Then $x^2-8x+16=(x-4)^2$, which is zero only at $x=4$.","tag":"medium","choices":["$4$","$-16$","$16$","$64$"],"trap":"A) is what you get if you halved $-8$ but never squared the result; B) is what you get if you carried the minus sign from $b$ into the squared value; D) is what you get if you squared $b$ itself instead of $\\dfrac{b}{2}$."},{"stem":"For $x\\neq -3$, which expression is equivalent to $\\dfrac{x^2+7x+12}{x+3}$?","answer":"A","solution":"Factor the numerator: two numbers with product $12$ and sum $7$ are $3$ and $4$, so $x^2+7x+12=(x+3)(x+4)$. The expression becomes $\\dfrac{(x+3)(x+4)}{x+3}$, and the common factor $x+3$ cancels, leaving $x+4$. Only whole factors may be cancelled, never single terms.","tag":"medium","choices":["$x+4$","$x+3$","$x-4$","$x^2+7x+4$"],"trap":"B) is what you get if you factored correctly but wrote down the factor that was cancelled; C) is what you get if you factored the numerator as $(x+3)(x-4)$, which has the wrong constant; D) is what you get if you cancelled the $3$ into the $12$ term by term instead of factoring first."}],"notes":"This is the freshest material, so weakness here means the lesson did not land rather than that he has forgotten."},{"type":"section","kicker":"Part three","title":"What happens next","sub":"Three sessions left after today, and the evidence from this hour decides what goes in them."},{"type":"table","kicker":"The plan from here","title":"The remaining four Sundays","lead":"This is the default. We change it today if the checkpoint says something different.","cols":["Date","Session","Changes if…"],"rows":[{"cells":["15 November","Ratios, percentages and data","Nothing — this is 15% of the paper and we have not touched it"]},{"cells":["22 November","Geometry and trigonometry","Swap for more algebra if today shows the algebra is still leaking"]},{"cells":["29 November","Test protocol and pacing","Never changes — this one is worth marks on its own"]},{"cells":["5 December","The exam",""],"flag":"good"}],"callout":"Geometry is the swappable one. It is only 15% of the test and it is mostly formula recall, so if the algebra is still costing you more than geometry ever could, we spend that Sunday on algebra instead.","notes":"Say the trade-off out loud so he understands the choice is evidence-driven, not arbitrary. If his algebra accuracy is below about 60% on today's mixed sets, make the swap."},{"type":"idea","kicker":"The habit that matters most","title":"The error log, properly kept","lead":"One page, one line per mistake, filled in the same day. Four weeks of this is worth more than four weeks of new questions.","points":["Write the question, not a description of it. You need to be able to redo it cold.","Write which of the five types it was. Sign, setup, method, finish, clock.","Write the one sentence that would have stopped it — \"read the question again before answering\".","Every Sunday, redo three entries from the previous week without looking at the fix."],"callout":"If you only do one thing between now and December, do this. Repeating a mistake you have written down is much harder than repeating one you have not.","notes":"Check the log is actually being kept. If it is not, that is the homework for the week and nothing else is."},{"type":"recap","kicker":"Before you go","title":"Where we are","points":["Mixed practice is now the default — the exam does not label its topics, so neither should your revision.","Every error has a type, and only one of the five types needs new teaching.","Underline what the question asks for before you solve. Half the lost marks live in that one line.","Ninety seconds a question is the pace. Flag and move on is a skill, not a failure.","The error log is the single highest-value hour of the week, and it is not spent with me."],"notes":"Ask him to name the one thing he is taking away. Whatever he says is what you open with on the 15th."},{"type":"close","small":"This week","big":"Finish part two, and keep the log.","foot":"The twenty questions from the repair blocks you did not reach are in the workbook under the matching topics. One more full practice test is posted for the weekend of 22 November, not before — you need the material from the next two sessions first.","notes":"Confirm the next practice test date with him so he plans around it."}]};
+</script>
+<script>
+/* ===========================================================
+   SAT Math — slide engine
+   Shared by every lesson deck. The deck's content is a DECK
+   object defined before this script runs.
+   =========================================================== */
+(function () {
+  "use strict";
+
+  var stage = document.getElementById('stage');
+  var railFill = document.getElementById('railFill');
+  var counter = document.getElementById('counter');
+  var deckName = document.getElementById('deckName');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+  var notesEl = document.getElementById('notes');
+
+  var i = 0, built = [], notesOn = false, reveal = 0;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  deckName.textContent = DECK.title;
+  document.getElementById('deckSession').textContent = DECK.session || '';
+
+  /* ---------- maths ---------- */
+  var mathReady = false, mathFailed = false;
+  function typeset(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      mathReady = true;
+      window.MathJax.typesetPromise([el]).catch(function () { plain(el); });
+    } else if (mathFailed) { plain(el); }
+  }
+  setTimeout(function () {
+    if (window.MathJax && window.MathJax.typesetPromise) return;
+    mathFailed = true; plain(stage);
+  }, 3000);
+  function plain(el) {
+    if (!el) return;
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, hits = [];
+    while ((n = w.nextNode())) { if (n.nodeValue.indexOf('$') > -1) hits.push(n); }
+    hits.forEach(function (t) {
+      t.nodeValue = t.nodeValue.replace(/\$\$?([^$]*)\$\$?/g, function (m, s) { return tidy(s); });
+    });
+  }
+  var SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶',
+    '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', 'n': 'ⁿ', 'x': 'ˣ', 't': 'ᵗ', '/': 'ᐟ' };
+  function sup(s) {
+    var o = '', ok = true;
+    for (var i = 0; i < s.length; i++) { if (SUP[s[i]]) o += SUP[s[i]]; else { ok = false; break; } }
+    return ok ? o : '^(' + s + ')';
+  }
+  function tidy(t) {
+    var s = String(t)
+      .replace(/\{\s*,\s*\}/g, ',')                       // 64{,}000
+      .replace(/\\(?:text|mathrm|mbox)\{([^{}]*)\}/g, '$1')
+      .replace(/\\left|\\right/g, '')
+      .replace(/\\([%&#_$])/g, '$1');                     // \% \$ \&
+    for (var k = 0; k < 4; k++) {                         // innermost first, a few passes
+      s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)')
+           .replace(/\\sqrt\s*\[\s*([^\]]*)\s*\]\s*\{([^{}]*)\}/g, '$1√($2)')
+           .replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)');
+    }
+    return s
+      .replace(/\^\{([^{}]*)\}/g, function (m, e) { return sup(e); })
+      .replace(/\^(-?\w)/g, function (m, e) { return sup(e); })
+      .replace(/\\ge\b/g, '≥').replace(/\\le\b/g, '≤')
+      .replace(/\\cdot/g, '·').replace(/\\neq/g, '≠').replace(/\\approx/g, '≈')
+      .replace(/\\ldots|\\dots/g, '…').replace(/\\square/g, '□')
+      .replace(/\\pi\b/g, 'π').replace(/\\theta\b/g, 'θ').replace(/\\ell\b/g, 'ℓ')
+      .replace(/\\circ\b/g, '°').replace(/\\infty/g, '∞')
+      .replace(/\\times/g, '×').replace(/\\div/g, '÷').replace(/\\pm/g, '±')
+      .replace(/\\[;,:! ]/g, ' ').replace(/\\[a-zA-Z]+/g, '').replace(/[{}]/g, '')
+      .replace(/\((\w+)\)\/\((\w+)\)/g, '$1/$2')          // (3)/(4) -> 3/4
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /* ---------- slide builders ---------- */
+  var B = {
+    title: function (d) {
+      return '<div class="sl sl-title">' +
+        '<div class="eyebrow r">' + esc(d.eyebrow || DECK.session || '') + '</div>' +
+        '<h1 class="r">' + esc(d.title) + '</h1>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') +
+        (d.meta ? '<div class="tmeta r">' + d.meta.map(function (m) {
+          return '<span><b>' + esc(m.v) + '</b>' + esc(m.k) + '</span>'; }).join('') + '</div>' : '') +
+        '</div>';
+    },
+    section: function (d) {
+      return '<div class="sl sl-section">' +
+        (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.title) + '</h2>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') + '</div>';
+    },
+    idea: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        (d.points ? '<ul class="pts">' + d.points.map(function (p) {
+          return '<li class="r"><span class="dot"></span><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' : '') +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') +
+        '</div>';
+    },
+    table: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="tw r"><table><thead><tr>' +
+        d.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+        '</tr></thead><tbody>' +
+        d.rows.map(function (row) {
+          return '<tr class="' + (row.flag || '') + '">' + row.cells.map(function (c, j) {
+            return '<td' + (j === 0 ? ' class="k"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    steps: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<ol class="steps">' + d.steps.map(function (s, n) {
+          return '<li class="r step"><i>' + (n + 1) + '</i><div><b>' + esc(s.label) + '</b>' +
+            (s.body ? '<span>' + esc(s.body) + '</span>' : '') + '</div></li>';
+        }).join('') + '</ol>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    compare: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="cmp">' +
+        '<div class="card bad r"><div class="ctag">' + esc(d.left.label) + '</div><div class="cbody">' +
+        esc(d.left.body).replace(/\n/g, '<br>') + '</div></div>' +
+        '<div class="card good r"><div class="ctag">' + esc(d.right.label) + '</div><div class="cbody">' +
+        esc(d.right.body).replace(/\n/g, '<br>') + '</div></div></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    worked: function (d) {
+      return '<div class="sl sl-worked">' + head(d) +
+        '<div class="qbox r"><div class="qtag">Question</div><div class="qstem">' + esc(d.question) + '</div></div>' +
+        (d.thinking ? '<div class="think r"><b>First, notice</b>' + esc(d.thinking) + '</div>' : '') +
+        '<ol class="wsteps">' + d.steps.map(function (s, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><div>' + esc(s) + '</div></li>';
+        }).join('') + '</ol>' +
+        '<div class="ans r"><span>Answer</span><b>' + esc(d.answer) + '</b></div></div>';
+    },
+    practice: function (d, idx) {
+      return '<div class="sl sl-practice">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="qgrid n' + d.questions.length + '">' +
+        d.questions.map(function (q, j) { return qCard(q, idx + '-' + j); }).join('') +
+        '</div>' +
+        '<button class="revealAll r" data-all>Show every answer</button></div>';
+    },
+    recap: function (d) {
+      return '<div class="sl">' + head(d) +
+        '<ul class="recap">' + d.points.map(function (p, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    close: function (d) {
+      return '<div class="sl sl-section sl-close">' +
+        (d.small ? '<div class="eyebrow r">' + esc(d.small) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.big) + '</h2>' +
+        (d.foot ? '<p class="lede r">' + esc(d.foot) + '</p>' : '') + '</div>';
+    }
+  };
+
+  function head(d) {
+    return (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+      '<h2 class="r sh">' + esc(d.title) + '</h2>';
+  }
+
+  function qCard(q, key) {
+    var mc = !!(q.choices && q.choices.length);
+    var h = '<div class="q" data-q="' + key + '">' +
+      '<div class="qhead">' + (q.tag ? '<span class="chip">' + esc(q.tag) + '</span>' : '') +
+      (mc ? '' : '<span class="chip w">write your answer</span>') + '</div>' +
+      '<div class="qs">' + esc(q.stem) + '</div>';
+    if (mc) {
+      h += '<ul class="opts">' + q.choices.map(function (c, j) {
+        return '<li data-l="' + 'ABCD'[j] + '"><kbd>' + 'ABCD'[j] + '</kbd><span>' + esc(c) + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    h += '<button class="show">Show answer</button>' +
+      '<div class="sol" hidden><div class="solA">' +
+      (mc ? esc(q.answer) + ')&nbsp; ' + esc(q.choices['ABCD'.indexOf(q.answer)]) : esc(q.answer)) +
+      '</div><div class="solT">' + esc(q.solution) + '</div>' +
+      (q.trap ? '<div class="solW"><b>The usual slip</b> ' + esc(q.trap) + '</div>' : '') +
+      '</div></div>';
+    return h;
+  }
+
+  /* ---------- build ---------- */
+  DECK.slides.forEach(function (d, n) {
+    var el = document.createElement('section');
+    el.className = 'slide';
+    el.innerHTML = (B[d.type] || B.idea)(d, n);
+    el.hidden = true;
+    stage.appendChild(el);
+    built.push({ el: el, data: d });
+  });
+
+  // overview
+  ovGrid.innerHTML = DECK.slides.map(function (d, n) {
+    return '<button class="ovc" data-go="' + n + '"><i>' + (n + 1) + '</i><span>' +
+      esc(d.title || d.big || DECK.title) + '</span></button>';
+  }).join('');
+  ovGrid.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]'); if (!b) return;
+    go(parseInt(b.dataset.go, 10)); closeOverview();
+  });
+
+  /* ---------- navigation ---------- */
+  function revealables(el) { return [].slice.call(el.querySelectorAll('.r')); }
+
+  function paint(dir) {
+    var cur = built[i];
+    built.forEach(function (b, n) { if (n !== i) { b.el.hidden = true; b.el.className = 'slide'; } });
+    cur.el.hidden = false;
+    cur.el.className = 'slide in' + (reduce ? ' nomo' : (dir < 0 ? ' back' : ''));
+    var rs = revealables(cur.el);
+    rs.forEach(function (r, n) {
+      r.classList.remove('on');
+      r.style.setProperty('--d', (reduce ? 0 : n * 55) + 'ms');
+    });
+    // first paint shows everything except stepped lists
+    reveal = 0;
+    rs.forEach(function (r) { r.classList.add('on'); });
+    railFill.style.width = ((i + 1) / built.length * 100) + '%';
+    counter.textContent = (i + 1) + ' / ' + built.length;
+    notesEl.textContent = cur.data.notes || 'No note for this slide.';
+    typeset(cur.el);
+    if (mathFailed) plain(cur.el);
+  }
+
+  function go(n, dir) {
+    if (n < 0 || n >= built.length) return;
+    var d = dir !== undefined ? dir : (n > i ? 1 : -1);
+    i = n; paint(d);
+    try { location.hash = 's' + (i + 1); } catch (e) { }
+    try { localStorage.setItem('satdeck.' + DECK.id, String(i)); } catch (e) { }
+  }
+  function next() { if (i < built.length - 1) go(i + 1, 1); }
+  function prev() { if (i > 0) go(i - 1, -1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(built.length - 1); }
+    else if (k === 'o' || k === 'O') { e.preventDefault(); toggleOverview(); }
+    else if (k === 'Escape') { closeOverview(); }
+    else if (k === 'n' || k === 'N') { notesOn = !notesOn; notesEl.hidden = !notesOn; }
+    else if (k === 'f' || k === 'F') { toggleFull(); }
+  });
+
+  // swipe
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function (e) {
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  // answers
+  stage.addEventListener('click', function (e) {
+    var all = e.target.closest('[data-all]');
+    if (all) {
+      all.closest('.sl').querySelectorAll('.q').forEach(function (q) { openQ(q); });
+      all.textContent = 'All answers shown'; all.disabled = true; return;
+    }
+    var btn = e.target.closest('.show');
+    if (btn) { openQ(btn.closest('.q')); return; }
+    var opt = e.target.closest('.opts li');
+    if (opt) {
+      var box = opt.closest('.q');
+      if (box.classList.contains('open')) return;
+      box.querySelectorAll('.opts li').forEach(function (o) { o.classList.remove('pick'); });
+      opt.classList.add('pick');
+    }
+  });
+  function openQ(box) {
+    if (!box || box.classList.contains('open')) return;
+    box.classList.add('open');
+    var sol = box.querySelector('.sol'); sol.hidden = false;
+    var a = sol.querySelector('.solA').textContent.trim().charAt(0);
+    box.querySelectorAll('.opts li').forEach(function (o) {
+      if (o.dataset.l === a) o.classList.add('right');
+      else if (o.classList.contains('pick')) o.classList.add('wrong');
+    });
+    typeset(sol); if (mathFailed) plain(sol);
+  }
+
+  /* ---------- overview, fullscreen ---------- */
+  function toggleOverview() { overview.hidden ? openOverview() : closeOverview(); }
+  function openOverview() { overview.hidden = false; requestAnimationFrame(function () { overview.classList.add('on'); }); }
+  function closeOverview() { overview.classList.remove('on'); setTimeout(function () { overview.hidden = true; }, 220); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOverview);
+  overview.addEventListener('click', function (e) { if (e.target === overview) closeOverview(); });
+
+  function toggleFull() {
+    var r = document.documentElement;
+    if (!document.fullscreenElement && r.requestFullscreen) r.requestFullscreen().catch(function () { });
+    else if (document.exitFullscreen) document.exitFullscreen().catch(function () { });
+  }
+  document.getElementById('fsBtn').addEventListener('click', toggleFull);
+
+  document.getElementById('notesBtn').addEventListener('click', function () {
+    notesOn = !notesOn; notesEl.hidden = !notesOn;
+  });
+
+  /* ---------- start ---------- */
+  var start = 0;
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) start = Math.min(built.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  else { try { var v = localStorage.getItem('satdeck.' + DECK.id); if (v !== null) start = Math.min(built.length - 1, parseInt(v, 10) || 0); } catch (e) { } }
+  i = start; paint(1);
+
+  // MathJax loads async — typeset once it lands.
+  var waited = 0, poll = setInterval(function () {
+    waited += 120;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      clearInterval(poll); mathReady = true; typeset(built[i].el);
+    } else if (waited > 3000) { clearInterval(poll); }
+  }, 120);
+})();
+
+</script>

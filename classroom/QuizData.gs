@@ -1,0 +1,1239 @@
+/**
+ * SAT Math — quiz data. Generated, do not hand-edit.
+ * Paste this whole file into a second script file called QuizData.gs.
+ * 5 quizzes, 70 questions.
+ */
+
+var QUIZ_DATA = {
+ "generated": "2026-10-16",
+ "quizzes": [
+  {
+   "key": "q1",
+   "title": "Quiz 1 — Signs and Lines",
+   "due": "2026-10-24",
+   "blurb": "Twelve questions on the first three weeks: negative numbers, lines, and reading a linear model. Twenty minutes. A calculator is allowed.",
+   "questions": [
+    {
+     "id": "1.2-m-30",
+     "topic": "1.2",
+     "topicTitle": "Slope and linear functions",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "In the xy-plane, line ℓ has slope −3/8. Line n is perpendicular to line ℓ. What is the slope of line n?",
+     "answer": "8/3",
+     "accept": [
+      "8/3",
+      "2.667",
+      "2.666"
+     ],
+     "solution": "Perpendicular slopes are negative reciprocals. Inverting −3/8 gives −8/3, and taking the opposite gives 8/3. Checking, (−3/8)(8/3) = −1."
+    },
+    {
+     "id": "1.2-m-39",
+     "topic": "1.2",
+     "topicTitle": "Slope and linear functions",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "Line u has slope −7/2. Line v has a positive slope and is exactly as steep as line u. What is the slope of line v?",
+     "answer": "3.5",
+     "accept": [
+      "3.5",
+      "7/2"
+     ],
+     "solution": "Steepness is the distance of the slope from 0, so |−7/2| = 7/2. A line equally steep with a positive slope has slope 7/2 = 3.5."
+    },
+    {
+     "id": "1.1-e-39",
+     "topic": "1.1",
+     "topicTitle": "Linear equations in one variable",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "The perimeter of a rectangle is P = 2L + 2W. If P = 38 and L = 11, what is the value of W?",
+     "answer": "8",
+     "accept": [
+      "8",
+      "8.0"
+     ],
+     "solution": "Substituting gives 38 = 2(11) + 2W, so 38 = 22 + 2W. Subtract 22: 16 = 2W, so W = 8. Checking, 2(11) + 2(8) = 22 + 16 = 38."
+    },
+    {
+     "id": "0.2-e-32",
+     "topic": "0.2",
+     "topicTitle": "Negative numbers and signs",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "What is the value of (−3)³?",
+     "answer": "-27",
+     "accept": [
+      "-27"
+     ],
+     "solution": "The whole of −3 is cubed: (−3)(−3)(−3) = 9(−3) = −27. An odd power of a negative number is negative."
+    },
+    {
+     "id": "1.4-m-22",
+     "topic": "1.4",
+     "topicTitle": "Linear equations in two variables",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "Which equation represents the line in the xy-plane that passes through the points (−4,7) and (2,−5)?",
+     "choices": [
+      "y = −2x + 7",
+      "y = 2x − 1",
+      "y = −2x + 15",
+      "y = −2x − 1"
+     ],
+     "answer": "D",
+     "solution": "The slope is −5 − 7/2 − (−4) = −12/6 = −2. Using (−4,7): 7 = −2(−4) + b = 8 + b, so b = −1. The line y = −2x − 1 gives −5 at x = 2.",
+     "distractors": {
+      "A": "used the first y-value as the y-intercept",
+      "B": "sign error in the slope: computed 12/6",
+      "C": "substituted x = 4 instead of x = −4 when finding b"
+     }
+    },
+    {
+     "id": "1.3-e-34",
+     "topic": "1.3",
+     "topicTitle": "Interpreting linear models",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "The height h, in inches, of a sunflower after w weeks is h = 2w + 5. Which statement is correct?",
+     "choices": [
+      "Each week the height increases by 5 inches.",
+      "Each week the height increases by 7 inches.",
+      "Each week the height doubles.",
+      "Each week the height increases by 2 inches."
+     ],
+     "answer": "D",
+     "solution": "The coefficient of w is 2, so each extra week adds 2 inches to the height.",
+     "distractors": {
+      "A": "used the starting height as the weekly growth",
+      "B": "added the starting height to the weekly growth",
+      "C": "read the coefficient 2 as a doubling factor"
+     }
+    },
+    {
+     "id": "0.2-e-38",
+     "topic": "0.2",
+     "topicTitle": "Negative numbers and signs",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "The expression −5(2x − 3) can be written in the form ax + b, where a and b are constants. What is the value of b?",
+     "answer": "15",
+     "accept": [
+      "15",
+      "15.0"
+     ],
+     "solution": "−5(2x − 3) = −10x + 15, since −5·(−3) = 15. So b = 15."
+    },
+    {
+     "id": "1.2-e-03",
+     "topic": "1.2",
+     "topicTitle": "Slope and linear functions",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "The table shows values of a linear function f. f(1) = 10, f(3) = 4, f(5) = −2 and f(7) = −8. What is the slope of the graph of f?",
+     "choices": [
+      "−6",
+      "3",
+      "−1/3",
+      "−3"
+     ],
+     "answer": "D",
+     "solution": "Pick any two rows. From x = 1 to x = 3 the output changes from 10 to 4, so y changes by 4 − 10 = −6 while x changes by 3 − 1 = 2. The slope is −6/2 = −3. The same value comes from any other pair of rows.",
+     "distractors": {
+      "A": "gave the change in y without dividing by the change in x of 2",
+      "C": "used run over rise, giving 2/−6 = −1/3",
+      "B": "found the size of the change but dropped the negative sign on a decreasing function"
+     }
+    },
+    {
+     "id": "1.1-m-40",
+     "topic": "1.1",
+     "topicTitle": "Linear equations in one variable",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "If 2x − 6/4 = 5, what is the value of x − 3?",
+     "choices": [
+      "10",
+      "13",
+      "20",
+      "26"
+     ],
+     "answer": "A",
+     "solution": "Multiply both sides by 4: 2x − 6 = 20, and 2x − 6 = 2(x − 3), so 2(x − 3) = 20 and x − 3 = 10. (Equivalently 2x = 26, x = 13, x − 3 = 10.)",
+     "distractors": {
+      "B": "solved for x and reported x instead of x − 3",
+      "C": "stopped at 2x − 6 = 20 and reported 20",
+      "D": "stopped at 2x = 26 and reported 26"
+     }
+    },
+    {
+     "id": "0.2-m-36",
+     "topic": "0.2",
+     "topicTitle": "Negative numbers and signs",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "What is the value of −6 + (−2)(−9)/−4?",
+     "choices": [
+      "−18",
+      "−3",
+      "3",
+      "6"
+     ],
+     "answer": "B",
+     "solution": "Multiply inside the numerator first: (−2)(−9) = 18, so the numerator is −6 + 18 = 12. Then 12/−4 = −3.",
+     "distractors": {
+      "A": "added before multiplying, computing (−6 + (−2))(−9)/−4",
+      "C": "overlooked the negative sign on the denominator",
+      "D": "took (−2)(−9) as −18, giving a numerator of −24"
+     }
+    },
+    {
+     "id": "1.3-m-34",
+     "topic": "1.3",
+     "topicTitle": "Interpreting linear models",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A bus leaves a station. Its distance D, in kilometers, from the station after t minutes is D = 0.80t + 2. Which statement about the model is correct?",
+     "choices": [
+      "The bus is 2 kilometers from the station when t = 0.",
+      "The bus is 0.80 kilometers from the station when t = 0.",
+      "The bus travels 2 kilometers each minute.",
+      "The bus travels 0.80 kilometers every 2 minutes."
+     ],
+     "answer": "A",
+     "solution": "At t = 0, D = 2 kilometers. The 0.80 is the distance covered each minute.",
+     "distractors": {
+      "B": "swapped the starting distance and the speed",
+      "C": "read the constant as the rate",
+      "D": "attached the rate to a 2-minute period taken from the constant"
+     }
+    },
+    {
+     "id": "1.4-e-35",
+     "topic": "1.4",
+     "topicTitle": "Linear equations in two variables",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "Line k is parallel to the graph of y = 3x + 2 in the xy-plane and passes through the point (2,11). At what value of y does line k cross the y-axis?",
+     "answer": "5",
+     "accept": [
+      "5",
+      "5.0"
+     ],
+     "solution": "Parallel lines have equal slopes, so line k has slope 3. From 11 = 3(2) + b we get b = 5. Line k is y = 3x + 5, which gives 11 at x = 2."
+    }
+   ]
+  },
+  {
+   "key": "q2",
+   "title": "Quiz 2 — Systems and Inequalities",
+   "due": "2026-10-24",
+   "blurb": "Twelve questions on systems and inequalities. Twenty minutes. Decide which method you will use before you start each system.",
+   "questions": [
+    {
+     "id": "1.5-h-04",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "hard",
+     "type": "spr",
+     "stem": "A copy shop charges a one-time setup fee plus a fixed amount per page. An order of 8 pages costs 14 dollars and an order of 20 pages costs 26 dollars. What would an order of 35 pages cost, in dollars?",
+     "answer": "41",
+     "accept": [
+      "41",
+      "41.0"
+     ],
+     "solution": "Let f be the setup fee and p the charge per page. Then f + 8p = 14 and f + 20p = 26. The f-coefficients match, so subtracting gives 12p = 12 and p = 1. Then f = 14 − 8(1) = 6. An order of 35 pages costs 6 + 35(1) = 41 dollars. Check: 6 + 20(1) = 26."
+    },
+    {
+     "id": "1.6-e-37",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "What is the least value of x that satisfies −6x ≤ −30?",
+     "answer": "5",
+     "accept": [
+      "5",
+      "5.0"
+     ],
+     "solution": "Divide both sides by −6. Dividing by a negative number reverses the inequality, so x ≥ −30/−6 = 5. The boundary value 5 is allowed because −6(5) = −30 ≤ −30. Any smaller value, such as 4, gives −24 ≤ −30, which is false."
+    },
+    {
+     "id": "1.5-m-28",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "The system 0.3x + 0.4y = 3.3 and 0.5x − 0.2y = 2.9 has solution (x,y). What is the value of x?",
+     "answer": "7",
+     "accept": [
+      "7",
+      "7.0"
+     ],
+     "solution": "Multiply both equations by 10: 3x + 4y = 33 and 5x − 2y = 29. Doubling the second gives 10x − 4y = 58, and adding that to 3x + 4y = 33 gives 13x = 91, so x = 7. Then 3(7) + 4y = 33 gives y = 3. Check: 0.5(7) − 0.2(3) = 3.5 − 0.6 = 2.9."
+    },
+    {
+     "id": "1.5-m-31",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "The system 2x + 3y = 7 and 10x + 15y = k has infinitely many solutions. What is the value of the constant k?",
+     "answer": "35",
+     "accept": [
+      "35",
+      "35.0"
+     ],
+     "solution": "Infinitely many solutions means the two equations describe the same line. The second equation's coefficients are 5 times the first's, since 10 = 5(2) and 15 = 5(3), so the constant must be scaled the same way: k = 5(7) = 35. Then 10x + 15y = 35 is exactly 5 times 2x + 3y = 7, the same line twice."
+    },
+    {
+     "id": "1.6-m-33",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A delivery driver is paid 40 dollars for a shift plus 15 dollars for each stop. The driver wants to earn more than 160 dollars in one shift. Which inequality gives the possible numbers of stops s?",
+     "choices": [
+      "40 + 15s ≥ 160",
+      "40 + 15s < 160",
+      "15 + 40s > 160",
+      "40 + 15s > 160"
+     ],
+     "answer": "D",
+     "solution": "The earnings are 40 + 15s dollars. \"More than 160 dollars\" means the earnings must exceed 160 and cannot equal it, so the strict symbol is needed: 40 + 15s > 160.",
+     "distractors": {
+      "A": "read \"more than\" as the inclusive ≥, which would allow earnings of exactly 160 dollars",
+      "B": "pointed the inequality the wrong way, describing earnings below 160 dollars",
+      "C": "swapped the shift payment and the per-stop payment"
+     }
+    },
+    {
+     "id": "1.6-h-03",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "hard",
+     "type": "spr",
+     "stem": "A car service charges 3.00 dollars plus 2.25 dollars per mile. A rider has no more than 30 dollars to spend. What is the greatest whole number of miles the rider can travel?",
+     "answer": "12",
+     "accept": [
+      "12",
+      "12.0"
+     ],
+     "solution": "For m miles the fare is 3.00 + 2.25m dollars, and no more than 30 dollars means 3.00 + 2.25m ≤ 30. Subtract 3.00: 2.25m ≤ 27. Divide by 2.25: m ≤ 12. The greatest whole number of miles is 12. Check: 12 miles cost 3.00 + 27.00 = 30.00 dollars, which is allowed; 13 miles cost 32.25 dollars, which is not."
+    },
+    {
+     "id": "1.6-e-04",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "What is the greatest integer value of x that satisfies 20 − 4x > 0?",
+     "answer": "4",
+     "accept": [
+      "4",
+      "4.0"
+     ],
+     "solution": "Subtract 20 from both sides: −4x > −20. Divide by −4 and reverse the direction: x < 5. The inequality is strict, so 5 itself is excluded and the greatest integer allowed is 4. Test x = 4: 20 − 16 = 4 > 0, true. Test x = 5: 20 − 20 = 0 > 0, false."
+    },
+    {
+     "id": "1.5-e-26",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "The system x + y = 12 and x − y = 4 has solution (x,y). What is the value of x?",
+     "answer": "8",
+     "accept": [
+      "8",
+      "8.0"
+     ],
+     "solution": "The y-coefficients are +1 and −1, so adding the two equations as they stand removes y entirely: (x + y) + (x − y) = 2x = 12 + 4 = 16, giving x = 8. Substituting back into x + y = 12 gives y = 4. Check the second equation: 8 − 4 = 4."
+    },
+    {
+     "id": "1.5-e-32",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "The system 0.5x + y = 7 and x − y = 2 has solution (x,y). What is the value of x?",
+     "answer": "6",
+     "accept": [
+      "6",
+      "6.0"
+     ],
+     "solution": "From x − y = 2 write y = x − 2 and substitute: 0.5x + (x − 2) = 7, so 1.5x = 9 and x = 6. Then y = 4. Check: 0.5(6) + 4 = 7."
+    },
+    {
+     "id": "1.5-m-02",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "The system 3x + 2y = 19 and 5x − 4y = −5 has solution (x,y). What is the value of y?",
+     "choices": [
+      "−5",
+      "3",
+      "5",
+      "8"
+     ],
+     "answer": "C",
+     "solution": "Multiply the first equation by 2 to match the y-coefficients as opposites: 6x + 4y = 38. Adding 5x − 4y = −5 gives 11x = 33, so x = 3. Substituting into the first equation: 3(3) + 2y = 19, so 2y = 10 and y = 5. Check: 5(3) − 4(5) = 15 − 20 = −5.",
+     "distractors": {
+      "A": "substituted x = 3 into 5x − 4y = −5 and divided −20 by 4 instead of by −4",
+      "B": "solved for x = 3 and reported it as y",
+      "D": "reported x + y = 3 + 5 instead of y alone"
+     }
+    },
+    {
+     "id": "1.5-e-05",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "How many solutions does the system 2x + 3y = 7 and 4x + 6y = 15 have?",
+     "choices": [
+      "No solution",
+      "Exactly one solution",
+      "Exactly two solutions",
+      "Infinitely many solutions"
+     ],
+     "answer": "A",
+     "solution": "Doubling the first equation gives 4x + 6y = 14. The second equation says 4x + 6y = 15. The same expression cannot equal both 14 and 15, so the two lines are parallel and distinct, and there is no solution.",
+     "distractors": {
+      "B": "assumed any two linear equations must meet at one point",
+      "C": "thought two straight lines can cross more than once",
+      "D": "saw the proportional coefficients and concluded the lines coincide, missing that 2× 7 = 14 is not 15"
+     }
+    },
+    {
+     "id": "1.6-m-29",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "A caterer has 500 dollars for an event. There is a setup charge of 86 dollars and each meal costs 14 dollars. What is the greatest number of meals the caterer can order?",
+     "answer": "29",
+     "accept": [
+      "29",
+      "29.0"
+     ],
+     "solution": "If n is the number of meals, the cost is 86 + 14n dollars and this must be at most 500: 86 + 14n ≤ 500. Subtract 86: 14n ≤ 414. Divide by 14: n ≤ 29.57…. Since n counts whole meals, the greatest number is 29, costing 86 + 406 = 492 dollars. Thirty meals would cost 506 dollars."
+    }
+   ]
+  },
+  {
+   "key": "q3",
+   "title": "Quiz 3 — Translation",
+   "due": "2026-10-31",
+   "blurb": "Twelve word problems. Name the unknown before you write anything, and read each equation back as the story. Twenty-five minutes.",
+   "questions": [
+    {
+     "id": "1.7-h-24",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "hard",
+     "type": "mc",
+     "stem": "One pump can empty a tank in 10 minutes and a second pump can empty the same tank in 15 minutes. Working together they take t minutes. Which equation represents this?",
+     "choices": [
+      "10t + 15t = 1",
+      "t/10 + t/15 = 2",
+      "t/10 + t/15 = 1",
+      "10/t + 15/t = 1"
+     ],
+     "answer": "C",
+     "solution": "In t minutes the first pump does t/10 of the tank and the second does t/15. Together they finish one whole tank, so t/10 + t/15 = 1, giving t = 6 minutes.",
+     "distractors": {
+      "A": "multiplied the times by t instead of dividing",
+      "B": "set the shared work to two tanks rather than one",
+      "D": "wrote each fraction upside down, dividing the time into the rate"
+     }
+    },
+    {
+     "id": "1.7-m-27",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "A delivery driver earns 14 dollars per hour plus 2 dollars for each parcel delivered. In a shift of 6 hours she earned 128 dollars. How many parcels did she deliver?",
+     "answer": "22",
+     "accept": [
+      "22",
+      "22.0"
+     ],
+     "solution": "The hours pay 14(6) = 84 dollars. With p parcels the total is 84 + 2p, so 84 + 2p = 128. Then 2p = 44 and p = 22 parcels."
+    },
+    {
+     "id": "1.7-m-35",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "A triangular flag has two equal sides and a base that is 4 centimeters shorter than each equal side. Its perimeter is 50 centimeters. How long, in centimeters, is each equal side?",
+     "answer": "18",
+     "accept": [
+      "18",
+      "18.0"
+     ],
+     "solution": "Let each equal side be s. The base is s − 4, not 4 − s. Then s + s + (s − 4) = 50, so 3s − 4 = 50, giving 3s = 54 and s = 18. The base is 14, and 18 + 18 + 14 = 50."
+    },
+    {
+     "id": "1.7-m-21",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "Nine less than three times a number equals the number increased by 5. What is the number?",
+     "answer": "7",
+     "accept": [
+      "7",
+      "7.0"
+     ],
+     "solution": "Three times the number is 3n, and nine less than that is 3n − 9. The number increased by 5 is n + 5. So 3n − 9 = n + 5, giving 2n = 14 and n = 7. Checking: 3(7) − 9 = 12 and 7 + 5 = 12."
+    },
+    {
+     "id": "1.7-m-33",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "Ken folds 15 flyers per minute. Jo folds 25 per minute but starts only once Ken has already folded 200. After how many minutes has Jo folded as many flyers as Ken?",
+     "answer": "20",
+     "accept": [
+      "20",
+      "20.0"
+     ],
+     "solution": "After t minutes of Jo working, Jo has folded 25t and Ken has folded 200 + 15t. Setting 25t = 200 + 15t gives 10t = 200 and t = 20 minutes. Each has then folded 500 flyers."
+    },
+    {
+     "id": "1.7-h-27",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "hard",
+     "type": "mc",
+     "stem": "One phone plan costs 18 dollars per month plus 0.04 dollars per minute of calls. Another costs 30 dollars per month plus 0.01 dollars per minute. For how many minutes of calls do the two plans cost the same?",
+     "choices": [
+      "40",
+      "300",
+      "400",
+      "1200"
+     ],
+     "answer": "C",
+     "solution": "Set the monthly costs equal: 18 + 0.04t = 30 + 0.01t. Subtracting gives 0.03t = 12, so t = 12÷ 0.03 = 400 minutes. Each plan then costs 34 dollars.",
+     "distractors": {
+      "A": "added the two rates to get 0.03 as 0.3, slipping a decimal place",
+      "B": "divided by the other plan's rate, 0.04, instead of the difference",
+      "D": "divided by only one plan's rate, 0.01, instead of the difference"
+     }
+    },
+    {
+     "id": "1.7-e-41",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "A car park has 180 spaces, and 65 percent of them are in use. How many spaces are in use?",
+     "answer": "117",
+     "accept": [
+      "117"
+     ],
+     "solution": "\"65 percent of 180\" means 0.65× 180. That product is 117, so 117 spaces are in use."
+    },
+    {
+     "id": "1.7-m-05",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "Sam bought 9 notebooks and 4 pens for a total of 44 dollars. Each pen cost 2 dollars, and all the notebooks cost the same as each other. What was the cost, in dollars, of one notebook?",
+     "answer": "4",
+     "accept": [
+      "4",
+      "4.0"
+     ],
+     "solution": "Let n be the cost of one notebook in dollars. The notebooks cost 9n and the pens cost 4(2) = 8 dollars, so 9n + 8 = 44. Subtracting 8 gives 9n = 36, so n = 4 dollars."
+    },
+    {
+     "id": "1.7-e-29",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "A bake sale raised 250 dollars, and 40 percent of that came from cakes. Which equation gives the amount m, in dollars, raised by cakes?",
+     "choices": [
+      "m = 250/0.40",
+      "m = 0.40(250)",
+      "m = 40(250)",
+      "m = 250 − 40"
+     ],
+     "answer": "B",
+     "solution": "\"40 percent of 250\" means 0.40 multiplied by 250, so m = 0.40(250). That value is 100 dollars.",
+     "distractors": {
+      "A": "divided by the percent instead of multiplying, giving 625",
+      "C": "used 40 in place of 0.40, multiplying by one hundred times too much",
+      "D": "subtracted 40 as if it were an amount of money"
+     }
+    },
+    {
+     "id": "1.7-e-02",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "Five less than twice a number is 17. What is the number?",
+     "choices": [
+      "−6",
+      "6",
+      "11",
+      "44"
+     ],
+     "answer": "C",
+     "solution": "Let the number be n. Twice the number is 2n, and five less than that is 2n − 5, so 2n − 5 = 17. Adding 5 gives 2n = 22, so n = 11. Checking, 2(11) − 5 = 17.",
+     "distractors": {
+      "A": "reversed the subtraction into 5 − 2n = 17, which gives n = −6",
+      "B": "subtracted the 5 from 17 instead of adding it, computing 17 − 5/2 = 6",
+      "D": "doubled after undoing the subtraction instead of halving, computing 2(17 + 5) = 44"
+     }
+    },
+    {
+     "id": "1.7-m-39",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A sports club has 150 members, and 30 percent of them play on Saturdays. Each Saturday player pays 4 dollars. Which equation gives the Saturday income S, in dollars?",
+     "choices": [
+      "S = 4(0.30)(150)",
+      "S = 4(150) − 30",
+      "S = 4(0.70)(150)",
+      "S = 0.30(150)/4"
+     ],
+     "answer": "A",
+     "solution": "The Saturday players number 0.30(150) = 45, and each pays 4 dollars, so S = 4(0.30)(150) = 180 dollars.",
+     "distractors": {
+      "B": "subtracted 30 as a count of members instead of taking a percent",
+      "C": "used the percent who do not play on Saturdays",
+      "D": "divided by the fee instead of multiplying by it"
+     }
+    },
+    {
+     "id": "1.7-e-24",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "A sports club has twice as many juniors as seniors. The club has 48 members in all. How many seniors does it have?",
+     "answer": "16",
+     "accept": [
+      "16",
+      "16.0"
+     ],
+     "solution": "Let s be the seniors. Juniors are the larger group, so juniors = 2s. Then s + 2s = 48, so 3s = 48 and s = 16. That gives 32 juniors, and 16 + 32 = 48."
+    }
+   ]
+  },
+  {
+   "key": "q4",
+   "title": "Quiz 4 — Quadratics",
+   "due": "2026-11-07",
+   "blurb": "Twelve questions on expanding, factoring and solving quadratics. Ask yourself how many answers you expect before you start. Twenty-five minutes.",
+   "questions": [
+    {
+     "id": "3.2-m-16",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "For x ≠ 3, the expression 2x² − 18/x − 3 is equivalent to 2x + k, where k is a constant. What is the value of k?",
+     "answer": "6",
+     "accept": [
+      "6",
+      "6.0"
+     ],
+     "solution": "Factor the numerator: 2x² − 18 = 2(x² − 9) = 2(x − 3)(x + 3). Dividing by x − 3 cancels that factor and leaves 2(x + 3) = 2x + 6. Comparing with 2x + k gives k = 6."
+    },
+    {
+     "id": "3.2-m-04",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "Which expression is equivalent to (2x − 7)²?",
+     "choices": [
+      "4x² + 49",
+      "4x² − 14x + 49",
+      "4x² − 28x + 49",
+      "4x² − 28x − 49"
+     ],
+     "answer": "C",
+     "distractors": {
+      "A": "squared each term separately, writing (2x)² + (−7)²",
+      "B": "used 2· 7 for the middle term instead of 2· 2· 7",
+      "D": "found the middle term correctly but wrote (−7)² as −49"
+     },
+     "solution": "Write the square as (2x − 7)(2x − 7). The first terms give 4x², each cross term is 2x·(−7) = −14x for a total of −28x, and the last terms give 49. So (2x − 7)² = 4x² − 28x + 49."
+    },
+    {
+     "id": "3.3-m-01",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "What are the solutions to 2x² − 7x + 3 = 0?",
+     "choices": [
+      "x = 3 or x = 1/2",
+      "x = 3/2 or x = 1",
+      "x = −3 or x = −1/2",
+      "x = 6 or x = 1"
+     ],
+     "answer": "A",
+     "solution": "Since ac = 6 and the middle coefficient is −7, split it as −6x − x: 2x² − 6x − x + 3 = 2x(x − 3) − (x − 3) = (2x − 1)(x − 3). So x = 1/2 or x = 3. Checking x = 12: 2(14) − 72 + 3 = 12 − 72 + 3 = 0.",
+     "distractors": {
+      "B": "put the 1 and the 3 in the wrong factors, writing (2x − 3)(x − 1)",
+      "C": "reversed the sign in both factors",
+      "D": "used the ac-method pair 6 and 1 as the solutions themselves"
+     }
+    },
+    {
+     "id": "3.3-e-14",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "A rectangle's length is 3 inches greater than its width, and its area is 40 square inches. What is the width, in inches?",
+     "answer": "5",
+     "accept": [
+      "5",
+      "5.0"
+     ],
+     "solution": "If the width is w, the length is w + 3 and w(w + 3) = 40, so w² + 3w − 40 = 0 and (w + 8)(w − 5) = 0. The roots are w = −8 and w = 5. A width cannot be negative, so w = 5; the length is 8 and 5× 8 = 40."
+    },
+    {
+     "id": "3.2-e-21",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "The expression 2(x + 3) + 3(x − 1) is equivalent to 5x + c, where c is a constant. What is the value of c?",
+     "answer": "3",
+     "accept": [
+      "3",
+      "3.0"
+     ],
+     "solution": "Distribute each product: 2(x + 3) = 2x + 6 and 3(x − 1) = 3x − 3. Adding gives 2x + 6 + 3x − 3. The x terms give 5x and the constants give 6 − 3 = 3. So the expression is 5x + 3 and c = 3."
+    },
+    {
+     "id": "3.3-m-31",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "What is the lesser solution to x² − x − 30 = 0?",
+     "choices": [
+      "5",
+      "−6",
+      "6",
+      "−5"
+     ],
+     "answer": "D",
+     "solution": "Two numbers multiplying to −30 and adding to −1 are −6 and 5, so (x − 6)(x + 5) = 0 and the solutions are 6 and −5. The lesser is −5, and 25 + 5 − 30 = 0.",
+     "distractors": {
+      "A": "lost the minus sign when solving x + 5 = 0",
+      "B": "attached the negative to the wrong factor",
+      "C": "gave the greater solution instead of the lesser"
+     }
+    },
+    {
+     "id": "3.2-m-19",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "In the expansion of (x + 2)(x² + 3x + 5), what is the coefficient of x²?",
+     "answer": "5",
+     "accept": [
+      "5",
+      "5.0"
+     ],
+     "solution": "Two products contribute an x² term: x· 3x = 3x² and 2· x² = 2x². Together they give 5x², so the coefficient is 5. The full expansion is x³ + 5x² + 11x + 10."
+    },
+    {
+     "id": "3.2-e-15",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "Which expression is the complete factorization of 4x² − 16?",
+     "choices": [
+      "(x + 4)(x − 4)",
+      "4(x − 2)²",
+      "4(x + 4)(x − 4)",
+      "4(x + 2)(x − 2)"
+     ],
+     "answer": "D",
+     "distractors": {
+      "A": "took the square root of 16 as the constant but dropped the factor of 4 in front",
+      "B": "treated 4x² − 16 as a perfect square trinomial",
+      "C": "factored out the 4 and then used √(16) = 4 again inside the parentheses"
+     },
+     "solution": "First take out the common factor: 4x² − 16 = 4(x² − 4). Now x² − 4 is a difference of squares, so x² − 4 = (x + 2)(x − 2). Altogether 4x² − 16 = 4(x + 2)(x − 2). Checking, 4(x² − 4) = 4x² − 16."
+    },
+    {
+     "id": "3.3-h-07",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "hard",
+     "type": "spr",
+     "stem": "What is the greatest integer value of k for which x² + 6x + k = 0 has two distinct real solutions?",
+     "answer": "8",
+     "accept": [
+      "8",
+      "8.0"
+     ],
+     "solution": "Two distinct real solutions need b² − 4ac > 0, so 36 − 4k > 0 and k < 9. The greatest integer below 9 is 8. Checking k = 8: the discriminant is 36 − 32 = 4 > 0, while k = 9 gives 0 and only one solution."
+    },
+    {
+     "id": "3.2-h-04",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "hard",
+     "type": "spr",
+     "stem": "The expression 2x² + 12x + 23 can be written as 2(x + 3)² + k, where k is a constant. What is the value of k?",
+     "answer": "5",
+     "accept": [
+      "5",
+      "5.0"
+     ],
+     "solution": "Expand the given form: 2(x + 3)² = 2(x² + 6x + 9) = 2x² + 12x + 18. The original expression is 2x² + 12x + 23, which is 23 − 18 = 5 larger. So k = 5. Checking at x = 0: 23 against 2(9) + 5 = 23."
+    },
+    {
+     "id": "3.3-e-16",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "What is the greater solution to x² − 4x − 12 = 0?",
+     "answer": "6",
+     "accept": [
+      "6",
+      "6.0"
+     ],
+     "solution": "Two numbers multiplying to −12 and adding to −4 are −6 and 2, so (x − 6)(x + 2) = 0 and the solutions are 6 and −2. The greater is 6, and 36 − 24 − 12 = 0."
+    },
+    {
+     "id": "3.3-m-28",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "What are the solutions to 3x² + 5x − 2 = 0?",
+     "choices": [
+      "x = −1/3 or x = 2",
+      "x = 1/3 only",
+      "x = 1/3 or x = −2",
+      "x = 1 or x = −6"
+     ],
+     "answer": "C",
+     "solution": "Since ac = −6, split the middle term as 6x − x: 3x² + 6x − x − 2 = 3x(x + 2) − (x + 2) = (3x − 1)(x + 2). So x = 1/3 or x = −2. Checking x = 13: 13 + 53 − 2 = 0.",
+     "distractors": {
+      "A": "reversed the sign of both solutions",
+      "B": "solved one factor and never set the other to zero",
+      "D": "used the ac-method pair −1 and 6 as solutions instead of rebuilding the factors"
+     }
+    }
+   ]
+  },
+  {
+   "key": "q5",
+   "title": "Checkpoint Quiz — Everything so far",
+   "due": "2026-11-07",
+   "blurb": "Twenty-two questions across every topic so far. Thirty minutes, one sitting, no notes. This is the one that decides where November goes.",
+   "questions": [
+    {
+     "id": "1.1-m-31",
+     "topic": "1.1",
+     "topicTitle": "Linear equations in one variable",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "If 7x − 4 = 3x + 20, what is the value of x + 5?",
+     "answer": "11",
+     "accept": [
+      "11",
+      "11.0"
+     ],
+     "solution": "Subtract 3x: 4x − 4 = 20. Add 4: 4x = 24, so x = 6. Then x + 5 = 11. Checking, 7(6) − 4 = 38 and 3(6) + 20 = 38."
+    },
+    {
+     "id": "1.2-m-26",
+     "topic": "1.2",
+     "topicTitle": "Slope and linear functions",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A data plan charges a monthly fee plus a constant amount for each gigabyte used. A month with 3 gigabytes costs 62 dollars and a month with 9 gigabytes costs 86 dollars. What is the cost for each gigabyte?",
+     "choices": [
+      "1/4 dollar",
+      "4 dollars",
+      "8 dollars",
+      "24 dollars"
+     ],
+     "answer": "B",
+     "solution": "The cost per gigabyte is the rate of change: 86 − 62/9 − 3 = 24/6 = 4 dollars per gigabyte. The cost rises 24 dollars over 6 additional gigabytes.",
+     "distractors": {
+      "A": "wrote the change in gigabytes over the change in cost, inverting the rate",
+      "C": "divided the change in cost by 3 gigabytes instead of by 6",
+      "D": "reported the total change in cost without dividing"
+     }
+    },
+    {
+     "id": "0.2-m-02",
+     "topic": "0.2",
+     "topicTitle": "Negative numbers and signs",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "The function f is defined by f(x) = x² − 3x. What is the value of f(−4)?",
+     "answer": "28",
+     "accept": [
+      "28",
+      "28.0"
+     ],
+     "solution": "Substitute with brackets: f(−4) = (−4)² − 3(−4). Then (−4)² = 16 and −3(−4) = +12, so f(−4) = 16 + 12 = 28."
+    },
+    {
+     "id": "0.2-e-41",
+     "topic": "0.2",
+     "topicTitle": "Negative numbers and signs",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "What is the value of 5 − 3(−4)?",
+     "choices": [
+      "−8",
+      "−7",
+      "8",
+      "17"
+     ],
+     "answer": "D",
+     "solution": "Multiply before subtracting: 3(−4) = −12, so the expression is 5 − (−12) = 5 + 12 = 17.",
+     "distractors": {
+      "A": "subtracted before multiplying, computing (5 − 3)(−4)",
+      "B": "treated −3(−4) as −12 and computed 5 − 12",
+      "C": "subtracted before multiplying and dropped the negative sign"
+     }
+    },
+    {
+     "id": "3.2-m-15",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "For x ≠ −2 and x ≠ 2, which expression is equivalent to x² − 4/x² + 4x + 4?",
+     "choices": [
+      "x − 2",
+      "x + 2/x − 2",
+      "x − 2/x + 2",
+      "−4/4x + 4"
+     ],
+     "answer": "C",
+     "distractors": {
+      "A": "cancelled both copies of x + 2 in the denominator against the single x + 2 on top",
+      "B": "cancelled correctly but kept the wrong factor in the numerator",
+      "D": "cancelled the x² term on top against the x² term on the bottom, which cancels terms rather than factors"
+     },
+     "solution": "Factor both parts: x² − 4 = (x − 2)(x + 2) and x² + 4x + 4 = (x + 2)². The expression is (x − 2)(x + 2)/(x + 2)(x + 2). One factor of x + 2 cancels from top and bottom, leaving x − 2/x + 2. A single x + 2 remains below."
+    },
+    {
+     "id": "1.6-e-32",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "What is the least value of x that satisfies 4x − 9 ≥ 3?",
+     "answer": "3",
+     "accept": [
+      "3",
+      "3.0"
+     ],
+     "solution": "Add 9 to both sides: 4x ≥ 12. Divide by 4, a positive number, so the direction stays: x ≥ 3. The boundary value 3 is included because 4(3) − 9 = 3 ≥ 3. Any smaller value, such as 2, gives −1 ≥ 3, which is false."
+    },
+    {
+     "id": "1.4-m-02",
+     "topic": "1.4",
+     "topicTitle": "Linear equations in two variables",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "The graph of 6x + 5y = 30 in the xy-plane crosses the x-axis at (a,0) and the y-axis at (0,b). What is the value of a + b?",
+     "answer": "11",
+     "accept": [
+      "11",
+      "11.0"
+     ],
+     "solution": "Setting y = 0 gives 6x = 30, so a = 5. Setting x = 0 gives 5y = 30, so b = 6. Then a + b = 5 + 6 = 11. Each intercept is found by dividing the constant by the coefficient of the variable that remains."
+    },
+    {
+     "id": "1.3-m-38",
+     "topic": "1.3",
+     "topicTitle": "Interpreting linear models",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A student withdraws money each week. The balance B, in dollars, after w weeks is B = 520 − 15w. Which statement about the model is correct?",
+     "choices": [
+      "The account started with 15 dollars.",
+      "The balance falls by 15 dollars each week.",
+      "The balance rises by 15 dollars each week.",
+      "The balance falls by 520 dollars each week."
+     ],
+     "answer": "B",
+     "solution": "The coefficient of w is −15, so each week lowers the balance by 15 dollars. The account started with 520 dollars.",
+     "distractors": {
+      "A": "swapped the opening balance and the weekly withdrawal",
+      "C": "ignored the minus sign in front of the rate",
+      "D": "read the constant as the weekly rate"
+     }
+    },
+    {
+     "id": "3.2-e-29",
+     "topic": "3.2",
+     "topicTitle": "Equivalent expressions",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "Which expression is equivalent to 2x² + 7x + 3?",
+     "choices": [
+      "(2x − 1)(x − 3)",
+      "(x + 1)(x + 3)",
+      "(2x + 3)(x + 1)",
+      "(2x + 1)(x + 3)"
+     ],
+     "answer": "D",
+     "distractors": {
+      "A": "made both constants negative even though the middle term is positive",
+      "B": "factored as though the leading coefficient were 1",
+      "C": "swapped the two constants, which gives a middle term of 5x"
+     },
+     "solution": "The 2x² must come from 2x· x, and the 3 from 1· 3. Testing (2x + 1)(x + 3): the cross terms are 6x and x, which add to 7x. That matches, so 2x² + 7x + 3 = (2x + 1)(x + 3)."
+    },
+    {
+     "id": "1.7-e-23",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "A car park holds c cars and m motorcycles. There are three times as many cars as motorcycles. Which equation is correct?",
+     "choices": [
+      "3c = m",
+      "c + 3 = m",
+      "c = 3m",
+      "c = m + 3"
+     ],
+     "answer": "C",
+     "solution": "Cars are the larger group, so the 3 multiplies the smaller group: c = 3m. With m = 5 there would be 15 cars, and 15 = 3(5) holds.",
+     "distractors": {
+      "A": "attached the 3 to the larger group instead of the smaller one",
+      "B": "reversed the comparison and used addition",
+      "D": "read \"three times as many\" as \"three more than\""
+     }
+    },
+    {
+     "id": "3.3-m-17",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "How many real solutions does 3x² − 4x + 2 = 0 have?",
+     "choices": [
+      "Two",
+      "One",
+      "None",
+      "Infinitely many"
+     ],
+     "answer": "C",
+     "solution": "The discriminant is (−4)² − 4(3)(2) = 16 − 24 = −8. Since it is negative, the quadratic formula would require the square root of a negative number, so there is no real solution.",
+     "distractors": {
+      "A": "assumed a degree-two equation always has two real solutions",
+      "B": "stopped at −b/2a and reported that single value as a solution",
+      "D": "found no value of x that fails and concluded every x works"
+     }
+    },
+    {
+     "id": "1.5-h-20",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "hard",
+     "type": "spr",
+     "stem": "If 7x + 5y = 62 and 9x + 3y = 66, what is the value of x − y?",
+     "answer": "2",
+     "accept": [
+      "2",
+      "2.0"
+     ],
+     "solution": "The coefficients in each equation total 12, so subtracting the first equation from the second keeps the x- and y-terms equal and opposite: (9x + 3y) − (7x + 5y) = 2x − 2y = 66 − 62 = 4. Dividing by 2 gives x − y = 2. (Solving fully gives x = 6 and y = 4, and 6 − 4 = 2.)"
+    },
+    {
+     "id": "1.5-m-36",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A rectangle has perimeter 64 metres, and its length is 3 times its width. What is the length, in metres?",
+     "choices": [
+      "8",
+      "16",
+      "24",
+      "48"
+     ],
+     "answer": "C",
+     "solution": "Let L and W be length and width. Perimeter gives 2(L + W) = 64, so L + W = 32, and the relation gives L = 3W. Substituting, 3W + W = 32, so 4W = 32 and W = 8, making L = 24. Check: 2(24 + 8) = 64.",
+     "distractors": {
+      "A": "gave the width rather than the length",
+      "B": "solved 4W = 64 from L + W = 64 and reported the width from that",
+      "D": "used L + W = 64 instead of L + W = 32, forgetting the factor of 2 in the perimeter"
+     }
+    },
+    {
+     "id": "1.5-e-23",
+     "topic": "1.5",
+     "topicTitle": "Systems of two linear equations",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "The system 3x + 4y = 24 and 3x − 2y = 6 has solution (x,y). What is the value of x?",
+     "choices": [
+      "3",
+      "4",
+      "5",
+      "8"
+     ],
+     "answer": "B",
+     "solution": "The x-coefficients match, so subtract the second equation from the first: 6y = 18, giving y = 3. Then 3x + 4(3) = 24, so 3x = 12 and x = 4. Check: 3(4) − 2(3) = 6.",
+     "distractors": {
+      "A": "gave the value of y rather than x",
+      "C": "added the two equations, treating the y-terms as if they cancelled, to get 6x = 30",
+      "D": "divided 24 by 3 in the first equation while ignoring the 4y term"
+     }
+    },
+    {
+     "id": "1.2-e-29",
+     "topic": "1.2",
+     "topicTitle": "Slope and linear functions",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "In the xy-plane, line t is perpendicular to a line whose slope is −4. What is the slope of line t?",
+     "answer": "1/4",
+     "accept": [
+      "1/4",
+      "0.25"
+     ],
+     "solution": "Perpendicular slopes are negative reciprocals. The reciprocal of −4 is −1/4, and the opposite of that is 1/4. Checking, (−4)(1/4) = −1."
+    },
+    {
+     "id": "1.3-e-22",
+     "topic": "1.3",
+     "topicTitle": "Interpreting linear models",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "Water is pumped into a tank. The volume V, in liters, after t minutes is V = 12t + 40. How many liters are in the tank at the moment pumping begins?",
+     "answer": "40",
+     "accept": [
+      "40",
+      "40.0"
+     ],
+     "solution": "Pumping begins at t = 0. Then V = 12(0) + 40 = 40, so the tank already holds 40 liters."
+    },
+    {
+     "id": "1.7-h-26",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "hard",
+     "type": "spr",
+     "stem": "A bus trip has 35 passengers. Adults paid 14 dollars each and students paid 9 dollars each, and the fares came to 420 dollars. How many students were on the trip?",
+     "answer": "14",
+     "accept": [
+      "14",
+      "14.0"
+     ],
+     "solution": "Let a be the adults, so students number 35 − a. Then 14a + 9(35 − a) = 420, so 5a + 315 = 420, giving 5a = 105 and a = 21. The students number 35 − 21 = 14. Checking: 14(21) + 9(14) = 294 + 126 = 420."
+    },
+    {
+     "id": "1.7-m-37",
+     "topic": "1.7",
+     "topicTitle": "Turning words into equations",
+     "difficulty": "medium",
+     "type": "spr",
+     "stem": "A sports club has 240 members, and 35 percent of them renewed their membership. How many members did not renew?",
+     "answer": "156",
+     "accept": [
+      "156"
+     ],
+     "solution": "\"35 percent of 240\" is 0.35× 240 = 84 renewals. The rest did not renew: 240 − 84 = 156. Equivalently, 0.65× 240 = 156."
+    },
+    {
+     "id": "1.6-m-23",
+     "topic": "1.6",
+     "topicTitle": "Linear inequalities",
+     "difficulty": "medium",
+     "type": "mc",
+     "stem": "A machine runs correctly when the pressure p, in units, is between 30 and 45, and both 30 and 45 are acceptable pressures. Which inequality describes the acceptable values of p?",
+     "choices": [
+      "30 < p < 45",
+      "30 ≤ p < 45",
+      "30 < p ≤ 45",
+      "30 ≤ p ≤ 45"
+     ],
+     "answer": "D",
+     "solution": "The pressure can be as low as 30 and as high as 45, and both of those values are acceptable, so both ends are inclusive. Written as a compound inequality this is 30 ≤ p ≤ 45.",
+     "distractors": {
+      "A": "read \"between\" as excluding both endpoints, ignoring the statement that 30 and 45 are acceptable",
+      "B": "included the lower endpoint but made the upper endpoint strict",
+      "C": "included the upper endpoint but made the lower endpoint strict"
+     }
+    },
+    {
+     "id": "1.1-e-03",
+     "topic": "1.1",
+     "topicTitle": "Linear equations in one variable",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "What value of x satisfies x/3 + x/6 = 5?",
+     "answer": "10",
+     "accept": [
+      "10",
+      "10.0"
+     ],
+     "solution": "Multiply every term by 6, the least common denominator: 2x + x = 30. So 3x = 30 and x = 10. Checking, 10/3 + 10/6 = 20/6 + 10/6 = 5."
+    },
+    {
+     "id": "3.3-e-06",
+     "topic": "3.3",
+     "topicTitle": "Solving quadratic equations",
+     "difficulty": "easy",
+     "type": "spr",
+     "stem": "One solution to x² + 5x = 0 is −5. What is the other solution?",
+     "answer": "0",
+     "accept": [
+      "0",
+      "0.0"
+     ],
+     "solution": "Factoring out x gives x(x + 5) = 0, so x = 0 or x = −5. Dividing both sides by x would lose the root x = 0, which is the other solution here."
+    },
+    {
+     "id": "1.4-e-03",
+     "topic": "1.4",
+     "topicTitle": "Linear equations in two variables",
+     "difficulty": "easy",
+     "type": "mc",
+     "stem": "Which point lies on the graph of 2x − y = 10 in the xy-plane?",
+     "choices": [
+      "(−4,3)",
+      "(0,10)",
+      "(3,−4)",
+      "(3,4)"
+     ],
+     "answer": "C",
+     "solution": "Test each point. For (3,−4): 2(3) − (−4) = 6 + 4 = 10, which matches the right side, so this point lies on the line. The other points give 2(−4) − 3 = −11, 2(0) − 10 = −10 and 2(3) − 4 = 2.",
+     "distractors": {
+      "A": "entered the coordinates in the wrong order, using the y-value as x",
+      "B": "assumed the constant 10 is the y-value when x = 0, ignoring the coefficient −1 on y",
+      "D": "subtracted the y-value without its negative sign, treating −(−4) as −4"
+     }
+    }
+   ]
+  }
+ ]
+};

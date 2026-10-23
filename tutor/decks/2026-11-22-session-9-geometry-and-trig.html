@@ -1,0 +1,665 @@
+<title>Geometry & Trig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ SAT Math deck — premium slide shell ============ */
+:root{
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* light */
+  --base:#F7F5F1; --surf:#FFFFFF; --rise:#FFFFFF; --rise2:#F3F0EA;
+  --line:rgba(16,24,40,.12); --line2:rgba(16,24,40,.22);
+  --ink:#121923; --mid:#3D4A5C; --mute:#6B7A8E;
+  --gold:#9A6B18; --gold-d:#7E5611; --goldw:rgba(154,107,24,.10);
+  --good:#117A52; --goodw:rgba(17,122,82,.10);
+  --bad:#B6301F; --badw:rgba(182,48,31,.09);
+  --on-gold:#FFFFFF; --goldb:rgba(154,107,24,.32);
+  --shadow:0 18px 50px -26px rgba(16,24,40,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+    --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+    --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+    --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+    --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+    --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+    --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+    --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+  --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+  --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+  --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+  --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+  --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+  --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+  --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 78% -10%, var(--goldw), transparent 65%),
+    radial-gradient(700px 480px at -5% 105%, rgba(79,214,160,.07), transparent 62%);
+}
+
+/* ---------- chrome ---------- */
+#top{
+  position:fixed; top:0; left:0; right:0; height:52px; z-index:30;
+  display:flex; align-items:center; gap:14px; padding:0 20px;
+  font-size:12.5px; letter-spacing:.02em;
+}
+#brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+#deckName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#deckSession{color:var(--mute);white-space:nowrap;font-size:11.5px}
+#top .sp{flex:1}
+.tbtn{
+  appearance:none;border:1px solid var(--line);background:transparent;color:var(--mid);
+  font:inherit;font-size:11.5px;padding:5px 11px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease); white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--line2);color:var(--ink);background:var(--rise)}
+#counter{color:var(--mute);font-variant-numeric:tabular-nums;font-size:11.5px}
+
+#rail{position:fixed;top:0;left:0;right:0;height:2px;z-index:31;background:var(--line)}
+#railFill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-d),var(--gold));
+  transition:width .55s var(--ease)}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:52px 0 62px;z-index:1}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+.slide::-webkit-scrollbar{width:7px}
+.slide::-webkit-scrollbar-thumb{background:var(--line2);border-radius:9px}
+.sl{
+  min-height:100%; width:min(1120px,100%); margin:0 auto;
+  padding:30px 32px 40px; display:flex; flex-direction:column;
+}
+.slide.in{animation:sIn .55s var(--ease) both}
+.slide.in.back{animation:sInB .55s var(--ease) both}
+.slide.nomo{animation:none!important}
+@keyframes sIn{from{opacity:0;transform:translate3d(28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes sInB{from{opacity:0;transform:translate3d(-28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+
+.r{opacity:0;transform:translateY(16px);filter:blur(7px);
+  transition:opacity .62s var(--ease) var(--d,0ms),transform .62s var(--ease) var(--d,0ms),filter .62s var(--ease) var(--d,0ms)}
+.r.on{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){
+  .r{transition-duration:.01ms!important}
+  .slide.in,.slide.in.back{animation:none}
+}
+
+/* ---------- typography ---------- */
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:9px;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent);max-width:160px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6.6vw,86px);line-height:1.02;
+  letter-spacing:-.018em;margin:0 0 18px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,50px);line-height:1.08;
+  letter-spacing:-.012em;margin:0 0 16px}
+h2.sh{font-size:clamp(25px,3.1vw,38px);margin-bottom:18px}
+.lede{font-size:clamp(15px,1.7vw,20px);color:var(--mid);max-width:62ch;margin:0;line-height:1.55}
+.lead{font-size:clamp(14.5px,1.5vw,17.5px);color:var(--mid);max-width:70ch;margin:0 0 22px;line-height:1.6}
+
+/* ---------- title / section ---------- */
+.sl-title,.sl-section{justify-content:center;padding-top:10px}
+.sl-title h1{max-width:17ch}
+.tmeta{display:flex;flex-wrap:wrap;gap:34px;margin-top:38px;padding-top:24px;border-top:1px solid var(--line)}
+.tmeta span{display:flex;flex-direction:column;gap:3px;font-size:11.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--mute)}
+.tmeta b{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink)}
+.sl-section h2{font-size:clamp(34px,5.2vw,64px);max-width:16ch}
+.sl-close h2{color:var(--gold)}
+
+/* ---------- lists ---------- */
+.pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.pts li{display:flex;gap:14px;align-items:flex-start;font-size:clamp(14.5px,1.5vw,18px);line-height:1.55;color:var(--mid)}
+.dot{flex:0 0 7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.55em;
+  box-shadow:0 0 0 4px var(--goldw)}
+
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.step{display:flex;gap:16px;align-items:flex-start;background:var(--rise);border:1px solid var(--line);
+  border-radius:14px;padding:15px 18px}
+.step i{flex:0 0 28px;height:28px;border-radius:9px;background:var(--goldw);color:var(--gold);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12.5px;font-family:var(--mono)}
+.step div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.step b{font-size:clamp(14.5px,1.45vw,17px);font-weight:700;color:var(--ink);line-height:1.4}
+.step span{font-size:14px;color:var(--mute);line-height:1.5}
+
+.recap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.recap li{display:flex;gap:16px;align-items:flex-start;font-size:clamp(15px,1.6vw,19px);
+  line-height:1.5;color:var(--mid);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.recap li:last-child{border-bottom:0}
+.recap i{font-family:var(--serif);font-style:normal;font-size:28px;color:var(--gold);
+  line-height:1;flex:0 0 32px;opacity:.85}
+
+.callout{margin-top:22px;background:var(--goldw);border:1px solid var(--goldb);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:15px 19px;
+  font-size:clamp(14px,1.45vw,16.5px);line-height:1.55;color:var(--ink)}
+
+/* ---------- table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--rise)}
+table{width:100%;border-collapse:collapse;font-size:clamp(13.5px,1.35vw,16px)}
+th{text-align:left;padding:12px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mute);font-weight:700;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tr.good td{background:var(--goodw)} tr.bad td{background:var(--badw)}
+
+/* ---------- compare ---------- */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--rise)}
+.card.bad{border-color:rgba(255,126,110,.32);background:var(--badw)}
+.card.good{border-color:rgba(79,214,160,.32);background:var(--goodw)}
+.ctag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:11px}
+.card.bad .ctag{color:var(--bad)} .card.good .ctag{color:var(--good)}
+.cbody{font-family:var(--mono);font-size:clamp(13px,1.35vw,15.5px);line-height:1.85;color:var(--ink)}
+
+/* ---------- worked example ---------- */
+.qbox{border:1px solid var(--line2);border-radius:16px;background:var(--rise);padding:18px 20px;margin-bottom:18px}
+.qtag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:9px}
+.qstem{font-size:clamp(15px,1.6vw,19px);line-height:1.55;color:var(--ink)}
+.think{background:var(--rise2);border-radius:12px;padding:13px 17px;margin-bottom:16px;
+  font-size:clamp(13.5px,1.4vw,16px);color:var(--mid);line-height:1.55}
+.think b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.wsteps{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:0}
+.wsteps li{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.wsteps li:last-child{border-bottom:0}
+.wsteps i{flex:0 0 24px;height:24px;border-radius:7px;border:1px solid var(--line2);color:var(--mute);
+  display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;font-family:var(--mono)}
+.wsteps div{font-size:clamp(14px,1.45vw,17px);line-height:1.6;color:var(--mid)}
+.ans{margin-top:auto;display:flex;align-items:center;gap:14px;background:var(--goodw);
+  border:1px solid rgba(79,214,160,.32);border-radius:14px;padding:14px 20px}
+.ans span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--good)}
+.ans b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.6vw,32px);color:var(--ink);line-height:1}
+
+/* ---------- practice ---------- */
+.qgrid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.qgrid.n1,.qgrid.n3{grid-template-columns:1fr 1fr}
+.qgrid.n1{grid-template-columns:1fr}
+.q{border:1px solid var(--line);border-radius:16px;background:var(--rise);padding:16px 18px;
+  display:flex;flex-direction:column;gap:11px;transition:border-color .25s var(--ease)}
+.q.open{border-color:var(--line2)}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;min-height:1px}
+.chip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  padding:3px 9px;border-radius:999px;background:var(--goldw);color:var(--gold)}
+.chip.w{background:transparent;border:1px solid var(--line2);color:var(--mute)}
+.qs{font-size:clamp(14px,1.4vw,16.5px);line-height:1.55;color:var(--ink)}
+.opts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.opts li{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);
+  border-radius:10px;cursor:pointer;font-size:14px;color:var(--mid);
+  transition:all .18s var(--ease);user-select:none}
+.opts li:hover{border-color:var(--line2);background:var(--rise2)}
+.opts kbd{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--mute);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px;flex:0 0 auto}
+.opts li.pick{border-color:var(--line2);background:var(--rise2)}
+.opts li.right{border-color:var(--good);background:var(--goodw);color:var(--ink)}
+.opts li.right kbd{color:var(--good);border-color:var(--good)}
+.opts li.wrong{border-color:var(--bad);background:var(--badw)}
+.opts li.wrong kbd{color:var(--bad);border-color:var(--bad)}
+.show{appearance:none;border:1px solid var(--line2);background:transparent;color:var(--mid);
+  font:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:9px;cursor:pointer;
+  align-self:flex-start;transition:all .18s var(--ease)}
+.show:hover{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.q.open .show{display:none}
+.sol[hidden]{display:none}
+.sol{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:9px;
+  animation:fadeU .4s var(--ease) both}
+@keyframes fadeU{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.solA{font-family:var(--serif);font-size:clamp(19px,2vw,25px);color:var(--good);line-height:1.2}
+.solT{font-size:14px;line-height:1.6;color:var(--mid)}
+.solW{font-size:13px;line-height:1.55;color:var(--mute);background:var(--badw);
+  border-radius:9px;padding:9px 12px}
+.solW b{color:var(--bad);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  display:block;margin-bottom:3px}
+.revealAll{appearance:none;margin:18px auto 0;border:1px dashed var(--line2);background:transparent;
+  color:var(--mute);font:inherit;font-size:12.5px;padding:9px 20px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease)}
+.revealAll:hover:not(:disabled){color:var(--ink);border-color:var(--gold)}
+.revealAll:disabled{opacity:.4;cursor:default}
+
+/* ---------- bottom bar ---------- */
+#bot{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:30;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(to top,var(--base) 55%,transparent)}
+.nav{appearance:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:var(--surf);color:var(--mid);cursor:pointer;display:grid;place-items:center;
+  transition:all .2s var(--ease)}
+.nav:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.nav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#hint{font-size:11px;color:var(--mute);letter-spacing:.04em}
+#notes{position:fixed;bottom:62px;left:0;right:0;z-index:29;background:var(--rise2);
+  border-top:1px solid var(--line);padding:13px 24px;font-size:13.5px;color:var(--mid);
+  max-height:30vh;overflow:auto;line-height:1.55}
+
+/* ---------- overview ---------- */
+#overview{position:fixed;inset:0;z-index:40;background:rgba(247,245,241,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:auto;padding:60px 24px;opacity:0;transition:opacity .22s var(--ease)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #overview{background:rgba(7,10,18,.86)}}
+:root[data-theme="dark"] #overview{background:rgba(7,10,18,.86)}
+#overview.on{opacity:1}
+#ovGrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  max-width:1100px;margin:0 auto}
+.ovc{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surf);
+  border-radius:12px;padding:13px 15px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;
+  color:var(--mid);font:inherit;font-size:13.5px;line-height:1.4;transition:all .18s var(--ease)}
+.ovc:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.ovc i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--mute);flex:0 0 auto;padding-top:2px}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .cmp,.qgrid,.qgrid.n3{grid-template-columns:1fr}
+  .sl{padding:22px 16px 34px}
+  .tmeta{gap:22px}
+}
+@media (max-width:560px){
+  .opts{grid-template-columns:1fr}
+  #hint{display:none}
+  #top{gap:9px;padding:0 13px}
+  #deckSession{display:none}
+}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container svg{vertical-align:-.12em}
+
+</style>
+
+<div id="rail"><div id="railFill"></div></div>
+
+<header id="top">
+  <div id="brand"><span id="deckName"></span><span id="deckSession"></span></div>
+  <span class="sp"></span>
+  <span id="counter">1 / 1</span>
+  <button class="tbtn" id="ovBtn" title="Overview (O)">Contents</button>
+  <button class="tbtn" id="notesBtn" title="Tutor notes (N)">Notes</button>
+  <button class="tbtn" id="thBtn" title="Theme">Theme</button>
+  <button class="tbtn" id="fsBtn" title="Fullscreen (F)">Full</button>
+</header>
+
+<main id="stage"></main>
+
+<div id="notes" hidden></div>
+
+<footer id="bot">
+  <button class="nav" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <span id="hint">← → to move · O contents · N notes · F fullscreen</span>
+  <button class="nav" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</footer>
+
+<div id="overview" hidden><div id="ovGrid"></div></div>
+
+<script>
+(function(){
+  var r=document.documentElement, k='satdeck.theme', t=null;
+  try{ t=localStorage.getItem(k); }catch(e){}
+  r.setAttribute('data-theme', t || 'dark');
+  document.getElementById('thBtn').addEventListener('click', function(){
+    var n = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', n);
+    try{ localStorage.setItem(k,n); }catch(e){}
+  });
+})();
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js" id="MathJax-script" async></script>
+
+<script>
+var DECK = {"id":"sat-geometry","title":"Geometry & Trig","session":"Session 9 · 22 November","slides":[{"type":"title","eyebrow":"Session 9 · 22 November","title":"Geometry and Trigonometry","sub":"The smallest domain on the paper and the one with the clearest payoff: almost all of it is a formula you either know or do not, plus one idea — similar shapes — that turns up everywhere.","meta":[{"v":"~15%","k":"of the exam"},{"v":"6","k":"lines to memorise"},{"v":"28","k":"questions today"}],"notes":"Say the honest thing first: this domain rewards memory more than cleverness. An hour of learning the list below is worth more to him than an hour of anything else left on the syllabus."},{"type":"table","kicker":"Start here","title":"What the exam gives you, and what it does not","lead":"Bluebook puts a reference sheet one click away on every question. Knowing exactly what is on it tells you exactly what to memorise — and the list is short.","cols":["Topic","On the reference sheet","Not there — learn it"],"rows":[{"cells":["Circles","Area $A=\\pi r^2$, circumference $C=2\\pi r$","The equation $(x-h)^2+(y-k)^2=r^2$; arc length and sector area as $\\dfrac{\\theta}{360}$ of the whole"]},{"cells":["Triangles","Area $A=\\dfrac{1}{2}bh$, Pythagoras $a^2+b^2=c^2$, and both special right triangles","Angles in a triangle add to $180^\\circ$; the exterior-angle rule; isosceles base angles are equal"]},{"cells":["Similar figures","Nothing","Equal angles means similar, and corresponding sides are then in one fixed ratio"]},{"cells":["Trigonometry","Nothing at all","SOHCAHTOA, and $\\sin x^\\circ = \\cos(90-x)^\\circ$"],"flag":"bad"},{"cells":["Solids","Volume of the box, cylinder, pyramid, cone and sphere","Surface area; and that scaling every length by $k$ scales volume by $k^3$"]},{"cells":["Angle measure","A circle has $360^\\circ$ and $2\\pi$ radians","Angles on a line add to $180^\\circ$; vertical angles are equal; $\\pi$ radians $=180^\\circ$"]}],"callout":"Everything in the right-hand column goes on your scratch paper in the first minute of the module, before the clock starts to bite. It is six short lines of writing and it is the cheapest mark-saving habit in this course.","notes":"Have him write the right-hand column out now, from memory, at the end of the session. If he can do it in under two minutes he has most of this domain already."},{"type":"section","kicker":"Part one","title":"Angles and triangles","sub":"Six rules. Every angle question on the SAT is these six rules used two or three times in a row."},{"type":"idea","kicker":"The rules","title":"Angles on lines and at points","lead":"These are the ones the exam assumes you absorbed years ago and never tests directly — it buries them inside something else.","points":["Angles on a straight line add to $180^\\circ$. Two angles that do this are called supplementary.","Angles all the way round a point add to $360^\\circ$.","When two straight lines cross, the two angles opposite each other are equal. These are vertical angles.","When a line crosses two parallel lines, every angle it makes is either equal to $a$ or equal to $180-a$ — there are only two different sizes in the whole picture.","Angles in matching positions on the two parallel lines are equal; angles on the same side between them add to $180^\\circ$."],"callout":"With parallel lines, stop trying to remember the names. There are only two numbers in the diagram, $a$ and $180-a$. Decide which one you are looking at and you are done.","notes":"He does not need the vocabulary — corresponding, alternate, co-interior. He needs \"only two sizes exist\". Say it that way."},{"type":"idea","kicker":"The rules","title":"Inside a triangle","lead":"Three more rules, and these ones the exam does test directly.","points":["The three angles of any triangle add to $180^\\circ$. Always, whatever the shape.","Exterior angle: extend one side, and the angle outside equals the sum of the two angles it is not touching. $110^\\circ$ outside means $70^\\circ$ inside, and the other two add to $110^\\circ$.","Isosceles: two equal sides means the two angles opposite those sides are equal.","In triangle $ABC$, if $AB=AC$ then the equal angles are $B$ and $C$ — the two that are *not* between the equal sides.","Equilateral: all three sides equal, so all three angles are $60^\\circ$."],"callout":"The isosceles mistake that costs marks: being told $AB=AC$ and then setting angle $A$ equal to angle $B$. The equal angles sit opposite the equal sides, so it is $B$ and $C$. Mark the equal sides on your sketch and the equal angles become obvious.","notes":"Draw a tall thin isosceles triangle and ask him which angles are equal. If he points at the apex, stop and fix it here — it reappears in the stretch practice."},{"type":"worked","kicker":"Worked example","title":"An angle chase with algebra in it","question":"Lines $AB$ and $CD$ cross at point $P$. Angle $APC$ measures $(5x-20)^\\circ$ and angle $BPD$ measures $(3x+10)^\\circ$. What is the measure of angle $APD$?","thinking":"Angle $APC$ and angle $BPD$ sit directly opposite each other at the crossing point, so they are vertical angles and must be equal. That gives me $x$. Then $APD$ shares the ray $PA$ with $APC$, and $C$, $P$, $D$ lie on one straight line, so those two angles are on a line together.","steps":["Vertical angles are equal: $5x-20 = 3x+10$.","Subtract $3x$ from both sides: $2x-20=10$.","Add $20$: $2x=30$, so $x=15$.","Angle $APC = 5(15)-20 = 55^\\circ$. Check with the other one: $3(15)+10=55^\\circ$. They agree, so $x$ is right.","Angles $APC$ and $APD$ are on the straight line $CD$, so $APD = 180 - 55 = 125^\\circ$."],"answer":"$125^\\circ$","notes":"The check in step four is the habit to push. Two expressions set equal means you can always substitute back into both — ten seconds, and it catches every sign slip."},{"type":"practice","kicker":"Your turn","title":"Angles and triangles — warm-up","lead":"Sketch each one, even roughly. A bad sketch beats no sketch.","questions":[{"stem":"In triangle $ABC$, angle $A$ measures $40^\\circ$ and angle $B$ measures $75^\\circ$. What is the measure of angle $C$?","choices":["$35^\\circ$","$65^\\circ$","$115^\\circ$","$245^\\circ$"],"answer":"B","solution":"The three angles add to $180^\\circ$, so angle $C = 180 - 40 - 75 = 65^\\circ$.","trap":"A) is what you get if you subtract the two given angles instead of taking them off $180$; C) is what you get if you add the two given angles and stop; D) is what you get if you use $360$ for the angle sum instead of $180$.","tag":"warm-up"},{"stem":"Two angles with measures $3x^\\circ$ and $(2x+30)^\\circ$ together form a straight line. What is the value of $x$?","answer":"30","solution":"Angles on a line add to $180$, so $3x + 2x + 30 = 180$. That gives $5x = 150$ and $x = 30$.","tag":"warm-up"},{"stem":"Parallel lines $m$ and $n$ are both crossed by a line $t$. A pair of corresponding angles have measures $(3x+10)^\\circ$ and $(x+50)^\\circ$. What is the value of $x$?","choices":["$10$","$20$","$25$","$30$"],"answer":"B","solution":"Corresponding angles at parallel lines are equal, so $3x+10 = x+50$. Subtract $x$: $2x+10=50$, so $2x=40$ and $x=20$.","trap":"A) is what you get if you add $x$ to both sides instead of subtracting it, giving $4x=40$; C) is what you get if you drop the $+10$ and solve $3x=x+50$; D) is what you get if you treat the two angles as supplementary and solve $4x+60=180$.","tag":"warm-up"},{"stem":"In triangle $PQR$, $PQ = PR$ and angle $P$ measures $44^\\circ$. What is the measure of angle $Q$?","choices":["$44^\\circ$","$68^\\circ$","$88^\\circ$","$136^\\circ$"],"answer":"B","solution":"The equal sides $PQ$ and $PR$ mean angles $Q$ and $R$ are equal. They share $180-44=136^\\circ$ between them, so each is $68^\\circ$.","trap":"A) is what you get if you assume angle $Q$ equals the given angle $P$; C) is what you get if you double $44$; D) is what you get if you subtract from $180$ but forget to halve the result between the two equal angles.","tag":"warm-up"}],"notes":"Four minutes. Watch the last one: if he picks 136 he has forgotten there are two base angles sharing that total."},{"type":"section","kicker":"Part two","title":"Similar triangles","sub":"Same shape, different size. One idea, and it carries more marks than any other single fact in this domain."},{"type":"steps","kicker":"The method","title":"Spot it, pair it, scale it","lead":"Two triangles are similar if their angles match. Nothing else is required — you do not need any information about the sides to prove similarity.","steps":[{"label":"Spot the equal angles","body":"Two pairs of equal angles is enough; the third pair is then forced, because all three must add to $180^\\circ$. Parallel lines inside a triangle create equal angles for free."},{"label":"Write the triangles in matching order","body":"If $A$ pairs with $D$, $B$ with $E$ and $C$ with $F$, write \"triangle $ABC \\sim$ triangle $DEF$\". Then $AB$ pairs with $DE$, $BC$ with $EF$, $AC$ with $DF$. The letters do the bookkeeping for you."},{"label":"Find the scale factor","body":"Divide one known pair: if $DE=10$ and $AB=6$, every length in $DEF$ is $\\dfrac{10}{6}=\\dfrac{5}{3}$ times the matching length in $ABC$."},{"label":"Apply it to the side you want","body":"If $BC=9$ then $EF = 9 \\times \\dfrac{5}{3} = 15$. One multiplication."},{"label":"Sanity-check the direction","body":"The second triangle was bigger, so the answer must be bigger than $9$. If yours came out smaller you used the scale factor upside down."}],"callout":"That last step is the whole game. Before you calculate, say out loud whether the answer should be bigger or smaller than the number you started with. Half of all similar-triangle errors are the fraction flipped.","notes":"Make him say \"bigger\" or \"smaller\" before every single one of these today. It is a two-second habit that fixes the most common error in the topic."},{"type":"worked","kicker":"Worked example","title":"The shadow question","question":"At the same moment on the same afternoon, a post $1.5$ metres tall casts a shadow $0.9$ metres long, and a nearby tree casts a shadow $7.2$ metres long. How tall is the tree?","thinking":"Both shadows are cast by the same sun at the same moment, so the sun's rays hit both at the same angle. Each object plus its shadow plus the ray makes a right triangle, and the two triangles have the same angles — so they are similar. The tree's shadow is much longer than the post's, so the tree must be much taller than $1.5$ metres.","steps":["Set up the proportion with height on top both times: $\\dfrac{\\text{height}}{\\text{shadow}} = \\dfrac{1.5}{0.9} = \\dfrac{h}{7.2}$.","Simplify the known ratio first: $\\dfrac{1.5}{0.9} = \\dfrac{15}{9} = \\dfrac{5}{3}$. Every object here is $\\dfrac{5}{3}$ times as tall as its shadow is long.","So $h = 7.2 \\times \\dfrac{5}{3}$.","$7.2 \\div 3 = 2.4$, and $2.4 \\times 5 = 12$.","Check the direction: $12$ is bigger than $7.2$, and we expected the height to beat the shadow because the post did too."],"answer":"$12$ metres","notes":"The alternative setup — post over tree equals shadow over shadow — gives the same answer. Show both only if he is comfortable; otherwise drill the one with height always on top."},{"type":"practice","kicker":"Your turn","title":"Similar triangles","lead":"Write the proportion down before you touch a number, and say \"bigger\" or \"smaller\" first.","questions":[{"stem":"Triangle $ABC$ is similar to triangle $DEF$, with $A$ corresponding to $D$, $B$ to $E$ and $C$ to $F$. If $AB=6$, $BC=9$ and $DE=10$, what is the length of $EF$?","choices":["$5.4$","$13$","$15$","$90$"],"answer":"C","solution":"The scale factor from $ABC$ to $DEF$ is $\\dfrac{DE}{AB}=\\dfrac{10}{6}=\\dfrac{5}{3}$. So $EF = 9 \\times \\dfrac{5}{3} = 15$.","trap":"A) is what you get if you use the scale factor upside down and work out $9 \\times \\dfrac{6}{10}$; B) is what you get if you add the difference $10-6=4$ to $9$ instead of scaling; D) is what you get if you cross-multiply to $9 \\times 10$ and forget to divide by $6$.","tag":"warm-up"},{"stem":"A person $1.8$ metres tall casts a shadow $2.4$ metres long. At the same moment a nearby flagpole casts a shadow $14$ metres long. How tall is the flagpole, in metres?","answer":"10.5","solution":"Height over shadow is the same for both: $\\dfrac{1.8}{2.4}=0.75$. So the flagpole is $14 \\times 0.75 = 10.5$ metres tall.","tag":"medium"},{"stem":"In triangle $ABC$, point $D$ lies on side $AB$ and point $E$ lies on side $AC$ so that $DE$ is parallel to $BC$. If $AD=4$, $DB=6$ and $AE=6$, what is the length of $EC$?","choices":["$4$","$6$","$9$","$15$"],"answer":"C","solution":"Because $DE$ is parallel to $BC$, the two triangles are similar and $\\dfrac{AD}{DB}=\\dfrac{AE}{EC}$. So $\\dfrac{4}{6}=\\dfrac{6}{EC}$, giving $4 \\cdot EC = 36$ and $EC = 9$.","trap":"A) is what you get if you set the proportion up upside down as $\\dfrac{6}{4}=\\dfrac{6}{EC}$; B) is what you get if you assume $EC$ must equal $AE$; D) is what you get if you correctly find $AC=15$ but then answer with the whole side instead of the part $EC$.","tag":"medium"},{"stem":"Triangles $JKL$ and $MNP$ are similar, with $J$ corresponding to $M$ and $K$ to $N$. The perimeter of $JKL$ is $24$ and the perimeter of $MNP$ is $60$. If $JK=7$, what is the length of $MN$?","choices":["$2.8$","$17.5$","$20$","$43$"],"answer":"B","solution":"Perimeters scale by the same factor as sides, so the factor is $\\dfrac{60}{24}=2.5$. Then $MN = 7 \\times 2.5 = 17.5$.","trap":"A) is what you get if you use the scale factor upside down, $7 \\times \\dfrac{24}{60}$; C) is what you get if you divide the perimeter $60$ by $3$ as though the triangle were equilateral; D) is what you get if you add the perimeter difference $60-24=36$ to $7$ instead of scaling.","tag":"medium"}],"notes":"Five minutes. The third one is the shape the exam likes most — a line parallel to one side cutting the other two."},{"type":"section","kicker":"Part three","title":"Right triangles","sub":"Pythagoras, two number families worth memorising, and two triangles whose sides you can write down without calculating anything."},{"type":"idea","kicker":"The basics","title":"Pythagoras, and the pairs worth knowing by heart","lead":"In a right triangle, $a^2+b^2=c^2$, where $c$ is the hypotenuse — the side opposite the right angle, and always the longest one.","points":["Finding the hypotenuse: add the squares, then square-root. Legs $9$ and $12$ give $81+144=225$, so $c=15$.","Finding a leg: subtract. Hypotenuse $13$, leg $5$, so the other leg is $\\sqrt{169-25}=\\sqrt{144}=12$.","The $3$-$4$-$5$ family: $3$-$4$-$5$, $6$-$8$-$10$, $9$-$12$-$15$, $15$-$20$-$25$, $30$-$40$-$50$.","The $5$-$12$-$13$ family: $5$-$12$-$13$, $10$-$24$-$26$, $15$-$36$-$39$.","Also worth a glance: $8$-$15$-$17$ and $7$-$24$-$25$."],"callout":"Identify the hypotenuse *first*, before you decide whether to add or subtract. If the number you are looking for is the longest side you add; if it is one of the shorter two you subtract. Getting this backwards is the single most common Pythagoras error.","notes":"Test the families cold: say \"six, eight\" and he should say \"ten\". If the recall is not instant it is not yet useful under time pressure."},{"type":"table","kicker":"Memorise these","title":"The two special right triangles","lead":"These are printed on the reference sheet, but looking them up costs fifteen seconds a question. Knowing them costs nothing.","cols":["Triangle","Side ratio","How to use it"],"rows":[{"cells":["$45^\\circ$-$45^\\circ$-$90^\\circ$","leg : leg : hypotenuse $= 1 : 1 : \\sqrt{2}$","Hypotenuse is a leg $\\times \\sqrt{2}$. A leg is the hypotenuse $\\div \\sqrt{2}$."],"flag":"good"},{"cells":["$30^\\circ$-$60^\\circ$-$90^\\circ$","short : long : hypotenuse $= 1 : \\sqrt{3} : 2$","The short leg faces the $30^\\circ$. Hypotenuse is twice the short leg; the long leg is the short leg $\\times \\sqrt{3}$."],"flag":"good"},{"cells":["Isosceles right triangle","Same thing as $45$-$45$-$90$","If a right triangle has two equal sides, its other two angles are $45^\\circ$ each."]},{"cells":["Half an equilateral triangle","Same thing as $30$-$60$-$90$","Cut an equilateral triangle down the middle and this is what falls out. That is why the hypotenuse is exactly double."]}],"callout":"In the $30$-$60$-$90$, the order of the sides follows the order of the angles: smallest angle faces the smallest side. $1$ faces $30^\\circ$, $\\sqrt{3} \\approx 1.73$ faces $60^\\circ$, $2$ faces $90^\\circ$. Match angle to side before you multiply anything.","notes":"The error to pre-empt: putting the 2 on the 60-degree side. Make him recite \"smallest angle, smallest side\" and point at each as he says it."},{"type":"worked","kicker":"Worked example","title":"Picking the right side of a $30$-$60$-$90$","question":"In right triangle $ABC$, the right angle is at $C$, angle $A$ measures $30^\\circ$, and the hypotenuse $AB$ has length $12$. What is the length of $AC$?","thinking":"The right angle is at $C$, so the hypotenuse is $AB$ — the side that does not touch $C$. Angle $A$ is $30^\\circ$, so angle $B$ must be $60^\\circ$. Now which side is $AC$? It runs from $A$ to $C$, so the angle it does not touch is $B$, the $60^\\circ$ one. $AC$ is the long leg.","steps":["Write the ratio: short : long : hypotenuse $= 1 : \\sqrt{3} : 2$.","The hypotenuse is $12$, and in the ratio that slot holds $2$. So every part is worth $12 \\div 2 = 6$.","The short leg (facing $30^\\circ$, which is $BC$) is $1 \\times 6 = 6$.","The long leg (facing $60^\\circ$, which is $AC$) is $\\sqrt{3} \\times 6 = 6\\sqrt{3}$.","Sanity check: $6\\sqrt{3} \\approx 10.4$, which sits between the short leg $6$ and the hypotenuse $12$. That is where the middle side belongs."],"answer":"$AC = 6\\sqrt{3}$","notes":"The \"every part is worth 6\" move is worth naming. Treating the ratio as a unit and scaling it once is cleaner than three separate fractions."},{"type":"practice","kicker":"Your turn","title":"Right triangles","lead":"For each one, write down which side is the hypotenuse before anything else.","questions":[{"stem":"A right triangle has legs of length $9$ and $12$. What is the length of the hypotenuse?","choices":["$\\sqrt{63}$","$15$","$21$","$225$"],"answer":"B","solution":"$9^2+12^2 = 81+144 = 225$, and $\\sqrt{225}=15$. It is the $3$-$4$-$5$ family tripled.","trap":"A) is what you get if you subtract the squares instead of adding them; C) is what you get if you add the two sides without squaring; D) is what you get if you find $225$ and forget to take the square root.","tag":"warm-up"},{"stem":"In right triangle $XYZ$, the right angle is at $Y$. If $XZ=13$ and $XY=5$, what is the length of $YZ$?","answer":"12","solution":"The right angle is at $Y$, so the hypotenuse is $XZ=13$. Then $YZ = \\sqrt{13^2-5^2} = \\sqrt{169-25} = \\sqrt{144} = 12$.","tag":"warm-up"},{"stem":"A right triangle has two angles each measuring $45^\\circ$. Its hypotenuse has length $10$. What is the length of each leg?","choices":["$5$","$5\\sqrt{2}$","$10\\sqrt{2}$","$\\dfrac{10}{\\sqrt{3}}$"],"answer":"B","solution":"The ratio is $1:1:\\sqrt{2}$, so a leg is the hypotenuse divided by $\\sqrt{2}$: $\\dfrac{10}{\\sqrt{2}} = \\dfrac{10\\sqrt{2}}{2} = 5\\sqrt{2}$.","trap":"A) is what you get if you halve the hypotenuse, which is the $30$-$60$-$90$ rule used in the wrong triangle; C) is what you get if you multiply by $\\sqrt{2}$ instead of dividing; D) is what you get if you reach for the $\\sqrt{3}$ from the other special triangle.","tag":"medium"},{"stem":"In a right triangle, one acute angle measures $30^\\circ$ and the side opposite that angle has length $7$. What is the length of the side opposite the $60^\\circ$ angle?","choices":["$3.5$","$7\\sqrt{2}$","$7\\sqrt{3}$","$14$"],"answer":"C","solution":"The side facing $30^\\circ$ is the short leg, so one part is worth $7$. The side facing $60^\\circ$ is $\\sqrt{3}$ parts: $7\\sqrt{3}$.","trap":"A) is what you get if you halve the short leg instead of scaling up from it; B) is what you get if you use the $45$-$45$-$90$ ratio by mistake; D) is what you get if you double $7$, which gives the hypotenuse rather than the side opposite $60^\\circ$.","tag":"medium"}],"notes":"Five minutes. If the last one comes back as 14 he has found the right triangle but answered the wrong side — a reading error, not a maths one."},{"type":"section","kicker":"Part four","title":"Circles","sub":"Two formulas you are given, one fraction you are not, and one equation that is really Pythagoras in disguise."},{"type":"idea","kicker":"The core","title":"Whole circles, and slices of them","lead":"Area is $\\pi r^2$ and circumference is $2\\pi r$. Both are on the reference sheet. What is not on it is how to take a piece.","points":["A sector is a slice. A central angle of $\\theta$ degrees cuts off exactly $\\dfrac{\\theta}{360}$ of the circle.","Arc length $= \\dfrac{\\theta}{360} \\times 2\\pi r$. It is a length, so it comes from the circumference.","Sector area $= \\dfrac{\\theta}{360} \\times \\pi r^2$. It is an area, so it comes from the area.","A $90^\\circ$ sector is a quarter of the circle. A $60^\\circ$ sector is a sixth. Recognise the easy fractions and skip the arithmetic.","If they give you the diameter, halve it before you do anything else. Writing $r =$ at the top of the working prevents this."],"callout":"Find the whole circle first, then take the fraction. Two separate lines of working. Trying to do it in one go is where the $\\pi r^2$ and the $2\\pi r$ get swapped.","notes":"Ask him which of arc length and sector area uses the squared formula. If he hesitates, the rule is: areas are squared, lengths are not."},{"type":"steps","kicker":"The method","title":"The equation of a circle","lead":"A circle with centre $(h,k)$ and radius $r$ has equation $(x-h)^2+(y-k)^2=r^2$. It is just Pythagoras: every point on the circle is $r$ away from the centre.","steps":[{"label":"Read the signs backwards","body":"$(x-3)^2+(y+5)^2=49$ has centre $(3,-5)$, not $(-3,5)$. The sign in the bracket flips. The radius is $\\sqrt{49}=7$, not $49$."},{"label":"Radius from two points","body":"If the centre is $(3,-2)$ and the circle passes through $(7,1)$, the radius is the distance between them: $\\sqrt{4^2+3^2}=5$."},{"label":"When it arrives expanded, complete the square","body":"Given $x^2+y^2-6x+10y+9=0$, group the $x$ terms and the $y$ terms: $(x^2-6x) + (y^2+10y) = -9$."},{"label":"Halve the middle coefficient, square it, add to both sides","body":"Half of $-6$ is $-3$, squared is $9$. Half of $10$ is $5$, squared is $25$. Add $9$ and $25$ to both sides."},{"label":"Rewrite as brackets and read it off","body":"$(x-3)^2+(y+5)^2 = -9+9+25 = 25$. Centre $(3,-5)$, radius $5$."}],"callout":"The number you put inside the bracket is always *half* the coefficient of $x$, with its own sign kept. Half of $-6$ is $-3$, so the bracket is $(x-3)$. Then you add $(-3)^2=9$ to the other side to keep the equation balanced.","notes":"He will try to add 9 to one side only. Say it plainly: whatever you add on the left you add on the right, every time."},{"type":"worked","kicker":"Worked example","title":"A slice of a circle","question":"A circle has radius $10$ centimetres. A sector of this circle has a central angle of $72^\\circ$. What is the area of the sector, and the length of its arc?","thinking":"$72$ goes into $360$ exactly five times, so this sector is one fifth of the circle. I will work out the whole circle first and then take a fifth of each quantity, rather than trying to hold both steps in my head at once.","steps":["Fraction of the circle: $\\dfrac{72}{360} = \\dfrac{1}{5}$.","Whole area: $\\pi r^2 = \\pi \\times 10^2 = 100\\pi$ square centimetres.","Sector area: $\\dfrac{1}{5} \\times 100\\pi = 20\\pi$ square centimetres.","Whole circumference: $2\\pi r = 2\\pi \\times 10 = 20\\pi$ centimetres.","Arc length: $\\dfrac{1}{5} \\times 20\\pi = 4\\pi$ centimetres."],"answer":"Sector area $20\\pi$ cm$^2$, arc length $4\\pi$ cm","notes":"Note out loud that 20π appears twice here with different meanings — once as the whole circumference and once as the sector area. Numbers repeating is a coincidence, not a check."},{"type":"worked","kicker":"Worked example","title":"Finding the centre when the equation is expanded","question":"The equation $x^2+y^2-6x+10y+9=0$ defines a circle in the $xy$-plane. What are the centre and the radius of this circle?","thinking":"This is not in the $(x-h)^2+(y-k)^2=r^2$ shape, so I cannot read anything off it yet. The $x^2$ and $y^2$ both have coefficient $1$, which means completing the square will work cleanly on each of them separately.","steps":["Group and move the constant across: $(x^2-6x) + (y^2+10y) = -9$.","For the $x$ group: half of $-6$ is $-3$, and $(-3)^2 = 9$. Add $9$ to both sides.","For the $y$ group: half of $10$ is $5$, and $5^2 = 25$. Add $25$ to both sides.","Left side becomes $(x-3)^2 + (y+5)^2$. Right side becomes $-9 + 9 + 25 = 25$.","So $(x-3)^2+(y+5)^2=25$. Flip the signs in the brackets for the centre, and square-root for the radius."],"answer":"Centre $(3,-5)$, radius $5$","notes":"Two things to check he has not done: left the radius as 25, and written the centre as (−3, 5). Both are worth a deliberate pause."},{"type":"practice","kicker":"Your turn","title":"Circles","lead":"Write $r=$ at the top of every one of these before you start.","questions":[{"stem":"A circle has a radius of $6$. What is the area of a sector of this circle with a central angle of $60^\\circ$?","choices":["$2\\pi$","$6\\pi$","$12\\pi$","$36\\pi$"],"answer":"B","solution":"The whole area is $\\pi \\times 6^2 = 36\\pi$, and $\\dfrac{60}{360}=\\dfrac{1}{6}$. So the sector area is $\\dfrac{36\\pi}{6} = 6\\pi$.","trap":"A) is what you get if you take a sixth of the circumference $12\\pi$, which is the arc length rather than the area; C) is what you get if you use $\\dfrac{60}{180}$ as the fraction instead of $\\dfrac{60}{360}$; D) is the area of the whole circle, with the fraction never applied.","tag":"medium"},{"stem":"A circle in the $xy$-plane has centre $(3,-2)$ and passes through the point $(7,1)$. What is the radius of the circle?","answer":"5","solution":"The radius is the distance from the centre to the point. Across is $7-3=4$ and up is $1-(-2)=3$, so the radius is $\\sqrt{4^2+3^2}=\\sqrt{25}=5$.","tag":"medium"},{"stem":"Which of the following is an equation of the circle in the $xy$-plane with centre $(-4,5)$ and radius $3$?","choices":["$(x-4)^2+(y+5)^2=3$","$(x+4)^2+(y-5)^2=9$","$(x-4)^2+(y+5)^2=9$","$(x+4)^2+(y-5)^2=3$"],"answer":"B","solution":"Centre $(h,k)=(-4,5)$ goes in as $(x-(-4))^2+(y-5)^2$, which is $(x+4)^2+(y-5)^2$. The right-hand side is $r^2 = 3^2 = 9$.","trap":"A) is what you get if you copy the centre's signs straight into the brackets and also leave the right side as $r$; C) is what you get if you copy the centre's signs straight into the brackets; D) is what you get if you handle the signs correctly but write $r$ rather than $r^2$ on the right.","tag":"medium"},{"stem":"The equation $x^2+y^2-10x+4y-20=0$ defines a circle in the $xy$-plane. What is the radius of this circle?","answer":"7","solution":"Complete the square twice: $(x-5)^2-25+(y+2)^2-4=20$, so $(x-5)^2+(y+2)^2=49$. The radius is $\\sqrt{49}=7$.","tag":"harder"}],"notes":"Six minutes — the last one is slow and that is fine. If he stalls, prompt only with \"half of −10, then square it\"."},{"type":"section","kicker":"Part five","title":"Volume and surface area","sub":"Every volume formula you need is given to you. The marks are lost in reading, not in recall."},{"type":"table","kicker":"All of them","title":"The solids, and where the mistakes live","lead":"These are on the reference sheet. Your job is not to memorise them — it is to substitute into them without slipping.","cols":["Solid","Volume","What goes wrong"],"rows":[{"cells":["Rectangular box","$V = lwh$","Nothing much. Multiply the three edges."]},{"cells":["Right prism","$V = (\\text{area of the end face}) \\times h$","Work out the end face as its own little area problem first."]},{"cells":["Cylinder","$V = \\pi r^2 h$","Given the diameter and squaring it anyway. Halve first."],"flag":"bad"},{"cells":["Cone","$V = \\dfrac{1}{3}\\pi r^2 h$","Dropping the $\\dfrac{1}{3}$. This is the most-forgotten symbol on the paper."],"flag":"bad"},{"cells":["Pyramid","$V = \\dfrac{1}{3}lwh$","Same missing $\\dfrac{1}{3}$."]},{"cells":["Sphere","$V = \\dfrac{4}{3}\\pi r^3$","Cubing is required. Squaring the radius here is wrong."]}],"callout":"Before substituting, write the letters down with their values: $r=3$, $h=10$. Three seconds, and it stops the diameter-for-radius swap that costs more marks in this topic than everything else combined.","notes":"Ask him to point at which two rows he is most likely to get wrong. Usually the cone. Make him say \"one third\" out loud as he writes it."},{"type":"idea","kicker":"The one non-obvious fact","title":"What happens when you scale a solid up","lead":"If you make every length of a shape $k$ times bigger, lengths, areas and volumes do not all grow by the same amount.","points":["Lengths multiply by $k$. An edge of $3$ becomes $3k$.","Areas multiply by $k^2$, because an area is two lengths multiplied together.","Volumes multiply by $k^3$, because a volume is three lengths multiplied together.","So doubling every length multiplies the volume by $2^3 = 8$, not by $2$.","Tripling every length multiplies the volume by $3^3 = 27$."],"callout":"Check it on a cube. A $1 \\times 1 \\times 1$ cube has volume $1$. Double every edge and you get $2 \\times 2 \\times 2 = 8$. The factor of $8$ is not a rule to memorise — it is something you can rebuild in five seconds if you forget it.","notes":"Have him do the cube check himself rather than taking the k-cubed rule on trust. He will remember the cube; he will not remember the exponent."},{"type":"practice","kicker":"Your turn","title":"Volume and scaling","lead":"Write the letters and their values down first. $r=$, $h=$, every time.","questions":[{"stem":"A right circular cylinder has a radius of $3$ and a height of $10$. What is its volume?","choices":["$30\\pi$","$60\\pi$","$90\\pi$","$360\\pi$"],"answer":"C","solution":"$V = \\pi r^2 h = \\pi \\times 3^2 \\times 10 = 90\\pi$.","trap":"A) is what you get if you forget to square the radius and compute $\\pi r h$; B) is what you get if you compute $2\\pi r h$, the curved surface area, instead of the volume; D) is what you get if you use $6$ as the radius, treating the given $3$ as a radius but then doubling it to a diameter.","tag":"warm-up"},{"stem":"A rectangular box has a volume of $240$ cubic centimetres. Its length is $8$ centimetres and its width is $5$ centimetres. What is its height, in centimetres?","answer":"6","solution":"$V = lwh$, so $240 = 8 \\times 5 \\times h = 40h$. Dividing gives $h = 6$.","tag":"warm-up"},{"stem":"A right circular cone has a radius of $6$ and a height of $7$. What is its volume?","choices":["$14\\pi$","$84\\pi$","$126\\pi$","$252\\pi$"],"answer":"B","solution":"$V = \\dfrac{1}{3}\\pi r^2 h = \\dfrac{1}{3} \\times \\pi \\times 36 \\times 7 = 84\\pi$.","trap":"A) is what you get if you forget to square the radius, giving $\\dfrac{1}{3}\\pi \\times 6 \\times 7$; C) is what you get if you use $\\dfrac{1}{2}$ instead of $\\dfrac{1}{3}$; D) is what you get if you drop the $\\dfrac{1}{3}$ altogether and compute the cylinder.","tag":"medium"},{"stem":"A solid has a volume of $15$ cubic centimetres. A second solid has exactly the same shape, and every length in it is $3$ times the corresponding length in the first. What is the volume of the second solid, in cubic centimetres?","choices":["$45$","$135$","$405$","$3375$"],"answer":"C","solution":"Scaling every length by $3$ multiplies the volume by $3^3 = 27$. So the new volume is $15 \\times 27 = 405$.","trap":"A) is what you get if you multiply the volume by $3$ instead of by $3^3$; B) is what you get if you use $3^2=9$, the factor for areas rather than volumes; D) is what you get if you cube the volume, $15^3$, instead of cubing the scale factor.","tag":"medium"}],"notes":"Four minutes. These should be the quickest set today — if any take him more than a minute, it is a substitution slip rather than a gap."},{"type":"section","kicker":"Part six","title":"Trigonometry","sub":"Three ratios, one relationship between them, and one unit conversion. Nothing here is on the reference sheet."},{"type":"steps","kicker":"The method","title":"SOHCAHTOA, used properly","lead":"In a right triangle, pick one of the two acute angles. Every side then gets a name relative to *that* angle, and the three ratios follow.","steps":[{"label":"Label from the angle you care about","body":"The hypotenuse is always opposite the right angle. The side facing your chosen angle is the opposite. The remaining side is the adjacent."},{"label":"Write the three ratios","body":"$\\sin = \\dfrac{\\text{opp}}{\\text{hyp}}$, $\\cos = \\dfrac{\\text{adj}}{\\text{hyp}}$, $\\tan = \\dfrac{\\text{opp}}{\\text{adj}}$. That is what SOH-CAH-TOA spells out."},{"label":"To find a side, pick the ratio with two knowns","body":"Angle $37^\\circ$ and hypotenuse $20$, want the opposite side: that is sine. $\\sin 37^\\circ = \\dfrac{x}{20}$, so $x = 20\\sin 37^\\circ$."},{"label":"To find an angle, use the inverse","body":"Opposite $8$ and hypotenuse $17$: $\\sin A = \\dfrac{8}{17}$, so $A = \\sin^{-1}\\!\\left(\\dfrac{8}{17}\\right) \\approx 28^\\circ$. Your calculator must be in degree mode."},{"label":"Check it is sensible","body":"Sine and cosine of an acute angle are always between $0$ and $1$, because a leg is always shorter than the hypotenuse. If you get $1.4$, you inverted the fraction."}],"callout":"The labels move. In the same triangle, the side that is \"opposite\" for angle $A$ is \"adjacent\" for angle $B$. Always write down which angle you are working from before you name a single side.","notes":"That last point is the one gap he is most likely to have. Draw one triangle and label it twice, once from each acute angle."},{"type":"idea","kicker":"Two more facts","title":"Complementary angles, and radians","lead":"Two small pieces of knowledge that the SAT asks about directly, and which take about a minute each to learn.","points":["In a right triangle the two acute angles add to $90^\\circ$ — they are complementary.","The side opposite one of them is the side adjacent to the other. That is why $\\sin x^\\circ = \\cos(90-x)^\\circ$, for any $x$.","So if $\\sin 35^\\circ = 0.574$, then $\\cos 55^\\circ = 0.574$ as well. No calculation needed.","Radians are a second way of measuring angles. A full turn is $360^\\circ$, which is $2\\pi$ radians, so $\\pi$ radians $= 180^\\circ$.","To convert radians to degrees, multiply by $\\dfrac{180}{\\pi}$. To convert degrees to radians, multiply by $\\dfrac{\\pi}{180}$."],"callout":"If a question says \"$\\sin x = \\cos y$\" and the angles are in a right triangle, the answer is almost always $x+y=90$. Spotting that phrasing is worth a free mark.","notes":"Have him check the complementary fact on his calculator once — sin 35 and cos 55. Seeing the same digits appear convinces faster than the explanation does."},{"type":"worked","kicker":"Worked example","title":"A ratio and an angle from the same triangle","question":"In right triangle $ABC$, the right angle is at $B$. If $AB=8$ and $BC=15$, what is the value of $\\sin C$, and what is the measure of angle $C$ to the nearest degree?","thinking":"The right angle is at $B$, so $AB$ and $BC$ are the two legs and $AC$ is the hypotenuse — which I do not have yet. I need it for sine, so Pythagoras comes first. I am working from angle $C$, so I must label the sides from $C$, not from $A$.","steps":["Hypotenuse: $AC = \\sqrt{8^2+15^2} = \\sqrt{64+225} = \\sqrt{289} = 17$. That is the $8$-$15$-$17$ triple.","Label from angle $C$: the side facing $C$ is $AB=8$, so that is the opposite. The hypotenuse is $AC=17$.","$\\sin C = \\dfrac{\\text{opp}}{\\text{hyp}} = \\dfrac{8}{17}$.","Check it is below $1$: $\\dfrac{8}{17} \\approx 0.47$. Sensible.","For the angle: $C = \\sin^{-1}(0.47059) = 28.07^\\circ$, so $28^\\circ$ to the nearest degree."],"answer":"$\\sin C = \\dfrac{8}{17}$, and $C \\approx 28^\\circ$","notes":"If he labels from A instead of C he gets 15/17 and about 62 degrees. Those two answers are both on offer in the practice — so make the labelling step explicit."},{"type":"practice","kicker":"Your turn","title":"Trigonometry","lead":"Name the angle you are working from before you name a single side.","questions":[{"stem":"In right triangle $ABC$, the right angle is at $C$. If $AB=13$ and $BC=5$, what is the value of $\\sin A$?","choices":["$\\dfrac{5}{12}$","$\\dfrac{5}{13}$","$\\dfrac{12}{13}$","$\\dfrac{13}{5}$"],"answer":"B","solution":"The right angle is at $C$, so $AB=13$ is the hypotenuse and the third side is $AC=12$. From angle $A$, the opposite side is $BC=5$, so $\\sin A = \\dfrac{5}{13}$.","trap":"A) is $\\tan A$, the opposite over the adjacent; C) is $\\cos A$, using the adjacent side $12$ instead of the opposite side $5$; D) is the fraction turned upside down, which cannot be a sine because it is bigger than $1$.","tag":"medium"},{"stem":"In right triangle $DEF$, the right angle is at $F$ and the measure of angle $D$ is $x^\\circ$. If $\\sin x^\\circ = 0.6$, what is the value of $\\cos(90-x)^\\circ$?","answer":"0.6","solution":"The two acute angles of a right triangle are complementary, and $\\sin x^\\circ = \\cos(90-x)^\\circ$ for every $x$. So the value is the same, $0.6$.","tag":"medium"},{"stem":"In right triangle $PQR$, the right angle is at $Q$. Angle $P$ measures $37^\\circ$ and the hypotenuse $PR$ has length $20$. Which of the following gives the length of $QR$?","choices":["$20\\sin 37^\\circ$","$20\\cos 37^\\circ$","$\\dfrac{20}{\\sin 37^\\circ}$","$20\\tan 37^\\circ$"],"answer":"A","solution":"From angle $P$, the side $QR$ faces $P$, so it is the opposite, and $PR=20$ is the hypotenuse. Opposite over hypotenuse is sine: $\\sin 37^\\circ = \\dfrac{QR}{20}$, so $QR = 20\\sin 37^\\circ$.","trap":"B) is what you get if you treat $QR$ as the adjacent side and use cosine; C) is what you get if you rearrange $\\sin 37^\\circ = \\dfrac{QR}{20}$ by dividing instead of multiplying; D) is what you get if you use tangent, which pairs the opposite with the adjacent and never with the hypotenuse.","tag":"medium"},{"stem":"An angle measures $\\dfrac{5\\pi}{6}$ radians. What is its measure in degrees?","choices":["$150^\\circ$","$216^\\circ$","$300^\\circ$","$900^\\circ$"],"answer":"A","solution":"Multiply by $\\dfrac{180}{\\pi}$: $\\dfrac{5\\pi}{6} \\times \\dfrac{180}{\\pi} = \\dfrac{5 \\times 180}{6} = 150$.","trap":"B) is what you get if you turn the fraction over and compute $\\dfrac{6}{5} \\times 180$; C) is what you get if you use $360$ in place of $180$; D) is what you get if you multiply $5 \\times 180$ and forget to divide by the $6$.","tag":"medium"}],"notes":"Six minutes. For the second one, if he reaches for the calculator stop him — the whole point is that no calculation is needed."},{"type":"practice","kicker":"Your turn","title":"The stretch — all six parts mixed","lead":"No signposts here. Decide which part of today each one belongs to before you start writing.","questions":[{"stem":"In the $xy$-plane, the graph of $x^2+y^2+6x-8y=0$ is a circle. What is the length of the diameter of this circle?","choices":["$5$","$10$","$25$","$50$"],"answer":"B","solution":"Complete the square: $(x+3)^2-9+(y-4)^2-16=0$, so $(x+3)^2+(y-4)^2=25$. The radius is $5$, so the diameter is $10$.","trap":"A) is the radius, with the final doubling missed; C) is what you get if you read the $25$ on the right as the radius rather than $r^2$; D) is what you get if you read $25$ as the radius and then double it.","tag":"harder"},{"stem":"A circle has a radius of $9$. An arc of this circle has length $6\\pi$. What is the measure, in degrees, of the central angle that cuts off this arc?","answer":"120","solution":"The whole circumference is $2\\pi \\times 9 = 18\\pi$. The arc is $\\dfrac{6\\pi}{18\\pi} = \\dfrac{1}{3}$ of it, so the angle is $\\dfrac{1}{3} \\times 360 = 120$ degrees.","tag":"harder"},{"stem":"In triangle $ABC$, $AB=AC$. The measure of angle $A$ is $(4x)^\\circ$ and the measure of angle $B$ is $(x+30)^\\circ$. What is the value of $x$?","choices":["$10$","$15$","$20$","$30$"],"answer":"C","solution":"Since $AB=AC$, angles $B$ and $C$ are the equal pair, so angle $C$ is also $(x+30)^\\circ$. Then $4x + (x+30) + (x+30) = 180$, giving $6x = 120$ and $x = 20$.","trap":"A) is what you get if you set angle $A$ equal to angle $B$, pairing the wrong two angles; B) is what you get if you assume all three angles are $60^\\circ$ and solve $4x=60$; D) is what you get if you use only the two named angles and solve $4x+x+30=180$, forgetting angle $C$ entirely.","tag":"harder"},{"stem":"In right triangle $ABC$, the right angle is at $B$. If $\\tan A = \\dfrac{3}{4}$ and the hypotenuse $AC$ has length $20$, what is the length of $BC$?","choices":["$12$","$15$","$16$","$25$"],"answer":"A","solution":"$\\tan A = \\dfrac{BC}{AB} = \\dfrac{3}{4}$, so the triangle is in the $3$-$4$-$5$ family. The hypotenuse $20$ is $5$ parts, so one part is $4$, and $BC = 3 \\times 4 = 12$.","trap":"B) is what you get if you treat the $\\dfrac{3}{4}$ as a fraction of the hypotenuse and compute $20 \\times \\dfrac{3}{4}$; C) is $AB$, the adjacent side, rather than $BC$; D) is what you get if you scale the hypotenuse by $\\dfrac{5}{4}$ instead of scaling down to find one part first.","tag":"harder"}],"notes":"Ten minutes, no help on the first pass. Then go back and ask which part of the session each one came from — the sorting is half the difficulty on the real paper."},{"type":"recap","kicker":"Before you go","title":"The seven things from today","points":["Six short lines of facts are not on the reference sheet. Write them on your scratch paper in the first minute of the module.","Angles in a triangle add to $180^\\circ$; with parallel lines there are only ever two different angle sizes in the picture.","Equal angles means similar, and then every pair of corresponding sides shares one scale factor. Say \"bigger or smaller\" before you multiply.","In a $30$-$60$-$90$, smallest angle faces smallest side: $1 : \\sqrt{3} : 2$. In a $45$-$45$-$90$ it is $1 : 1 : \\sqrt{2}$.","For a slice of a circle, find the whole thing first, then take $\\dfrac{\\theta}{360}$ of it.","Completing the square turns an expanded circle equation into $(x-h)^2+(y-k)^2=r^2$. The signs flip and the radius is the square root.","Scale every length by $k$ and the volume scales by $k^3$. Doubling gives eight times, not twice."],"notes":"Ask him which of the seven he would least like to see tomorrow. Whichever he names is the first thing in next week's warm-up."},{"type":"close","small":"This week","big":"The six-line list, written from memory, every day.","foot":"Workbook topics 4.1 to 4.3, fifteen questions each, plus the mixed geometry sheet. Quiz 4 is due Friday. Before each sitting, write out the six not-given lines from memory first — it should take under two minutes by the end of the week.","notes":"The daily recall drill matters more than the question count here. Two minutes a day beats an hour on Saturday for this particular topic."}]};
+</script>
+<script>
+/* ===========================================================
+   SAT Math — slide engine
+   Shared by every lesson deck. The deck's content is a DECK
+   object defined before this script runs.
+   =========================================================== */
+(function () {
+  "use strict";
+
+  var stage = document.getElementById('stage');
+  var railFill = document.getElementById('railFill');
+  var counter = document.getElementById('counter');
+  var deckName = document.getElementById('deckName');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+  var notesEl = document.getElementById('notes');
+
+  var i = 0, built = [], notesOn = false, reveal = 0;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  deckName.textContent = DECK.title;
+  document.getElementById('deckSession').textContent = DECK.session || '';
+
+  /* ---------- maths ---------- */
+  var mathReady = false, mathFailed = false;
+  function typeset(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      mathReady = true;
+      window.MathJax.typesetPromise([el]).catch(function () { plain(el); });
+    } else if (mathFailed) { plain(el); }
+  }
+  setTimeout(function () {
+    if (window.MathJax && window.MathJax.typesetPromise) return;
+    mathFailed = true; plain(stage);
+  }, 3000);
+  function plain(el) {
+    if (!el) return;
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, hits = [];
+    while ((n = w.nextNode())) { if (n.nodeValue.indexOf('$') > -1) hits.push(n); }
+    hits.forEach(function (t) {
+      t.nodeValue = t.nodeValue.replace(/\$\$?([^$]*)\$\$?/g, function (m, s) { return tidy(s); });
+    });
+  }
+  var SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶',
+    '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', 'n': 'ⁿ', 'x': 'ˣ', 't': 'ᵗ', '/': 'ᐟ' };
+  function sup(s) {
+    var o = '', ok = true;
+    for (var i = 0; i < s.length; i++) { if (SUP[s[i]]) o += SUP[s[i]]; else { ok = false; break; } }
+    return ok ? o : '^(' + s + ')';
+  }
+  function tidy(t) {
+    var s = String(t)
+      .replace(/\{\s*,\s*\}/g, ',')                       // 64{,}000
+      .replace(/\\(?:text|mathrm|mbox)\{([^{}]*)\}/g, '$1')
+      .replace(/\\left|\\right/g, '')
+      .replace(/\\([%&#_$])/g, '$1');                     // \% \$ \&
+    for (var k = 0; k < 4; k++) {                         // innermost first, a few passes
+      s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)')
+           .replace(/\\sqrt\s*\[\s*([^\]]*)\s*\]\s*\{([^{}]*)\}/g, '$1√($2)')
+           .replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)');
+    }
+    return s
+      .replace(/\^\{([^{}]*)\}/g, function (m, e) { return sup(e); })
+      .replace(/\^(-?\w)/g, function (m, e) { return sup(e); })
+      .replace(/\\ge\b/g, '≥').replace(/\\le\b/g, '≤')
+      .replace(/\\cdot/g, '·').replace(/\\neq/g, '≠').replace(/\\approx/g, '≈')
+      .replace(/\\ldots|\\dots/g, '…').replace(/\\square/g, '□')
+      .replace(/\\pi\b/g, 'π').replace(/\\theta\b/g, 'θ').replace(/\\ell\b/g, 'ℓ')
+      .replace(/\\circ\b/g, '°').replace(/\\infty/g, '∞')
+      .replace(/\\times/g, '×').replace(/\\div/g, '÷').replace(/\\pm/g, '±')
+      .replace(/\\[;,:! ]/g, ' ').replace(/\\[a-zA-Z]+/g, '').replace(/[{}]/g, '')
+      .replace(/\((\w+)\)\/\((\w+)\)/g, '$1/$2')          // (3)/(4) -> 3/4
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /* ---------- slide builders ---------- */
+  var B = {
+    title: function (d) {
+      return '<div class="sl sl-title">' +
+        '<div class="eyebrow r">' + esc(d.eyebrow || DECK.session || '') + '</div>' +
+        '<h1 class="r">' + esc(d.title) + '</h1>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') +
+        (d.meta ? '<div class="tmeta r">' + d.meta.map(function (m) {
+          return '<span><b>' + esc(m.v) + '</b>' + esc(m.k) + '</span>'; }).join('') + '</div>' : '') +
+        '</div>';
+    },
+    section: function (d) {
+      return '<div class="sl sl-section">' +
+        (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.title) + '</h2>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') + '</div>';
+    },
+    idea: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        (d.points ? '<ul class="pts">' + d.points.map(function (p) {
+          return '<li class="r"><span class="dot"></span><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' : '') +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') +
+        '</div>';
+    },
+    table: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="tw r"><table><thead><tr>' +
+        d.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+        '</tr></thead><tbody>' +
+        d.rows.map(function (row) {
+          return '<tr class="' + (row.flag || '') + '">' + row.cells.map(function (c, j) {
+            return '<td' + (j === 0 ? ' class="k"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    steps: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<ol class="steps">' + d.steps.map(function (s, n) {
+          return '<li class="r step"><i>' + (n + 1) + '</i><div><b>' + esc(s.label) + '</b>' +
+            (s.body ? '<span>' + esc(s.body) + '</span>' : '') + '</div></li>';
+        }).join('') + '</ol>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    compare: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="cmp">' +
+        '<div class="card bad r"><div class="ctag">' + esc(d.left.label) + '</div><div class="cbody">' +
+        esc(d.left.body).replace(/\n/g, '<br>') + '</div></div>' +
+        '<div class="card good r"><div class="ctag">' + esc(d.right.label) + '</div><div class="cbody">' +
+        esc(d.right.body).replace(/\n/g, '<br>') + '</div></div></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    worked: function (d) {
+      return '<div class="sl sl-worked">' + head(d) +
+        '<div class="qbox r"><div class="qtag">Question</div><div class="qstem">' + esc(d.question) + '</div></div>' +
+        (d.thinking ? '<div class="think r"><b>First, notice</b>' + esc(d.thinking) + '</div>' : '') +
+        '<ol class="wsteps">' + d.steps.map(function (s, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><div>' + esc(s) + '</div></li>';
+        }).join('') + '</ol>' +
+        '<div class="ans r"><span>Answer</span><b>' + esc(d.answer) + '</b></div></div>';
+    },
+    practice: function (d, idx) {
+      return '<div class="sl sl-practice">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="qgrid n' + d.questions.length + '">' +
+        d.questions.map(function (q, j) { return qCard(q, idx + '-' + j); }).join('') +
+        '</div>' +
+        '<button class="revealAll r" data-all>Show every answer</button></div>';
+    },
+    recap: function (d) {
+      return '<div class="sl">' + head(d) +
+        '<ul class="recap">' + d.points.map(function (p, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    close: function (d) {
+      return '<div class="sl sl-section sl-close">' +
+        (d.small ? '<div class="eyebrow r">' + esc(d.small) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.big) + '</h2>' +
+        (d.foot ? '<p class="lede r">' + esc(d.foot) + '</p>' : '') + '</div>';
+    }
+  };
+
+  function head(d) {
+    return (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+      '<h2 class="r sh">' + esc(d.title) + '</h2>';
+  }
+
+  function qCard(q, key) {
+    var mc = !!(q.choices && q.choices.length);
+    var h = '<div class="q" data-q="' + key + '">' +
+      '<div class="qhead">' + (q.tag ? '<span class="chip">' + esc(q.tag) + '</span>' : '') +
+      (mc ? '' : '<span class="chip w">write your answer</span>') + '</div>' +
+      '<div class="qs">' + esc(q.stem) + '</div>';
+    if (mc) {
+      h += '<ul class="opts">' + q.choices.map(function (c, j) {
+        return '<li data-l="' + 'ABCD'[j] + '"><kbd>' + 'ABCD'[j] + '</kbd><span>' + esc(c) + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    h += '<button class="show">Show answer</button>' +
+      '<div class="sol" hidden><div class="solA">' +
+      (mc ? esc(q.answer) + ')&nbsp; ' + esc(q.choices['ABCD'.indexOf(q.answer)]) : esc(q.answer)) +
+      '</div><div class="solT">' + esc(q.solution) + '</div>' +
+      (q.trap ? '<div class="solW"><b>The usual slip</b> ' + esc(q.trap) + '</div>' : '') +
+      '</div></div>';
+    return h;
+  }
+
+  /* ---------- build ---------- */
+  DECK.slides.forEach(function (d, n) {
+    var el = document.createElement('section');
+    el.className = 'slide';
+    el.innerHTML = (B[d.type] || B.idea)(d, n);
+    el.hidden = true;
+    stage.appendChild(el);
+    built.push({ el: el, data: d });
+  });
+
+  // overview
+  ovGrid.innerHTML = DECK.slides.map(function (d, n) {
+    return '<button class="ovc" data-go="' + n + '"><i>' + (n + 1) + '</i><span>' +
+      esc(d.title || d.big || DECK.title) + '</span></button>';
+  }).join('');
+  ovGrid.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]'); if (!b) return;
+    go(parseInt(b.dataset.go, 10)); closeOverview();
+  });
+
+  /* ---------- navigation ---------- */
+  function revealables(el) { return [].slice.call(el.querySelectorAll('.r')); }
+
+  function paint(dir) {
+    var cur = built[i];
+    built.forEach(function (b, n) { if (n !== i) { b.el.hidden = true; b.el.className = 'slide'; } });
+    cur.el.hidden = false;
+    cur.el.className = 'slide in' + (reduce ? ' nomo' : (dir < 0 ? ' back' : ''));
+    var rs = revealables(cur.el);
+    rs.forEach(function (r, n) {
+      r.classList.remove('on');
+      r.style.setProperty('--d', (reduce ? 0 : n * 55) + 'ms');
+    });
+    // first paint shows everything except stepped lists
+    reveal = 0;
+    rs.forEach(function (r) { r.classList.add('on'); });
+    railFill.style.width = ((i + 1) / built.length * 100) + '%';
+    counter.textContent = (i + 1) + ' / ' + built.length;
+    notesEl.textContent = cur.data.notes || 'No note for this slide.';
+    typeset(cur.el);
+    if (mathFailed) plain(cur.el);
+  }
+
+  function go(n, dir) {
+    if (n < 0 || n >= built.length) return;
+    var d = dir !== undefined ? dir : (n > i ? 1 : -1);
+    i = n; paint(d);
+    try { location.hash = 's' + (i + 1); } catch (e) { }
+    try { localStorage.setItem('satdeck.' + DECK.id, String(i)); } catch (e) { }
+  }
+  function next() { if (i < built.length - 1) go(i + 1, 1); }
+  function prev() { if (i > 0) go(i - 1, -1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(built.length - 1); }
+    else if (k === 'o' || k === 'O') { e.preventDefault(); toggleOverview(); }
+    else if (k === 'Escape') { closeOverview(); }
+    else if (k === 'n' || k === 'N') { notesOn = !notesOn; notesEl.hidden = !notesOn; }
+    else if (k === 'f' || k === 'F') { toggleFull(); }
+  });
+
+  // swipe
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function (e) {
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  // answers
+  stage.addEventListener('click', function (e) {
+    var all = e.target.closest('[data-all]');
+    if (all) {
+      all.closest('.sl').querySelectorAll('.q').forEach(function (q) { openQ(q); });
+      all.textContent = 'All answers shown'; all.disabled = true; return;
+    }
+    var btn = e.target.closest('.show');
+    if (btn) { openQ(btn.closest('.q')); return; }
+    var opt = e.target.closest('.opts li');
+    if (opt) {
+      var box = opt.closest('.q');
+      if (box.classList.contains('open')) return;
+      box.querySelectorAll('.opts li').forEach(function (o) { o.classList.remove('pick'); });
+      opt.classList.add('pick');
+    }
+  });
+  function openQ(box) {
+    if (!box || box.classList.contains('open')) return;
+    box.classList.add('open');
+    var sol = box.querySelector('.sol'); sol.hidden = false;
+    var a = sol.querySelector('.solA').textContent.trim().charAt(0);
+    box.querySelectorAll('.opts li').forEach(function (o) {
+      if (o.dataset.l === a) o.classList.add('right');
+      else if (o.classList.contains('pick')) o.classList.add('wrong');
+    });
+    typeset(sol); if (mathFailed) plain(sol);
+  }
+
+  /* ---------- overview, fullscreen ---------- */
+  function toggleOverview() { overview.hidden ? openOverview() : closeOverview(); }
+  function openOverview() { overview.hidden = false; requestAnimationFrame(function () { overview.classList.add('on'); }); }
+  function closeOverview() { overview.classList.remove('on'); setTimeout(function () { overview.hidden = true; }, 220); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOverview);
+  overview.addEventListener('click', function (e) { if (e.target === overview) closeOverview(); });
+
+  function toggleFull() {
+    var r = document.documentElement;
+    if (!document.fullscreenElement && r.requestFullscreen) r.requestFullscreen().catch(function () { });
+    else if (document.exitFullscreen) document.exitFullscreen().catch(function () { });
+  }
+  document.getElementById('fsBtn').addEventListener('click', toggleFull);
+
+  document.getElementById('notesBtn').addEventListener('click', function () {
+    notesOn = !notesOn; notesEl.hidden = !notesOn;
+  });
+
+  /* ---------- start ---------- */
+  var start = 0;
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) start = Math.min(built.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  else { try { var v = localStorage.getItem('satdeck.' + DECK.id); if (v !== null) start = Math.min(built.length - 1, parseInt(v, 10) || 0); } catch (e) { } }
+  i = start; paint(1);
+
+  // MathJax loads async — typeset once it lands.
+  var waited = 0, poll = setInterval(function () {
+    waited += 120;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      clearInterval(poll); mathReady = true; typeset(built[i].el);
+    } else if (waited > 3000) { clearInterval(poll); }
+  }, 120);
+})();
+
+</script>

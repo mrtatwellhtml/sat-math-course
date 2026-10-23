@@ -1,0 +1,665 @@
+<title>Functions & Growth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ SAT Math deck — premium slide shell ============ */
+:root{
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* light */
+  --base:#F7F5F1; --surf:#FFFFFF; --rise:#FFFFFF; --rise2:#F3F0EA;
+  --line:rgba(16,24,40,.12); --line2:rgba(16,24,40,.22);
+  --ink:#121923; --mid:#3D4A5C; --mute:#6B7A8E;
+  --gold:#9A6B18; --gold-d:#7E5611; --goldw:rgba(154,107,24,.10);
+  --good:#117A52; --goodw:rgba(17,122,82,.10);
+  --bad:#B6301F; --badw:rgba(182,48,31,.09);
+  --on-gold:#FFFFFF; --goldb:rgba(154,107,24,.32);
+  --shadow:0 18px 50px -26px rgba(16,24,40,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+    --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+    --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+    --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+    --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+    --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+    --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+    --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --base:#070A12; --surf:#0E1420; --rise:#151D2D; --rise2:#1B2436;
+  --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.18);
+  --ink:#EDF1F8; --mid:#B4C0D2; --mute:#7E8DA4;
+  --gold:#E2B465; --gold-d:#C2914A; --goldw:rgba(226,180,101,.13);
+  --good:#4FD6A0; --goodw:rgba(79,214,160,.12);
+  --bad:#FF7E6E; --badw:rgba(255,126,110,.11);
+  --on-gold:#17120A; --goldb:rgba(226,180,101,.30);
+  --shadow:0 24px 70px -28px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 78% -10%, var(--goldw), transparent 65%),
+    radial-gradient(700px 480px at -5% 105%, rgba(79,214,160,.07), transparent 62%);
+}
+
+/* ---------- chrome ---------- */
+#top{
+  position:fixed; top:0; left:0; right:0; height:52px; z-index:30;
+  display:flex; align-items:center; gap:14px; padding:0 20px;
+  font-size:12.5px; letter-spacing:.02em;
+}
+#brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+#deckName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#deckSession{color:var(--mute);white-space:nowrap;font-size:11.5px}
+#top .sp{flex:1}
+.tbtn{
+  appearance:none;border:1px solid var(--line);background:transparent;color:var(--mid);
+  font:inherit;font-size:11.5px;padding:5px 11px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease); white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--line2);color:var(--ink);background:var(--rise)}
+#counter{color:var(--mute);font-variant-numeric:tabular-nums;font-size:11.5px}
+
+#rail{position:fixed;top:0;left:0;right:0;height:2px;z-index:31;background:var(--line)}
+#railFill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-d),var(--gold));
+  transition:width .55s var(--ease)}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:52px 0 62px;z-index:1}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+.slide::-webkit-scrollbar{width:7px}
+.slide::-webkit-scrollbar-thumb{background:var(--line2);border-radius:9px}
+.sl{
+  min-height:100%; width:min(1120px,100%); margin:0 auto;
+  padding:30px 32px 40px; display:flex; flex-direction:column;
+}
+.slide.in{animation:sIn .55s var(--ease) both}
+.slide.in.back{animation:sInB .55s var(--ease) both}
+.slide.nomo{animation:none!important}
+@keyframes sIn{from{opacity:0;transform:translate3d(28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes sInB{from{opacity:0;transform:translate3d(-28px,0,0) scale(.985)}to{opacity:1;transform:none}}
+
+.r{opacity:0;transform:translateY(16px);filter:blur(7px);
+  transition:opacity .62s var(--ease) var(--d,0ms),transform .62s var(--ease) var(--d,0ms),filter .62s var(--ease) var(--d,0ms)}
+.r.on{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){
+  .r{transition-duration:.01ms!important}
+  .slide.in,.slide.in.back{animation:none}
+}
+
+/* ---------- typography ---------- */
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:9px;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent);max-width:160px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6.6vw,86px);line-height:1.02;
+  letter-spacing:-.018em;margin:0 0 18px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,50px);line-height:1.08;
+  letter-spacing:-.012em;margin:0 0 16px}
+h2.sh{font-size:clamp(25px,3.1vw,38px);margin-bottom:18px}
+.lede{font-size:clamp(15px,1.7vw,20px);color:var(--mid);max-width:62ch;margin:0;line-height:1.55}
+.lead{font-size:clamp(14.5px,1.5vw,17.5px);color:var(--mid);max-width:70ch;margin:0 0 22px;line-height:1.6}
+
+/* ---------- title / section ---------- */
+.sl-title,.sl-section{justify-content:center;padding-top:10px}
+.sl-title h1{max-width:17ch}
+.tmeta{display:flex;flex-wrap:wrap;gap:34px;margin-top:38px;padding-top:24px;border-top:1px solid var(--line)}
+.tmeta span{display:flex;flex-direction:column;gap:3px;font-size:11.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--mute)}
+.tmeta b{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink)}
+.sl-section h2{font-size:clamp(34px,5.2vw,64px);max-width:16ch}
+.sl-close h2{color:var(--gold)}
+
+/* ---------- lists ---------- */
+.pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.pts li{display:flex;gap:14px;align-items:flex-start;font-size:clamp(14.5px,1.5vw,18px);line-height:1.55;color:var(--mid)}
+.dot{flex:0 0 7px;height:7px;border-radius:50%;background:var(--gold);margin-top:.55em;
+  box-shadow:0 0 0 4px var(--goldw)}
+
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.step{display:flex;gap:16px;align-items:flex-start;background:var(--rise);border:1px solid var(--line);
+  border-radius:14px;padding:15px 18px}
+.step i{flex:0 0 28px;height:28px;border-radius:9px;background:var(--goldw);color:var(--gold);
+  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12.5px;font-family:var(--mono)}
+.step div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.step b{font-size:clamp(14.5px,1.45vw,17px);font-weight:700;color:var(--ink);line-height:1.4}
+.step span{font-size:14px;color:var(--mute);line-height:1.5}
+
+.recap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.recap li{display:flex;gap:16px;align-items:flex-start;font-size:clamp(15px,1.6vw,19px);
+  line-height:1.5;color:var(--mid);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.recap li:last-child{border-bottom:0}
+.recap i{font-family:var(--serif);font-style:normal;font-size:28px;color:var(--gold);
+  line-height:1;flex:0 0 32px;opacity:.85}
+
+.callout{margin-top:22px;background:var(--goldw);border:1px solid var(--goldb);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:15px 19px;
+  font-size:clamp(14px,1.45vw,16.5px);line-height:1.55;color:var(--ink)}
+
+/* ---------- table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--rise)}
+table{width:100%;border-collapse:collapse;font-size:clamp(13.5px,1.35vw,16px)}
+th{text-align:left;padding:12px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mute);font-weight:700;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600}
+tr.good td{background:var(--goodw)} tr.bad td{background:var(--badw)}
+
+/* ---------- compare ---------- */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--rise)}
+.card.bad{border-color:rgba(255,126,110,.32);background:var(--badw)}
+.card.good{border-color:rgba(79,214,160,.32);background:var(--goodw)}
+.ctag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:11px}
+.card.bad .ctag{color:var(--bad)} .card.good .ctag{color:var(--good)}
+.cbody{font-family:var(--mono);font-size:clamp(13px,1.35vw,15.5px);line-height:1.85;color:var(--ink)}
+
+/* ---------- worked example ---------- */
+.qbox{border:1px solid var(--line2);border-radius:16px;background:var(--rise);padding:18px 20px;margin-bottom:18px}
+.qtag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:9px}
+.qstem{font-size:clamp(15px,1.6vw,19px);line-height:1.55;color:var(--ink)}
+.think{background:var(--rise2);border-radius:12px;padding:13px 17px;margin-bottom:16px;
+  font-size:clamp(13.5px,1.4vw,16px);color:var(--mid);line-height:1.55}
+.think b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.wsteps{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:0}
+.wsteps li{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.wsteps li:last-child{border-bottom:0}
+.wsteps i{flex:0 0 24px;height:24px;border-radius:7px;border:1px solid var(--line2);color:var(--mute);
+  display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;font-family:var(--mono)}
+.wsteps div{font-size:clamp(14px,1.45vw,17px);line-height:1.6;color:var(--mid)}
+.ans{margin-top:auto;display:flex;align-items:center;gap:14px;background:var(--goodw);
+  border:1px solid rgba(79,214,160,.32);border-radius:14px;padding:14px 20px}
+.ans span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--good)}
+.ans b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.6vw,32px);color:var(--ink);line-height:1}
+
+/* ---------- practice ---------- */
+.qgrid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.qgrid.n1,.qgrid.n3{grid-template-columns:1fr 1fr}
+.qgrid.n1{grid-template-columns:1fr}
+.q{border:1px solid var(--line);border-radius:16px;background:var(--rise);padding:16px 18px;
+  display:flex;flex-direction:column;gap:11px;transition:border-color .25s var(--ease)}
+.q.open{border-color:var(--line2)}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;min-height:1px}
+.chip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  padding:3px 9px;border-radius:999px;background:var(--goldw);color:var(--gold)}
+.chip.w{background:transparent;border:1px solid var(--line2);color:var(--mute)}
+.qs{font-size:clamp(14px,1.4vw,16.5px);line-height:1.55;color:var(--ink)}
+.opts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.opts li{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);
+  border-radius:10px;cursor:pointer;font-size:14px;color:var(--mid);
+  transition:all .18s var(--ease);user-select:none}
+.opts li:hover{border-color:var(--line2);background:var(--rise2)}
+.opts kbd{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--mute);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px;flex:0 0 auto}
+.opts li.pick{border-color:var(--line2);background:var(--rise2)}
+.opts li.right{border-color:var(--good);background:var(--goodw);color:var(--ink)}
+.opts li.right kbd{color:var(--good);border-color:var(--good)}
+.opts li.wrong{border-color:var(--bad);background:var(--badw)}
+.opts li.wrong kbd{color:var(--bad);border-color:var(--bad)}
+.show{appearance:none;border:1px solid var(--line2);background:transparent;color:var(--mid);
+  font:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:9px;cursor:pointer;
+  align-self:flex-start;transition:all .18s var(--ease)}
+.show:hover{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.q.open .show{display:none}
+.sol[hidden]{display:none}
+.sol{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:9px;
+  animation:fadeU .4s var(--ease) both}
+@keyframes fadeU{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.solA{font-family:var(--serif);font-size:clamp(19px,2vw,25px);color:var(--good);line-height:1.2}
+.solT{font-size:14px;line-height:1.6;color:var(--mid)}
+.solW{font-size:13px;line-height:1.55;color:var(--mute);background:var(--badw);
+  border-radius:9px;padding:9px 12px}
+.solW b{color:var(--bad);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  display:block;margin-bottom:3px}
+.revealAll{appearance:none;margin:18px auto 0;border:1px dashed var(--line2);background:transparent;
+  color:var(--mute);font:inherit;font-size:12.5px;padding:9px 20px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease)}
+.revealAll:hover:not(:disabled){color:var(--ink);border-color:var(--gold)}
+.revealAll:disabled{opacity:.4;cursor:default}
+
+/* ---------- bottom bar ---------- */
+#bot{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:30;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(to top,var(--base) 55%,transparent)}
+.nav{appearance:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:var(--surf);color:var(--mid);cursor:pointer;display:grid;place-items:center;
+  transition:all .2s var(--ease)}
+.nav:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.nav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#hint{font-size:11px;color:var(--mute);letter-spacing:.04em}
+#notes{position:fixed;bottom:62px;left:0;right:0;z-index:29;background:var(--rise2);
+  border-top:1px solid var(--line);padding:13px 24px;font-size:13.5px;color:var(--mid);
+  max-height:30vh;overflow:auto;line-height:1.55}
+
+/* ---------- overview ---------- */
+#overview{position:fixed;inset:0;z-index:40;background:rgba(247,245,241,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:auto;padding:60px 24px;opacity:0;transition:opacity .22s var(--ease)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #overview{background:rgba(7,10,18,.86)}}
+:root[data-theme="dark"] #overview{background:rgba(7,10,18,.86)}
+#overview.on{opacity:1}
+#ovGrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  max-width:1100px;margin:0 auto}
+.ovc{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surf);
+  border-radius:12px;padding:13px 15px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;
+  color:var(--mid);font:inherit;font-size:13.5px;line-height:1.4;transition:all .18s var(--ease)}
+.ovc:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.ovc i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--mute);flex:0 0 auto;padding-top:2px}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .cmp,.qgrid,.qgrid.n3{grid-template-columns:1fr}
+  .sl{padding:22px 16px 34px}
+  .tmeta{gap:22px}
+}
+@media (max-width:560px){
+  .opts{grid-template-columns:1fr}
+  #hint{display:none}
+  #top{gap:9px;padding:0 13px}
+  #deckSession{display:none}
+}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container svg{vertical-align:-.12em}
+
+</style>
+
+<div id="rail"><div id="railFill"></div></div>
+
+<header id="top">
+  <div id="brand"><span id="deckName"></span><span id="deckSession"></span></div>
+  <span class="sp"></span>
+  <span id="counter">1 / 1</span>
+  <button class="tbtn" id="ovBtn" title="Overview (O)">Contents</button>
+  <button class="tbtn" id="notesBtn" title="Tutor notes (N)">Notes</button>
+  <button class="tbtn" id="thBtn" title="Theme">Theme</button>
+  <button class="tbtn" id="fsBtn" title="Fullscreen (F)">Full</button>
+</header>
+
+<main id="stage"></main>
+
+<div id="notes" hidden></div>
+
+<footer id="bot">
+  <button class="nav" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <span id="hint">← → to move · O contents · N notes · F fullscreen</span>
+  <button class="nav" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</footer>
+
+<div id="overview" hidden><div id="ovGrid"></div></div>
+
+<script>
+(function(){
+  var r=document.documentElement, k='satdeck.theme', t=null;
+  try{ t=localStorage.getItem(k); }catch(e){}
+  r.setAttribute('data-theme', t || 'dark');
+  document.getElementById('thBtn').addEventListener('click', function(){
+    var n = r.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', n);
+    try{ localStorage.setItem(k,n); }catch(e){}
+  });
+})();
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js" id="MathJax-script" async></script>
+
+<script>
+var DECK = {"id":"sat-functions","title":"Functions & Growth","session":"Session 6 · 1 November","slides":[{"type":"title","eyebrow":"Session 6 · 1 November","title":"Functions, Exponentials and Radicals","sub":"What $f(x)$ actually means, the six exponent rules you need, the difference between adding and multiplying your way upwards, and how to handle a square root sitting in an equation.","meta":[{"v":"~15%","k":"of the exam"},{"v":"6","k":"exponent rules"},{"v":"28","k":"questions today"}],"notes":"Last week was quadratics. Today is the other half of Advanced Math. Tell him up front that function notation is the piece that unlocks the wording of about a third of the questions he found confusing on the diagnostic."},{"type":"section","kicker":"Part one","title":"Function notation","sub":"$f(x)$ is not $f$ times $x$. It is a machine: you feed it a number, it hands you a number back. It is also how the test asks almost every Advanced Math question."},{"type":"steps","kicker":"The method","title":"What $f(x)$ means and how to use it","lead":"Read $f(x)=3x+1$ as \"the rule called $f$ takes whatever you give it, triples it, and adds one\". The letter $x$ is just a placeholder for the slot.","steps":[{"label":"The bracket holds the input","body":"$f(2)$ means \"put $2$ into the slot\". So $f(2)=3(2)+1=7$."},{"label":"The answer is the output","body":"We say $f(2)=7$. The input is $2$, the output is $7$."},{"label":"The input can be anything","body":"$f(-4)=3(-4)+1=-11$. The slot does not care what shape the number is."},{"label":"Going backwards is a different question","body":"\"$f(x)=7$, find $x$\" means you know the output and want the input. Set $3x+1=7$ and solve."},{"label":"On a graph, $x$ is across and $f(x)$ is up","body":"$f(3)=5$ is the point $(3,5)$. \"Solve $f(x)=5$\" means draw the line $y=5$ and read off where it hits."}],"callout":"The number in the bracket is always the input. The number on the other side of the equals sign is always the output. Get those two straight and most of the confusion disappears.","notes":"Say \"input\" and \"output\" out loud every single time for this whole hour. He needs the words attached to the positions before anything else will stick."},{"type":"compare","kicker":"The slip that costs the mark","title":"Putting a negative into the slot","lead":"Evaluate $f(-3)$ where $f(x)=x^2-4x$. The whole of $-3$ goes into every slot, brackets and all.","left":{"label":"What most students write","body":"f(−3) = −3² − 4(−3)\n     = −9 + 12\n     = 3"},"right":{"label":"What is actually true","body":"f(−3) = (−3)² − 4(−3)\n     = 9 + 12\n     = 21"},"callout":"Write brackets around the number before you do anything else. $(-3)^2 = 9$, but $-3^2 = -9$, because without the brackets the squaring happens before the minus. Your calculator agrees with the second one.","notes":"This is the single highest-value habit of the session. Make him physically write the brackets on three substitutions in a row before moving on."},{"type":"idea","kicker":"Reading it off","title":"Tables and graphs are just the function in disguise","lead":"The SAT often gives you a function without a formula. A table of values is a function. A curve is a function. The questions are identical.","points":["Given $f(1)=4$, $f(2)=9$, $f(3)=5$: \"What is $f(2)$?\" means look up the row with input $2$. Answer $9$.","\"For what value of $x$ is $f(x)=5$?\" means hunt in the *output* column for $5$, then read back to the input. Answer $3$.","On a graph, $f(4)$ means go across to $4$, then up to the curve, then read the height.","$f(x)=0$ asks where the graph crosses the $x$-axis. Those are the $x$-intercepts, or \"zeros\"."],"callout":"If the question gives you a number inside the bracket, you are looking *up*. If it gives you a number after the equals, you are looking *back*. Decide which before you start.","notes":"Most of his table errors will be direction errors, not arithmetic. Ask \"are we looking up or looking back?\" before every one."},{"type":"worked","kicker":"Worked example","title":"A negative input, done properly","question":"The function $f$ is defined by $f(x)=-2x^2+5x-1$. What is the value of $f(-3)$?","thinking":"Three slots, three substitutions. Write $(-3)$ in brackets every time, then deal with the powers before the multiplications.","steps":["Substitute with brackets: $f(-3)=-2(-3)^2+5(-3)-1$.","Square first: $(-3)^2=9$. Positive, because two negatives multiply to a positive.","Now the multiplications: $-2 \\times 9 = -18$ and $5 \\times (-3) = -15$.","So $f(-3)=-18-15-1$.","Add them up, all negative: $-34$."],"answer":"$f(-3)=-34$","notes":"The answer the test will offer him is 4, from (-3)^2 being read as -9. Ask him what he would get if he dropped the brackets, so he sees the trap before he falls in it."},{"type":"worked","kicker":"Worked example","title":"A function inside a function","question":"If $f(x)=3x-2$ and $g(x)=x^2+1$, what is the value of $f(g(-2))$?","thinking":"Work from the inside out, like brackets in arithmetic. $g(-2)$ is calculated first, and whatever it gives becomes the input to $f$.","steps":["Innermost first: $g(-2)=(-2)^2+1$.","$(-2)^2=4$, so $g(-2)=4+1=5$.","That $5$ is now the input to $f$: we need $f(5)$.","$f(5)=3(5)-2=15-2=13$.","Check the order: $g(f(-2))$ would be a different question with a different answer. Read which letter is on the outside."],"answer":"$f(g(-2))=13$","notes":"Have him do g(f(-2)) as well — f(-2) = -8, g(-8) = 65 — so he feels that the order genuinely matters rather than taking your word for it."},{"type":"practice","kicker":"Your turn","title":"Function notation — warm-up","lead":"Brackets around every substituted number. No exceptions, even when it feels silly.","questions":[{"stem":"The function $f$ is defined by $f(x)=3x-7$. What is the value of $f(-4)$?","choices":["$-19$","$-5$","$5$","$19$"],"answer":"A","solution":"Substitute $-4$ into the slot: $3(-4)-7$. That is $-12-7$, and subtracting from a negative makes it more negative.","trap":"B) is what you get if you write $-12+7$; C) is what you get if you substitute $+4$ instead of $-4$; D) is what you get if you substitute $+4$ and then add the $7$.","tag":"warm-up"},{"stem":"A function $g$ has these values: $g(0)=7$, $g(1)=4$, $g(2)=0$, $g(3)=4$, $g(4)=11$. For what value of $x$ is $g(x)=11$?","answer":"4","solution":"The $11$ is an output, so hunt in the output column and read back to the input. Only $g(4)$ gives $11$.","tag":"warm-up"},{"stem":"The function $h$ is defined by $h(x)=x^2+2x$. What is the value of $h(-3)$?","choices":["$-15$","$-3$","$3$","$15$"],"answer":"C","solution":"$h(-3)=(-3)^2+2(-3)=9-6=3$. The square of a negative is positive; the $2x$ term stays negative.","trap":"A) is what you get if you read $(-3)^2$ as $-9$; B) is what you get if you read $(-3)^2$ as $-9$ and then add $6$; D) is what you get if you square correctly but substitute $+3$ into the $2x$ term.","tag":"warm-up"},{"stem":"If $f(x)=2x+1$ and $g(x)=x^2$, what is the value of $f(g(3))$?","choices":["$7$","$16$","$19$","$49$"],"answer":"C","solution":"Inside out: $g(3)=9$, and that becomes the input to $f$. So $f(9)=2(9)+1=19$.","trap":"A) is what you get if you evaluate only $f(3)$ and ignore the inner function; B) is what you get if you add $f(3)+g(3)$; D) is what you get if you reverse the order and compute $g(f(3))$.","tag":"warm-up"}],"notes":"Four minutes. Watch his paper, not his answers — if the brackets are missing, stop him mid-question."},{"type":"practice","kicker":"Your turn","title":"Function notation — exam level","lead":"Two of these run the machine backwards and one is pure wording. Decide what is being asked before you calculate.","questions":[{"stem":"The function $f$ is defined by $f(x)=\\dfrac{x+8}{2}$. If $f(a)=11$, what is the value of $a$?","answer":"14","solution":"You are given the output, so run it backwards. $\\dfrac{a+8}{2}=11$ gives $a+8=22$, so $a=14$.","tag":"medium"},{"stem":"The function $P$ gives the number of plants, $P(t)$, in a garden $t$ weeks after planting. What is the best interpretation of $P(6)=40$?","choices":["There are $40$ plants $6$ weeks after planting.","There are $6$ plants $40$ weeks after planting.","The number of plants grows by $40$ each week for $6$ weeks.","It takes $40$ weeks for the garden to reach $6$ plants."],"answer":"A","solution":"The bracket holds the input, which the question says is weeks. The other side of the equals is the output, which is plants.","trap":"B) is what you get if you swap the input and the output; C) is what you get if you read the output as a rate rather than a total; D) is what you get if you swap them and read $40$ as a time.","tag":"medium"},{"stem":"A function $f$ has these values: $f(-3)=12$, $f(-1)=4$, $f(0)=1$, $f(2)=-5$, $f(5)=7$. If $f(x)=4$, what is the value of $x$?","choices":["$-1$","$0$","$4$","$12$"],"answer":"A","solution":"The $4$ sits after the equals sign, so it is an output. Find $4$ in the output column; its input is $-1$.","trap":"B) is what you get if you slip one row and read the input next to the output $1$; C) is what you get if you repeat the $4$ back, reading the table in the wrong direction; D) is what you get if you pick another output instead of an input.","tag":"medium"},{"stem":"If $f(x)=4-x^2$ and $g(x)=x+3$, what is the value of $g(f(-1))$?","choices":["$0$","$2$","$6$","$8$"],"answer":"C","solution":"Inside first: $f(-1)=4-(-1)^2=4-1=3$. Then $g(3)=3+3=6$.","trap":"A) is what you get if you reverse the order and compute $f(g(-1))$; B) is what you get if you evaluate only $g(-1)$; D) is what you get if you read $-(-1)^2$ as $+1$ and get $f(-1)=5$.","tag":"harder"}],"notes":"Six minutes. The interpretation question is worth lingering on — he will meet three or four of that exact shape on the day."},{"type":"section","kicker":"Part two","title":"Exponent rules","sub":"Six rules. They are not on the reference sheet, and every exponential question quietly assumes you know all six."},{"type":"table","kicker":"The six rules","title":"Everything you need, in one table","lead":"Learn these as sentences, not symbols. \"Multiplying means adding the powers\" is easier to recall under pressure than $a^m a^n=a^{m+n}$.","cols":["Rule","In symbols","Example"],"rows":[{"cells":["Multiplying — add the powers","$x^m \\cdot x^n = x^{m+n}$","$x^3 \\cdot x^5 = x^8$"]},{"cells":["Dividing — subtract the powers","$\\dfrac{x^m}{x^n} = x^{m-n}$","$\\dfrac{x^9}{x^4} = x^5$"]},{"cells":["A power of a power — multiply","$(x^m)^n = x^{mn}$","$(x^3)^4 = x^{12}$"]},{"cells":["Negative power — flip it","$x^{-n} = \\dfrac{1}{x^n}$","$x^{-3} = \\dfrac{1}{x^3}$"]},{"cells":["Anything to the power zero is one","$x^0 = 1$","$7^0 = 1$, not $0$"],"flag":"bad"},{"cells":["Everything inside gets the power","$(ax^m)^n = a^n x^{mn}$","$(2x^3)^4 = 16x^{12}$"],"flag":"good"}],"callout":"The last row is where most marks are lost. In $(2x^3)^4$ the $2$ gets raised to the fourth as well — it becomes $16$, not $2$ and not $8$.","notes":"Have him copy this table by hand onto a single index card tonight. Handwriting it once beats reading it ten times."},{"type":"idea","kicker":"The sixth rule, properly","title":"Fractional powers are roots","lead":"A fraction in the exponent is not something new. The bottom of the fraction is the root; the top is the ordinary power.","points":["$x^{1/2} = \\sqrt{x}$. The $2$ on the bottom means square root.","$x^{1/3} = \\sqrt[3]{x}$, the cube root. $27^{1/3} = 3$, because $3 \\times 3 \\times 3 = 27$.","$x^{2/3} = \\sqrt[3]{x^2}$. Bottom is the root, top is the power — in either order.","So $8^{2/3}$: cube root of $8$ is $2$, then square it to get $4$. Take the root first and the numbers stay small."],"callout":"Bottom = root, top = power. Say it that way round every time, because flipping the fraction is the most common error here and the test always offers the flipped answer.","notes":"Drill the direction with 16^(3/4): fourth root of 16 is 2, cubed is 8. Make him do the root first — 16 cubed is 4096 and he will not want to go that way."},{"type":"worked","kicker":"Worked example","title":"Several rules in one expression","question":"Which expression is equivalent to $\\dfrac{(3x^2y)^3}{9x^4y}$ for $x>0$ and $y>0$?","thinking":"Deal with the bracket on the top first — nothing can be cancelled until the power on the outside has been distributed to every factor inside.","steps":["Expand the top: $(3x^2y)^3 = 3^3 \\cdot (x^2)^3 \\cdot y^3 = 27x^6y^3$.","Note $3^3=27$, not $9$ — the number gets cubed too.","Now divide the numbers: $\\dfrac{27}{9}=3$.","Divide the $x$ terms by subtracting powers: $x^{6-4}=x^2$.","Divide the $y$ terms: $y^{3-1}=y^2$."],"answer":"$3x^2y^2$","notes":"Insist on the three separate divisions written on three lines. When he tries to do it in one step he drops a variable every time."},{"type":"practice","kicker":"Your turn","title":"Exponent rules","lead":"No calculator thinking needed. Name the rule out loud before you use it.","questions":[{"stem":"Which expression is equivalent to $(2x^3)^4$?","choices":["$2x^{12}$","$8x^{12}$","$16x^7$","$16x^{12}$"],"answer":"D","solution":"Everything inside the bracket is raised to the fourth: $2^4=16$ and $(x^3)^4=x^{12}$.","trap":"A) is what you get if you leave the $2$ alone; B) is what you get if you raise the $2$ to the inner power $3$ instead of the outer $4$; C) is what you get if you add the powers $3+4$ instead of multiplying.","tag":"warm-up"},{"stem":"Which expression is equivalent to $\\dfrac{12x^7y^2}{3x^3y^5}$ for $x>0$ and $y>0$?","choices":["$\\dfrac{4x^4}{y^3}$","$4x^4y^3$","$\\dfrac{4x^{10}}{y^7}$","$\\dfrac{9x^4}{y^3}$"],"answer":"A","solution":"Divide the numbers: $12 \\div 3 = 4$. Subtract powers: $x^{7-3}=x^4$ and $y^{2-5}=y^{-3}$, and a negative power goes to the bottom.","trap":"B) is what you get if you drop the minus on the $y$ power; C) is what you get if you add the powers instead of subtracting; D) is what you get if you subtract the coefficients, $12-3$, instead of dividing them.","tag":"medium"},{"stem":"What is the value of $16^{3/4}$?","answer":"8","solution":"Bottom is the root: the fourth root of $16$ is $2$. Top is the power: $2^3=8$. Taking the root first keeps the numbers small.","tag":"medium"},{"stem":"Which expression is equivalent to $\\sqrt[3]{x^5}$ for $x>0$?","choices":["$x^{3/5}$","$x^{5/3}$","$x^2$","$x^{15}$"],"answer":"B","solution":"The root index goes on the bottom of the fraction and the power inside goes on top, so a cube root of $x^5$ is $x^{5/3}$.","trap":"A) is what you get if you flip the fraction; C) is what you get if you subtract $5-3$; D) is what you get if you multiply $5 \\times 3$.","tag":"medium"}],"notes":"Five minutes. If he gets the fractional ones wrong, go back to \"bottom is the root\" rather than re-explaining the whole idea."},{"type":"section","kicker":"Part three","title":"Exponential growth and decay","sub":"The most common word problem on the paper, and the one where the marks are won by translating the sentence, not by doing the sums."},{"type":"steps","kicker":"The method","title":"Building $y = a \\cdot b^x$ from a sentence","lead":"Every exponential model on the SAT has two numbers in it. Find those two and the equation writes itself.","steps":[{"label":"$a$ is where you start","body":"The value when $x=0$. In $y=500(1.2)^x$, there are $500$ at the beginning, because $1.2^0=1$."},{"label":"$b$ is what you multiply by each step","body":"Not the percentage. The multiplier."},{"label":"Growing by $r$% → $b = 1 + \\dfrac{r}{100}$","body":"\"Increases by $7\\%$ a year\" gives $b=1.07$. You keep the original $100\\%$ and add $7\\%$ more."},{"label":"Falling by $r$% → $b = 1 - \\dfrac{r}{100}$","body":"\"Loses $15\\%$ of its value\" gives $b=0.85$. You keep $85\\%$ of what you had."},{"label":"$x$ is the number of steps","body":"Make sure the units match. If $b$ is a yearly multiplier, $x$ must be in years."}],"callout":"$b>1$ means growth. $b$ between $0$ and $1$ means decay. If you have written $b=0.07$ for a $7\\%$ increase, your model says the quantity collapses to almost nothing in two steps — check it against common sense.","notes":"The 1.07 versus 0.07 confusion is the single most common error in this topic. Have him sanity-check every multiplier by asking \"is it getting bigger or smaller?\""},{"type":"compare","kicker":"The distinction the test tests","title":"Linear adds, exponential multiplies","lead":"Two accounts both start at $$200$. One adds $$30$ a year. The other grows by 10% a year. After five years they are not close.","left":{"label":"Linear: adds $30 each year","body":"200 → 230 → 260 → 290\n→ 320 → 350\ndifference is always +30\ny = 200 + 30x"},"right":{"label":"Exponential: ×1.10 each year","body":"200 → 220 → 242 → 266.20\n→ 292.82 → 322.10\nratio is always ×1.10\ny = 200(1.10)ˣ"},"callout":"Linear means a constant *difference* between steps. Exponential means a constant *ratio*. If a table is given, subtract consecutive terms — if that fails, divide them.","notes":"He will get a table question asking which model fits. Teach the two-test routine: subtract first, then divide. Thirty seconds, always decisive."},{"type":"table","kicker":"Translation table","title":"Turning the sentence into $b$","lead":"These phrasings come up again and again. Learn the right-hand column and you will never stall at the start of one of these.","cols":["The sentence says","The multiplier $b$ is","Why"],"rows":[{"cells":["increases by $7\\%$ each year","$1.07$","keep $100\\%$, add $7\\%$"],"flag":"good"},{"cells":["increases by $3\\%$ each month","$1.03$","same idea, monthly steps"]},{"cells":["decreases by $15\\%$ each year","$0.85$","$100\\% - 15\\% = 85\\%$ remains"],"flag":"bad"},{"cells":["loses half its value each decade","$0.5$","half of what you had"]},{"cells":["doubles every $4$ years","$2$, with exponent $\\dfrac{t}{4}$","one doubling per $4$ years"]},{"cells":["half-life of $10$ years","$0.5$, with exponent $\\dfrac{t}{10}$","one halving per $10$ years"]}],"callout":"When the sentence gives a period — \"every $4$ years\", \"half-life of $10$ years\" — the time goes on top of a fraction in the exponent: $y=a \\cdot b^{t/k}$, where $k$ is the length of one period.","notes":"The t/k form is the one he has never seen. Spend a minute on why dividing is right: after 8 years with a 4-year doubling, t/k = 2, so two doublings."},{"type":"worked","kicker":"Worked example","title":"From a sentence to a number","question":"A club has $2{,}400$ members and the membership grows by $7\\%$ each year. Write an equation for the membership $M$ after $t$ years, and find the membership after $5$ years to the nearest whole member.","thinking":"Two numbers to find: the starting value and the multiplier. The word \"grows\" tells me $b$ is above $1$.","steps":["Starting value: $a = 2400$.","Multiplier: $7\\%$ growth means $b = 1 + 0.07 = 1.07$.","So the model is $M = 2400(1.07)^t$.","For five years, put $t=5$: $M = 2400 \\times 1.07^5$.","$1.07^5 \\approx 1.40255$, so $M \\approx 2400 \\times 1.40255 \\approx 3366.1$, which is $3366$ members."],"answer":"$M = 2400(1.07)^t$, giving about $3366$ members","notes":"Point out that most SAT questions of this type stop after step three — they only want the equation. Reading the question carefully saves the arithmetic entirely."},{"type":"worked","kicker":"Worked example","title":"Half-life, with the fraction in the exponent","question":"A dose of $160$ mg of a drug has a half-life of $5$ hours. How many milligrams remain after $20$ hours?","thinking":"The multiplier is $0.5$, but it does not apply once per hour — it applies once per five hours. That is exactly what the $t/k$ form is for.","steps":["Model: $A = 160 \\left(\\dfrac{1}{2}\\right)^{t/5}$, because one halving happens every $5$ hours.","Put in $t=20$: the exponent is $\\dfrac{20}{5}=4$.","So four halvings have happened.","Count them: $160 \\to 80 \\to 40 \\to 20 \\to 10$.","Or in one line: $160 \\times \\dfrac{1}{16} = 10$ mg."],"answer":"$10$ mg","notes":"Counting the halvings out loud is faster and far more reliable for him than the formula. Teach the formula, but let him count when the numbers are friendly."},{"type":"practice","kicker":"Your turn","title":"Exponentials — building the model","lead":"For each one, write down $a$ and $b$ before you look at the options.","questions":[{"stem":"A culture starts with $500$ bacteria and the number increases by $20\\%$ each hour. Which equation gives the number of bacteria $P$ after $t$ hours?","choices":["$P=500(0.2)^t$","$P=500(1.2)^t$","$P=500(20)^t$","$P=500+1.2t$"],"answer":"B","solution":"Starting value $500$, and a $20\\%$ increase means keeping $100\\%$ and adding $20\\%$, so $b=1.20$.","trap":"A) is what you get if you use $0.20$ as the multiplier instead of adding it to $1$; C) is what you get if you put the raw $20$ in as the multiplier; D) is what you get if you treat a percentage increase as a fixed amount added each hour.","tag":"warm-up"},{"stem":"A car bought for $\\$18{,}000$ loses $15\\%$ of its value each year. Which equation gives its value $V$ after $t$ years?","choices":["$V=18000(0.15)^t$","$V=18000(0.85)^t$","$V=18000(1.15)^t$","$V=18000(0.85t)$"],"answer":"B","solution":"Losing $15\\%$ means $85\\%$ of the value survives each year, so $b=0.85$ and the model is $18000(0.85)^t$.","trap":"A) is what you get if you use the $15\\%$ itself as the multiplier; C) is what you get if you build a growth factor when the value is falling; D) is what you get if you multiply by $0.85t$ instead of raising $0.85$ to the power $t$.","tag":"warm-up"},{"stem":"The function $f$ is defined by $f(x)=7(3)^x$. What is the value of $f(0)$?","answer":"7","solution":"Anything to the power zero is $1$, so $f(0)=7 \\times 1 = 7$. This is why $a$ is always the starting value.","tag":"warm-up"},{"stem":"The number of fish in a lake doubles every $4$ years. There are $300$ fish now. Which expression gives the number of fish after $t$ years?","choices":["$300(2)^{4t}$","$300(2)^{t/4}$","$300(4)^{t}$","$300(2)^{t}$"],"answer":"B","solution":"One doubling happens every $4$ years, so the number of doublings in $t$ years is $t/4$. That fraction is the exponent.","trap":"A) is what you get if you multiply $t$ by the period instead of dividing; C) is what you get if you use the period $4$ as the multiplier; D) is what you get if you ignore the period and double every single year.","tag":"medium"}],"notes":"Five minutes. Ask him to say \"bigger or smaller?\" before choosing on the first two — it rules out half the options instantly."},{"type":"practice","kicker":"Your turn","title":"Exponentials — exam level","lead":"Now with numbers to produce and sentences to interpret. Desmos is allowed for every one of these.","questions":[{"stem":"A quantity starts at $80$ and is multiplied by $1.5$ every $6$ days. What is the quantity after $18$ days?","answer":"270","solution":"$18 \\div 6 = 3$ periods, so multiply by $1.5$ three times: $80 \\times 1.5^3 = 80 \\times 3.375$.","tag":"medium"},{"stem":"A radioactive sample has a half-life of $10$ years. If $240$ grams are present now, how many grams remain after $30$ years?","choices":["$30$","$60$","$80$","$120$"],"answer":"A","solution":"$30 \\div 10 = 3$ halvings. Count them: $240 \\to 120 \\to 60 \\to 30$.","trap":"B) is what you get if you stop after two halvings; C) is what you get if you divide by $3$ instead of halving three times; D) is what you get if you halve only once.","tag":"medium"},{"stem":"Account A starts at $\\$200$ and gains $\\$30$ each year. Account B starts at $\\$200$ and gains $10\\%$ each year. Which statement correctly describes the two accounts?","choices":["A is exponential and B is linear.","Both are linear, because both start at $\\$200$.","A is linear because it adds a fixed amount; B is exponential because it multiplies by a fixed factor.","Both gain the same amount every year."],"answer":"C","solution":"A constant amount added each step is linear. A constant factor multiplied each step is exponential. A adds $\\$30$; B multiplies by $1.10$.","trap":"A) is what you get if you swap the two definitions; B) is what you get if you treat a percentage as a fixed addition; D) is what you get if you assume $10\\%$ is always $\\$20$ rather than $10\\%$ of a growing balance.","tag":"medium"},{"stem":"The function $f(x)=250(0.92)^x$ models a quantity. By what percent does the quantity decrease each time $x$ increases by $1$? (Give the number of percent.)","answer":"8","solution":"The multiplier $0.92$ means $92\\%$ survives each step, so $100\\% - 92\\% = 8\\%$ is lost.","tag":"harder"}],"notes":"Six minutes. The last one is the reverse translation — multiplier back to percentage — and he will meet it at least once on the day."},{"type":"section","kicker":"Part four","title":"Radicals","sub":"Simplifying them, solving with them, and the one check that the SAT builds a whole question around."},{"type":"steps","kicker":"The method","title":"Simplifying a square root","lead":"Simplify $\\sqrt{72}$. The aim is to pull out the biggest perfect square hiding inside.","steps":[{"label":"List the perfect squares","body":"$4, 9, 16, 25, 36, 49, 64, 100$. You only need these."},{"label":"Find the biggest one that divides your number","body":"$72 = 36 \\times 2$, and $36$ is a perfect square."},{"label":"Split the root","body":"$\\sqrt{72} = \\sqrt{36} \\times \\sqrt{2}$."},{"label":"Take the root of the perfect square only","body":"$\\sqrt{36}=6$, so the answer is $6\\sqrt{2}$. The $2$ stays under the root."},{"label":"If you missed the biggest square, carry on","body":"$72=9 \\times 8$ gives $3\\sqrt{8}$, and $\\sqrt{8}=2\\sqrt{2}$, so $3 \\times 2\\sqrt{2}=6\\sqrt{2}$. Same answer, one more step."}],"callout":"Only the perfect-square factor comes outside, and it comes outside *square-rooted*. Writing $\\sqrt{72}=36\\sqrt{2}$ is the error to watch for — the $36$ must become $6$ on the way out.","notes":"Have him write the list of perfect squares at the top of his scratch paper. Most of his difficulty here is not knowing that 36 divides 72, not the method."},{"type":"idea","kicker":"Solving with a root","title":"Square both sides, then check","lead":"To get rid of a square root, square both sides. But squaring can invent solutions that were never there, so the check is part of the method, not an optional extra.","points":["$\\sqrt{x+5}=4$. Square both sides: $x+5=16$, so $x=11$.","Check: $\\sqrt{11+5}=\\sqrt{16}=4$. Correct, so $x=11$ is a genuine solution.","Why checking matters: $\\sqrt{\\;\\;}$ always gives a value of zero or more. If your answer makes the right-hand side negative, it cannot work.","A solution that survives the algebra but fails the check is called **extraneous**. You throw it away."],"callout":"Any time you square both sides, substitute every answer back into the *original* equation. The SAT writes questions specifically so that one of the two answers is extraneous.","notes":"He will want to skip the check because the algebra \"worked\". Frame it as part of the sum, not as marking — the question is not finished until the check is done."},{"type":"worked","kicker":"Worked example","title":"The one with a solution you must throw away","question":"What is the solution to $\\sqrt{3x+10} = x$?","thinking":"There is an $x$ on both sides, so after squaring I will get a quadratic. Two answers will come out and at least one of them is likely to be a fake.","steps":["Square both sides: $3x+10 = x^2$.","Get it to zero: $x^2-3x-10=0$.","Factor: constant is negative so the signs are mixed; $-5$ and $+2$ multiply to $-10$ and add to $-3$. So $(x-5)(x+2)=0$.","Candidates: $x=5$ and $x=-2$.","Check $x=5$: $\\sqrt{15+10}=\\sqrt{25}=5$. True. Check $x=-2$: $\\sqrt{-6+10}=\\sqrt{4}=2$, but the right-hand side is $-2$. False."],"answer":"$x=5$ only; $x=-2$ is extraneous","notes":"This is exactly the shape the test uses. Note the giveaway: an x alone on one side means a negative candidate is almost certainly extraneous."},{"type":"practice","kicker":"Your turn","title":"Radicals","lead":"Perfect squares at the top of your page. Check every solution you find.","questions":[{"stem":"Which expression is equivalent to $\\sqrt{72}$?","choices":["$2\\sqrt{36}$","$6\\sqrt{2}$","$12\\sqrt{6}$","$36\\sqrt{2}$"],"answer":"B","solution":"$72 = 36 \\times 2$, and $\\sqrt{36}=6$, so $\\sqrt{72}=6\\sqrt{2}$.","trap":"A) is what you get if you split $72$ as $36 \\times 2$ but bring the $2$ outside and leave the $36$ under the root; C) is what you get if you split $72$ as $12 \\times 6$ and bring the $12$ out without rooting it; D) is what you get if you bring the $36$ out without square-rooting it.","tag":"warm-up"},{"stem":"What is the solution to $\\sqrt{x+5}=4$?","answer":"11","solution":"Square both sides to get $x+5=16$, so $x=11$. Check: $\\sqrt{16}=4$, which matches.","tag":"warm-up"},{"stem":"What is the solution to $\\sqrt{2x-1}=5$?","choices":["$3$","$12$","$13$","$26$"],"answer":"C","solution":"Square both sides: $2x-1=25$. Add $1$ to get $2x=26$, then divide by $2$.","trap":"A) is what you get if you forget to square and solve $2x-1=5$; B) is what you get if you subtract the $1$ instead of adding it; D) is what you get if you add the $1$ but forget to divide by $2$.","tag":"medium"},{"stem":"Which value of $x$ satisfies $\\sqrt{x+6}=x$?","choices":["$-2$","$2$","$3$","both $-2$ and $3$"],"answer":"C","solution":"Squaring gives $x+6=x^2$, so $x^2-x-6=0$ and $(x-3)(x+2)=0$. Checking, $\\sqrt{9}=3$ works but $\\sqrt{4}=2 \\neq -2$.","trap":"A) is what you get if you keep the extraneous root; B) is what you get if you test $x=-2$, see $\\sqrt{4}=2$, and write down the $2$; D) is what you get if you never check either candidate.","tag":"harder"}],"notes":"Six minutes. Make him write the check line underneath every answer, even the write-in one where it feels unnecessary."},{"type":"practice","kicker":"Your turn","title":"The stretch — everything together","lead":"Each of these needs two of today's four topics at once. That is how the hard half of the module is built.","questions":[{"stem":"If $f(x)=2^x$, what is the value of $f(5)-f(3)$?","answer":"24","solution":"Evaluate each separately: $f(5)=2^5=32$ and $f(3)=2^3=8$. Then $32-8=24$.","tag":"medium"},{"stem":"The value of a painting is modelled by $V(t)=4000(1.06)^t$, where $t$ is the number of years since 2020. What is the best interpretation of the number $4000$?","choices":["The value increases by $\\$4000$ each year.","The value of the painting in 2020.","The value increases by $4000\\%$ each year.","The value of the painting one year after 2020."],"answer":"B","solution":"In $y=a \\cdot b^t$ the number $a$ is the value when $t=0$, because $b^0=1$. Here $t=0$ is the year 2020.","trap":"A) is what you get if you read $a$ as a rate of change rather than a starting value; C) is what you get if you confuse $a$ with the percentage, which lives in the $1.06$; D) is what you get if you put $t=1$, which would give $\\$4240$.","tag":"medium"},{"stem":"Which expression is equivalent to $(x^{1/3})^6 \\cdot x^{-2}$ for $x \\neq 0$?","choices":["$0$","$1$","$x^4$","$x^{-4}$"],"answer":"B","solution":"Power of a power: $(x^{1/3})^6 = x^2$. Multiplying adds the powers: $x^2 \\cdot x^{-2} = x^0 = 1$.","trap":"A) is what you get if you write $x^0=0$; C) is what you get if you subtract the powers, $2-(-2)$, instead of adding; D) is what you get if you multiply the powers, $2 \\times (-2)$, instead of adding.","tag":"harder"},{"stem":"A town has a population of $12{,}000$ and it grows by $4\\%$ each year. What will the population be after $3$ years, to the nearest whole number?","answer":"13498","solution":"The multiplier is $1.04$, so the population is $12000 \\times 1.04^3 = 12000 \\times 1.124864$, which is $13498.368$.","tag":"harder"}],"notes":"Eight minutes, and let him use Desmos freely. The point here is recognising which of today's four tools each question wants."},{"type":"recap","kicker":"Before you go","title":"The seven things from today","points":["The number in the bracket is the input; the number after the equals is the output.","Put brackets around a negative before you substitute it. $(-3)^2=9$, $-3^2=-9$.","For $f(g(2))$, work from the inside out. The order changes the answer.","In $(2x^3)^4$ the number inside gets the power too. And $x^0=1$, never $0$.","Bottom of a fractional power is the root, top is the power. $x^{2/3}=\\sqrt[3]{x^2}$.","\"Up $7\\%$\" is $\\times 1.07$; \"down $15\\%$\" is $\\times 0.85$. A stated period goes under $t$ in the exponent.","After squaring both sides, substitute back. One of your answers is probably extraneous."],"callout":"Linear adds the same amount each step. Exponential multiplies by the same factor. If you can only keep one sentence from today, keep that one.","notes":"Ask which of the seven he is least sure of and write it on the top of next week's warm-up sheet before he leaves."},{"type":"close","small":"This week","big":"Forty questions, four sittings.","foot":"Workbook topics on functions and exponentials, twenty questions each, plus the index card with the six exponent rules written out by hand. Quiz 4 is due Friday. Six weeks to go — keep the practice short and frequent rather than saving it all for Sunday.","notes":"Check the index card actually gets made. Ask him to bring the error log again, and to flag anything from Session 5 that has gone fuzzy."}]};
+</script>
+<script>
+/* ===========================================================
+   SAT Math — slide engine
+   Shared by every lesson deck. The deck's content is a DECK
+   object defined before this script runs.
+   =========================================================== */
+(function () {
+  "use strict";
+
+  var stage = document.getElementById('stage');
+  var railFill = document.getElementById('railFill');
+  var counter = document.getElementById('counter');
+  var deckName = document.getElementById('deckName');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+  var notesEl = document.getElementById('notes');
+
+  var i = 0, built = [], notesOn = false, reveal = 0;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  deckName.textContent = DECK.title;
+  document.getElementById('deckSession').textContent = DECK.session || '';
+
+  /* ---------- maths ---------- */
+  var mathReady = false, mathFailed = false;
+  function typeset(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      mathReady = true;
+      window.MathJax.typesetPromise([el]).catch(function () { plain(el); });
+    } else if (mathFailed) { plain(el); }
+  }
+  setTimeout(function () {
+    if (window.MathJax && window.MathJax.typesetPromise) return;
+    mathFailed = true; plain(stage);
+  }, 3000);
+  function plain(el) {
+    if (!el) return;
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, hits = [];
+    while ((n = w.nextNode())) { if (n.nodeValue.indexOf('$') > -1) hits.push(n); }
+    hits.forEach(function (t) {
+      t.nodeValue = t.nodeValue.replace(/\$\$?([^$]*)\$\$?/g, function (m, s) { return tidy(s); });
+    });
+  }
+  var SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶',
+    '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', 'n': 'ⁿ', 'x': 'ˣ', 't': 'ᵗ', '/': 'ᐟ' };
+  function sup(s) {
+    var o = '', ok = true;
+    for (var i = 0; i < s.length; i++) { if (SUP[s[i]]) o += SUP[s[i]]; else { ok = false; break; } }
+    return ok ? o : '^(' + s + ')';
+  }
+  function tidy(t) {
+    var s = String(t)
+      .replace(/\{\s*,\s*\}/g, ',')                       // 64{,}000
+      .replace(/\\(?:text|mathrm|mbox)\{([^{}]*)\}/g, '$1')
+      .replace(/\\left|\\right/g, '')
+      .replace(/\\([%&#_$])/g, '$1');                     // \% \$ \&
+    for (var k = 0; k < 4; k++) {                         // innermost first, a few passes
+      s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)')
+           .replace(/\\sqrt\s*\[\s*([^\]]*)\s*\]\s*\{([^{}]*)\}/g, '$1√($2)')
+           .replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)');
+    }
+    return s
+      .replace(/\^\{([^{}]*)\}/g, function (m, e) { return sup(e); })
+      .replace(/\^(-?\w)/g, function (m, e) { return sup(e); })
+      .replace(/\\ge\b/g, '≥').replace(/\\le\b/g, '≤')
+      .replace(/\\cdot/g, '·').replace(/\\neq/g, '≠').replace(/\\approx/g, '≈')
+      .replace(/\\ldots|\\dots/g, '…').replace(/\\square/g, '□')
+      .replace(/\\pi\b/g, 'π').replace(/\\theta\b/g, 'θ').replace(/\\ell\b/g, 'ℓ')
+      .replace(/\\circ\b/g, '°').replace(/\\infty/g, '∞')
+      .replace(/\\times/g, '×').replace(/\\div/g, '÷').replace(/\\pm/g, '±')
+      .replace(/\\[;,:! ]/g, ' ').replace(/\\[a-zA-Z]+/g, '').replace(/[{}]/g, '')
+      .replace(/\((\w+)\)\/\((\w+)\)/g, '$1/$2')          // (3)/(4) -> 3/4
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  /* ---------- slide builders ---------- */
+  var B = {
+    title: function (d) {
+      return '<div class="sl sl-title">' +
+        '<div class="eyebrow r">' + esc(d.eyebrow || DECK.session || '') + '</div>' +
+        '<h1 class="r">' + esc(d.title) + '</h1>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') +
+        (d.meta ? '<div class="tmeta r">' + d.meta.map(function (m) {
+          return '<span><b>' + esc(m.v) + '</b>' + esc(m.k) + '</span>'; }).join('') + '</div>' : '') +
+        '</div>';
+    },
+    section: function (d) {
+      return '<div class="sl sl-section">' +
+        (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.title) + '</h2>' +
+        (d.sub ? '<p class="lede r">' + esc(d.sub) + '</p>' : '') + '</div>';
+    },
+    idea: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        (d.points ? '<ul class="pts">' + d.points.map(function (p) {
+          return '<li class="r"><span class="dot"></span><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' : '') +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') +
+        '</div>';
+    },
+    table: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="tw r"><table><thead><tr>' +
+        d.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+        '</tr></thead><tbody>' +
+        d.rows.map(function (row) {
+          return '<tr class="' + (row.flag || '') + '">' + row.cells.map(function (c, j) {
+            return '<td' + (j === 0 ? ' class="k"' : '') + '>' + esc(c) + '</td>'; }).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    steps: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<ol class="steps">' + d.steps.map(function (s, n) {
+          return '<li class="r step"><i>' + (n + 1) + '</i><div><b>' + esc(s.label) + '</b>' +
+            (s.body ? '<span>' + esc(s.body) + '</span>' : '') + '</div></li>';
+        }).join('') + '</ol>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    compare: function (d) {
+      return '<div class="sl">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="cmp">' +
+        '<div class="card bad r"><div class="ctag">' + esc(d.left.label) + '</div><div class="cbody">' +
+        esc(d.left.body).replace(/\n/g, '<br>') + '</div></div>' +
+        '<div class="card good r"><div class="ctag">' + esc(d.right.label) + '</div><div class="cbody">' +
+        esc(d.right.body).replace(/\n/g, '<br>') + '</div></div></div>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    worked: function (d) {
+      return '<div class="sl sl-worked">' + head(d) +
+        '<div class="qbox r"><div class="qtag">Question</div><div class="qstem">' + esc(d.question) + '</div></div>' +
+        (d.thinking ? '<div class="think r"><b>First, notice</b>' + esc(d.thinking) + '</div>' : '') +
+        '<ol class="wsteps">' + d.steps.map(function (s, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><div>' + esc(s) + '</div></li>';
+        }).join('') + '</ol>' +
+        '<div class="ans r"><span>Answer</span><b>' + esc(d.answer) + '</b></div></div>';
+    },
+    practice: function (d, idx) {
+      return '<div class="sl sl-practice">' + head(d) +
+        (d.lead ? '<p class="lead r">' + esc(d.lead) + '</p>' : '') +
+        '<div class="qgrid n' + d.questions.length + '">' +
+        d.questions.map(function (q, j) { return qCard(q, idx + '-' + j); }).join('') +
+        '</div>' +
+        '<button class="revealAll r" data-all>Show every answer</button></div>';
+    },
+    recap: function (d) {
+      return '<div class="sl">' + head(d) +
+        '<ul class="recap">' + d.points.map(function (p, n) {
+          return '<li class="r"><i>' + (n + 1) + '</i><span>' + esc(p) + '</span></li>'; }).join('') + '</ul>' +
+        (d.callout ? '<div class="callout r">' + esc(d.callout) + '</div>' : '') + '</div>';
+    },
+    close: function (d) {
+      return '<div class="sl sl-section sl-close">' +
+        (d.small ? '<div class="eyebrow r">' + esc(d.small) + '</div>' : '') +
+        '<h2 class="r">' + esc(d.big) + '</h2>' +
+        (d.foot ? '<p class="lede r">' + esc(d.foot) + '</p>' : '') + '</div>';
+    }
+  };
+
+  function head(d) {
+    return (d.kicker ? '<div class="eyebrow r">' + esc(d.kicker) + '</div>' : '') +
+      '<h2 class="r sh">' + esc(d.title) + '</h2>';
+  }
+
+  function qCard(q, key) {
+    var mc = !!(q.choices && q.choices.length);
+    var h = '<div class="q" data-q="' + key + '">' +
+      '<div class="qhead">' + (q.tag ? '<span class="chip">' + esc(q.tag) + '</span>' : '') +
+      (mc ? '' : '<span class="chip w">write your answer</span>') + '</div>' +
+      '<div class="qs">' + esc(q.stem) + '</div>';
+    if (mc) {
+      h += '<ul class="opts">' + q.choices.map(function (c, j) {
+        return '<li data-l="' + 'ABCD'[j] + '"><kbd>' + 'ABCD'[j] + '</kbd><span>' + esc(c) + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    h += '<button class="show">Show answer</button>' +
+      '<div class="sol" hidden><div class="solA">' +
+      (mc ? esc(q.answer) + ')&nbsp; ' + esc(q.choices['ABCD'.indexOf(q.answer)]) : esc(q.answer)) +
+      '</div><div class="solT">' + esc(q.solution) + '</div>' +
+      (q.trap ? '<div class="solW"><b>The usual slip</b> ' + esc(q.trap) + '</div>' : '') +
+      '</div></div>';
+    return h;
+  }
+
+  /* ---------- build ---------- */
+  DECK.slides.forEach(function (d, n) {
+    var el = document.createElement('section');
+    el.className = 'slide';
+    el.innerHTML = (B[d.type] || B.idea)(d, n);
+    el.hidden = true;
+    stage.appendChild(el);
+    built.push({ el: el, data: d });
+  });
+
+  // overview
+  ovGrid.innerHTML = DECK.slides.map(function (d, n) {
+    return '<button class="ovc" data-go="' + n + '"><i>' + (n + 1) + '</i><span>' +
+      esc(d.title || d.big || DECK.title) + '</span></button>';
+  }).join('');
+  ovGrid.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]'); if (!b) return;
+    go(parseInt(b.dataset.go, 10)); closeOverview();
+  });
+
+  /* ---------- navigation ---------- */
+  function revealables(el) { return [].slice.call(el.querySelectorAll('.r')); }
+
+  function paint(dir) {
+    var cur = built[i];
+    built.forEach(function (b, n) { if (n !== i) { b.el.hidden = true; b.el.className = 'slide'; } });
+    cur.el.hidden = false;
+    cur.el.className = 'slide in' + (reduce ? ' nomo' : (dir < 0 ? ' back' : ''));
+    var rs = revealables(cur.el);
+    rs.forEach(function (r, n) {
+      r.classList.remove('on');
+      r.style.setProperty('--d', (reduce ? 0 : n * 55) + 'ms');
+    });
+    // first paint shows everything except stepped lists
+    reveal = 0;
+    rs.forEach(function (r) { r.classList.add('on'); });
+    railFill.style.width = ((i + 1) / built.length * 100) + '%';
+    counter.textContent = (i + 1) + ' / ' + built.length;
+    notesEl.textContent = cur.data.notes || 'No note for this slide.';
+    typeset(cur.el);
+    if (mathFailed) plain(cur.el);
+  }
+
+  function go(n, dir) {
+    if (n < 0 || n >= built.length) return;
+    var d = dir !== undefined ? dir : (n > i ? 1 : -1);
+    i = n; paint(d);
+    try { location.hash = 's' + (i + 1); } catch (e) { }
+    try { localStorage.setItem('satdeck.' + DECK.id, String(i)); } catch (e) { }
+  }
+  function next() { if (i < built.length - 1) go(i + 1, 1); }
+  function prev() { if (i > 0) go(i - 1, -1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(built.length - 1); }
+    else if (k === 'o' || k === 'O') { e.preventDefault(); toggleOverview(); }
+    else if (k === 'Escape') { closeOverview(); }
+    else if (k === 'n' || k === 'N') { notesOn = !notesOn; notesEl.hidden = !notesOn; }
+    else if (k === 'f' || k === 'F') { toggleFull(); }
+  });
+
+  // swipe
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function (e) {
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  // answers
+  stage.addEventListener('click', function (e) {
+    var all = e.target.closest('[data-all]');
+    if (all) {
+      all.closest('.sl').querySelectorAll('.q').forEach(function (q) { openQ(q); });
+      all.textContent = 'All answers shown'; all.disabled = true; return;
+    }
+    var btn = e.target.closest('.show');
+    if (btn) { openQ(btn.closest('.q')); return; }
+    var opt = e.target.closest('.opts li');
+    if (opt) {
+      var box = opt.closest('.q');
+      if (box.classList.contains('open')) return;
+      box.querySelectorAll('.opts li').forEach(function (o) { o.classList.remove('pick'); });
+      opt.classList.add('pick');
+    }
+  });
+  function openQ(box) {
+    if (!box || box.classList.contains('open')) return;
+    box.classList.add('open');
+    var sol = box.querySelector('.sol'); sol.hidden = false;
+    var a = sol.querySelector('.solA').textContent.trim().charAt(0);
+    box.querySelectorAll('.opts li').forEach(function (o) {
+      if (o.dataset.l === a) o.classList.add('right');
+      else if (o.classList.contains('pick')) o.classList.add('wrong');
+    });
+    typeset(sol); if (mathFailed) plain(sol);
+  }
+
+  /* ---------- overview, fullscreen ---------- */
+  function toggleOverview() { overview.hidden ? openOverview() : closeOverview(); }
+  function openOverview() { overview.hidden = false; requestAnimationFrame(function () { overview.classList.add('on'); }); }
+  function closeOverview() { overview.classList.remove('on'); setTimeout(function () { overview.hidden = true; }, 220); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOverview);
+  overview.addEventListener('click', function (e) { if (e.target === overview) closeOverview(); });
+
+  function toggleFull() {
+    var r = document.documentElement;
+    if (!document.fullscreenElement && r.requestFullscreen) r.requestFullscreen().catch(function () { });
+    else if (document.exitFullscreen) document.exitFullscreen().catch(function () { });
+  }
+  document.getElementById('fsBtn').addEventListener('click', toggleFull);
+
+  document.getElementById('notesBtn').addEventListener('click', function () {
+    notesOn = !notesOn; notesEl.hidden = !notesOn;
+  });
+
+  /* ---------- start ---------- */
+  var start = 0;
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) start = Math.min(built.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  else { try { var v = localStorage.getItem('satdeck.' + DECK.id); if (v !== null) start = Math.min(built.length - 1, parseInt(v, 10) || 0); } catch (e) { } }
+  i = start; paint(1);
+
+  // MathJax loads async — typeset once it lands.
+  var waited = 0, poll = setInterval(function () {
+    waited += 120;
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      clearInterval(poll); mathReady = true; typeset(built[i].el);
+    } else if (waited > 3000) { clearInterval(poll); }
+  }, 120);
+})();
+
+</script>

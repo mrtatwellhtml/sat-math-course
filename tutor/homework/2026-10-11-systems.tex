@@ -1,0 +1,311 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm,top=2.0cm,bottom=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{mdframed}
+\usepackage{multicol}
+
+\definecolor{navy}{HTML}{1F4E79}
+\definecolor{rule}{HTML}{333333}
+\definecolor{boxbg}{HTML}{F4F6F9}
+\definecolor{keyred}{HTML}{B02020}
+
+% \ANSWERStrue for the tutor key
+\newif\ifANSWERS
+\input{mode}
+
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\footnotesize\color{navy}SAT Math: Foundations to Mastery \ $\cdot$\ Systems and Inequalities\ifANSWERS\ $\cdot$\ \textbf{\color{keyred}ANSWER KEY}\fi}
+\fancyfoot[R]{\footnotesize\color{navy}Page \thepage\ of \pageref{LastPage}}
+\usepackage{lastpage}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\newcommand{\PartHead}[2]{%
+  \vspace{6pt}
+  {\color{navy}\rule{\textwidth}{0.8pt}}\\[2pt]
+  {\large\bfseries\color{navy}#1}\hfill{\small\itshape #2}\\[-4pt]
+  {\color{navy}\rule{\textwidth}{0.4pt}}
+  \vspace{4pt}
+}
+\newcommand{\sitting}[1]{{\footnotesize\textsc{\color{navy}#1}}\par\vspace{2pt}}
+\newcommand{\spr}{\\[3pt]\hspace*{6pt}Answer: \underline{\hspace{3.2cm}}\hfill{\footnotesize\itshape(write your answer)}}
+\ifANSWERS
+  \newcommand{\ans}[1]{\ {\color{keyred}\bfseries #1}}
+  \newcommand{\note}[1]{\par{\footnotesize\color{keyred}#1}}
+\else
+  \newcommand{\ans}[1]{}
+  \newcommand{\note}[1]{}
+\fi
+
+\newcommand{\method}{\\[3pt]\hspace*{6pt}Method: \underline{\hspace{4.6cm}}\hfill{\footnotesize\itshape(substitution, elimination, or graphing)}}
+
+\begin{document}
+\label{firstpage}
+
+\begin{center}
+{\LARGE\bfseries\color{navy}Systems and Inequalities}\\[4pt]
+{\color{navy}SAT Math $\cdot$ Foundations to Mastery $\cdot$ Week of 11 October}
+\ifANSWERS\\[4pt]{\color{keyred}\bfseries ANSWER KEY --- tutor copy}\fi
+\end{center}
+\vspace{2pt}
+{\color{rule}\rule{\textwidth}{1pt}}
+\vspace{6pt}
+
+\ifANSWERS\else
+Name: \underline{\hspace{6cm}} \hfill Due: \underline{\hspace{3.2cm}}
+\vspace{6pt}
+\fi
+
+\begin{mdframed}[backgroundcolor=boxbg,linecolor=navy,linewidth=0.6pt,innertopmargin=6pt,innerbottommargin=8pt]
+{\bfseries\color{navy}How to use this sheet}\par\vspace{2pt}
+This is four short sittings, not one long one. Four half-hours across the week will
+do more for you than one long Saturday, and you are far more likely to finish it.
+
+\begin{itemize}[leftmargin=14pt,itemsep=1pt,topsep=3pt]
+  \item \textbf{Part A is no calculator.} None. It is 15 minutes and it keeps the last two weeks alive.
+  \item \textbf{In Part B, name your method before you start.} Every time. Choosing the cheapest route is the skill being graded here, not grinding.
+  \item When you get one wrong, write it in your error log: what you did, and what you should have done.
+\end{itemize}
+\end{mdframed}
+
+\vspace{4pt}
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}l l X r@{}}
+\textbf{Sitting} & \textbf{Part} & \textbf{What it drills} & \textbf{Minutes}\\[2pt]
+\hline\rule{0pt}{11pt}
+Sunday   & A    & Retention: signs and slope                       & 15\\
+Tuesday  & B    & Solve the system, and name the method            & 25\\
+Thursday & C    & Inequalities, including translation              & 25\\
+Saturday & D, E & Build the system from words; six mixed, timed    & 25\\
+\hline
+\end{tabularx}
+\end{center}
+
+% ------------------------------------------------ PART A
+\PartHead{Part A --- Retention}{No calculator. 15 minutes.}
+\sitting{Sunday}
+The first five keep last fortnight's sign work alive. The last five keep week two's
+lines alive. Short answers. If a sign is in doubt, draw a number line in the margin.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=7pt]
+\item $8-(-5)=$ \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{13}
+\item $(-4)^2-4^2=$ \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{0 \ (both squares are $+16$)}
+\item Expand: $-2(x-6)=$ \ifANSWERS\else\underline{\hspace{4cm}}\fi \ans{$-2x+12$}
+\item $f(x)=x^2-3x$. \ Find $f(-2)$: \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$(-2)^2-3(-2)=4+6=10$}
+\item $-(5-9)=$ \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{4}
+\item A line passes through $(-2,7)$ and $(4,-5)$. Its slope is \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$\dfrac{-5-7}{4-(-2)}=\dfrac{-12}{6}=-2$}
+\item For $3x-2y=12$, the $y$-coordinate of the $y$-intercept is \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$-6$ \ (put $x=0$: $-2y=12$)}
+\item For $3x-2y=12$, the slope is \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$1.5$ \ ($y=1.5x-6$)}
+\item For $y=4-0.5x$, the slope is \ifANSWERS\else\underline{\hspace{2cm}}\fi \ans{$-0.5$}
+\item A repair costs $C(t)=45+18t$ dollars for $t$ hours of labour. In one short phrase, what does the 18 represent?\ifANSWERS\else\\
+  \underline{\hspace{\linewidth}}\fi
+  \ans{\\ The cost per hour of labour --- the rate the bill grows for each extra hour.}
+\end{enumerate}
+
+\note{\textbf{Marking rule: below 8 of 10 means an earlier week has decayed.} Items 2, 5 and 6 are the diagnostic ones for signs; items 7 and 8 separate a student who reads standard form from one who guesses at it.}
+
+\ifANSWERS\else\newpage\fi
+% ------------------------------------------------ PART B
+\PartHead{Part B --- Solve the system, and name the method}{Calculator allowed. 25 minutes.}
+\sitting{Tuesday}
+You have three tools: substitution, elimination, and graphing both lines on Desmos.
+For each one, write the answer \emph{and} write which tool you chose. Choosing is a
+decision, and on a timed test the cheapest tool is worth as much as the arithmetic.
+Look at the system for five seconds before you pick up your pen.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item $y=2x-3$ \ and \ $4x+y=15$. \ What is the value of $x$? \spr\method
+  \ans{\\ $x=3$ (and $y=3$). Substitution is cheapest: $y$ is already alone, so $4x+(2x-3)=15$, $6x=18$.}
+
+\item $x=4-3y$ \ and \ $2x+5y=3$. \ What is the value of $y$? \spr\method
+  \ans{\\ $y=5$ (and $x=-11$). Substitution is cheapest: $x$ is already alone, so $2(4-3y)+5y=3$, $8-y=3$.}
+
+\item $4x+3y=18$ \ and \ $4x-5y=2$. \ What is the value of $y$? \spr\method
+  \ans{\\ $y=2$ (and $x=3$). Elimination is cheapest: the $4x$ terms match, so subtracting gives $8y=16$ in one line.}
+
+\item $3x+2y=7$ \ and \ $5x-2y=17$. \ What is the value of $y$? \spr\method
+  \ans{\\ $y=-1$ (and $x=3$). Elimination is cheapest: $+2y$ and $-2y$ are opposites, so adding gives $8x=24$. Then $2y=7-9=-2$.}
+
+\item $0.6x+1.5y=6.9$ \ and \ $2.4x-0.5y=8.1$. \ What is the value of $x$? \spr\method
+  \ans{\\ $x=4$ (and $y=3$). Graphing is cheapest: the decimals make either algebraic route slow, and Desmos reads off the intersection $(4,3)$ with no risk of a decimal slip.}
+
+\item $7x+11y=101$ \ and \ $11x+7y=97$. \ What is the value of $x+y$? \spr\method
+  \ans{\\ $x+y=11$. Add the two equations as they stand: $18x+18y=198$, so $x+y=11$. You never need $x$ or $y$ separately. (Had you been asked to solve it, graphing would have been cheapest, because clearing 7s and 11s by hand is slow.)}
+  \note{\textbf{This is the highest-value item on the sheet.} The question asks for a combination, not for the variables, and the combination falls straight out of adding the equations. A student who solves the whole system still gets 11, but burns two minutes to do it. If he spotted this, say so out loud. For the record, $x=5$ and $y=6$.}
+
+\item How many solutions does the system $2x-6y=9$ and $x-3y=7$ have?\\
+  \makebox[3.9cm][l]{A) Zero}\makebox[3.9cm][l]{B) Exactly one}%
+  \makebox[3.9cm][l]{C) Exactly two}\makebox[3.9cm][l]{D) Infinitely many}
+  \method
+  \ans{\\ A. Doubling the second equation gives $2x-6y=14$, but the first says $2x-6y=9$. Same left side, different right side, so the lines are parallel and never meet. Graphing confirms it in seconds. \\ B is the assumption that every pair of lines crosses. D comes from noticing the coefficients are proportional and stopping before checking the constants. C is a quadratic habit carried into a linear question.}
+
+\item How many solutions does the system $3x+4y=10$ and $9x+12y=30$ have?\\
+  \makebox[3.9cm][l]{A) Zero}\makebox[3.9cm][l]{B) Exactly one}%
+  \makebox[3.9cm][l]{C) Exactly two}\makebox[3.9cm][l]{D) Infinitely many}
+  \method
+  \ans{\\ D. Multiplying the first equation by 3 gives the second exactly, so it is one line written twice and every point on it works. \\ A comes from seeing the proportional coefficients and calling the lines parallel without checking the constants --- the exact mirror of item 7. B is the default assumption again.}
+
+\end{enumerate}
+
+\ifANSWERS\else\newpage\fi
+% ------------------------------------------------ PART C
+\PartHead{Part C --- Inequalities}{Calculator allowed. 25 minutes.}
+\sitting{Thursday}
+Two things are being tested: the flip when you multiply or divide by a negative, and
+reading an English phrase into a symbol. After every solve, test one value on each
+side of the boundary. That check costs ten seconds and catches a missing flip every time.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item Which inequality gives all values of $x$ for which $5-3x\ge17$?\\
+  \makebox[3.6cm][l]{A) $x\ge-4$}\makebox[3.6cm][l]{B) $x\le-4$}%
+  \makebox[3.6cm][l]{C) $x\le4$}\makebox[3.6cm][l]{D) $x\ge4$}
+  \ans{\\ B. $-3x\ge12$, then divide by $-3$ \emph{and flip}. Check: $x=-5$ gives $20\ge17$, true; $x=-3$ gives $14\ge17$, false. \\ A is the forgotten flip. C drops the minus when dividing. D does both.}
+
+\item What is the greatest integer $x$ for which $4-7x\ge-10$? \spr
+  \ans{\\ $2$. $-7x\ge-14$, divide by $-7$ and flip: $x\le2$. Check: $x=2$ gives $-10\ge-10$, true; $x=3$ gives $-17\ge-10$, false.}
+
+\item Which inequality gives all values of $x$ for which $-2(x-5)>14$?\\
+  \makebox[3.9cm][l]{A) $x<-2$}\makebox[3.9cm][l]{B) $x>-2$}%
+  \makebox[3.9cm][l]{C) $x<-12$}\makebox[3.9cm][l]{D) $x>-12$}
+  \ans{\\ A. $-2x+10>14$, so $-2x>4$, then flip: $x<-2$. Check: $x=-3$ gives $16>14$, true; $x=-1$ gives $12>14$, false. \\ B is the forgotten flip. C comes from distributing as $-2x-10$, which gives $-2x>24$. D makes both errors.}
+
+\item A game gives you 4 points for each task you finish. You already have 14 points and you need a total of at least 50. Which inequality describes the number of tasks $t$ that is enough?\\
+  \makebox[3.9cm][l]{A) $14+4t>50$}\makebox[3.9cm][l]{B) $14+4t\ge50$}%
+  \makebox[3.9cm][l]{C) $14+4t\le50$}\makebox[3.9cm][l]{D) $4t\ge50$}
+  \ans{\\ B. ``At least 50'' means 50 counts, so the symbol is $\ge$. (It gives $t\ge9$.) \\ A reads ``at least'' as ``more than'' and loses the boundary. C reverses the direction. D forgets the 14 points already banked.}
+
+\item A food truck charges \$3 for a taco and \$5 for a burrito. On one shift it took in no more than \$150 from these two items. Which combination is possible?\\
+  \makebox[5.7cm][l]{A) 20 tacos and 20 burritos}\makebox[5.7cm][l]{B) 30 tacos and 12 burritos}\\[2pt]
+  \makebox[5.7cm][l]{C) 40 tacos and 8 burritos}\makebox[5.7cm][l]{D) 10 tacos and 25 burritos}
+  \ans{\\ B. The condition is $3t+5b\le150$. B gives $90+60=150$, and ``no more than'' includes 150. \\ A gives 160, C gives 160, D gives 155 --- all over. A student who reads ``no more than'' as ``less than'' rejects B as well and is left with nothing, which is the signal that the boundary was mishandled.}
+
+\item Five less than the product of $-4$ and a number is more than 23. Which inequality describes all such numbers $n$?\\
+  \makebox[3.9cm][l]{A) $n<-7$}\makebox[3.9cm][l]{B) $n>-7$}%
+  \makebox[3.9cm][l]{C) $n<-4.5$}\makebox[3.9cm][l]{D) $n>-4.5$}
+  \ans{\\ A. The sentence is $-4n-5>23$, so $-4n>28$, then flip: $n<-7$. Check: $n=-8$ gives $27>23$, true; $n=-6$ gives $19>23$, false. \\ B is the forgotten flip. C and D come from subtracting the 5 instead of adding it, giving $-4n>18$.}
+
+\item On every day of a week the high temperature stayed between 12 and 19 degrees, and it never reached either of those two values. Which inequality describes the high temperature $t$?\\
+  \makebox[3.9cm][l]{A) $12\le t\le19$}\makebox[3.9cm][l]{B) $12<t<19$}%
+  \makebox[3.9cm][l]{C) $12>t>19$}\makebox[3.9cm][l]{D) $t>12$ or $t<19$}
+  \ans{\\ B. ``Never reached either value'' makes both ends strict. \\ A includes the endpoints the sentence rules out. C writes the chain backwards, which describes nothing at all. D uses ``or'', which lets in every number.}
+
+\item A line is drawn on the $xy$-plane through $(0,-3)$ with slope 2. The line itself is dashed, and the whole region \emph{above} it is shaded. Which inequality does the shaded region represent?\\
+  \makebox[3.9cm][l]{A) $y>2x-3$}\makebox[3.9cm][l]{B) $y\ge2x-3$}%
+  \makebox[3.9cm][l]{C) $y<2x-3$}\makebox[3.9cm][l]{D) $y\le2x-3$}
+  \ans{\\ A. The boundary is $y=2x-3$; above means $y$ is larger, and dashed means the line is excluded. Test $(0,0)$: $0>-3$, true, and $(0,0)$ does lie above the line. \\ B ignores the dashed line. C picks the wrong side. D makes both errors.}
+
+\end{enumerate}
+
+\ifANSWERS\else\newpage\fi
+% ------------------------------------------------ PART D
+\PartHead{Part D --- Build the system from words}{No calculator. 15 minutes.}
+\sitting{Saturday}
+\textbf{Write the two equations only. Do not solve them.} That is the whole task.
+Setting up the pair is the step that costs you marks, so this part isolates it and
+nothing else. Say in words what each letter stands for, then write the two equations.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=11pt]
+\item You buy 14 items in total, some pens at \$2 each and some notebooks at \$5 each, and you spend \$43 altogether. Let $p$ be the number of pens and $n$ the number of notebooks.\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}
+  \ans{\\ $p+n=14$ \ (a count equation) \ and \ $2p+5n=43$ \ (a money equation). One equation counts things, the other counts dollars --- look for that pair every time.}
+
+\item Two numbers have a sum of 56. One of them is 8 more than twice the other. Let $x$ be the larger number and $y$ the smaller.\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}
+  \ans{\\ $x+y=56$ \ and \ $x=2y+8$. ``8 more than twice $y$'' is $2y+8$, not $2(y+8)$.}
+
+\item A school sold 160 tickets to a concert. Adult tickets were \$12 and child tickets were \$7, and the takings were \$1{,}395. Let $a$ be the number of adult tickets and $c$ the number of child tickets.\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}
+  \ans{\\ $a+c=160$ \ and \ $12a+7c=1395$. Again: one count equation, one money equation.}
+
+\item A rectangular garden has a perimeter of 86 metres. Its length is 7 metres more than twice its width. Let $L$ be the length and $W$ the width, both in metres.\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}
+  \ans{\\ $2L+2W=86$ \ and \ $L=2W+7$. Writing $L+W=86$ for the perimeter is the usual slip here.}
+
+\item Maya has 18 coins, all dimes and quarters, worth \$3.15 in total. Let $d$ be the number of dimes and $q$ the number of quarters.\\
+  \underline{\hspace{\linewidth}}\\[4pt]
+  \underline{\hspace{\linewidth}}
+  \ans{\\ $d+q=18$ \ and \ $0.10d+0.25q=3.15$. Mixing units is the trap: either work in dollars throughout, as here, or in cents throughout with $10d+25q=315$. Never both.}
+
+\end{enumerate}
+
+\ifANSWERS\else\newpage\fi
+% ------------------------------------------------ PART E
+\PartHead{Part E --- Mixed, timed}{Calculator allowed. 12 minutes, timed.}
+\sitting{Saturday}
+Set a timer for 12 minutes. These span Parts B to D. Answer every one --- there is no
+penalty for a wrong answer, so a blank is a mark thrown away. Then check each answer
+by substituting it back into both equations.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item $y=3x-8$ \ and \ $2x+y=7$. \ What is the value of $y$? \spr
+  \ans{\\ $y=1$. Substitution: $2x+(3x-8)=7$, so $5x=15$ and $x=3$, giving $y=3(3)-8=1$. Check in the second equation: $6+1=7$.}
+
+\item $6x+5y=37$ \ and \ $5x+6y=29$. \ What is the value of $x+y$? \spr
+  \ans{\\ $6$. Add the equations: $11x+11y=66$, so $x+y=6$. No need to find $x$ and $y$ separately (they are 7 and $-1$).}
+
+\item Which inequality gives all values of $x$ for which $9-4x\le29$?\\
+  \makebox[3.6cm][l]{A) $x\ge-5$}\makebox[3.6cm][l]{B) $x\le-5$}%
+  \makebox[3.6cm][l]{C) $x\ge5$}\makebox[3.6cm][l]{D) $x\le5$}
+  \ans{\\ A. $-4x\le20$, divide by $-4$ and flip. Check: $x=0$ gives $9\le29$, true; $x=-6$ gives $33\le29$, false. \\ B is the forgotten flip. C drops the minus when dividing. D does both.}
+
+\item A theatre sold 90 tickets in total. Adult tickets cost \$15 and student tickets cost \$9, and the takings were \$1{,}062. How many adult tickets were sold? \spr
+  \ans{\\ $42$. From $a+s=90$ and $15a+9s=1062$: substituting $s=90-a$ gives $15a+810-9a=1062$, so $6a=252$. Then $s=48$, and $15(42)+9(48)=630+432=1062$.}
+
+\item A tutor charges a \$40 booking fee plus \$28 for each hour. A family wants the total to be no more than \$180. Which inequality describes the number of hours $h$ they can book?\\
+  \makebox[3.9cm][l]{A) $40+28h<180$}\makebox[3.9cm][l]{B) $40+28h\le180$}%
+  \makebox[3.9cm][l]{C) $28h\le180$}\makebox[3.9cm][l]{D) $40+28h\ge180$}
+  \ans{\\ B. ``No more than \$180'' includes \$180, so the symbol is $\le$. (It gives $h\le5$.) \\ A loses the boundary. C forgets the booking fee. D reverses the direction.}
+
+\item In the system $2x+ky=10$ and $6x+9y=30$, the constant $k$ is chosen so that the system has infinitely many solutions. What is the value of $k$? \spr
+  \ans{\\ $3$. Multiplying the first equation by 3 gives $6x+3ky=30$, which must match $6x+9y=30$ term for term, so $3k=9$. With $k=3$ the two equations are the same line.}
+
+\end{enumerate}
+
+\ifANSWERS\else
+\vspace{10pt}
+\PartHead{Error log}{Fill this in as you go.}
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|c|X|X|}
+\hline
+\textbf{Date} & \textbf{Q} & \textbf{What I did} & \textbf{What I should have done}\\
+\hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\end{tabularx}
+\end{center}
+\vspace{4pt}
+\begin{center}\small\itshape
+Bring this sheet and your error log to the next session.
+\end{center}
+\fi
+
+\ifANSWERS
+\vspace{8pt}
+\PartHead{Five-minute marking routine}{Tutor}
+\begin{enumerate}[leftmargin=20pt,itemsep=4pt]
+\item \textbf{Score Part A only.} Below 8/10 means an earlier week has decayed, and the next session's warm-up repairs that week rather than moving on.
+\item \textbf{In Part B, check two things: whether he named a method at all, and whether he picked the cheapest one.} Grinding through substitution on every item is a miss even when all eight answers are right, because on a timed test it costs him the minutes he needs at the end. Item 6 is the one to ask about first.
+\item \textbf{Pick two wrong answers from Part E} and have him narrate his thinking out loud. Leave the rest unmarked.
+\end{enumerate}
+If the error log is filled in, say so out loud. He will do more of what you visibly value.
+\fi
+
+\end{document}

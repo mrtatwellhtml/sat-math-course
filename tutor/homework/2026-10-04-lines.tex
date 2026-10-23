@@ -1,0 +1,372 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm,top=2.0cm,bottom=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{mdframed}
+\usepackage{multicol}
+
+\definecolor{navy}{HTML}{1F4E79}
+\definecolor{rule}{HTML}{333333}
+\definecolor{boxbg}{HTML}{F4F6F9}
+\definecolor{keyred}{HTML}{B02020}
+
+% \ANSWERStrue for the tutor key
+\newif\ifANSWERS
+\input{mode}
+
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\footnotesize\color{navy}SAT Math: Foundations to Mastery \ $\cdot$\ Lines\ifANSWERS\ $\cdot$\ \textbf{\color{keyred}ANSWER KEY}\fi}
+\fancyfoot[R]{\footnotesize\color{navy}Page \thepage\ of \pageref{LastPage}}
+\usepackage{lastpage}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\newcommand{\PartHead}[2]{%
+  \vspace{6pt}
+  {\color{navy}\rule{\textwidth}{0.8pt}}\\[2pt]
+  {\large\bfseries\color{navy}#1}\hfill{\small\itshape #2}\\[-4pt]
+  {\color{navy}\rule{\textwidth}{0.4pt}}
+  \vspace{4pt}
+}
+\newcommand{\sitting}[1]{{\footnotesize\textsc{\color{navy}#1}}\par\vspace{2pt}}
+\newcommand{\spr}{\\[3pt]\hspace*{6pt}Answer: \underline{\hspace{3.2cm}}\hfill{\footnotesize\itshape(write your answer)}}
+\ifANSWERS
+  \newcommand{\ans}[1]{\ {\color{keyred}\bfseries #1}}
+  \newcommand{\note}[1]{\par{\footnotesize\color{keyred}#1}}
+\else
+  \newcommand{\ans}[1]{}
+  \newcommand{\note}[1]{}
+\fi
+
+\begin{document}
+\label{firstpage}
+
+\begin{center}
+{\LARGE\bfseries\color{navy}Lines}\\[4pt]
+{\color{navy}SAT Math $\cdot$ Foundations to Mastery $\cdot$ Week of 4 October}
+\ifANSWERS\\[4pt]{\color{keyred}\bfseries ANSWER KEY --- tutor copy}\fi
+\end{center}
+\vspace{2pt}
+{\color{rule}\rule{\textwidth}{1pt}}
+\vspace{6pt}
+
+\ifANSWERS\else
+Name: \underline{\hspace{6cm}} \hfill Due: \underline{\hspace{3.2cm}}
+\vspace{6pt}
+\fi
+
+\begin{mdframed}[backgroundcolor=boxbg,linecolor=navy,linewidth=0.6pt,innertopmargin=6pt,innerbottommargin=8pt]
+{\bfseries\color{navy}How to use this sheet}\par\vspace{2pt}
+This is four short sittings, not one long one. Four half-hours across the week will
+do more for you than one long Saturday, and you are far more likely to finish it.
+
+\begin{itemize}[leftmargin=14pt,itemsep=1pt,topsep=3pt]
+  \item \textbf{Part A is no calculator.} None. It is 15 minutes and it keeps last week's sign work alive.
+  \item \textbf{Part D is the part that pays.} It asks what a number \emph{means}. Read each stem twice before you answer.
+  \item When you get one wrong, write it in your error log: what you did, and what you should have done.
+\end{itemize}
+\end{mdframed}
+
+\vspace{4pt}
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}l l X r@{}}
+\textbf{Sitting} & \textbf{Part} & \textbf{What it drills} & \textbf{Minutes}\\[2pt]
+\hline\rule{0pt}{11pt}
+Sunday   & A    & Sign retention, no calculator                     & 15\\
+Tuesday  & B    & Solving linear equations                          & 25\\
+Thursday & C    & Slope, four ways                                  & 25\\
+Saturday & D, E & What the number means; six mixed, timed           & 25\\
+\hline
+\end{tabularx}
+\end{center}
+
+% ------------------------------------------------ PART A
+\PartHead{Part A --- Sign retention}{No calculator. 15 minutes.}
+\sitting{Sunday}
+Last week you fixed this. Keep it fixed. \textbf{Write every substitution in brackets}
+before you work anything out --- that single habit is what stopped the bleeding.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=7pt]
+\item $8-(-5)=$ \ifANSWERS\else\underline{\hspace{3.5cm}}\fi \ans{13}
+\item $(-7)^2=$ \ifANSWERS\else\underline{\hspace{3.5cm}}\fi \ans{49}
+\item $-7^2=$ \ifANSWERS\else\underline{\hspace{3.5cm}}\fi \ans{$-49$ \ (the minus sits outside the power)}
+\item $-6-(-6)=$ \ifANSWERS\else\underline{\hspace{3.5cm}}\fi \ans{0}
+\item $\dfrac{-24}{-6}-10=$ \ifANSWERS\else\underline{\hspace{3.5cm}}\fi \ans{$-6$ \ ($4-10$)}
+\item Expand: $-4(x-3)$ \ifANSWERS\ans{$=-4x+12$}\else\ \underline{\hspace{5.4cm}}\fi
+\item Expand and simplify: $-(5x-9)+2x$ \ifANSWERS\ans{$=-3x+9$}\else\ \underline{\hspace{4cm}}\fi
+\item $f(x)=x^2-3x$. \ Find $f(-4)$. \ifANSWERS\ans{$=(-4)^2-3(-4)=16+12=28$}\else\ \underline{\hspace{4cm}}\fi
+\item $g(x)=5-2x^2$. \ Find $g(-3)$. \ifANSWERS\ans{$=5-2(9)=-13$}\else\ \underline{\hspace{4cm}}\fi
+\item Solve $4-3x>13$. \ifANSWERS\ans{$x<-3$. \ $-3x>9$, then divide by $-3$ \emph{and flip}. Check: $x=-4$ gives $16>13$, true.}\else\ \underline{\hspace{4.4cm}}\fi
+\end{enumerate}
+
+\ifANSWERS
+\note{\textbf{Marking rule: below 8 of 10 means last week has decayed.} Open the next session with a fresh Part A before touching anything new. Items 2, 3 and 10 are the diagnostic ones.}
+\fi
+
+\newpage
+% ------------------------------------------------ PART B
+\PartHead{Part B --- Solving linear equations}{Calculator allowed. 25 minutes.}
+\sitting{Tuesday}
+One move per line, and write what you did in the margin. When the variable disappears
+from both sides, stop and read what is left: a false statement means no solution, a
+true statement means every number works.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item $5(x-3)=2x+9$. What is the value of $x$? \spr
+  \ans{\\ $8$. \ $5x-15=2x+9$, so $3x=24$ and $x=8$.}
+
+\item $7x-4=3x+20$. What is the value of $x$? \spr
+  \ans{\\ $6$. \ $4x=24$, so $x=6$.}
+
+\item $2(3x+1)=4(x-5)$. What is the value of $x$? \spr
+  \ans{\\ $-11$. \ $6x+2=4x-20$, so $2x=-22$ and $x=-11$.}
+
+\item $-2(x-4)=3x+13$. What is the value of $x$? \spr
+  \ans{\\ $-1$. \ $-2x+8=3x+13$, so $-5x=5$ and $x=-1$. Check: $-2(-5)=10$ and $-3+13=10$.}
+
+\item $\dfrac{x}{3}+\dfrac{x}{4}=14$. What is the value of $x$? \spr
+  \ans{\\ $24$. \ Multiply every term by 12: $4x+3x=168$, so $7x=168$ and $x=24$.}
+
+\item $\dfrac{2x-1}{5}=\dfrac{x+4}{3}$. What is the value of $x$? \spr
+  \ans{\\ $23$. \ Cross-multiply: $3(2x-1)=5(x+4)$, so $6x-3=5x+20$ and $x=23$.}
+
+\item $\dfrac{3}{4}x-2=\dfrac{1}{2}x+1$. What is the value of $x$? \spr
+  \ans{\\ $12$. \ Multiply by 4: $3x-8=2x+4$, so $x=12$.}
+
+\item The perimeter of a rectangle is $P=2\ell+2w$, where $\ell$ is the length and $w$ is
+  the width. Which equation gives $w$ in terms of $P$ and $\ell$?\\
+  \makebox[4.2cm][l]{A) $w=P-2\ell$}\makebox[4.2cm][l]{B) $w=\dfrac{P-2\ell}{2}$}%
+  \makebox[4.2cm][l]{C) $w=\dfrac{P}{2}-2\ell$}\makebox[3cm][l]{D) $w=\dfrac{P-\ell}{2}$}
+  \ans{\\ B. Subtract $2\ell$, then divide the \emph{whole} side by 2. Check with $P=30$,
+  $\ell=4$: $w=11$, and $2(4)+2(11)=30$. A stops before dividing. C divides only the
+  first term. D forgets the 2 on $\ell$.}
+
+\item How many solutions does $6x+5=2(3x+1)+3$ have?\\
+  \makebox[4.2cm][l]{A) Zero}\makebox[4.2cm][l]{B) Exactly one}%
+  \makebox[4.2cm][l]{C) Exactly two}\makebox[3cm][l]{D) Infinitely many}
+  \ans{\\ D. The right side is $6x+5$, so the equation reads $6x+5=6x+5$ --- true for
+  every $x$. A is the error of treating any vanishing variable as ``no solution''.}
+
+\item How many solutions does $4(2x-3)=8x+7$ have?\\
+  \makebox[4.2cm][l]{A) Zero}\makebox[4.2cm][l]{B) Exactly one}%
+  \makebox[4.2cm][l]{C) Exactly two}\makebox[3cm][l]{D) Infinitely many}
+  \ans{\\ A. $8x-12=8x+7$ leaves $-12=7$, which is false, so nothing works. D is the
+  mirror-image error of item 9: same vanishing variable, opposite conclusion.}
+\end{enumerate}
+
+\newpage
+% ------------------------------------------------ PART C
+\PartHead{Part C --- Slope, four ways}{Calculator allowed. 25 minutes.}
+\sitting{Thursday}
+Slope is one idea wearing four costumes: two points, a table, a graph or equation, and
+a line you have to write yourself. Always subtract in the same order top and bottom.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item A line passes through $(-3,-5)$ and $(1,7)$. What is its slope? \spr
+  \ans{\\ $3$. \ $\dfrac{7-(-5)}{1-(-3)}=\dfrac{12}{4}=3$.}
+
+\item A line passes through $(2,-1)$ and $(-4,8)$. What is its slope? \spr
+  \ans{\\ $-3/2$. \ $\dfrac{8-(-1)}{-4-2}=\dfrac{9}{-6}=-\dfrac{3}{2}$.}
+
+\item The table shows four points on a line.
+  \begin{center}
+  \begin{tabularx}{0.62\textwidth}{@{}|X|X|X|X|X|@{}}
+  \hline
+  $x$ & $-2$ & $1$ & $4$ & $7$\\ \hline
+  $y$ & $11$ & $2$ & $-7$ & $-16$\\ \hline
+  \end{tabularx}
+  \end{center}
+  What is the slope of the line?\\
+  \makebox[3.4cm][l]{A) $-9$}\makebox[3.4cm][l]{B) $-3$}%
+  \makebox[3.4cm][l]{C) $-\frac{1}{3}$}\makebox[3cm][l]{D) $3$}
+  \ans{\\ B. $\dfrac{2-11}{1-(-2)}=\dfrac{-9}{3}=-3$. A uses the change in $y$ and never
+  divides. C flips the fraction. D drops the negative.}
+
+\item The table shows four points on a line.
+  \begin{center}
+  \begin{tabularx}{0.62\textwidth}{@{}|X|X|X|X|X|@{}}
+  \hline
+  $x$ & $0$ & $3$ & $6$ & $9$\\ \hline
+  $y$ & $-4$ & $2$ & $8$ & $14$\\ \hline
+  \end{tabularx}
+  \end{center}
+  Which equation describes the line?\\
+  \makebox[3.6cm][l]{A) $y=2x-4$}\makebox[3.6cm][l]{B) $y=2x+4$}%
+  \makebox[3.6cm][l]{C) $y=6x-4$}\makebox[3.4cm][l]{D) $y=-4x+2$}
+  \ans{\\ A. $y$ rises 6 for every 3 in $x$, so the slope is 2, and $x=0$ gives $y=-4$.
+  B has the intercept sign wrong. C uses the change in $y$ as the slope. D swaps slope
+  and intercept.}
+
+\item In the $xy$-plane, a line passes through $(0,7)$ and falls 2 units for every 5
+  units it moves to the right. What is the slope of the line? \spr
+  \ans{\\ $-2/5$. \ Falling means negative: $\dfrac{-2}{5}$. The point $(0,7)$ is the
+  intercept and does not affect the slope.}
+
+\item A line is given by $4x+3y=9$. What is its slope?\\
+  \makebox[3.4cm][l]{A) $4$}\makebox[3.4cm][l]{B) $-\frac{3}{4}$}%
+  \makebox[3.4cm][l]{C) $\frac{4}{3}$}\makebox[3cm][l]{D) $-\frac{4}{3}$}
+  \ans{\\ D. Rearranged, $y=-\dfrac{4}{3}x+3$. A reads the coefficient of $x$ straight
+  off. B flips the fraction. C loses the negative that comes from dividing by $+3$.}
+
+\item A line passes through $(-2,5)$ and has slope $-3$. Which equation describes it?\\
+  \makebox[3.8cm][l]{A) $y=-3x+11$}\makebox[3.8cm][l]{B) $y=-3x-1$}%
+  \makebox[3.8cm][l]{C) $y=-3x+5$}\makebox[3.4cm][l]{D) $y=-2x+5$}
+  \ans{\\ B. $5=-3(-2)+b$ gives $5=6+b$, so $b=-1$. A comes from substituting $+2$
+  instead of $-2$. C uses the $y$-coordinate as the intercept. D uses the
+  $x$-coordinate as the slope.}
+
+\item A line is given by $3x-2y=12$. What is the $y$-coordinate of its $y$-intercept? \spr
+  \ans{\\ $-6$. \ Put $x=0$: $-2y=12$, so $y=-6$. You answered 4 on the diagnostic ---
+  that is the $x$-intercept, found by putting $y=0$ instead.}
+\end{enumerate}
+
+\ifANSWERS\else\newpage\fi
+% ------------------------------------------------ PART D
+\PartHead{Part D --- What the number means}{Calculator only where asked. 15 minutes.}
+\sitting{Saturday}
+Answer these in words, or by choosing a statement. \textbf{Do not calculate} unless an
+item tells you to. In every model below, one number is the starting amount and one
+number is the rate of change. Decide which is which before you write anything.
+
+This is the highest-value part of the sheet. On the diagnostic you did the arithmetic
+correctly and still lost the mark, because the question was asking something else.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=10pt]
+\item A repair company charges $C=0.18m+45$ dollars for a visit, where $m$ is the number
+  of miles driven to reach the customer. What does the 45 represent?\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ The fixed call-out charge in dollars --- what the visit costs before any
+  driving, that is, when $m=0$.}
+
+\item For the same model $C=0.18m+45$, what does the 0.18 represent?\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ The cost in dollars for each additional mile driven.}
+
+\item A savings balance is modelled by $P=250+12w$ dollars, where $w$ is the number of
+  weeks since the account was opened. Which statement is correct?\\
+  \makebox[0.47\textwidth][l]{A) The balance grows by \$250 each week.}%
+  \makebox[0.47\textwidth][l]{B) The balance grows by \$12 each week.}\\[2pt]
+  \makebox[0.47\textwidth][l]{C) The balance reaches \$12 after 250 weeks.}%
+  \makebox[0.47\textwidth][l]{D) The account was opened with \$12.}
+  \ans{\\ B. The 12 multiplies $w$, so it is the weekly rate; 250 is the opening
+  balance. A and D swap the two numbers. C treats both as totals.}
+
+\item The value of a delivery van is modelled by $V=1800-150t$ dollars, where $t$ is the
+  number of years since it was bought. Which statement is correct?\\
+  \makebox[0.47\textwidth][l]{A) The van loses \$150 of value each year.}%
+  \makebox[0.47\textwidth][l]{B) The van gains \$150 of value each year.}\\[2pt]
+  \makebox[0.47\textwidth][l]{C) The van was worth \$150 when bought.}%
+  \makebox[0.47\textwidth][l]{D) The van loses \$1800 of value each year.}
+  \ans{\\ A. The minus sign in front of 150 makes it a loss per year. B ignores the
+  sign. C and D swap the starting value and the rate.}
+
+\item A gym membership costs $T=35m+60$ dollars in total, where $m$ is the number of
+  months. Work out the total cost of an 8-month membership, then say which part of that
+  total does not depend on $m$.\\
+  Total: \underline{\hspace{3cm}} \hfill Part that does not depend on $m$:
+  \underline{\hspace{3.6cm}}
+  \ans{\\ Total $=35(8)+60=280+60=\$340$. The \$60 joining fee does not depend on $m$.
+  \emph{This is the diagnostic question.} You found 280 and stopped. The constant is
+  part of the total --- always add it back.}
+
+\item A phone plan costs $C=0.05t+19$ dollars a month, where $t$ is the number of text
+  messages sent. A student says that doubling the number of texts doubles the monthly
+  cost. In one sentence, say why that is wrong.\\
+  \underline{\hspace{\linewidth}}
+  \ans{\\ Because the \$19 is charged whether or not any texts are sent, so only the
+  $0.05t$ part doubles; the total goes up by less than double.}
+\end{enumerate}
+
+\ifANSWERS\else\newpage\fi
+% ------------------------------------------------ PART E
+\PartHead{Part E --- Mixed, timed}{Calculator allowed. 12 minutes, timed.}
+\sitting{Saturday}
+Set a timer for 12 minutes. Answer every one --- there is no penalty for a wrong answer,
+so a blank is a mark thrown away. Then check each answer by substituting it back.
+
+\begin{enumerate}[leftmargin=20pt,itemsep=9pt]
+\item What value of $x$ satisfies $4(x+3)=2x+22$?\\
+  \makebox[3.4cm][l]{A) $5$}\makebox[3.4cm][l]{B) $9.5$}%
+  \makebox[3.4cm][l]{C) $17$}\makebox[3cm][l]{D) $20$}
+  \ans{\\ A. $4x+12=2x+22$, so $2x=10$ and $x=5$. B comes from distributing the 4 only
+  to $x$. C comes from adding 12 instead of subtracting it. D comes from multiplying
+  by 2 at the last step instead of dividing.}
+
+\item A line passes through $(-5,4)$ and $(3,-2)$. What is its slope? \spr
+  \ans{\\ $-3/4$. \ $\dfrac{-2-4}{3-(-5)}=\dfrac{-6}{8}=-\dfrac{3}{4}$.}
+
+\item A line is given by $2x-5y=20$. What is the $y$-coordinate of its $y$-intercept?\\
+  \makebox[3.4cm][l]{A) $-4$}\makebox[3.4cm][l]{B) $\frac{2}{5}$}%
+  \makebox[3.4cm][l]{C) $4$}\makebox[3cm][l]{D) $10$}
+  \ans{\\ A. Put $x=0$: $-5y=20$, so $y=-4$. B is the slope. C drops the negative.
+  D is the $x$-intercept.}
+
+\item How many solutions does $5(2x-1)=10x+4$ have?\\
+  \makebox[4.2cm][l]{A) Zero}\makebox[4.2cm][l]{B) Exactly one}%
+  \makebox[4.2cm][l]{C) Exactly two}\makebox[3cm][l]{D) Infinitely many}
+  \ans{\\ A. $10x-5=10x+4$ leaves $-5=4$, which is false.}
+
+\item A technician's weekly pay is modelled by $W=4.5h+28$ dollars, where $h$ is the
+  number of hours worked. What does the 4.5 represent?\\
+  \makebox[0.47\textwidth][l]{A) The pay in dollars for each hour worked.}%
+  \makebox[0.47\textwidth][l]{B) The weekly pay before any hours.}\\[2pt]
+  \makebox[0.47\textwidth][l]{C) The number of hours worked each week.}%
+  \makebox[0.47\textwidth][l]{D) The total weekly pay in dollars.}
+  \ans{\\ A. It multiplies $h$, so it is the hourly rate; 28 is the fixed weekly
+  amount. B swaps the two numbers. C reads 4.5 as a count of hours. D reads it as a
+  total.}
+
+\item A tank is draining. The volume remaining is modelled by $V=500-12t$ litres, where
+  $t$ is the number of minutes since draining began. How many litres remain after 15
+  minutes? \spr
+  \ans{\\ $320$. \ $500-12(15)=500-180=320$. Subtract from the starting 500; do not
+  report 180.}
+\end{enumerate}
+
+\ifANSWERS\else
+\vspace{10pt}
+\PartHead{Error log}{Fill this in as you go.}
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|c|X|X|}
+\hline
+\textbf{Date} & \textbf{Q} & \textbf{What I did} & \textbf{What I should have done}\\
+\hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\rule{0pt}{22pt} & & &\\ \hline
+\end{tabularx}
+\end{center}
+\vspace{4pt}
+\begin{center}\small\itshape
+Bring this sheet and your error log to the next session.
+\end{center}
+\fi
+
+\ifANSWERS
+\newpage
+\PartHead{Five-minute marking routine}{Tutor}
+\begin{enumerate}[leftmargin=20pt,itemsep=4pt]
+\item \textbf{Score Part A only.} Below 8/10 means last week has decayed, and the next
+  warm-up repairs it before anything new is introduced.
+\item \textbf{Read Part D closely.} A wrong answer there is a reading problem, not a
+  calculation one --- he can do the arithmetic. Ask him to point to the words in the
+  stem that told him which number to name.
+\item \textbf{Pick two wrong answers from Part E} and have him narrate his thinking out
+  loud. Leave the rest unmarked.
+\end{enumerate}
+If the error log is filled in, say so out loud. He will do more of what you visibly value.
+\fi
+
+\end{document}
